@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スマホキャリアキャンペーン診断 | あなたに最適なキャンペーンがわかる</title>
+  <meta name="description" content="いくつかの質問に答えるだけで、あなたの状況に最適なスマホキャリアのキャンペーンがわかります。乗り換え・家族割・端末購入など、あなたにぴったりのお得情報をご紹介。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>📱 スマホキャリアキャンペーン診断</h1>
+    <p>あなたの状況にぴったりのキャンペーンを見つけましょう</p>
+  </header>
+
+  <main>
+    <form id="diagnosisForm">
+      <!-- diagnosis.js によって質問が自動生成されます -->
+      <div id="questionsContainer"></div>
+      <button type="submit">診断する</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>※掲載しているキャンペーン情報は公開時点のものです。内容は予告なく変更・終了する場合があります。必ず各キャリアの公式サイトにてご確認ください。</p>
+  </footer>
+
+  <!-- JSの読み込み順番に注意！依存関係がある -->
+  <script src="js/questions.js"></script>
+  <script src="js/campaigns.js"></script>
+  <script src="js/diagnosis.js"></script>
+</body>
+</html>

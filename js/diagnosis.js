@@ -54,29 +54,64 @@ function calcRanking(userAnswers) {
 function renderQuestions() {
   const container = document.getElementById("questionsContainer");
 
-  QUESTIONS.forEach(q => {
-    const section = document.createElement("section");
+  QUESTIONS.forEach((q, index) => {
+    const card = document.createElement("div");
+    card.classList.add("question-card");
+
+    // 質問番号バッジ
+    const number = document.createElement("span");
+    number.classList.add("question-number");
+    number.textContent = `Q${index + 1}`;
+    card.appendChild(number);
+
+    // 必須バッジ
+    if (q.required) {
+      const badge = document.createElement("span");
+      badge.classList.add("required-badge");
+      badge.textContent = "必須";
+      card.appendChild(badge);
+    }
 
     // 質問タイトル
     const title = document.createElement("h2");
     title.textContent = q.text;
-    section.appendChild(title);
+    card.appendChild(title);
 
-    // 選択肢を生成
+    // 選択肢リスト
+    const optionsList = document.createElement("div");
+    optionsList.classList.add("options-list");
+
     q.options.forEach(opt => {
       const label = document.createElement("label");
+      label.classList.add("option-label");
 
       const input = document.createElement("input");
       input.type = q.type;
       input.name = q.id;
       input.value = opt.value;
 
+      // 選択時にis-checkedクラスを付与
+      input.addEventListener("change", () => {
+        if (q.type === "radio") {
+          // ラジオは同じnameの全ラベルからis-checkedを外す
+          document.querySelectorAll(`input[name="${q.id}"]`).forEach(el => {
+            el.closest(".option-label").classList.remove("is-checked");
+          });
+        }
+        if (input.checked) {
+          label.classList.add("is-checked");
+        } else {
+          label.classList.remove("is-checked");
+        }
+      });
+
       label.appendChild(input);
       label.appendChild(document.createTextNode(opt.label));
-      section.appendChild(label);
+      optionsList.appendChild(label);
     });
 
-    container.appendChild(section);
+    card.appendChild(optionsList);
+    container.appendChild(card);
   });
 }
 

@@ -4,24 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>診断結果 | スマホキャリアキャンペーン診断</title>
-  <!-- 結果ページはSEO不要なのでdescriptionなし -->
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <header>
-    <h1>📱 診断結果</h1>
+    <span class="header-icon">🎉</span>
+    <h1>診断結果</h1>
     <p>あなたにおすすめのキャンペーンはこちらです</p>
   </header>
 
   <main>
-    <!-- result.js によって結果が自動生成されます -->
+    <div class="result-lead">
+      <p>スコアの高い順にランキング形式でご紹介します</p>
+    </div>
     <div id="resultContainer"></div>
   </main>
 
   <footer>
-    <p>※掲載しているキャンペーン情報は公開時点のものです。内容は予告なく変更・終了する場合があります。必ず各キャリアの公式サイトにてご確認ください。</p>
+    <p>※掲載しているキャンペーン情報は公開時点のものです。</p>
+    <p>内容は予告なく変更・終了する場合があります。必ず各キャリアの公式サイトにてご確認ください。</p>
   </footer>
 
   <script src="js/campaigns.js"></script>

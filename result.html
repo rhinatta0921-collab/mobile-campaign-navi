@@ -3,31 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>診断結果 | スマホキャリアキャンペーン診断</title>
+  <title>診断結果 | 楽天モバイル キャンペーンナビ</title>
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-  <header>
-    <span class="header-icon">🎉</span>
-    <h1>診断結果</h1>
-    <p>あなたにおすすめのキャンペーンはこちらです</p>
+<body class="page-result">
+  <header class="site-header">
+    <div class="site-brand">楽天モバイル キャンペーンナビ</div>
   </header>
 
+  <div class="meta-bar">
+    <span>広告・PR</span>
+    <span>最終更新日：2026年6月18日</span>
+  </div>
+
   <main>
-    <div class="result-lead">
-      <p>スコアの高い順にランキング形式でご紹介します</p>
-    </div>
-    <div id="resultContainer"></div>
+    <section class="result-hero" aria-labelledby="resultTitle">
+      <img class="result-crown" src="assets/svg/crown.svg" alt="" aria-hidden="true">
+      <img class="result-sparkle result-sparkle-left" src="assets/svg/sparkle_filled_icon.svg" alt="" aria-hidden="true">
+      <img class="result-sparkle result-sparkle-right" src="assets/svg/sparkle_icon.svg" alt="" aria-hidden="true">
+      <p>あなたが利用・併用できるキャンペーン</p>
+      <h1 id="resultTitle">獲得ポイント Top5</h1>
+    </section>
+
+    <section class="result-list-section" aria-label="診断結果">
+      <div id="resultContainer"></div>
+    </section>
   </main>
 
-  <footer>
-    <p>※掲載しているキャンペーン情報は公開時点のものです。</p>
-    <p>内容は予告なく変更・終了する場合があります。必ず各キャリアの公式サイトにてご確認ください。</p>
+  <footer class="site-footer">
+    <p>※ キャンペーン内容は変更される場合があります。最新情報は公式サイトをご確認ください。</p>
+    <p>※ 条件により適用されない場合があります。</p>
+    <p>※ 本ページは楽天モバイル公式サイトではありません。 ※ 広告・PRが含まれます。</p>
   </footer>
 
-  <script src="js/campaigns.js"></script>
+  <script src="data/campaigns/campaigns.js"></script>
   <script src="js/result.js"></script>
 </body>
 </html>

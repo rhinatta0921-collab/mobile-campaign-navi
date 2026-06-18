@@ -1,0 +1,16 @@
+<svg width="96" height="112" viewBox="0 0 96 112" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Compact tilted smartphone outline icon">
+  <g transform="translate(48 56) rotate(10) translate(-48 -56)">
+    <rect x="28" y="10" width="40" height="84" rx="6.5" ry="6.5"
+          stroke="#ff008c" stroke-width="3"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="32.5" y="21" width="31" height="58" rx="2.5" ry="2.5"
+          stroke="#ff008c" stroke-width="2.4"
+          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="43" y1="16" x2="53" y2="16"
+          stroke="#ff008c" stroke-width="2.4"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="48" cy="86.5" r="3.4"
+            stroke="#ff008c" stroke-width="2.4"
+            fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

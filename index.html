@@ -3,35 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>スマホキャリアキャンペーン診断 | あなたに最適なキャンペーンがわかる</title>
-  <meta name="description" content="いくつかの質問に答えるだけで、あなたの状況に最適なスマホキャリアのキャンペーンがわかります。">
+  <title>楽天モバイル キャンペーンナビ</title>
+  <meta name="description" content="楽天モバイルのキャンペーンを、かんたんな質問から獲得ポイントが高い順に診断します。">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-  <header>
-    <span class="header-icon">📱</span>
-    <h1>スマホキャリア<br>キャンペーン診断</h1>
-    <p>質問に答えるだけであなたにぴったりの<br>キャンペーンがわかります</p>
+<body class="page-index">
+  <header class="site-header">
+    <div class="site-brand">楽天モバイル キャンペーンナビ</div>
   </header>
 
+  <div class="meta-bar">
+    <span>広告・PR</span>
+    <span>最終更新日：2026年6月18日</span>
+  </div>
+
   <main>
-    <form id="diagnosisForm">
-      <div id="questionsContainer"></div>
-      <div class="submit-wrap">
-        <button type="submit" class="btn-diagnosis">診断する →</button>
-        <p class="btn-note">所要時間：約1分</p>
+    <section class="hero-section" aria-labelledby="heroTitle">
+      <img class="hero-person hero-person-left" src="assets/images/women_image.png" alt="" aria-hidden="true">
+      <img class="hero-person hero-person-right" src="assets/images/man_image.png" alt="" aria-hidden="true">
+      <img class="hero-icon hero-icon-gift" src="assets/svg/gift_box_icon_two_ribbon_lines.svg" alt="" aria-hidden="true">
+      <img class="hero-icon hero-icon-phone" src="assets/svg/smartphone_icon_compact_tilt_right.svg" alt="" aria-hidden="true">
+      <img class="hero-icon hero-icon-coin" src="assets/svg/point_coin_icon_three_stacks_no_p.svg" alt="" aria-hidden="true">
+      <img class="hero-icon hero-icon-sparkle-1" src="assets/svg/sparkle_icon.svg" alt="" aria-hidden="true">
+      <img class="hero-icon hero-icon-sparkle-2" src="assets/svg/sparkle_filled_icon.svg" alt="" aria-hidden="true">
+
+      <div class="hero-copy">
+        <p class="hero-problem">楽天モバイルのキャンペーンはたくさんあって<br>どれが自分に合うのか、<strong>比較がむずかしい...</strong></p>
+        <p class="hero-lead">このページなら、あなたに合ったキャンペーンを</p>
+        <h1 id="heroTitle">獲得ポイントが高い順に<br><span>Top5</span>でご紹介！</h1>
+        <p class="hero-note">併用できるキャンペーンの組み合わせも考慮します</p>
       </div>
-    </form>
+    </section>
+
+    <section class="diagnosis-panel" aria-labelledby="formTitle">
+      <h2 id="formTitle" class="form-title">5つの質問に答えるだけ！ 約1分で完了します</h2>
+      <form id="diagnosisForm">
+        <div id="questionsContainer"></div>
+        <div class="submit-wrap">
+          <button type="submit" class="btn-diagnosis">この条件で診断する <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </section>
   </main>
 
-  <footer>
-    <p>※掲載しているキャンペーン情報は公開時点のものです。</p>
-    <p>内容は予告なく変更・終了する場合があります。必ず各キャリアの公式サイトにてご確認ください。</p>
+  <footer class="site-footer">
+    <p>※ 本ページは楽天モバイル公式サイトではありません。 ※ 広告・PRが含まれます。</p>
+    <p>※ キャンペーン内容は変更される場合があります。最新情報は公式サイトをご確認ください。</p>
   </footer>
 
   <script src="js/questions.js"></script>
-  <script src="js/campaigns.js"></script>
+  <script src="data/campaigns/campaigns.js"></script>
   <script src="js/diagnosis.js"></script>
 </body>
 </html>

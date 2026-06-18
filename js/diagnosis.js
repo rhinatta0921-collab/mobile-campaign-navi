@@ -45,7 +45,13 @@ function calcRanking(userAnswers) {
   return scored
     .filter(c => c.totalScore > 0)       // 0点は除外
     .filter(c => isActive(c.endDate))    // 期限切れは除外
-    .sort((a, b) => b.totalScore - a.totalScore); // スコア降順
+    .sort((a, b) => {
+      if ((b.points || 0) !== (a.points || 0)) {
+        return (b.points || 0) - (a.points || 0);
+      }
+      return b.totalScore - a.totalScore;
+    })
+    .slice(0, 5);
 }
 
 // ============================================

@@ -37,21 +37,22 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  ranking.forEach((campaign, index) => {
+  ranking.forEach((rankingItem, index) => {
     const rank = index + 1;
     const card = document.createElement("article");
     card.classList.add("campaign-card", `rank-${rank}`);
 
+    const mainCampaign = rankingItem.mainCampaign || rankingItem.campaigns?.[0];
+    const campaigns = rankingItem.campaigns || [];
     const rankClass = rank <= 3 ? "rank-badge" : "rank-badge rank-badge-small";
-    const pointText = formatNumber(campaign.points);
-    const iconPath = getCampaignIcon(campaign.imageIcon);
-    const combinations = campaign.combination || [{ name: campaign.name, points: campaign.points }];
-    const conditions = campaign.conditions || [campaign.description];
+    const pointText = formatNumber(rankingItem.totalPoint);
+    const iconPath = getCampaignIcon((mainCampaign?.point || 0) >= 10000 ? "coins" : "gift");
+    const userActions = rankingItem.userActions?.length ? rankingItem.userActions : [mainCampaign?.summary];
 
     card.innerHTML = `
       <div class="${rankClass}">${rank}<span>位</span></div>
       <div class="campaign-visual">
-        <div class="campaign-visual-title">${campaign.imageLabel || campaign.name}</div>
+        <div class="campaign-visual-title">${mainCampaign?.name || "対象キャンペーン"}</div>
         <div class="campaign-visual-points">${pointText}<span>ポイント</span></div>
         <img class="campaign-visual-icon" src="${iconPath}" alt="" aria-hidden="true">
       </div>
@@ -60,22 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="detail-block">
           <p class="detail-label">組み合わせるキャンペーン</p>
           <ul class="detail-list">
-            ${combinations.map(item => `<li>${item.name}　${formatNumber(item.points)}ポイント</li>`).join("")}
+            ${campaigns.map(item => `<li>${item.name}　${formatNumber(item.point)}ポイント</li>`).join("")}
           </ul>
         </div>
         <div class="detail-block">
           <p class="detail-label">主な適用条件</p>
           <ul class="detail-list">
-            ${conditions.map(item => `<li>${item}</li>`).join("")}
+            ${userActions.map(item => `<li>${item}</li>`).join("")}
           </ul>
         </div>
       </div>
       <div class="campaign-action">
         <div>
           <p class="deadline-label">申し込み期限</p>
-          <p class="deadline-date">${campaign.deadlineLabel || campaign.endDate}</p>
+          <p class="deadline-date">${rankingItem.deadlineLabel}</p>
         </div>
-        <a href="${campaign.url}" target="_blank" rel="noopener noreferrer" class="btn-official">
+        <a href="${mainCampaign?.officialUrl || "#"}" target="_blank" rel="noopener noreferrer" class="btn-official">
           公式ページへ ↗
         </a>
       </div>

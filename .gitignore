@@ -3,3 +3,18 @@
 
 # エディタの設定ファイル
 .vscode/
+
+# 参照用UI画像
+assets/images/index-UI.png
+assets/images/result-UI.png
+assets/images/mobile-campaign-UI.png
+public/assets/images/index-UI.png
+public/assets/images/result-UI.png
+public/assets/images/mobile-campaign-UI.png
+
+# Sites / Next build artifacts
+node_modules/
+.next/
+dist/
+.wrangler/
+.env*

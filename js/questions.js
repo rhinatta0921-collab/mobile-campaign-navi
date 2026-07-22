@@ -1,60 +1,53 @@
 const QUESTIONS = [
   {
-    id: "application_status",
+    id: "conditions",
     type: "radio",
-    text: "申し込み状況",
+    text: "楽天モバイルへの申し込みは初めて？",
     required: true,
     options: [
-      { value: "new", label: "これから申し込む" },
-      { value: "mnp", label: "他社から乗り換え（MNP）" },
-      { value: "using", label: "楽天モバイルを利用中" },
+      { value: "first_time", label: "初めて" },
+      { value: "repeat", label: "2回目以降" },
     ]
   },
   {
-    id: "contract_type",
+    id: "application_status",
     type: "radio",
-    text: "契約種別",
+    text: "他社からの乗り換えですか？",
     required: true,
     options: [
-      { value: "personal", label: "個人" },
-      { value: "business", label: "法人" },
-      { value: "plan_change", label: "楽天モバイル（ドコモ回線・au回線）からのプラン変更" },
+      { value: "mnp", label: "電話番号そのままで他社から乗り換え" },
+      { value: "new", label: "楽天モバイルで新しい電話番号を取得" },
     ]
   },
   {
     id: "purchase_plan",
     type: "radio",
-    text: "購入予定",
+    text: "端末の購入も考えていますか？",
     required: true,
     options: [
-      { value: "sim_only", label: "SIMのみ" },
-      { value: "iphone", label: "iPhoneも購入する" },
-      { value: "android", label: "Android製品も購入する" },
-      { value: "undecided", label: "まだ決めていない" },
+      { value: "iphone", label: "iphone" },
+      { value: "android", label: "Android" },
+      { value: "sim_only", label: "考えていない" },
+    ]
+  },
+  {
+    id: "rakuten_card",
+    type: "radio",
+    text: "楽天カードはお持ちですか？",
+    required: true,
+    options: [
+      { value: "has_card", label: "持っている" },
+      { value: "no_card", label: "持っていない" },
     ]
   },
   {
     id: "application_method",
     type: "radio",
-    text: "申し込み方法",
+    text: "楽天モバイルの申し込みはどちらで行いますか？",
     required: true,
     options: [
-      { value: "online", label: "オンラインで申し込む" },
-      { value: "shop", label: "店舗で相談したい" },
-      { value: "referral", label: "紹介リンクから申し込む" },
-    ]
-  },
-  {
-    id: "conditions",
-    type: "checkbox",
-    text: "あてはまる条件（複数選択可）",
-    required: false,
-    options: [
-      { value: "first_time", label: "楽天モバイルを初めて申し込む" },
-      { value: "want_points", label: "ポイント還元を重視したい" },
-      { value: "call_option", label: "15分（標準）通話かけ放題を使いたい" },
-      { value: "family", label: "家族も一緒に検討している" },
-      { value: "student", label: "学生・若年層向けの特典も知りたい" },
+      { value: "shop", label: "店舗から" },
+      { value: "online", label: "Webから" },
     ]
   },
 ];

@@ -255,55 +255,78 @@ function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
 
+const guidePoints = [
+  {
+    label: "スマホ購入不要",
+    detail: "SIMのみで使える特典だけを掲載",
+  },
+  {
+    label: "最大14,000ポイント",
+    detail: "個別キャンペーンの最大額で比較",
+  },
+  {
+    label: "追加条件も明記",
+    detail: "カード・銀行・紹介・店舗条件を整理",
+  },
+  {
+    label: "公式情報を確認",
+    detail: "各カードから公式ページへ移動可能",
+  },
+];
+
 export default function Home() {
   const topOffer = rankedOffers[0];
 
   return (
     <main>
       <section className="hero" aria-labelledby="page-title">
-        <div className="hero-media" aria-hidden="true">
-          <img
-            className="hero-person hero-person-left"
-            src="/assets/images/women_image.png"
-            alt=""
-          />
-          <img
-            className="hero-person hero-person-right"
-            src="/assets/images/man_image.png"
-            alt=""
-          />
-          <img className="hero-icon hero-icon-coin" src="/assets/svg/point_coin.svg" alt="" />
-          <img className="hero-icon hero-icon-sparkle" src="/assets/svg/sparkles.svg" alt="" />
-        </div>
-
         <div className="shell hero-shell">
-          <div className="meta-row" aria-label="ページ情報">
-            <span>広告・PR</span>
-            <span>最終確認: {checkedDate}</span>
-            <span>SIMのみ契約対象</span>
-          </div>
-          <p className="eyebrow">楽天モバイル入会キャンペーン比較</p>
-          <h1 id="page-title">
-            スマホを買わずに使える
-            <span>キャンペーンポイントランキング</span>
-          </h1>
-          <p className="hero-lead">
-            端末購入が必須の特典を除外し、SIMのみで申し込める入会向けキャンペーンを個別の最大ポイント順に整理しました。
-          </p>
-          <div className="hero-stats" aria-label="ランキング概要">
-            <div>
-              <strong>{formatPoints(topOffer.maxPoints)}</strong>
-              <span>掲載中の最大ポイント</span>
+          <div className="hero-copy">
+            <div className="meta-row" aria-label="ページ情報">
+              <span>広告・PR</span>
+              <span>最終確認: {checkedDate}</span>
+              <span>SIMのみ契約対象</span>
             </div>
-            <div>
-              <strong>{rankedOffers.length}</strong>
-              <span>掲載キャンペーン数</span>
-            </div>
-            <div>
-              <strong>0</strong>
-              <span>スマホ購入必須の掲載</span>
+            <p className="eyebrow">楽天モバイル入会キャンペーン比較</p>
+            <h1 id="page-title">
+              SIMのみで使える
+              <span>楽天モバイルキャンペーンをポイント順に比較</span>
+            </h1>
+            <p className="hero-lead">
+              スマホ本体の購入が必要な特典を除外し、入会時に検討しやすいキャンペーンだけを整理しました。最大ポイント、追加条件、申込方法をまとめて確認できます。
+            </p>
+
+            <div className="hero-actions" aria-label="ページの価値">
+              {guidePoints.map((point) => (
+                <div className="guide-chip" key={point.label}>
+                  <strong>{point.label}</strong>
+                  <span>{point.detail}</span>
+                </div>
+              ))}
             </div>
           </div>
+
+          <aside className="hero-summary" aria-label="ランキング概要">
+            <img
+              className="hero-guide-image"
+              src="/assets/images/hero-guide.png"
+              alt=""
+            />
+            <div className="hero-stats">
+              <div>
+                <strong>{formatPoints(topOffer.maxPoints)}</strong>
+                <span>掲載中の最大ポイント</span>
+              </div>
+              <div>
+                <strong>{rankedOffers.length}</strong>
+                <span>掲載キャンペーン数</span>
+              </div>
+              <div>
+                <strong>0</strong>
+                <span>スマホ購入必須の掲載</span>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -354,6 +377,12 @@ export default function Home() {
                   </div>
                 </div>
 
+                <div className="condition-list" aria-label="主な条件">
+                  {offer.conditions.map((condition) => (
+                    <span key={condition}>{condition}</span>
+                  ))}
+                </div>
+
                 <dl className="detail-grid">
                   <div>
                     <dt>ポイント内訳</dt>
@@ -378,12 +407,6 @@ export default function Home() {
                     <dd>{offer.checkedAt}</dd>
                   </div>
                 </dl>
-
-                <div className="condition-list" aria-label="主な条件">
-                  {offer.conditions.map((condition) => (
-                    <span key={condition}>{condition}</span>
-                  ))}
-                </div>
 
                 <div className="notes-row">
                   <ul>

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "楽天モバイル SIMのみ入会キャンペーンランキング";
+const title = "楽天モバイル SIMのみキャンペーン比較";
 const description =
-  "楽天モバイルのSIMのみ契約で使える入会向けキャンペーンを、獲得ポイントが多い順に整理します。";
+  "スマホ本体を買わずに使える楽天モバイル入会キャンペーンを、最大ポイント、条件、申込方法で比較します。";
 
 async function getRequestOrigin() {
   const requestHeaders = await headers();
@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description:
-        "スマホ本体購入が不要な楽天モバイル入会キャンペーンを最大ポイント順に比較。",
+        "SIMのみで使える楽天モバイル入会キャンペーンを、公式情報にもとづいて最大ポイント順に整理。",
       type: "website",
       images: [
         {
@@ -44,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description:
-        "スマホ本体購入が不要な楽天モバイル入会キャンペーンを最大ポイント順に比較。",
+        "SIMのみで使える楽天モバイル入会キャンペーンを、公式情報にもとづいて最大ポイント順に整理。",
       images: [imageUrl],
     },
   };

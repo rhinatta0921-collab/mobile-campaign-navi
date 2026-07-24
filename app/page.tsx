@@ -255,161 +255,227 @@ function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
 
-const guidePoints = [
-  {
-    label: "スマホ購入不要",
-    detail: "SIMのみで使える特典だけを掲載",
-  },
-  {
-    label: "最大14,000ポイント",
-    detail: "個別キャンペーンの最大額で比較",
-  },
-  {
-    label: "追加条件も明記",
-    detail: "カード・銀行・紹介・店舗条件を整理",
-  },
-  {
-    label: "公式情報を確認",
-    detail: "各カードから公式ページへ移動可能",
-  },
+const comparisonColumns = [
+  "順位",
+  "キャンペーン",
+  "最大ポイント",
+  "おすすめ対象",
+  "主な追加条件",
+  "申込方法",
+  "公式",
+];
+
+const tableOfContents = [
+  "結論：SIMのみで狙うならまず確認したいキャンペーン",
+  "楽天モバイルSIMのみキャンペーン比較ランキング",
+  "ランキング掲載キャンペーンの詳細",
+  "対象外にしたキャンペーン",
 ];
 
 export default function Home() {
   const topOffer = rankedOffers[0];
+  const runnerUpOffers = rankedOffers.slice(1, 4);
 
   return (
     <main>
-      <section className="hero" aria-labelledby="page-title">
-        <div className="shell hero-shell">
-          <div className="hero-copy">
+      <header className="site-header">
+        <div className="shell header-inner">
+          <div className="brand-mark">楽天モバイルキャンペーン比較</div>
+          <nav aria-label="ページ内ナビゲーション">
+            <a href="#conclusion">結論</a>
+            <a href="#ranking">ランキング</a>
+            <a href="#details">詳細</a>
+          </nav>
+        </div>
+      </header>
+
+      <div className="shell page-grid">
+        <article className="article">
+          <section className="article-hero" aria-labelledby="page-title">
             <div className="meta-row" aria-label="ページ情報">
               <span>広告・PR</span>
               <span>最終確認: {checkedDate}</span>
               <span>SIMのみ契約対象</span>
             </div>
-            <p className="eyebrow">楽天モバイル入会キャンペーン比較</p>
+            <p className="category-label">楽天モバイル入会キャンペーン</p>
             <h1 id="page-title">
-              SIMのみで使える
-              <span>楽天モバイルキャンペーンをポイント順に比較</span>
+              楽天モバイルのSIMのみキャンペーンおすすめ比較ランキング
             </h1>
-            <p className="hero-lead">
-              スマホ本体の購入が必要な特典を除外し、入会時に検討しやすいキャンペーンだけを整理しました。最大ポイント、追加条件、申込方法をまとめて確認できます。
+            <p className="lead">
+              スマホ本体の購入が必要な特典を除外し、SIMのみ契約で使える入会向けキャンペーンを最大ポイント順に整理しました。楽天カード・楽天銀行・紹介・ショップ限定などの追加条件も比較できます。
             </p>
+            <div className="summary-strip" aria-label="比較概要">
+              <div>
+                <span>掲載キャンペーン</span>
+                <strong>{rankedOffers.length}件</strong>
+              </div>
+              <div>
+                <span>最大ポイント</span>
+                <strong>{formatPoints(topOffer.maxPoints)}pt</strong>
+              </div>
+              <div>
+                <span>端末購入必須</span>
+                <strong>除外</strong>
+              </div>
+            </div>
+          </section>
 
-            <div className="hero-actions" aria-label="ページの価値">
-              {guidePoints.map((point) => (
-                <div className="guide-chip" key={point.label}>
-                  <strong>{point.label}</strong>
-                  <span>{point.detail}</span>
+          <section className="editor-note" aria-label="編集方針">
+            <h2>このページで比較しているもの</h2>
+            <p>
+              比較対象は、楽天モバイルのSIMのみ契約で利用できるキャンペーンです。端末・Apple Watch・ルーター購入が必須のキャンペーンや、終了済み・固定ポイントでない特典はランキングに含めていません。
+            </p>
+          </section>
+
+          <nav className="toc" aria-label="目次">
+            <h2>目次</h2>
+            <ol>
+              {tableOfContents.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
+          </nav>
+
+          <section className="conclusion" id="conclusion" aria-labelledby="conclusion-title">
+            <p className="section-label">結論</p>
+            <h2 id="conclusion-title">
+              SIMのみで最大ポイントを狙うなら、ショップ限定の14,000ポイントが最上位
+            </h2>
+            <div className="winner-box">
+              <div className="winner-rank">1位</div>
+              <div>
+                <h3>{topOffer.title}</h3>
+                <p>
+                  最大{formatPoints(topOffer.maxPoints)}ポイント。楽天モバイルへ初めて申し込み、他社から乗り換え、ショップ申込、楽天市場での買い物など複数条件を満たせる人向けです。
+                </p>
+              </div>
+              <a
+                className="text-link"
+                href={topOffer.officialUrl}
+                rel="sponsored noopener noreferrer"
+                target="_blank"
+              >
+                公式ページで確認
+              </a>
+            </div>
+            <div className="runner-up-grid" aria-label="次点キャンペーン">
+              {runnerUpOffers.map((offer, index) => (
+                <div className="mini-result" key={offer.title}>
+                  <span>{index + 2}位</span>
+                  <strong>{formatPoints(offer.maxPoints)}pt</strong>
+                  <p>{offer.title}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
 
-          <aside className="hero-summary" aria-label="ランキング概要">
-            <img
-              className="hero-guide-image"
-              src="/assets/images/hero-guide.png"
-              alt=""
-            />
-            <div className="hero-stats">
-              <div>
-                <strong>{formatPoints(topOffer.maxPoints)}</strong>
-                <span>掲載中の最大ポイント</span>
-              </div>
-              <div>
-                <strong>{rankedOffers.length}</strong>
-                <span>掲載キャンペーン数</span>
-              </div>
-              <div>
-                <strong>0</strong>
-                <span>スマホ購入必須の掲載</span>
-              </div>
+          <section className="ranking-section" id="ranking" aria-labelledby="ranking-title">
+            <div className="section-heading">
+              <p className="section-label">ランキング</p>
+              <h2 id="ranking-title">楽天モバイルSIMのみキャンペーン比較ランキング</h2>
+              <p>
+                順位は併用後の合計ではなく、個別キャンペーン単位の最大ポイントで並べています。条件が多いキャンペーンほど、申込前に公式ページの適用条件を確認してください。
+              </p>
             </div>
-          </aside>
-        </div>
-      </section>
 
-      <section className="criteria-band" aria-label="ランキング基準">
-        <div className="shell criteria-grid">
-          <div>
-            <span>順位基準</span>
-            <strong>個別キャンペーンの最大ポイント順</strong>
-          </div>
-          <div>
-            <span>掲載条件</span>
-            <strong>SIMのみ契約で利用可能</strong>
-          </div>
-          <div>
-            <span>追加条件</span>
-            <strong>カード・銀行・紹介・店舗条件は明記</strong>
-          </div>
-        </div>
-      </section>
+            <div className="table-scroll" role="region" aria-label="ランキング比較表" tabIndex={0}>
+              <table className="comparison-table">
+                <thead>
+                  <tr>
+                    {comparisonColumns.map((column) => (
+                      <th key={column} scope="col">
+                        {column}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rankedOffers.map((offer, index) => (
+                    <tr key={offer.title}>
+                      <td className="rank-cell">{index + 1}位</td>
+                      <td>
+                        <strong>{offer.title}</strong>
+                        <span>{offer.period}</span>
+                      </td>
+                      <td className="points-cell">
+                        {formatPoints(offer.maxPoints)}
+                        <span>ポイント</span>
+                      </td>
+                      <td>{offer.target}</td>
+                      <td>{offer.conditions.slice(0, 3).join(" / ")}</td>
+                      <td>{offer.channel}</td>
+                      <td>
+                        <a
+                          className="table-link"
+                          href={offer.officialUrl}
+                          rel="sponsored noopener noreferrer"
+                          target="_blank"
+                        >
+                          公式
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-      <section className="ranking-section shell" aria-labelledby="ranking-title">
-        <div className="section-heading">
-          <p className="eyebrow">Ranking</p>
-          <h2 id="ranking-title">入会者が得られるポイントが多い順</h2>
-          <p>
-            同じキャンペーンでもMNPと新規契約でポイントが変わる場合は、最大額と内訳を分けて表示しています。
-          </p>
-        </div>
+          <section className="detail-section" id="details" aria-labelledby="details-title">
+            <div className="section-heading">
+              <p className="section-label">詳細</p>
+              <h2 id="details-title">ランキング掲載キャンペーンの詳細</h2>
+            </div>
 
-        <div className="ranking-list">
-          {rankedOffers.map((offer, index) => (
-            <article className="offer-card" key={offer.title}>
-              <div className="rank-panel">
-                <span className="rank-label">Rank</span>
-                <strong>{index + 1}</strong>
-              </div>
-
-              <div className="offer-main">
-                <div className="offer-heading">
-                  <div>
-                    <p className="offer-kicker">{offer.target}</p>
-                    <h3>{offer.title}</h3>
+            <div className="detail-list">
+              {rankedOffers.map((offer, index) => (
+                <section className="offer-detail" key={offer.title}>
+                  <div className="offer-heading">
+                    <div>
+                      <span className="detail-rank">{index + 1}位</span>
+                      <h3>{offer.title}</h3>
+                      <p>{offer.target}</p>
+                    </div>
+                    <div className="points-box">
+                      <span>最大</span>
+                      <strong>{formatPoints(offer.maxPoints)}</strong>
+                      <span>ポイント</span>
                   </div>
-                  <div className="points-box">
-                    <span>最大</span>
-                    <strong>{formatPoints(offer.maxPoints)}</strong>
-                    <span>ポイント</span>
                   </div>
-                </div>
 
-                <div className="condition-list" aria-label="主な条件">
-                  {offer.conditions.map((condition) => (
-                    <span key={condition}>{condition}</span>
+                  <div className="condition-list" aria-label="主な条件">
+                    {offer.conditions.map((condition) => (
+                      <span key={condition}>{condition}</span>
                   ))}
                 </div>
 
                 <dl className="detail-grid">
                   <div>
-                    <dt>ポイント内訳</dt>
-                    <dd>
-                      <ul>
-                        {offer.breakdown.map((item) => (
-                          <li key={item}>{item}</li>
+                      <dt>ポイント内訳</dt>
+                      <dd>
+                        <ul>
+                          {offer.breakdown.map((item) => (
+                            <li key={item}>{item}</li>
                         ))}
                       </ul>
                     </dd>
                   </div>
                   <div>
-                    <dt>申込方法</dt>
-                    <dd>{offer.channel}</dd>
-                  </div>
-                  <div>
-                    <dt>期間</dt>
+                      <dt>申込方法</dt>
+                      <dd>{offer.channel}</dd>
+                    </div>
+                    <div>
+                      <dt>期間</dt>
                     <dd>{offer.period}</dd>
                   </div>
                   <div>
                     <dt>確認日</dt>
                     <dd>{offer.checkedAt}</dd>
-                  </div>
-                </dl>
+                    </div>
+                  </dl>
 
-                <div className="notes-row">
-                  <ul>
+                  <div className="notes-row">
+                    <ul>
                     {offer.notes.map((note) => (
                       <li key={note}>{note}</li>
                     ))}
@@ -422,26 +488,47 @@ export default function Home() {
                   >
                     公式ページで確認
                   </a>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
 
-      <section className="exclusions-band" aria-labelledby="excluded-title">
-        <div className="shell exclusions-layout">
-          <div>
-            <p className="eyebrow">Excluded</p>
+          <section className="exclusions-band" aria-labelledby="excluded-title">
+            <p className="section-label">対象外</p>
             <h2 id="excluded-title">ランキングから外したもの</h2>
+            <ul>
+              {excludedExamples.map((example) => (
+                <li key={example}>{example}</li>
+              ))}
+            </ul>
+          </section>
+        </article>
+
+        <aside className="sidebar" aria-label="比較条件の要約">
+          <div className="side-card">
+            <h2>比較条件</h2>
+            <dl>
+              <div>
+                <dt>対象</dt>
+                <dd>SIMのみ契約で利用できる入会向け特典</dd>
+              </div>
+              <div>
+                <dt>順位</dt>
+                <dd>個別キャンペーンの最大ポイント順</dd>
+              </div>
+              <div>
+                <dt>除外</dt>
+                <dd>端末・Apple Watch・ルーター購入必須</dd>
+              </div>
+              <div>
+                <dt>確認日</dt>
+                <dd>{checkedDate}</dd>
+              </div>
+            </dl>
           </div>
-          <ul>
-            {excludedExamples.map((example) => (
-              <li key={example}>{example}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        </aside>
+      </div>
 
       <footer className="site-footer">
         <div className="shell">

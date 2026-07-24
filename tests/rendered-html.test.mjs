@@ -29,8 +29,9 @@ test("renders the SIM-only campaign ranking page", async () => {
 
   const html = await response.text();
   assert.match(html, /楽天モバイル SIMのみキャンペーン比較/);
-  assert.match(html, /SIMのみで使える/);
-  assert.match(html, /スマホ購入不要/);
+  assert.match(html, /楽天モバイルのSIMのみキャンペーンおすすめ比較ランキング/);
+  assert.match(html, /比較しているもの/);
+  assert.match(html, /比較ランキング/);
   assert.match(html, /14,000/);
   assert.match(html, /13,000/);
   assert.match(html, /2,162/);

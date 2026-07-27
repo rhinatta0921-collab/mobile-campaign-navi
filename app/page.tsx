@@ -282,7 +282,7 @@ export default function Home() {
         <div className="shell header-inner">
           <div className="brand-mark">楽天モバイルキャンペーン比較</div>
           <nav aria-label="ページ内ナビゲーション">
-            <a href="#conclusion">結論</a>
+            <a href="#how-to-choose">選び方</a>
             <a href="#ranking">ランキング</a>
             <a href="#details">詳細</a>
           </nav>
@@ -304,26 +304,34 @@ export default function Home() {
             <p className="lead">
               スマホ本体の購入が必要な特典を除外し、SIMのみ契約で使える入会向けキャンペーンを最大ポイント順に整理しました。楽天カード・楽天銀行・紹介・ショップ限定などの追加条件も比較できます。
             </p>
-            <div className="summary-strip" aria-label="比較概要">
-              <div>
-                <span>掲載キャンペーン</span>
-                <strong>{rankedOffers.length}件</strong>
-              </div>
-              <div>
-                <span>最大ポイント</span>
-                <strong>{formatPoints(topOffer.maxPoints)}pt</strong>
-              </div>
-              <div>
-                <span>端末購入必須</span>
-                <strong>除外</strong>
-              </div>
-            </div>
           </section>
 
-          <section className="editor-note" aria-label="編集方針">
-            <h2>このページで比較しているもの</h2>
+          <section
+            className="editor-note"
+            id="how-to-choose"
+            aria-labelledby="how-to-choose-title"
+          >
+            <h2 id="how-to-choose-title">キャンペーンの選び方</h2>
             <p>
-              比較対象は、楽天モバイルのSIMのみ契約で利用できるキャンペーンです。端末・Apple Watch・ルーター購入が必須のキャンペーンや、終了済み・固定ポイントでない特典はランキングに含めていません。
+              楽天モバイルの申込時に使えるキャンペーンは、条件の違いから大きく次の3タイプに整理できます。
+            </p>
+            <ul>
+              <li>
+                <strong>SIM（回線）のみ</strong>
+                楽天モバイルのプラン申込を中心としたキャンペーン
+              </li>
+              <li>
+                <strong>SIM＋スマホ本体購入</strong>
+                プラン申込に対象スマートフォンの購入条件を組み合わせるキャンペーン
+              </li>
+              <li>
+                <strong>SIM＋その他サービスの申込・利用</strong>
+                プラン申込に楽天カードやRakuten
+                Turboなど、対象サービスの申込・利用条件を組み合わせるキャンペーン
+              </li>
+            </ul>
+            <p>
+              端末購入やサービス利用を伴うキャンペーンは、SIMの申込特典に追加条件を重ねるタイプが多く、併用できる特典はキャンペーンごとに異なります。まずはSIMキャンペーンの中で、自分の申込方法に合い、受け取れるポイントが多いものを把握し、そのうえで端末やサービスの特典を追加できるかを確認するのが選びやすい順序です。
             </p>
           </section>
 
@@ -504,30 +512,6 @@ export default function Home() {
             </ul>
           </section>
         </article>
-
-        <aside className="sidebar" aria-label="比較条件の要約">
-          <div className="side-card">
-            <h2>比較条件</h2>
-            <dl>
-              <div>
-                <dt>対象</dt>
-                <dd>SIMのみ契約で利用できる入会向け特典</dd>
-              </div>
-              <div>
-                <dt>順位</dt>
-                <dd>個別キャンペーンの最大ポイント順</dd>
-              </div>
-              <div>
-                <dt>除外</dt>
-                <dd>端末・Apple Watch・ルーター購入必須</dd>
-              </div>
-              <div>
-                <dt>確認日</dt>
-                <dd>{checkedDate}</dd>
-              </div>
-            </dl>
-          </div>
-        </aside>
       </div>
 
       <footer className="site-footer">

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "楽天モバイル SIMのみキャンペーン比較";
+const title = "楽天モバイル キャンペーン ナビ";
 const description =
-  "スマホ本体を買わずに使える楽天モバイル入会キャンペーンを、最大ポイント、条件、申込方法で比較します。";
+  "楽天モバイルのキャンペーンをもらえるポイント額で徹底比較して多い順に紹介！";
 
 async function getRequestOrigin() {
   const requestHeaders = await headers();

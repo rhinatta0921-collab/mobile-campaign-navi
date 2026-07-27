@@ -98,10 +98,6 @@ p {
 }
 
 .page-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 24px;
-  align-items: start;
   padding: 24px 0 48px;
 }
 
@@ -115,8 +111,7 @@ p {
 .conclusion,
 .ranking-section,
 .detail-section,
-.exclusions-band,
-.side-card {
+.exclusions-band {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -166,45 +161,10 @@ h1 {
 }
 
 .lead {
-  margin-bottom: 22px;
+  margin-bottom: 0;
   color: var(--text);
   font-size: 1rem;
   font-weight: 600;
-}
-
-.summary-strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.summary-strip div {
-  min-height: 78px;
-  padding: 14px 16px;
-  border-right: 1px solid var(--line);
-  background: #fff;
-}
-
-.summary-strip div:last-child {
-  border-right: 0;
-}
-
-.summary-strip span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-}
-
-.summary-strip strong {
-  display: block;
-  margin-top: 4px;
-  color: var(--accent);
-  font-size: 1.38rem;
-  line-height: 1.2;
-  font-weight: 900;
 }
 
 .editor-note,
@@ -219,6 +179,40 @@ h1 {
 
 .editor-note {
   border-left: 5px solid var(--green);
+}
+
+.editor-note ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.editor-note li {
+  min-width: 0;
+  padding: 2px 16px;
+  border-right: 1px solid var(--line);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.editor-note li:first-child {
+  padding-left: 0;
+}
+
+.editor-note li:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.editor-note li strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.45;
+  font-weight: 900;
 }
 
 .editor-note h2,
@@ -557,45 +551,6 @@ h1 {
   font-weight: 700;
 }
 
-.sidebar {
-  position: sticky;
-  top: 80px;
-}
-
-.side-card {
-  padding: 18px;
-}
-
-.side-card h2 {
-  margin-bottom: 12px;
-  color: var(--ink);
-  font-size: 1rem;
-  font-weight: 900;
-}
-
-.side-card dl {
-  margin: 0;
-}
-
-.side-card div {
-  padding: 12px 0;
-  border-top: 1px solid var(--line);
-}
-
-.side-card dt {
-  color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 900;
-}
-
-.side-card dd {
-  margin: 4px 0 0;
-  color: var(--ink);
-  font-size: 0.88rem;
-  font-weight: 800;
-  line-height: 1.55;
-}
-
 .site-footer {
   padding: 28px 0 38px;
   border-top: 1px solid var(--line);
@@ -603,23 +558,6 @@ h1 {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 700;
-}
-
-@media (max-width: 980px) {
-  .page-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    position: static;
-    order: -1;
-  }
-
-  .side-card dl {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 16px;
-  }
 }
 
 @media (max-width: 700px) {
@@ -655,8 +593,7 @@ h1 {
   .conclusion,
   .ranking-section,
   .detail-section,
-  .exclusions-band,
-  .side-card {
+  .exclusions-band {
     padding: 18px;
     border-radius: 4px;
   }
@@ -665,21 +602,30 @@ h1 {
     font-size: 1.62rem;
   }
 
-  .summary-strip,
   .runner-up-grid,
   .offer-heading,
   .detail-grid,
-  .notes-row,
-  .side-card dl {
+  .notes-row {
     grid-template-columns: 1fr;
   }
 
-  .summary-strip div {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+  .editor-note ul {
+    grid-template-columns: 1fr;
+    margin: 16px 0;
   }
 
-  .summary-strip div:last-child {
+  .editor-note li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+  }
+
+  .editor-note li:first-child {
+    padding-top: 0;
+  }
+
+  .editor-note li:last-child {
+    padding-bottom: 0;
     border-bottom: 0;
   }
 

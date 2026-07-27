@@ -28,14 +28,19 @@ test("renders the SIM-only campaign ranking page", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /楽天モバイル SIMのみキャンペーン比較/);
+  assert.match(html, /楽天モバイル キャンペーン(?: | )ナビ/);
   assert.match(html, /楽天モバイルのSIMのみキャンペーンおすすめ比較ランキング/);
-  assert.match(html, /比較しているもの/);
+  assert.match(html, /href="#how-to-choose"[^>]*>選び方/);
+  assert.match(html, /キャンペーンの選び方/);
+  assert.match(html, /SIM（回線）のみ/);
+  assert.match(html, /SIM＋スマホ本体購入/);
+  assert.match(html, /SIM＋その他サービスの申込・利用/);
   assert.match(html, /比較ランキング/);
   assert.match(html, /14,000/);
   assert.match(html, /13,000/);
   assert.match(html, /2,162/);
   assert.match(html, /公式ページで確認/);
+  assert.doesNotMatch(html, /summary-strip|side-card|比較条件/);
   assert.doesNotMatch(html, /react-loading-skeleton|codex-preview/i);
 });
 

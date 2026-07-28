@@ -110,8 +110,7 @@ p {
 .toc,
 .conclusion,
 .ranking-section,
-.detail-section,
-.exclusions-band {
+.detail-section {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -171,8 +170,7 @@ h1 {
 .toc,
 .conclusion,
 .ranking-section,
-.detail-section,
-.exclusions-band {
+.detail-section {
   margin-top: 16px;
   padding: 24px 28px;
 }
@@ -218,8 +216,7 @@ h1 {
 .editor-note h2,
 .toc h2,
 .conclusion h2,
-.section-heading h2,
-.exclusions-band h2 {
+.section-heading h2 {
   margin-bottom: 10px;
   color: var(--ink);
   font-size: 1.36rem;
@@ -486,15 +483,13 @@ h1 {
 }
 
 .detail-grid ul,
-.notes-row ul,
-.exclusions-band ul {
+.notes-row ul {
   margin: 0;
   padding-left: 1.1em;
 }
 
 .detail-grid li,
-.notes-row li,
-.exclusions-band li {
+.notes-row li {
   margin: 4px 0;
 }
 
@@ -555,8 +550,7 @@ h1 {
   .toc,
   .conclusion,
   .ranking-section,
-  .detail-section,
-  .exclusions-band {
+  .detail-section {
     padding: 18px;
     border-radius: 4px;
   }

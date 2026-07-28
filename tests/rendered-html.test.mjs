@@ -40,7 +40,10 @@ test("renders the SIM-only campaign ranking page", async () => {
   assert.match(html, /13,000/);
   assert.match(html, /2,162/);
   assert.match(html, /公式ページで確認/);
-  assert.doesNotMatch(html, /summary-strip|side-card|比較条件|runner-up-grid|mini-result|次点キャンペーン/);
+  assert.doesNotMatch(
+    html,
+    /summary-strip|side-card|比較条件|runner-up-grid|mini-result|次点キャンペーン|exclusions-band|ランキングから外したもの|対象外にしたキャンペーン/,
+  );
   assert.doesNotMatch(html, /react-loading-skeleton|codex-preview/i);
 
   const conclusionHtml = html.match(

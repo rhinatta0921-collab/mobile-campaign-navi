@@ -245,12 +245,6 @@ const rankedOffers = offers
   .map((offer, originalIndex) => ({ ...offer, originalIndex }))
   .sort((a, b) => b.maxPoints - a.maxPoints || a.originalIndex - b.originalIndex);
 
-const excludedExamples = [
-  "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須のキャンペーン",
-  "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
-  "買い物額や利用額で変動する倍率系・抽選系など、入会時の固定ポイントとして比較しにくい特典",
-];
-
 function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
@@ -269,7 +263,6 @@ const tableOfContents = [
   "結論：SIMのみで狙うならまず確認したいキャンペーン",
   "楽天モバイルSIMのみキャンペーン比較ランキング",
   "ランキング掲載キャンペーンの詳細",
-  "対象外にしたキャンペーン",
 ];
 
 export default function Home() {
@@ -369,10 +362,10 @@ export default function Home() {
 
           <section className="ranking-section" id="ranking" aria-labelledby="ranking-title">
             <div className="section-heading">
-              <p className="section-label">ランキング</p>
-              <h2 id="ranking-title">楽天モバイルSIMのみキャンペーン比較ランキング</h2>
+              <p className="section-label">楽天モバイル申し込みキャンペーン全N種比較</p>
+              <h2 id="ranking-title">実質配布ポイント額ランキング</h2>
               <p>
-                順位は併用後の合計ではなく、個別キャンペーン単位の最大ポイントで並べています。条件が多いキャンペーンほど、申込前に公式ページの適用条件を確認してください。
+                順位は併用後の合計ではなく、個別キャンペーン単位の最大ポイントで並べています。
               </p>
             </div>
 
@@ -492,15 +485,6 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="exclusions-band" aria-labelledby="excluded-title">
-            <p className="section-label">対象外</p>
-            <h2 id="excluded-title">ランキングから外したもの</h2>
-            <ul>
-              {excludedExamples.map((example) => (
-                <li key={example}>{example}</li>
-              ))}
-            </ul>
-          </section>
         </article>
       </div>
 

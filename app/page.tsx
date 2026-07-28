@@ -274,7 +274,6 @@ const tableOfContents = [
 
 export default function Home() {
   const topOffer = rankedOffers[0];
-  const runnerUpOffers = rankedOffers.slice(1, 4);
 
   return (
     <main>
@@ -295,14 +294,14 @@ export default function Home() {
             <div className="meta-row" aria-label="ページ情報">
               <span>広告・PR</span>
               <span>最終確認: {checkedDate}</span>
-              <span>SIMのみ契約対象</span>
             </div>
-            <p className="category-label">楽天モバイル入会キャンペーン</p>
+            <p className="category-label">2026年7月23日 更新</p>
             <h1 id="page-title">
-              楽天モバイルのSIMのみキャンペーンおすすめ比較ランキング
+              楽天モバイル申し込みキャンペーンおすすめ比較ランキング
             </h1>
             <p className="lead">
-              スマホ本体の購入が必要な特典を除外し、SIMのみ契約で使える入会向けキャンペーンを最大ポイント順に整理しました。楽天カード・楽天銀行・紹介・ショップ限定などの追加条件も比較できます。
+楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「いくつかのキャンペーンを併用できる？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
+このページでは、楽天モバイルで現在開催されている申し込みキャンペーンを比較し、配布されるポイント額から、スマホ本体代の購入費用などのキャンペーン適用のために必要な費用を差し引いた「実質配布ポイント額」が多い順にランキング形式で紹介します。申し込み前に、自分に合うキャンペーンを見つける参考にしてください。
             </p>
           </section>
 
@@ -318,7 +317,7 @@ export default function Home() {
             <ul>
               <li>
                 <strong>SIM（回線）のみ</strong>
-                楽天モバイルのプラン申込を中心としたキャンペーン
+                楽天モバイルのプラン申込のみのときに適用できるキャンペーン
               </li>
               <li>
                 <strong>SIM＋スマホ本体購入</strong>
@@ -365,15 +364,6 @@ export default function Home() {
               >
                 公式ページで確認
               </a>
-            </div>
-            <div className="runner-up-grid" aria-label="次点キャンペーン">
-              {runnerUpOffers.map((offer, index) => (
-                <div className="mini-result" key={offer.title}>
-                  <span>{index + 2}位</span>
-                  <strong>{formatPoints(offer.maxPoints)}pt</strong>
-                  <p>{offer.title}</p>
-                </div>
-              ))}
             </div>
           </section>
 

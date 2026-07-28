@@ -29,7 +29,7 @@ test("renders the SIM-only campaign ranking page", async () => {
 
   const html = await response.text();
   assert.match(html, /楽天モバイル キャンペーン(?: | )ナビ/);
-  assert.match(html, /楽天モバイルのSIMのみキャンペーンおすすめ比較ランキング/);
+  assert.match(html, /楽天モバイル申し込みキャンペーンおすすめ比較ランキング/);
   assert.match(html, /href="#how-to-choose"[^>]*>選び方/);
   assert.match(html, /キャンペーンの選び方/);
   assert.match(html, /SIM（回線）のみ/);
@@ -40,8 +40,19 @@ test("renders the SIM-only campaign ranking page", async () => {
   assert.match(html, /13,000/);
   assert.match(html, /2,162/);
   assert.match(html, /公式ページで確認/);
-  assert.doesNotMatch(html, /summary-strip|side-card|比較条件/);
+  assert.doesNotMatch(html, /summary-strip|side-card|比較条件|runner-up-grid|mini-result|次点キャンペーン/);
   assert.doesNotMatch(html, /react-loading-skeleton|codex-preview/i);
+
+  const conclusionHtml = html.match(
+    /<section class="conclusion"[^>]*>[\s\S]*?<\/section>/,
+  )?.[0];
+  assert.ok(conclusionHtml);
+  assert.match(conclusionHtml, /1位/);
+  assert.doesNotMatch(conclusionHtml, /2位|3位|4位/);
+
+  assert.match(html, /<td class="rank-cell">2(?:<!-- -->)?位<\/td>/);
+  assert.match(html, /<td class="rank-cell">3(?:<!-- -->)?位<\/td>/);
+  assert.match(html, /<td class="rank-cell">4(?:<!-- -->)?位<\/td>/);
 });
 
 test("keeps excluded device-purchase campaigns out of the ranking", async () => {

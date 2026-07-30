@@ -21,7 +21,10 @@ export type Campaign = {
     newNumber: number | null;
     mnp: number | null;
   };
-  breakdown: string[];
+  breakdown: {
+    newNumber: string[] | null;
+    mnp: string[] | null;
+  };
   target: string;
   conditions: string[];
   channel: string;

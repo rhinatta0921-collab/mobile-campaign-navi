@@ -64,7 +64,7 @@ export function CampaignRanking({
       </div>
 
       <p className="ranking-mode-note">
-        {rankingLabel}の獲得ポイントで並べています。タブで切り替わるのはランキング表のみです。
+        {rankingLabel}の獲得ポイントで並べています。タブを切り替えると、ランキング表と詳細欄が切り替わります。
       </p>
 
       <div

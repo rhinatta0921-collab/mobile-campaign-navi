@@ -6,10 +6,14 @@
     "newNumber": 12000,
     "mnp": 20000
   },
-  "breakdown": [
-    "対象iPhone購入＋新しい電話番号で申込: 12,000ポイント",
-    "対象iPhone購入＋他社から乗り換え: 20,000ポイント"
-  ],
+  "breakdown": {
+    "newNumber": [
+      "対象iPhone購入＋新しい電話番号で申込: 12,000ポイント"
+    ],
+    "mnp": [
+      "対象iPhone購入＋他社から乗り換え: 20,000ポイント"
+    ]
+  },
   "target": "楽天モバイルへの申し込みと同時に対象iPhoneを購入する人",
   "conditions": [
     "対象iPhone購入",

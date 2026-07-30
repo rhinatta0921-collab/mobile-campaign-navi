@@ -117,7 +117,10 @@ export default async function DeviceCampaignsPage({
               </h2>
             </div>
 
-            <CampaignDetails campaigns={deviceCampaigns} />
+            <CampaignDetails
+              applicationType={applicationType}
+              campaigns={deviceCampaigns}
+            />
           </section>
         </article>
       </div>

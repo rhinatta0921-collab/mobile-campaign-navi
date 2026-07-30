@@ -201,7 +201,10 @@ export default async function Home({ searchParams }: HomeProps) {
               </h2>
             </div>
 
-            <CampaignDetails campaigns={nonDeviceCampaigns} />
+            <CampaignDetails
+              applicationType={applicationType}
+              campaigns={nonDeviceCampaigns}
+            />
           </section>
 
           <section

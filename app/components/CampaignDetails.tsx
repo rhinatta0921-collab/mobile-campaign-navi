@@ -1,10 +1,12 @@
 import {
   getCampaignPoints,
   rankCampaigns,
+  type ApplicationType,
   type Campaign,
 } from "@/data/campaigns";
 
 type CampaignDetailsProps = {
+  applicationType: ApplicationType;
   campaigns: readonly Campaign[];
 };
 
@@ -12,13 +14,17 @@ function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
 
-export function CampaignDetails({ campaigns }: CampaignDetailsProps) {
-  const rankedCampaigns = rankCampaigns(campaigns, "mnp");
+export function CampaignDetails({
+  applicationType,
+  campaigns,
+}: CampaignDetailsProps) {
+  const rankedCampaigns = rankCampaigns(campaigns, applicationType);
 
   return (
     <div className="detail-list">
       {rankedCampaigns.map((campaign, index) => {
-        const points = getCampaignPoints(campaign, "mnp");
+        const points = getCampaignPoints(campaign, applicationType);
+        const breakdown = campaign.breakdown[applicationType] ?? [];
 
         return (
           <section className="offer-detail" key={campaign.campaignCode}>
@@ -50,7 +56,7 @@ export function CampaignDetails({ campaigns }: CampaignDetailsProps) {
                 <dt>ポイント内訳</dt>
                 <dd>
                   <ul>
-                    {campaign.breakdown.map((item) => (
+                    {breakdown.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>

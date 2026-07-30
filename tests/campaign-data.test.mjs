@@ -45,7 +45,7 @@ test("stores one valid campaign per JSON file", async () => {
       assert.notEqual(campaign[field].length, 0, `${filename}: ${field}`);
     }
 
-    for (const field of ["breakdown", "conditions", "notes"]) {
+    for (const field of ["conditions", "notes"]) {
       assert.equal(
         Array.isArray(campaign[field]),
         true,
@@ -55,13 +55,22 @@ test("stores one valid campaign per JSON file", async () => {
     }
 
     assert.equal(typeof campaign.points, "object");
+    assert.equal(typeof campaign.breakdown, "object");
     for (const applicationType of ["newNumber", "mnp"]) {
       const points = campaign.points[applicationType];
+      const breakdown = campaign.breakdown[applicationType];
       assert.equal(
         points === null ||
           (typeof points === "number" && Number.isFinite(points)),
         true,
         `${filename}: points.${applicationType}`,
+      );
+      assert.equal(
+        points === null
+          ? breakdown === null
+          : Array.isArray(breakdown) && breakdown.length > 0,
+        true,
+        `${filename}: breakdown.${applicationType}`,
       );
     }
 

@@ -6,9 +6,12 @@
     "newNumber": null,
     "mnp": 2162
   },
-  "breakdown": [
-    "データ3GB相当 1,081ポイント x 2カ月: 2,162ポイント"
-  ],
+  "breakdown": {
+    "newNumber": null,
+    "mnp": [
+      "データ3GB相当 1,081ポイント x 2カ月: 2,162ポイント"
+    ]
+  },
   "target": "過去に楽天モバイルを契約していて、他社からMNPで戻る人",
   "conditions": [
     "過去利用者限定",

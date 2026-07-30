@@ -6,9 +6,14 @@
     "newNumber": 3000,
     "mnp": 5000
   },
-  "breakdown": [
-    "Rakuten最強U-NEXTに初めて申込またはプラン変更: 5,000ポイント"
-  ],
+  "breakdown": {
+    "newNumber": [
+      "Rakuten最強U-NEXTに初めて申込またはプラン変更＋新しい電話番号: 3,000ポイント"
+    ],
+    "mnp": [
+      "Rakuten最強U-NEXTに初めて申込またはプラン変更: 5,000ポイント"
+    ]
+  },
   "target": "Rakuten最強U-NEXTを初めて利用する人",
   "conditions": [
     "エントリー必要",

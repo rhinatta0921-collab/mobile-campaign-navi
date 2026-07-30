@@ -83,8 +83,9 @@ test("renders the original page text and MNP ranking by default", async () => {
   assert.ok(rankingHtml);
   assert.match(
     rankingHtml,
-    /href="\/\?application=mnp#ranking"[^>]*aria-selected="true"/,
+    /href="\/\?application=mnp"[^>]*aria-selected="true"/,
   );
+  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
   assert.match(rankingHtml, /14,000/);
   assert.match(rankingHtml, /13,000/);
   assert.match(
@@ -114,8 +115,9 @@ test("switches the main ranking and details to new-number points", async () => {
   assert.ok(rankingHtml);
   assert.match(
     rankingHtml,
-    /href="\/\?application=new-number#ranking"[^>]*aria-selected="true"/,
+    /href="\/\?application=new-number"[^>]*aria-selected="true"/,
   );
+  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
   assert.match(rankingHtml, /11,000/);
   assert.match(rankingHtml, /10,000/);
   assert.doesNotMatch(
@@ -174,8 +176,9 @@ test("renders only device-purchase campaigns on the device page", async () => {
   assert.ok(rankingHtml);
   assert.match(
     rankingHtml,
-    /href="\/device-campaigns\?application=mnp#ranking"[^>]*aria-selected="true"/,
+    /href="\/device-campaigns\?application=mnp"[^>]*aria-selected="true"/,
   );
+  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
   assert.match(rankingHtml, /20,000/);
 
   const detailHtml = htmlFromSection(html, "detail-section");
@@ -198,8 +201,9 @@ test("switches the device ranking and details to new-number points", async () =>
   assert.ok(rankingHtml);
   assert.match(
     rankingHtml,
-    /href="\/device-campaigns\?application=new-number#ranking"[^>]*aria-selected="true"/,
+    /href="\/device-campaigns\?application=new-number"[^>]*aria-selected="true"/,
   );
+  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
   assert.match(rankingHtml, /12,000/);
   assert.match(rankingHtml, /10,000/);
   assert.match(detailHtml, /対象iPhone購入＋楽天モバイル申込特典/);

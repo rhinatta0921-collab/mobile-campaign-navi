@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   getCampaignPoints,
   rankCampaigns,
@@ -41,26 +42,28 @@ export function CampaignRanking({
   return (
     <>
       <div className="ranking-tabs" role="tablist" aria-label="申込方法">
-        <a
+        <Link
           id={`${panelId}-mnp-tab`}
           className="ranking-tab"
-          href={`${basePath}?application=mnp#ranking`}
+          href={`${basePath}?application=mnp`}
+          scroll={false}
           role="tab"
           aria-controls={panelId}
           aria-selected={isMnp}
         >
           他社から乗り換え
-        </a>
-        <a
+        </Link>
+        <Link
           id={`${panelId}-new-number-tab`}
           className="ranking-tab"
-          href={`${basePath}?application=new-number#ranking`}
+          href={`${basePath}?application=new-number`}
+          scroll={false}
           role="tab"
           aria-controls={panelId}
           aria-selected={!isMnp}
         >
           新しい電話番号
-        </a>
+        </Link>
       </div>
 
       <p className="ranking-mode-note">

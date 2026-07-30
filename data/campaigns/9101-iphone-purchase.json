@@ -1,0 +1,29 @@
+{
+  "campaignCode": "9101",
+  "title": "対象iPhone購入＋楽天モバイル申込特典",
+  "summary": "楽天モバイルの申し込みと同時に対象iPhoneを購入する人向けの仮キャンペーンです。",
+  "points": {
+    "newNumber": 12000,
+    "mnp": 20000
+  },
+  "breakdown": [
+    "対象iPhone購入＋新しい電話番号で申込: 12,000ポイント",
+    "対象iPhone購入＋他社から乗り換え: 20,000ポイント"
+  ],
+  "target": "楽天モバイルへの申し込みと同時に対象iPhoneを購入する人",
+  "conditions": [
+    "対象iPhone購入",
+    "初めて申込",
+    "Rakuten Link利用",
+    "購入製品の受取"
+  ],
+  "channel": "Webまたは楽天モバイルショップ",
+  "period": "仮データ（終了日未定）",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-point/",
+  "checkedAt": "2026年7月30日",
+  "notes": [
+    "ポイント額と対象製品は仮データです。",
+    "購入するiPhoneによって適用条件が異なる場合があります。"
+  ],
+  "requiresDevicePurchase": true
+}

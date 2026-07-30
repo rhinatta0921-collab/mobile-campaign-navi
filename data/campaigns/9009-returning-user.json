@@ -1,0 +1,29 @@
+{
+  "campaignCode": "9009",
+  "title": "過去利用者限定 ただいまキャンペーン",
+  "summary": "過去に楽天モバイルを契約していて、他社からMNPで戻る人向けです。",
+  "points": {
+    "newNumber": null,
+    "mnp": 2162
+  },
+  "breakdown": [
+    "データ3GB相当 1,081ポイント x 2カ月: 2,162ポイント"
+  ],
+  "target": "過去に楽天モバイルを契約していて、他社からMNPで戻る人",
+  "conditions": [
+    "過去利用者限定",
+    "MNP限定",
+    "Rakuten Link利用",
+    "クーポンコード必要",
+    "解約後2カ月以内は対象外"
+  ],
+  "channel": "Webまたは楽天モバイルショップ",
+  "period": "2026年3月2日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/tadaima/",
+  "checkedAt": "2026年7月23日",
+  "notes": [
+    "初回申込向けではなく、再契約者向けのキャンペーンです。",
+    "申し込みの4カ月後から2カ月間にわたり進呈されます。"
+  ],
+  "requiresDevicePurchase": false
+}

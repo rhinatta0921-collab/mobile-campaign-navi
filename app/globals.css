@@ -110,7 +110,8 @@ p {
 .toc,
 .conclusion,
 .ranking-section,
-.detail-section {
+.detail-section,
+.exclusions-band {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -170,13 +171,67 @@ h1 {
 .toc,
 .conclusion,
 .ranking-section,
-.detail-section {
+.detail-section,
+.exclusions-band {
   margin-top: 16px;
   padding: 24px 28px;
 }
 
 .editor-note {
   border-left: 5px solid var(--green);
+}
+
+.route-link-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+  margin-top: 16px;
+  padding: 20px 24px;
+  border: 1px solid #b8d8ca;
+  border-left: 5px solid var(--green);
+  border-radius: 4px;
+  background: #f0f8f4;
+}
+
+.route-link-band h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.18rem;
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+.route-link,
+.inline-route-link {
+  color: var(--green);
+  font-weight: 900;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.route-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  background: #fff;
+  text-align: center;
+  text-decoration: none;
+}
+
+.route-link:hover,
+.route-link:focus-visible {
+  background: var(--green);
+  color: #fff;
+}
+
+.inline-route-link {
+  display: inline-block;
+  margin-top: 14px;
 }
 
 .editor-note ul {
@@ -216,7 +271,8 @@ h1 {
 .editor-note h2,
 .toc h2,
 .conclusion h2,
-.section-heading h2 {
+.section-heading h2,
+.exclusions-band h2 {
   margin-bottom: 10px;
   color: var(--ink);
   font-size: 1.36rem;
@@ -302,6 +358,51 @@ h1 {
 
 .section-heading {
   margin-bottom: 16px;
+}
+
+.ranking-tabs {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.ranking-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 8px 18px;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+}
+
+.ranking-tab + .ranking-tab {
+  border-left: 1px solid var(--green);
+}
+
+.ranking-tab[aria-selected="true"] {
+  background: var(--green);
+  color: #fff;
+}
+
+.ranking-tab:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 3px solid #f1c75b;
+  outline-offset: -3px;
+}
+
+.ranking-mode-note {
+  margin: 10px 0 14px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
 }
 
 .table-scroll {
@@ -483,13 +584,15 @@ h1 {
 }
 
 .detail-grid ul,
-.notes-row ul {
+.notes-row ul,
+.exclusions-band ul {
   margin: 0;
   padding-left: 1.1em;
 }
 
 .detail-grid li,
-.notes-row li {
+.notes-row li,
+.exclusions-band li {
   margin: 4px 0;
 }
 
@@ -550,9 +653,29 @@ h1 {
   .toc,
   .conclusion,
   .ranking-section,
-  .detail-section {
+  .detail-section,
+  .exclusions-band {
     padding: 18px;
     border-radius: 4px;
+  }
+
+  .route-link-band {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .route-link {
+    width: 100%;
+  }
+
+  .ranking-tabs {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ranking-tab {
+    min-width: 0;
+    padding: 8px 10px;
   }
 
   h1 {

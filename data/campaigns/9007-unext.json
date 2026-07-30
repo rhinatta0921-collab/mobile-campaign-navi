@@ -1,0 +1,28 @@
+{
+  "campaignCode": "9007",
+  "title": "Rakuten最強U-NEXT 初めて利用特典",
+  "summary": "Rakuten最強U-NEXTを初めて利用する人向けです。",
+  "points": {
+    "newNumber": 3000,
+    "mnp": 5000
+  },
+  "breakdown": [
+    "Rakuten最強U-NEXTに初めて申込またはプラン変更: 5,000ポイント"
+  ],
+  "target": "Rakuten最強U-NEXTを初めて利用する人",
+  "conditions": [
+    "エントリー必要",
+    "U-NEXTセットプラン",
+    "初めて利用限定",
+    "解約・プラン変更で対象外"
+  ],
+  "channel": "Webまたはショップ",
+  "period": "2026年6月1日 0:00から5,000ポイントに増量",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
+  "checkedAt": "2026年7月23日",
+  "notes": [
+    "楽天モバイルの通常申込特典とは別に、U-NEXTセットプラン利用が条件です。",
+    "無料期間終了後のU-NEXT年額プラン移行なども確認してください。"
+  ],
+  "requiresDevicePurchase": false
+}

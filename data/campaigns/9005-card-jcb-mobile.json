@@ -1,0 +1,30 @@
+{
+  "campaignCode": "9005",
+  "title": "楽天カードJCB新規入会＋楽天モバイル同時申込",
+  "summary": "楽天カードを新しく作り、楽天モバイルへ初めて申し込む人向けです。",
+  "points": {
+    "newNumber": 8000,
+    "mnp": 11000
+  },
+  "breakdown": [
+    "楽天モバイルと楽天カード同時申込: 3,000ポイント",
+    "楽天カードJCB新規入会＆3回利用: 8,000ポイント"
+  ],
+  "target": "楽天カードを新しく作り、楽天モバイルへ初めて申し込む人",
+  "conditions": [
+    "楽天カード新規入会",
+    "JCBブランドで最大額",
+    "カード3回利用",
+    "同じ楽天ID",
+    "初めて申込限定"
+  ],
+  "channel": "楽天モバイル申し込み開始前の楽天カード案内",
+  "period": "楽天モバイル同時申込: 常時開催",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/guide/application/card-campaign/",
+  "checkedAt": "2026年7月23日",
+  "notes": [
+    "JCBブランド以外はカード側の特典額が下がります。",
+    "カード利用・口座振替設定など、楽天カード側の進呈条件があります。"
+  ],
+  "requiresDevicePurchase": false
+}

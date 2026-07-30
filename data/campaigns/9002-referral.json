@@ -1,0 +1,29 @@
+{
+  "campaignCode": "9002",
+  "title": "楽天モバイル紹介キャンペーン（紹介される方）",
+  "summary": "楽天モバイル契約者から紹介を受けて、初めて申し込む人向けです。",
+  "points": {
+    "newNumber": 10000,
+    "mnp": 13000
+  },
+  "breakdown": [
+    "紹介された方が初めて申込＋MNP: 13,000ポイント",
+    "紹介された方が初めて申込＋乗り換え以外: 10,000ポイント"
+  ],
+  "target": "楽天モバイル契約者から紹介を受けて、初めて申し込む人",
+  "conditions": [
+    "紹介URLまたはQR経由",
+    "初めて申込限定",
+    "Rakuten Link利用",
+    "MNPで最大額"
+  ],
+  "channel": "紹介リンク、紹介QR、メールなど",
+  "period": "2023年2月15日 7:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral/",
+  "checkedAt": "2026年7月23日",
+  "notes": [
+    "申し込み前に紹介ログインが必要です。",
+    "紹介する側にも契約状態などの条件があります。"
+  ],
+  "requiresDevicePurchase": false
+}

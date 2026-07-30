@@ -1,0 +1,30 @@
+{
+  "campaignCode": "9006",
+  "title": "楽天モバイル初めてお申し込みキャンペーン",
+  "summary": "楽天モバイルへ初めて申し込む人向けです。",
+  "points": {
+    "newNumber": 7000,
+    "mnp": 10000
+  },
+  "breakdown": [
+    "初めて申込＋他社から乗り換え: 10,000ポイント",
+    "初めて申込＋新規契約など: 7,000ポイント"
+  ],
+  "target": "楽天モバイルへ初めて申し込む人",
+  "conditions": [
+    "エントリー必要",
+    "初めて申込限定",
+    "Rakuten Link利用",
+    "ポイント受取必要",
+    "SIMのみ利用可"
+  ],
+  "channel": "Web、楽天モバイル公式 楽天市場店、楽天モバイルショップ",
+  "period": "増量期間は終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/mnp/",
+  "checkedAt": "2026年7月23日",
+  "notes": [
+    "エントリー後のお申し込み、かつエントリーと同月内のお申し込みが対象です。",
+    "Rakuten最強プラン（データタイプ）は対象外です。"
+  ],
+  "requiresDevicePurchase": false
+}

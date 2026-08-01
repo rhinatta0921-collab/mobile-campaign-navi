@@ -1,0 +1,45 @@
+{
+  "campaignCode": "2697",
+  "codeType": "campaign",
+  "title": "楽天ひかりと楽天モバイルの最強おうちプログラム",
+  "summary": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
+  "benefit": {
+    "type": "recurringPoints",
+    "amount": 1000,
+    "unit": "ポイント/月",
+    "description": "条件を満たす間、毎月1,000ポイントを還元します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天ひかりを初めて申し込み、楽天モバイルを利用する方",
+  "conditions": [
+    "楽天ひかり初回申し込み",
+    "楽天モバイル利用中"
+  ],
+  "channel": "公式ページ参照",
+  "category": "homeInternet",
+  "audience": "both",
+  "period": "2025年3月4日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/hikari/campaign/home-internet/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 30,
+      "title": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元 ※期間限定ポイント。条件あり",
+      "description": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
+      "url": "https://network.mobile.rakuten.co.jp/hikari/campaign/home-internet/"
+    }
+  ]
+}

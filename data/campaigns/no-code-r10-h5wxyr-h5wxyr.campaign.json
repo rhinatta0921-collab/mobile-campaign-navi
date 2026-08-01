@@ -1,0 +1,44 @@
+{
+  "campaignCode": "NO-CODE-R10-H5WXYR",
+  "codeType": "generated",
+  "title": "楽天ペイ最強ドリームチャンス 楽天ポイント総額2,000,000ポイントが当たる",
+  "summary": "【楽天モバイル新規お申し込みも対象】楽天ペイの初決済で当選確率10倍！ ※毎月開催、その他条件あり",
+  "benefit": {
+    "type": "other",
+    "amount": null,
+    "unit": null,
+    "description": "【楽天モバイル新規お申し込みも対象】楽天ペイの初決済で当選確率10倍！ ※毎月開催、その他条件あり"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "公式ページに記載された条件を満たす方",
+  "conditions": [
+    "要エントリー"
+  ],
+  "channel": "公式ページ参照",
+  "category": "other",
+  "audience": "both",
+  "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "officialUrl": "https://r10.to/h5wXYR",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 36,
+      "title": "楽天ペイ最強ドリームチャンス 楽天ポイント総額2,000,000ポイントが当たる",
+      "description": "【楽天モバイル新規お申し込みも対象】楽天ペイの初決済で当選確率10倍！ ※毎月開催、その他条件あり",
+      "url": "https://r10.to/h5wXYR"
+    }
+  ]
+}

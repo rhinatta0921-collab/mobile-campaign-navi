@@ -1,0 +1,58 @@
+{
+  "campaignCode": "2938",
+  "codeType": "campaign",
+  "title": "iPhone対象製品 特価キャンペーン",
+  "summary": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！",
+  "benefit": {
+    "type": "specialPrice",
+    "amount": 1,
+    "unit": "円/月〜",
+    "description": "対象iPhoneを楽天カード48回払いで月額1円から購入できます。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "MNPと同時に対象iPhoneを48回払いで購入する方",
+  "conditions": [
+    "MNP",
+    "対象iPhone購入",
+    "楽天カード48回払い"
+  ],
+  "channel": "公式ページ参照",
+  "category": "device",
+  "audience": "applicant",
+  "period": "2025年9月8日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": true,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 3,
+      "title": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！（1～24回目まで、25回目以降4,549円/月）",
+      "description": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/"
+    },
+    {
+      "listingIndex": 6,
+      "title": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月～！（1～24回目まで、25回目以降4,365円/月～）",
+      "description": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月～！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-16e/"
+    },
+    {
+      "listingIndex": 12,
+      "title": "iPhone 16（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで500円/月～！（1～24回目まで、25回目以降5,404円/月～）",
+      "description": "iPhone 16（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで500円/月～！",
+      "url": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-16/"
+    }
+  ]
+}

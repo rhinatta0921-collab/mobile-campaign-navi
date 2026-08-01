@@ -1,0 +1,46 @@
+{
+  "campaignCode": "2855",
+  "codeType": "campaign",
+  "title": "【OPEN記念キャンペーン】ハズレなし！大抽選会",
+  "summary": "ハズレなし！対象のショップでお見積もりいただくと抽選で最大2,000円相当の景品プレゼント",
+  "benefit": {
+    "type": "lottery",
+    "amount": 2000,
+    "unit": "円相当",
+    "description": "対象ショップでの見積もりにより最大2,000円相当の景品が当たります。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "新規開店した対象ショップで見積もりをする方",
+  "conditions": [
+    "ショップ限定",
+    "対象店の開店から所定期間",
+    "見積もり"
+  ],
+  "channel": "対象の楽天モバイルショップ",
+  "category": "memberBenefit",
+  "audience": "both",
+  "period": "2025年6月13日 開店 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-opening-commemoration/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 21,
+      "title": "楽天モバイルショップOPEN記念 最大2,000円相当当たる！豪華景品抽選会！",
+      "description": "ハズレなし！対象のショップでお見積もりいただくと抽選で最大2,000円相当の景品プレゼント",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/shop-opening-commemoration/"
+    }
+  ]
+}

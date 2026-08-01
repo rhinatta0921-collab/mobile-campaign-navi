@@ -1,0 +1,44 @@
+{
+  "campaignCode": "NO-CODE-NETWORK-FEE-BANK-BONUS-RATE",
+  "codeType": "generated",
+  "title": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！",
+  "summary": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり",
+  "benefit": {
+    "type": "other",
+    "amount": null,
+    "unit": null,
+    "description": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "公式ページに記載された条件を満たす方",
+  "conditions": [
+    "要エントリー"
+  ],
+  "channel": "公式ページ参照",
+  "category": "other",
+  "audience": "both",
+  "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/fee/bank-bonus-rate/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 9,
+      "title": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！",
+      "description": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり",
+      "url": "https://network.mobile.rakuten.co.jp/fee/bank-bonus-rate/"
+    }
+  ]
+}

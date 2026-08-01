@@ -1,0 +1,45 @@
+{
+  "campaignCode": "3141",
+  "codeType": "campaign",
+  "title": "楽天モバイル月額料金への初回ポイント利用で還元率3倍",
+  "summary": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
+  "benefit": {
+    "type": "multiplier",
+    "amount": 3,
+    "unit": "倍",
+    "description": "月額料金への初めてのポイント利用分に対する還元率が3倍になります。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイル月額料金に初めて楽天ポイントを利用する方",
+  "conditions": [
+    "要エントリー",
+    "月額料金に初めてポイント利用"
+  ],
+  "channel": "公式ページ参照",
+  "category": "memberBenefit",
+  "audience": "member",
+  "period": "毎月開催",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/poitoku/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 42,
+      "title": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
+      "description": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/poitoku/"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "campaignCode": "3304",
+  "codeType": "campaign",
+  "title": "Galaxyメガ得祭限定！Samsung Galaxy S26シリーズへの機種変更でポイント還元",
+  "summary": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
+  "benefit": {
+    "type": "points",
+    "amount": 7000,
+    "unit": "ポイント",
+    "description": "対象製品への機種変更で7,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイル利用中でSamsung Galaxy S26シリーズへ機種変更する方",
+  "conditions": [
+    "要エントリー",
+    "対象製品のみを購入",
+    "楽天モバイル利用中"
+  ],
+  "channel": "公式ページ参照",
+  "category": "device",
+  "audience": "member",
+  "period": "2026年6月10日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/galaxy/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": true,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 7,
+      "title": "【要エントリー】 Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
+      "description": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/galaxy/"
+    }
+  ]
+}

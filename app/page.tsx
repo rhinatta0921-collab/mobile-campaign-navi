@@ -1,6 +1,7 @@
 import { CampaignDetails } from "@/app/components/CampaignDetails";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
 import {
+  campaignDataMeta,
   campaigns,
   getCampaignPoints,
   rankCampaigns,
@@ -14,22 +15,26 @@ type HomeProps = {
 };
 
 const nonDeviceCampaigns = campaigns.filter(
-  (campaign) => !campaign.requiresDevicePurchase,
+  (campaign) =>
+    !campaign.requiresDevicePurchase &&
+    campaign.rankingEligible &&
+    campaign.audience !== "member",
 );
 const mnpRankedCampaigns = rankCampaigns(nonDeviceCampaigns, "mnp");
-const checkedDate = mnpRankedCampaigns[0]?.checkedAt ?? "2026年7月23日";
+const checkedDate = new Intl.DateTimeFormat("ja-JP", {
+  dateStyle: "long",
+}).format(new Date(`${campaignDataMeta.checkedAt}T00:00:00+09:00`));
 
 const excludedExamples = [
-  "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須のキャンペーン",
+  "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須の特典",
   "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
-  "買い物額や利用額で変動する倍率系・抽選系など、入会時の固定ポイントとして比較しにくい特典",
+  "値引き・無料期間・倍率・抽選など、固定ポイント額のランキングに換算できない特典",
 ];
 
 const tableOfContents = [
-  "結論：SIMのみで狙うならまず確認したいキャンペーン",
-  "楽天モバイルSIMのみキャンペーン比較ランキング",
+  "結論：回線だけの申し込み時に使える中で獲得ポイント額が最大のキャンペーン",
+  "楽天モバイルキャンペーン獲得ポイント額ランキング",
   "ランキング掲載キャンペーンの詳細",
-  "対象外にしたキャンペーン",
 ];
 
 function formatPoints(points: number) {
@@ -69,15 +74,14 @@ export default async function Home({ searchParams }: HomeProps) {
           <section className="article-hero" aria-labelledby="page-title">
             <div className="meta-row" aria-label="ページ情報">
               <span>広告・PR</span>
-              <span>最終確認: {checkedDate}</span>
             </div>
-            <p className="category-label">2026年7月23日 更新</p>
+            <p className="category-label">{checkedDate} 更新</p>
             <h1 id="page-title">
               楽天モバイル申し込みキャンペーンおすすめ比較ランキング
             </h1>
             <p className="lead">
-              楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「いくつかのキャンペーンを併用できる？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
-              このページでは、楽天モバイルで現在開催されている申し込みキャンペーンを比較し、配布されるポイント額から、スマホ本体代の購入費用などのキャンペーン適用のために必要な費用を差し引いた「実質配布ポイント額」が多い順にランキング形式で紹介します。申し込み前に、自分に合うキャンペーンを見つける参考にしてください。
+              楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
+              このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
             </p>
           </section>
 
@@ -106,7 +110,7 @@ export default async function Home({ searchParams }: HomeProps) {
               </li>
             </ul>
             <p>
-              端末購入やサービス利用を伴うキャンペーンは、SIMの申込特典に追加条件を重ねるタイプが多く、併用できる特典はキャンペーンごとに異なります。まずはSIMキャンペーンの中で、自分の申込方法に合い、受け取れるポイントが多いものを把握し、そのうえで端末やサービスの特典を追加できるかを確認するのが選びやすい順序です。
+              スマホ本体購入のキャンペーンを利用する際には、まずどの機種がいいのかを調べてから、それにあったキャンペーンを利用することになる。楽天モバイルでは基本的に1つの機種に対しては1つしかキャンペーンは行われていないため、キャンペーン同士の比較は不要で、自分が欲しい端末のキャンペーンの利用条件を確認し、他の店舗で購入したりする場合とどちらがお得かを確認すれば良い。
             </p>
           </section>
 
@@ -117,11 +121,11 @@ export default async function Home({ searchParams }: HomeProps) {
             <div>
               <p className="section-label">スマホ本体も一緒に購入する方</p>
               <h2 id="device-campaign-link-title">
-                端末購入が必要なキャンペーンは別ページで比較
+                端末購入が必要なキャンペーンの一覧はこちら
               </h2>
             </div>
             <a className="route-link" href="/device-campaigns">
-              スマホ本体の購入が必要なキャンペーンを見る
+              キャンペーン一覧を見る
             </a>
           </section>
 
@@ -141,7 +145,7 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <p className="section-label">結論</p>
             <h2 id="conclusion-title">
-              SIMのみで最大ポイントを狙うなら、ショップ限定の
+              端末購入なしの固定ポイント特典では、最大
               {formatPoints(topPoints ?? 0)}ポイントが最上位
             </h2>
             {topCampaign ? (
@@ -173,7 +177,8 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <div className="section-heading">
               <p className="section-label">
-                楽天モバイル申し込みキャンペーン全N種比較
+                端末購入不要・固定ポイント特典
+                {nonDeviceCampaigns.length}種比較
               </p>
               <h2 id="ranking-title">実質配布ポイント額ランキング</h2>
               <p>

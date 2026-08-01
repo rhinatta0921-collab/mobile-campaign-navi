@@ -1,0 +1,45 @@
+{
+  "campaignCode": "2215",
+  "codeType": "campaign",
+  "title": "スマホ料金をチェックするだけで100ポイントプレゼント",
+  "summary": "3ステップで毎月どれだけおトクになるかわかる！",
+  "benefit": {
+    "type": "points",
+    "amount": 100,
+    "unit": "ポイント",
+    "description": "料金シミュレーション結果の確認で100ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイル未契約で料金シミュレーションを利用する方",
+  "conditions": [
+    "楽天会員ログイン",
+    "シミュレーション結果を確認"
+  ],
+  "channel": "公式ページ参照",
+  "category": "memberBenefit",
+  "audience": "applicant",
+  "period": "2024年2月1日 0:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/fee-simulation/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 17,
+      "title": "スマホ料金＆ポイントかんたんシミュレーション！",
+      "description": "3ステップで毎月どれだけおトクになるかわかる！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/fee-simulation/"
+    }
+  ]
+}

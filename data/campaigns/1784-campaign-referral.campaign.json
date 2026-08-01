@@ -1,0 +1,51 @@
+{
+  "campaignCode": "1784",
+  "codeType": "campaign",
+  "title": "【楽天モバイル】Rakuten最強プラン紹介キャンペーン",
+  "summary": "楽天モバイルをこれからお申し込みの方も、ご家族やお友達に紹介可能！",
+  "benefit": {
+    "type": "points",
+    "amount": 20000,
+    "unit": "ポイント",
+    "description": "最大20,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": 17000,
+    "mnp": 20000
+  },
+  "breakdown": {
+    "newNumber": [
+      "最大17,000ポイント"
+    ],
+    "mnp": [
+      "最大20,000ポイント"
+    ]
+  },
+  "target": "楽天モバイルを相互に紹介し合って申し込む方",
+  "conditions": [
+    "紹介ログイン",
+    "初めての申し込み",
+    "Rakuten Link利用"
+  ],
+  "channel": "紹介URLまたは紹介QR",
+  "category": "simOnly",
+  "audience": "applicant",
+  "period": "2023年2月15日 7:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。",
+    "表示額は紹介者としての7,000ポイントと、被紹介者としてのMNP 13,000ポイントまたは新規10,000ポイントを同一人物がそれぞれ満たす場合の合計です。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 15,
+      "title": "楽天モバイル紹介キャンペーン！2人で楽天モバイルを紹介し合って申し込むとそれぞれ最大20,000ポイント！",
+      "description": "楽天モバイルをこれからお申し込みの方も、ご家族やお友達に紹介可能！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/referral/"
+    }
+  ]
+}

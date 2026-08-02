@@ -88,7 +88,6 @@ export default async function Home({ searchParams }: HomeProps) {
             <div className="hero-copy">
               <div className="meta-row" aria-label="ページ情報">
                 <span>広告・PR</span>
-                <span>申込方法別に比較</span>
               </div>
               <p className="category-label">{checkedDate} 更新</p>
               <h1 id="page-title">
@@ -98,19 +97,6 @@ export default async function Home({ searchParams }: HomeProps) {
                 楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
                 このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
               </p>
-              <div className="hero-actions">
-                <a className="primary-action" href="#ranking">
-                  ランキングを見る
-                </a>
-                <a className="secondary-action" href="#how-to-choose">
-                  選び方を先に確認
-                </a>
-              </div>
-              <ul className="hero-points" aria-label="このページの特徴">
-                <li>乗り換え・新規契約を切り替えて比較</li>
-                <li>キャンペーンコード単位で整理</li>
-                <li>公式ページへのリンク付き</li>
-              </ul>
             </div>
             <div className="hero-visual" aria-hidden="true">
               <img

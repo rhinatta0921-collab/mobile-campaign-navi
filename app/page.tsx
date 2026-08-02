@@ -32,9 +32,19 @@ const excludedExamples = [
 ];
 
 const tableOfContents = [
-  "結論：回線だけの申し込み時に使える中で獲得ポイント額が最大のキャンペーン",
-  "楽天モバイルキャンペーン獲得ポイント額ランキング",
-  "ランキング掲載キャンペーンの詳細",
+  {
+    href: "#conclusion",
+    label:
+      "結論：回線だけの申し込み時に使える中で獲得ポイント額が最大のキャンペーン",
+  },
+  {
+    href: "#ranking",
+    label: "楽天モバイルキャンペーン獲得ポイント額ランキング",
+  },
+  {
+    href: "#details",
+    label: "ランキング掲載キャンペーンの詳細",
+  },
 ];
 
 function formatPoints(points: number) {
@@ -71,18 +81,46 @@ export default async function Home({ searchParams }: HomeProps) {
 
       <div className="shell page-grid">
         <article className="article">
-          <section className="article-hero" aria-labelledby="page-title">
-            <div className="meta-row" aria-label="ページ情報">
-              <span>広告・PR</span>
+          <section
+            className="article-hero home-hero"
+            aria-labelledby="page-title"
+          >
+            <div className="hero-copy">
+              <div className="meta-row" aria-label="ページ情報">
+                <span>広告・PR</span>
+                <span>申込方法別に比較</span>
+              </div>
+              <p className="category-label">{checkedDate} 更新</p>
+              <h1 id="page-title">
+                楽天モバイル申し込みキャンペーンおすすめ比較ランキング
+              </h1>
+              <p className="lead">
+                楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
+                このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
+              </p>
+              <div className="hero-actions">
+                <a className="primary-action" href="#ranking">
+                  ランキングを見る
+                </a>
+                <a className="secondary-action" href="#how-to-choose">
+                  選び方を先に確認
+                </a>
+              </div>
+              <ul className="hero-points" aria-label="このページの特徴">
+                <li>乗り換え・新規契約を切り替えて比較</li>
+                <li>キャンペーンコード単位で整理</li>
+                <li>公式ページへのリンク付き</li>
+              </ul>
             </div>
-            <p className="category-label">{checkedDate} 更新</p>
-            <h1 id="page-title">
-              楽天モバイル申し込みキャンペーンおすすめ比較ランキング
-            </h1>
-            <p className="lead">
-              楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
-              このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
-            </p>
+            <div className="hero-visual" aria-hidden="true">
+              <img
+                src="/hero-editorial.png"
+                alt=""
+                width="1694"
+                height="929"
+                fetchPriority="high"
+              />
+            </div>
           </section>
 
           <section
@@ -96,17 +134,30 @@ export default async function Home({ searchParams }: HomeProps) {
             </p>
             <ul>
               <li>
-                <strong>SIM（回線）のみ</strong>
-                楽天モバイルのプラン申込のみのときに適用できるキャンペーン
+                <img src="/assets/smartphone.svg" alt="" aria-hidden="true" />
+                <div>
+                  <strong>SIM（回線）のみ</strong>
+                  楽天モバイルのプラン申込のみのときに適用できるキャンペーン
+                </div>
               </li>
               <li>
-                <strong>SIM＋スマホ本体購入</strong>
-                プラン申込に対象スマートフォンの購入条件を組み合わせるキャンペーン
+                <img
+                  src="/assets/smartphone-device.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <div>
+                  <strong>SIM＋スマホ本体購入</strong>
+                  プラン申込に対象スマートフォンの購入条件を組み合わせるキャンペーン
+                </div>
               </li>
               <li>
-                <strong>SIM＋その他サービスの申込・利用</strong>
-                プラン申込に楽天カードやRakuten
-                Turboなど、対象サービスの申込・利用条件を組み合わせるキャンペーン
+                <img src="/assets/gift-box.svg" alt="" aria-hidden="true" />
+                <div>
+                  <strong>SIM＋その他サービスの申込・利用</strong>
+                  プラン申込に楽天カードやRakuten
+                  Turboなど、対象サービスの申込・利用条件を組み合わせるキャンペーン
+                </div>
               </li>
             </ul>
             <p>
@@ -118,6 +169,12 @@ export default async function Home({ searchParams }: HomeProps) {
             className="route-link-band"
             aria-labelledby="device-campaign-link-title"
           >
+            <img
+              className="route-link-icon"
+              src="/assets/smartphone-device.svg"
+              alt=""
+              aria-hidden="true"
+            />
             <div>
               <p className="section-label">スマホ本体も一緒に購入する方</p>
               <h2 id="device-campaign-link-title">
@@ -133,7 +190,9 @@ export default async function Home({ searchParams }: HomeProps) {
             <h2>目次</h2>
             <ol>
               {tableOfContents.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.href}>
+                  <a href={item.href}>{item.label}</a>
+                </li>
               ))}
             </ol>
           </nav>
@@ -150,8 +209,11 @@ export default async function Home({ searchParams }: HomeProps) {
             </h2>
             {topCampaign ? (
               <div className="winner-box">
-                <div className="winner-rank">1位</div>
-                <div>
+                <div className="winner-rank">
+                  <img src="/assets/crown.svg" alt="" aria-hidden="true" />
+                  <span>1位</span>
+                </div>
+                <div className="winner-copy">
                   <h3>{topCampaign.title}</h3>
                   <p>
                     最大{formatPoints(topPoints ?? 0)}ポイント。

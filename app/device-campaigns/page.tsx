@@ -76,6 +76,12 @@ export default async function DeviceCampaignsPage({
             className="route-link-band"
             aria-labelledby="sim-only-campaign-link-title"
           >
+            <img
+              className="route-link-icon"
+              src="/assets/smartphone.svg"
+              alt=""
+              aria-hidden="true"
+            />
             <div>
               <p className="section-label">スマホ本体を購入しない方</p>
               <h2 id="sim-only-campaign-link-title">

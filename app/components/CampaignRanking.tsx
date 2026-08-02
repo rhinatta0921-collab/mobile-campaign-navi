@@ -125,6 +125,52 @@ export function CampaignRanking({
           </tbody>
         </table>
       </div>
+
+      <div className="mobile-ranking-list" aria-label="キャンペーンランキング">
+        {rankedCampaigns.map((campaign, index) => {
+          const points = getCampaignPoints(campaign, applicationType);
+
+          return (
+            <article
+              className="mobile-ranking-card"
+              key={`mobile-${campaign.campaignCode}`}
+            >
+              <div className="mobile-ranking-head">
+                <span className="mobile-rank-badge">{index + 1}位</span>
+                <p className="mobile-points">
+                  <strong>{formatPoints(points ?? 0)}</strong>
+                  ポイント
+                </p>
+              </div>
+              <h3>{campaign.title}</h3>
+              <p className="mobile-ranking-target">{campaign.target}</p>
+              <div className="mobile-condition-list">
+                {campaign.conditions.slice(0, 3).map((condition) => (
+                  <span key={condition}>{condition}</span>
+                ))}
+              </div>
+              <dl className="mobile-ranking-meta">
+                <div>
+                  <dt>申込方法</dt>
+                  <dd>{campaign.channel}</dd>
+                </div>
+                <div>
+                  <dt>期間</dt>
+                  <dd>{campaign.period}</dd>
+                </div>
+              </dl>
+              <a
+                className="mobile-official-link"
+                href={campaign.officialUrl}
+                rel="sponsored noopener noreferrer"
+                target="_blank"
+              >
+                公式ページで確認
+              </a>
+            </article>
+          );
+        })}
+      </div>
     </>
   );
 }

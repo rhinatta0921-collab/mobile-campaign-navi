@@ -1,0 +1,51 @@
+{
+  "campaignCode": "2602",
+  "codeType": "campaign",
+  "title": "Apple Watch購入＆電話番号シェアサービス加入キャンペーン",
+  "summary": "Web限定！対象のApple Watch購入＋「電話番号シェアサービス」加入（550円/月）で最大25,000ポイントプレゼント！",
+  "benefit": {
+    "type": "points",
+    "amount": 25000,
+    "unit": "ポイント",
+    "description": "最大25,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": 25000,
+    "mnp": 25000
+  },
+  "breakdown": {
+    "newNumber": [
+      "最大25,000ポイント"
+    ],
+    "mnp": [
+      "最大25,000ポイント"
+    ]
+  },
+  "target": "Webで対象Apple Watchを購入し、電話番号シェアサービスへ加入する方",
+  "conditions": [
+    "要エントリー",
+    "Web限定",
+    "対象Apple Watch購入",
+    "電話番号シェアサービス加入"
+  ],
+  "channel": "Web",
+  "category": "device",
+  "audience": "both",
+  "period": "2025年1月27日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/apple-watch-number-share/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": true,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 51,
+      "title": "【要エントリー】Web限定！対象のApple Watch購入＋「電話番号シェアサービス」加入（550円/月）で最大25,000ポイントプレゼント！",
+      "description": "Web限定！対象のApple Watch購入＋「電話番号シェアサービス」加入（550円/月）で最大25,000ポイントプレゼント！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/apple-watch-number-share/"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import "./globals.css";
 
 const title = "楽天モバイル キャンペーン ナビ";
 const description =
-  "楽天モバイルのキャンペーンをもらえるポイント額で徹底比較して多い順に紹介！";
+  "楽天モバイル公式一覧のキャンペーンをコード単位で整理し、固定ポイント額を申込方法別に比較します。";
 
 async function getRequestOrigin() {
   const requestHeaders = await headers();
@@ -28,8 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       title,
-      description:
-        "SIMのみで使える楽天モバイル入会キャンペーンを、公式情報にもとづいて最大ポイント順に整理。",
+      description,
       type: "website",
       images: [
         {
@@ -43,8 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title,
-      description:
-        "SIMのみで使える楽天モバイル入会キャンペーンを、公式情報にもとづいて最大ポイント順に整理。",
+      description,
       images: [imageUrl],
     },
   };

@@ -1,22 +1,39 @@
-import campaign9001 from "./9001-shop-limited-mnp-market.json";
-import campaign9002 from "./9002-referral.json";
-import campaign9003 from "./9003-card-member.json";
-import campaign9004 from "./9004-bank-member.json";
-import campaign9005 from "./9005-card-jcb-mobile.json";
-import campaign9006 from "./9006-first-application.json";
-import campaign9007 from "./9007-unext.json";
-import campaign9008 from "./9008-extra-sim.json";
-import campaign9009 from "./9009-returning-user.json";
-import campaign9101 from "./9101-iphone-purchase.json";
-import campaign9102 from "./9102-android-purchase.json";
-import campaign9103 from "./9103-upgrade-program.json";
+/// <reference types="vite/client" />
+
+import campaignIndex from "./index.json";
 
 export type ApplicationType = "mnp" | "newNumber";
+export type CampaignCodeType = "campaign" | "initiative" | "generated";
+export type CampaignAudience = "applicant" | "member" | "both";
+export type CampaignCategory =
+  | "simOnly"
+  | "device"
+  | "service"
+  | "homeInternet"
+  | "memberBenefit"
+  | "option"
+  | "other";
+
+export type CampaignBenefit = {
+  type: string;
+  amount: number | null;
+  unit: string | null;
+  description: string;
+};
+
+export type CampaignSourceCard = {
+  listingIndex: number;
+  title: string;
+  description: string;
+  url: string;
+};
 
 export type Campaign = {
   campaignCode: string;
+  codeType: CampaignCodeType;
   title: string;
   summary: string;
+  benefit: CampaignBenefit;
   points: {
     newNumber: number | null;
     mnp: number | null;
@@ -28,27 +45,28 @@ export type Campaign = {
   target: string;
   conditions: string[];
   channel: string;
+  category: CampaignCategory;
+  audience: CampaignAudience;
   period: string;
   officialUrl: string;
+  listingUrl: string;
   checkedAt: string;
   notes: string[];
   requiresDevicePurchase: boolean;
+  rankingEligible: boolean;
+  sourceCards: CampaignSourceCard[];
 };
 
-export const campaigns: Campaign[] = [
-  campaign9001,
-  campaign9002,
-  campaign9003,
-  campaign9004,
-  campaign9005,
-  campaign9006,
-  campaign9007,
-  campaign9008,
-  campaign9009,
-  campaign9101,
-  campaign9102,
-  campaign9103,
-];
+const campaignModules = import.meta.glob<Campaign>("./*.campaign.json", {
+  eager: true,
+  import: "default",
+});
+
+export const campaigns: Campaign[] = Object.entries(campaignModules)
+  .sort(([left], [right]) => left.localeCompare(right, "en"))
+  .map(([, campaign]) => campaign);
+
+export const campaignDataMeta = campaignIndex;
 
 export function getCampaignPoints(
   campaign: Campaign,
@@ -74,11 +92,18 @@ export function rankCampaigns(
         campaign: Campaign;
         originalIndex: number;
         points: number;
-      } => typeof item.points === "number",
+      } =>
+        item.campaign.rankingEligible &&
+        typeof item.points === "number",
     )
     .sort(
       (a, b) =>
-        b.points - a.points || a.originalIndex - b.originalIndex,
+        b.points - a.points ||
+        a.campaign.campaignCode.localeCompare(
+          b.campaign.campaignCode,
+          "en",
+        ) ||
+        a.originalIndex - b.originalIndex,
     )
     .map(({ campaign }) => campaign);
 }

@@ -1,0 +1,45 @@
+{
+  "campaignCode": "1680",
+  "codeType": "campaign",
+  "title": "YouTube Premium 3カ月無料キャンペーン",
+  "summary": "3カ月無料！広告なしのYouTubeを、バックグラウンド再生やオフライン環境で楽しめる！",
+  "benefit": {
+    "type": "free",
+    "amount": 3,
+    "unit": "カ月",
+    "description": "YouTube Premiumを3カ月無料で利用できます。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイル契約中でYouTube Premiumを初めて利用する方",
+  "conditions": [
+    "YouTube Premiumを初めて利用",
+    "楽天モバイル契約中"
+  ],
+  "channel": "公式ページ参照",
+  "category": "memberBenefit",
+  "audience": "member",
+  "period": "2023年5月16日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/youtubepremium/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 32,
+      "title": "YouTube Premium 3カ月無料キャンペーン",
+      "description": "3カ月無料！広告なしのYouTubeを、バックグラウンド再生やオフライン環境で楽しめる！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/youtubepremium/"
+    }
+  ]
+}

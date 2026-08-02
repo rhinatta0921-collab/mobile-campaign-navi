@@ -1,0 +1,51 @@
+{
+  "campaignCode": "2178",
+  "codeType": "campaign",
+  "title": "【Android対象製品限定】特価キャンペーン",
+  "summary": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
+  "benefit": {
+    "type": "discount",
+    "amount": 22000,
+    "unit": "円",
+    "description": "対象Android製品を最大22,000円値引きします。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "MNPと同時に対象Android製品を購入する方",
+  "conditions": [
+    "MNP",
+    "対象Android製品購入"
+  ],
+  "channel": "公式ページ参照",
+  "category": "device",
+  "audience": "applicant",
+  "period": "2024年2月16日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/android-discount/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": true,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 4,
+      "title": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
+      "description": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/android-discount/"
+    },
+    {
+      "listingIndex": 22,
+      "title": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で22,000円値引き！",
+      "description": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で22,000円値引き！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/android-sale/"
+    }
+  ]
+}

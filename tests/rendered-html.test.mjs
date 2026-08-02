@@ -38,7 +38,7 @@ function htmlFromSection(html, className) {
   return html.slice(start);
 }
 
-test("renders the original page text and MNP ranking by default", async () => {
+test("renders the official-code MNP ranking by default", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -49,16 +49,12 @@ test("renders the original page text and MNP ranking by default", async () => {
     html,
     /楽天モバイル申し込みキャンペーンおすすめ比較ランキング/,
   );
-  assert.match(html, /href="#how-to-choose"[^>]*>選び方/);
-  assert.match(html, /キャンペーンの選び方/);
-  assert.match(html, /SIM（回線）のみ/);
-  assert.match(html, /SIM＋スマホ本体購入/);
-  assert.match(html, /SIM＋その他サービスの申込・利用/);
-  assert.match(html, /楽天モバイル申し込みキャンペーン全N種比較/);
+  assert.match(html, /2026年7月31日/);
+  assert.match(html, /キャンペーンコード単位で整理/);
+  assert.match(html, /値引き、無料期間、倍率、抽選/);
+  assert.match(html, /端末購入不要・固定ポイント特典/);
   assert.match(html, /実質配布ポイント額ランキング/);
   assert.match(html, /ランキング掲載キャンペーンの詳細/);
-  assert.match(html, /ランキングから外したもの/);
-  assert.match(html, /対象外にしたキャンペーン/);
   assert.match(
     html,
     /本ページは楽天モバイル公式サイトではありません/,
@@ -69,14 +65,17 @@ test("renders the original page text and MNP ranking by default", async () => {
   );
   assert.doesNotMatch(
     html,
-    /summary-strip|side-card|比較条件|runner-up-grid|mini-result|次点キャンペーン/,
+    /summary-strip|side-card|runner-up-grid|mini-result|次点キャンペーン/,
   );
-  assert.doesNotMatch(html, /react-loading-skeleton|codex-preview/i);
 
   const conclusionHtml = sectionHtml(html, "conclusion");
   assert.ok(conclusionHtml);
   assert.match(conclusionHtml, /1位/);
-  assert.match(conclusionHtml, /14,000/);
+  assert.match(conclusionHtml, /20,000/);
+  assert.match(
+    conclusionHtml,
+    /Rakuten最強プラン紹介キャンペーン/,
+  );
   assert.doesNotMatch(conclusionHtml, /2位|3位|4位/);
 
   const rankingHtml = sectionHtml(html, "ranking-section");
@@ -85,25 +84,23 @@ test("renders the original page text and MNP ranking by default", async () => {
     rankingHtml,
     /href="\/\?application=mnp"[^>]*aria-selected="true"/,
   );
-  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
-  assert.match(rankingHtml, /14,000/);
-  assert.match(rankingHtml, /13,000/);
-  assert.match(
-    rankingHtml,
-    /<td class="rank-cell">2(?:<!-- -->)?位<\/td>/,
+  assert.match(rankingHtml, /20,000/);
+  assert.match(rankingHtml, /11,748/);
+  assert.match(rankingHtml, /10,000/);
+  assert.ok(
+    rankingHtml.indexOf("20,000") < rankingHtml.indexOf("11,748"),
   );
   assert.doesNotMatch(
     rankingHtml,
-    /対象iPhone購入＋楽天モバイル申込特典/,
+    /Apple Watch購入＆電話番号シェアサービス加入キャンペーン/,
   );
+  assert.doesNotMatch(rankingHtml, /iPhone対象製品 特価キャンペーン/);
 
   const detailHtml = htmlFromSection(html, "detail-section");
-  assert.match(detailHtml, /ショップ限定 初めて申込＋MNP＋楽天市場でお買い物/);
-  assert.match(detailHtml, /14,000/);
-  assert.match(
-    detailHtml,
-    /初めて申込＋他社から乗り換え: 10,000ポイント/,
-  );
+  const detailText = detailHtml.replaceAll("<!-- -->", "");
+  assert.match(detailText, /キャンペーンコード 1784/);
+  assert.match(detailHtml, /最大20,000ポイント/);
+  assert.match(detailText, /キャンペーンコード 2091/);
 });
 
 test("switches the main ranking and details to new-number points", async () => {
@@ -111,44 +108,34 @@ test("switches the main ranking and details to new-number points", async () => {
   const html = await response.text();
   const rankingHtml = sectionHtml(html, "ranking-section");
   const detailHtml = htmlFromSection(html, "detail-section");
+  const detailText = detailHtml.replaceAll("<!-- -->", "");
 
   assert.ok(rankingHtml);
   assert.match(
     rankingHtml,
     /href="\/\?application=new-number"[^>]*aria-selected="true"/,
   );
-  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
-  assert.match(rankingHtml, /11,000/);
-  assert.match(rankingHtml, /10,000/);
+  assert.match(rankingHtml, /17,000/);
+  assert.match(rankingHtml, /11,748/);
+  assert.match(rankingHtml, /7,000/);
+  assert.doesNotMatch(rankingHtml, /楽天モバイルただいまキャンペーン/);
   assert.doesNotMatch(
     rankingHtml,
-    /過去利用者限定 ただいまキャンペーン/,
+    /他社から乗り換えでポイントプレゼント/,
   );
   assert.match(
     rankingHtml,
     /ランキング表と詳細欄が切り替わります/,
   );
-  assert.match(detailHtml, /ショップ限定 初めて申込＋MNP＋楽天市場でお買い物/);
-  assert.match(detailHtml, /11,000/);
-  assert.match(
-    detailHtml,
-    /初めて申込＋新しい電話番号: 7,000ポイント/,
-  );
+  assert.match(detailHtml, /最大17,000ポイント/);
+  assert.match(detailText, /キャンペーンコード 2142/);
   assert.doesNotMatch(
-    detailHtml,
-    /過去利用者限定 ただいまキャンペーン/,
-  );
-  assert.ok(
-    detailHtml.indexOf(
-      "ショップ限定 初めて申込＋MNP＋楽天市場でお買い物",
-    ) <
-      detailHtml.indexOf(
-        "楽天モバイル紹介キャンペーン（紹介される方）",
-      ),
+    detailText,
+    /キャンペーンコード 2207/,
   );
 });
 
-test("renders only device-purchase campaigns on the device page", async () => {
+test("renders only fixed-point device campaigns on the device page", async () => {
   const response = await render("/device-campaigns");
   assert.equal(response.status, 200);
 
@@ -157,11 +144,14 @@ test("renders only device-purchase campaigns on the device page", async () => {
     html,
     /スマホ本体の購入が必要な楽天モバイルキャンペーン比較/,
   );
-  assert.match(html, /対象iPhone購入＋楽天モバイル申込特典/);
-  assert.match(html, /対象Android購入＋楽天モバイル申込特典/);
+  assert.match(html, /公式コード単位で掲載/);
   assert.match(
     html,
-    /買い替え超トクプログラム＋楽天モバイル申込特典/,
+    /Apple Watch購入＆電話番号シェアサービス加入キャンペーン/,
+  );
+  assert.match(
+    html,
+    /「Rakuten最強プラン」＋対象Android製品購入でポイント還元/,
   );
   assert.match(
     html,
@@ -169,7 +159,7 @@ test("renders only device-purchase campaigns on the device page", async () => {
   );
   assert.doesNotMatch(
     html,
-    /ショップ限定 初めて申込＋MNP＋楽天市場でお買い物/,
+    /Rakuten最強プラン紹介キャンペーン/,
   );
 
   const rankingHtml = sectionHtml(html, "ranking-section");
@@ -178,16 +168,16 @@ test("renders only device-purchase campaigns on the device page", async () => {
     rankingHtml,
     /href="\/device-campaigns\?application=mnp"[^>]*aria-selected="true"/,
   );
-  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
-  assert.match(rankingHtml, /20,000/);
+  assert.match(rankingHtml, /25,000/);
+  assert.match(rankingHtml, /13,000/);
+  assert.match(rankingHtml, /7,000/);
+  assert.match(rankingHtml, /6,000/);
 
   const detailHtml = htmlFromSection(html, "detail-section");
-  assert.match(detailHtml, /対象iPhone購入＋楽天モバイル申込特典/);
-  assert.match(detailHtml, /20,000/);
-  assert.match(
-    detailHtml,
-    /対象iPhone購入＋他社から乗り換え: 20,000ポイント/,
-  );
+  const detailText = detailHtml.replaceAll("<!-- -->", "");
+  assert.match(detailText, /キャンペーンコード 2602/);
+  assert.match(detailHtml, /最大25,000ポイント/);
+  assert.match(detailText, /キャンペーンコード 2006/);
 });
 
 test("switches the device ranking and details to new-number points", async () => {
@@ -197,23 +187,25 @@ test("switches the device ranking and details to new-number points", async () =>
   const html = await response.text();
   const rankingHtml = sectionHtml(html, "ranking-section");
   const detailHtml = htmlFromSection(html, "detail-section");
+  const detailText = detailHtml.replaceAll("<!-- -->", "");
 
   assert.ok(rankingHtml);
   assert.match(
     rankingHtml,
     /href="\/device-campaigns\?application=new-number"[^>]*aria-selected="true"/,
   );
-  assert.doesNotMatch(rankingHtml, /href="[^"]*#ranking"/);
-  assert.match(rankingHtml, /12,000/);
-  assert.match(rankingHtml, /10,000/);
-  assert.match(detailHtml, /対象iPhone購入＋楽天モバイル申込特典/);
-  assert.match(detailHtml, /12,000/);
-  assert.match(
-    detailHtml,
-    /対象iPhone購入＋新しい電話番号で申込: 12,000ポイント/,
-  );
+  assert.match(rankingHtml, /25,000/);
+  assert.match(rankingHtml, /13,000/);
+  assert.match(rankingHtml, /6,000/);
   assert.doesNotMatch(
-    detailHtml,
-    /対象iPhone購入＋他社から乗り換え: 20,000ポイント/,
+    rankingHtml,
+    /Galaxyメガ得祭限定！Samsung Galaxy S26シリーズ購入/,
+  );
+  assert.match(detailHtml, /最大25,000ポイント/);
+  assert.match(detailHtml, /最大13,000ポイント/);
+  assert.match(detailHtml, /最大6,000ポイント/);
+  assert.doesNotMatch(
+    detailText,
+    /キャンペーンコード 3303/,
   );
 });

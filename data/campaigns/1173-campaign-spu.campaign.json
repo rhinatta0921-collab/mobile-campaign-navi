@@ -1,0 +1,46 @@
+{
+  "campaignCode": "1173",
+  "codeType": "campaign",
+  "title": "SPU（楽天モバイル）",
+  "summary": "楽天市場のお買い物が毎日全員ポイント5倍に！さらに楽天のサービスを使えば使うほどポイントUP",
+  "benefit": {
+    "type": "multiplier",
+    "amount": 5,
+    "unit": "倍",
+    "description": "楽天市場での買い物が楽天会員通常分と合わせて最大5倍になります。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイル契約中で楽天市場を利用する方",
+  "conditions": [
+    "要エントリー",
+    "楽天モバイル契約中",
+    "楽天市場利用"
+  ],
+  "channel": "公式ページ参照",
+  "category": "memberBenefit",
+  "audience": "member",
+  "period": "常時開催",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/spu/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 31,
+      "title": "契約後は楽天市場のお買い物でポイントが貯まりやすく！",
+      "description": "楽天市場のお買い物が毎日全員ポイント5倍に！さらに楽天のサービスを使えば使うほどポイントUP",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/spu/"
+    }
+  ]
+}

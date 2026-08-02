@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CampaignDetails } from "@/app/components/CampaignDetails";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
 import {
+  campaignDataMeta,
   campaigns,
   type ApplicationType,
 } from "@/data/campaigns";
@@ -15,15 +16,18 @@ type DeviceCampaignsPageProps = {
 
 export const metadata: Metadata = {
   title:
-    "スマホ本体購入が必要なキャンペーン | 楽天モバイル キャンペーン ナビ",
+    "端末購入が必要なキャンペーン | 楽天モバイル キャンペーン ナビ",
   description:
-    "楽天モバイルの申し込みとスマホ本体購入を組み合わせるキャンペーンを比較します。",
+    "楽天モバイルの申し込みとiPhone、Android、Apple Watchなどの対象製品購入を組み合わせるキャンペーンを比較します。",
 };
 
 const deviceCampaigns = campaigns.filter(
-  (campaign) => campaign.requiresDevicePurchase,
+  (campaign) =>
+    campaign.requiresDevicePurchase && campaign.rankingEligible,
 );
-const checkedDate = deviceCampaigns[0]?.checkedAt ?? "2026年7月30日";
+const checkedDate = new Intl.DateTimeFormat("ja-JP", {
+  dateStyle: "long",
+}).format(new Date(`${campaignDataMeta.checkedAt}T00:00:00+09:00`));
 
 function resolveApplicationType(
   application: string | string[] | undefined,
@@ -56,14 +60,15 @@ export default async function DeviceCampaignsPage({
             <div className="meta-row" aria-label="ページ情報">
               <span>広告・PR</span>
               <span>最終確認: {checkedDate}</span>
-              <span>掲載ポイントは仮データ</span>
+              <span>公式コード単位で掲載</span>
             </div>
             <p className="category-label">スマホ本体購入あり</p>
             <h1 id="page-title">
               スマホ本体の購入が必要な楽天モバイルキャンペーン比較
             </h1>
             <p className="lead">
-              楽天モバイルのプラン申込と、対象iPhoneやAndroidスマートフォンの購入を組み合わせるキャンペーンを比較します。掲載しているポイント額や対象製品は仮データのため、申し込み前に必ず公式ページで最新条件を確認してください。
+              楽天モバイルのプラン申込と、対象iPhone、Android、Apple
+              Watchの購入を組み合わせるキャンペーンを比較します。公式一覧の掲載カードが複数コードの特典を合算している場合は、キャンペーンコードごとのポイントだけを表示しています。
             </p>
           </section>
 
@@ -71,6 +76,12 @@ export default async function DeviceCampaignsPage({
             className="route-link-band"
             aria-labelledby="sim-only-campaign-link-title"
           >
+            <img
+              className="route-link-icon"
+              src="/assets/smartphone.svg"
+              alt=""
+              aria-hidden="true"
+            />
             <div>
               <p className="section-label">スマホ本体を購入しない方</p>
               <h2 id="sim-only-campaign-link-title">
@@ -89,11 +100,12 @@ export default async function DeviceCampaignsPage({
           >
             <div className="section-heading">
               <p className="section-label">
-                スマホ本体購入ありキャンペーン全3種比較
+                スマホ本体購入あり・固定ポイント特典
+                {deviceCampaigns.length}種比較
               </p>
               <h2 id="ranking-title">獲得ポイント額ランキング</h2>
               <p>
-                対象スマートフォンの購入が必要なキャンペーンだけを、申込方法別の仮ポイントで並べています。
+                対象製品の購入が必要で、固定ポイント額を比較できるキャンペーンだけを申込方法別に並べています。
               </p>
             </div>
 

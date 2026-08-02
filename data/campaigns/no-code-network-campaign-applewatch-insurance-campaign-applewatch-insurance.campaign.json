@@ -1,0 +1,44 @@
+{
+  "campaignCode": "NO-CODE-NETWORK-CAMPAIGN-APPLEWATCH-INSURANCE",
+  "codeType": "generated",
+  "title": "Apple Watchご購入でワークアウト保険が2年間無料！",
+  "summary": "楽天モバイルでApple Watchを購入するとワークアウト保険が2年間無料",
+  "benefit": {
+    "type": "other",
+    "amount": null,
+    "unit": null,
+    "description": "楽天モバイルでApple Watchを購入するとワークアウト保険が2年間無料"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "公式ページに記載された条件を満たす方",
+  "conditions": [
+    "公式ページで条件確認"
+  ],
+  "channel": "公式ページ参照",
+  "category": "other",
+  "audience": "both",
+  "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/applewatch-insurance/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 52,
+      "title": "Apple Watchご購入でワークアウト保険が2年間無料！",
+      "description": "楽天モバイルでApple Watchを購入するとワークアウト保険が2年間無料",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/applewatch-insurance/"
+    }
+  ]
+}

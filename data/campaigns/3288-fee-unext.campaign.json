@@ -1,0 +1,45 @@
+{
+  "campaignCode": "3288",
+  "codeType": "campaign",
+  "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン②",
+  "summary": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
+  "benefit": {
+    "type": "free",
+    "amount": 12,
+    "unit": "カ月",
+    "description": "Uber Oneを初回1年間無料で利用できます。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "Uber Oneを初めて申し込むRakuten最強U-NEXT利用者",
+  "conditions": [
+    "要エントリー",
+    "Uber Oneを初めて申し込み"
+  ],
+  "channel": "公式ページ参照",
+  "category": "service",
+  "audience": "both",
+  "period": "2026年6月1日 0:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 2,
+      "title": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！Rakuten最強U-NEXT初めて利用 ＆エントリーで5,000ポイント還元＋Uber One 初めてお申し込みで1年間無料！※ 速度制限の場合あり。一部対象外番号あり。有料作品等あり。通話料等別",
+      "description": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
+      "url": "https://network.mobile.rakuten.co.jp/fee/unext/"
+    }
+  ]
+}

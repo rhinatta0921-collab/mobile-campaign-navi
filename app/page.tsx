@@ -1,6 +1,7 @@
 import { CampaignDetails } from "@/app/components/CampaignDetails";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
 import {
+  campaignDataMeta,
   campaigns,
   getCampaignPoints,
   rankCampaigns,
@@ -14,22 +15,36 @@ type HomeProps = {
 };
 
 const nonDeviceCampaigns = campaigns.filter(
-  (campaign) => !campaign.requiresDevicePurchase,
+  (campaign) =>
+    !campaign.requiresDevicePurchase &&
+    campaign.rankingEligible &&
+    campaign.audience !== "member",
 );
 const mnpRankedCampaigns = rankCampaigns(nonDeviceCampaigns, "mnp");
-const checkedDate = mnpRankedCampaigns[0]?.checkedAt ?? "2026年7月23日";
+const checkedDate = new Intl.DateTimeFormat("ja-JP", {
+  dateStyle: "long",
+}).format(new Date(`${campaignDataMeta.checkedAt}T00:00:00+09:00`));
 
 const excludedExamples = [
-  "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須のキャンペーン",
+  "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須の特典",
   "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
-  "買い物額や利用額で変動する倍率系・抽選系など、入会時の固定ポイントとして比較しにくい特典",
+  "値引き・無料期間・倍率・抽選など、固定ポイント額のランキングに換算できない特典",
 ];
 
 const tableOfContents = [
-  "結論：SIMのみで狙うならまず確認したいキャンペーン",
-  "楽天モバイルSIMのみキャンペーン比較ランキング",
-  "ランキング掲載キャンペーンの詳細",
-  "対象外にしたキャンペーン",
+  {
+    href: "#conclusion",
+    label:
+      "結論：回線だけの申し込み時に使える中で獲得ポイント額が最大のキャンペーン",
+  },
+  {
+    href: "#ranking",
+    label: "楽天モバイルキャンペーン獲得ポイント額ランキング",
+  },
+  {
+    href: "#details",
+    label: "ランキング掲載キャンペーンの詳細",
+  },
 ];
 
 function formatPoints(points: number) {
@@ -66,19 +81,32 @@ export default async function Home({ searchParams }: HomeProps) {
 
       <div className="shell page-grid">
         <article className="article">
-          <section className="article-hero" aria-labelledby="page-title">
-            <div className="meta-row" aria-label="ページ情報">
-              <span>広告・PR</span>
-              <span>最終確認: {checkedDate}</span>
+          <section
+            className="article-hero home-hero"
+            aria-labelledby="page-title"
+          >
+            <div className="hero-copy">
+              <div className="meta-row" aria-label="ページ情報">
+                <span>広告・PR</span>
+              </div>
+              <p className="category-label">{checkedDate} 更新</p>
+              <h1 id="page-title">
+                楽天モバイル申し込みキャンペーンおすすめ比較ランキング
+              </h1>
+              <p className="lead">
+                楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
+                このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
+              </p>
             </div>
-            <p className="category-label">2026年7月23日 更新</p>
-            <h1 id="page-title">
-              楽天モバイル申し込みキャンペーンおすすめ比較ランキング
-            </h1>
-            <p className="lead">
-              楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「いくつかのキャンペーンを併用できる？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
-              このページでは、楽天モバイルで現在開催されている申し込みキャンペーンを比較し、配布されるポイント額から、スマホ本体代の購入費用などのキャンペーン適用のために必要な費用を差し引いた「実質配布ポイント額」が多い順にランキング形式で紹介します。申し込み前に、自分に合うキャンペーンを見つける参考にしてください。
-            </p>
+            <div className="hero-visual" aria-hidden="true">
+              <img
+                src="/hero-editorial.png"
+                alt=""
+                width="1694"
+                height="929"
+                fetchPriority="high"
+              />
+            </div>
           </section>
 
           <section
@@ -92,21 +120,48 @@ export default async function Home({ searchParams }: HomeProps) {
             </p>
             <ul>
               <li>
-                <strong>SIM（回線）のみ</strong>
-                楽天モバイルのプラン申込のみのときに適用できるキャンペーン
+                <img
+                  src="/assets/choice-sim-only.jpg"
+                  alt=""
+                  width="600"
+                  height="400"
+                  aria-hidden="true"
+                />
+                <div>
+                  <strong>SIM（回線）のみ</strong>
+                  楽天モバイルのプラン申込のみのときに適用できるキャンペーン
+                </div>
               </li>
               <li>
-                <strong>SIM＋スマホ本体購入</strong>
-                プラン申込に対象スマートフォンの購入条件を組み合わせるキャンペーン
+                <img
+                  src="/assets/choice-device.jpg"
+                  alt=""
+                  width="600"
+                  height="400"
+                  aria-hidden="true"
+                />
+                <div>
+                  <strong>SIM＋スマホ本体購入</strong>
+                  プラン申込に対象スマートフォンの購入条件を組み合わせるキャンペーン
+                </div>
               </li>
               <li>
-                <strong>SIM＋その他サービスの申込・利用</strong>
-                プラン申込に楽天カードやRakuten
-                Turboなど、対象サービスの申込・利用条件を組み合わせるキャンペーン
+                <img
+                  src="/assets/choice-service.jpg"
+                  alt=""
+                  width="600"
+                  height="400"
+                  aria-hidden="true"
+                />
+                <div>
+                  <strong>SIM＋その他サービスの申込・利用</strong>
+                  プラン申込に楽天カードやRakuten
+                  Turboなど、対象サービスの申込・利用条件を組み合わせるキャンペーン
+                </div>
               </li>
             </ul>
             <p>
-              端末購入やサービス利用を伴うキャンペーンは、SIMの申込特典に追加条件を重ねるタイプが多く、併用できる特典はキャンペーンごとに異なります。まずはSIMキャンペーンの中で、自分の申込方法に合い、受け取れるポイントが多いものを把握し、そのうえで端末やサービスの特典を追加できるかを確認するのが選びやすい順序です。
+              スマホ本体購入のキャンペーンを利用する際には、まずどの機種がいいのかを調べてから、それにあったキャンペーンを利用することになる。楽天モバイルでは基本的に1つの機種に対しては1つしかキャンペーンは行われていないため、キャンペーン同士の比較は不要で、自分が欲しい端末のキャンペーンの利用条件を確認し、他の店舗で購入したりする場合とどちらがお得かを確認すれば良い。
             </p>
           </section>
 
@@ -114,14 +169,20 @@ export default async function Home({ searchParams }: HomeProps) {
             className="route-link-band"
             aria-labelledby="device-campaign-link-title"
           >
+            <img
+              className="route-link-icon"
+              src="/assets/smartphone-device.svg"
+              alt=""
+              aria-hidden="true"
+            />
             <div>
               <p className="section-label">スマホ本体も一緒に購入する方</p>
               <h2 id="device-campaign-link-title">
-                端末購入が必要なキャンペーンは別ページで比較
+                端末購入が必要なキャンペーンの一覧はこちら
               </h2>
             </div>
             <a className="route-link" href="/device-campaigns">
-              スマホ本体の購入が必要なキャンペーンを見る
+              キャンペーン一覧を見る
             </a>
           </section>
 
@@ -129,7 +190,9 @@ export default async function Home({ searchParams }: HomeProps) {
             <h2>目次</h2>
             <ol>
               {tableOfContents.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.href}>
+                  <a href={item.href}>{item.label}</a>
+                </li>
               ))}
             </ol>
           </nav>
@@ -141,13 +204,16 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <p className="section-label">結論</p>
             <h2 id="conclusion-title">
-              SIMのみで最大ポイントを狙うなら、ショップ限定の
+              端末購入なしの固定ポイント特典では、最大
               {formatPoints(topPoints ?? 0)}ポイントが最上位
             </h2>
             {topCampaign ? (
               <div className="winner-box">
-                <div className="winner-rank">1位</div>
-                <div>
+                <div className="winner-rank">
+                  <img src="/assets/crown.svg" alt="" aria-hidden="true" />
+                  <span>1位</span>
+                </div>
+                <div className="winner-copy">
                   <h3>{topCampaign.title}</h3>
                   <p>
                     最大{formatPoints(topPoints ?? 0)}ポイント。
@@ -173,7 +239,8 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <div className="section-heading">
               <p className="section-label">
-                楽天モバイル申し込みキャンペーン全N種比較
+                端末購入不要・固定ポイント特典
+                {nonDeviceCampaigns.length}種比較
               </p>
               <h2 id="ranking-title">実質配布ポイント額ランキング</h2>
               <p>

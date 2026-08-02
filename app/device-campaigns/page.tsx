@@ -3,7 +3,6 @@ import Link from "next/link";
 import { CampaignDetails } from "@/app/components/CampaignDetails";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
 import {
-  campaignDataMeta,
   campaigns,
   type ApplicationType,
 } from "@/data/campaigns";
@@ -25,10 +24,6 @@ const deviceCampaigns = campaigns.filter(
   (campaign) =>
     campaign.requiresDevicePurchase && campaign.rankingEligible,
 );
-const checkedDate = new Intl.DateTimeFormat("ja-JP", {
-  dateStyle: "long",
-}).format(new Date(`${campaignDataMeta.checkedAt}T00:00:00+09:00`));
-
 function resolveApplicationType(
   application: string | string[] | undefined,
 ): ApplicationType {
@@ -59,7 +54,6 @@ export default async function DeviceCampaignsPage({
           <section className="article-hero" aria-labelledby="page-title">
             <div className="meta-row" aria-label="ページ情報">
               <span>広告・PR</span>
-              <span>最終確認: {checkedDate}</span>
               <span>公式コード単位で掲載</span>
             </div>
             <p className="category-label">スマホ本体購入あり</p>
@@ -68,7 +62,7 @@ export default async function DeviceCampaignsPage({
             </h1>
             <p className="lead">
               楽天モバイルのプラン申込と、対象iPhone、Android、Apple
-              Watchの購入を組み合わせるキャンペーンを比較します。公式一覧の掲載カードが複数コードの特典を合算している場合は、キャンペーンコードごとのポイントだけを表示しています。
+              Watchの購入を組み合わせるキャンペーンを比較します。固定ポイントがない値引き・特価キャンペーンも0ポイントとしてランキング末尾に掲載し、端末の実質負担額は詳細欄で確認できます。
             </p>
           </section>
 
@@ -100,12 +94,12 @@ export default async function DeviceCampaignsPage({
           >
             <div className="section-heading">
               <p className="section-label">
-                スマホ本体購入あり・固定ポイント特典
+                スマホ本体購入あり・申込キャンペーン
                 {deviceCampaigns.length}種比較
               </p>
               <h2 id="ranking-title">獲得ポイント額ランキング</h2>
               <p>
-                対象製品の購入が必要で、固定ポイント額を比較できるキャンペーンだけを申込方法別に並べています。
+                対象製品の購入が必要なキャンペーンを、申込者本人が受け取る固定ポイントの多い順に並べています。端末値引きや実質負担額は順位に影響しません。
               </p>
             </div>
 

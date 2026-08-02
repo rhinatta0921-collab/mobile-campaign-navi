@@ -25,6 +25,7 @@ test("stores one normalized campaign per JSON file", async () => {
   const campaignCodes = new Set();
   const coveredListingIndexes = new Set();
   let generatedCodeCount = 0;
+  let rankingCampaignCount = 0;
 
   for (const filename of filenames) {
     const campaign = await readJson(filename);
@@ -126,12 +127,23 @@ test("stores one normalized campaign per JSON file", async () => {
         `${filename}: breakdown.${applicationType}`,
       );
     }
-    assert.equal(
-      campaign.rankingEligible,
-      typeof campaign.points.newNumber === "number" ||
-        typeof campaign.points.mnp === "number",
-      `${filename}: rankingEligible`,
-    );
+    assert.equal(typeof campaign.rankingEligible, "boolean");
+    if (campaign.rankingEligible) {
+      rankingCampaignCount += 1;
+      assert.equal(
+        [
+          "points",
+          "discount",
+          "free",
+          "lottery",
+          "other",
+          "recurringPoints",
+          "specialPrice",
+        ].includes(campaign.benefit.type),
+        true,
+        `${filename}: ranking benefit type`,
+      );
+    }
 
     assert.equal(
       typeof campaign.requiresDevicePurchase,
@@ -154,6 +166,7 @@ test("stores one normalized campaign per JSON file", async () => {
 
   assert.equal(campaignCodes.size, index.campaignCount);
   assert.equal(generatedCodeCount, 12);
+  assert.equal(rankingCampaignCount, 32);
   assert.deepEqual(
     [...coveredListingIndexes].sort((a, b) => a - b),
     Array.from(
@@ -169,4 +182,17 @@ test("stores one normalized campaign per JSON file", async () => {
     iphoneSpecialPrice.sourceCards.map((card) => card.listingIndex),
     [3, 6, 12],
   );
+
+  const referral = await readJson(
+    "1784-campaign-referral.campaign.json",
+  );
+  assert.equal(referral.points.mnp, 13_000);
+  assert.equal(referral.points.newNumber, 10_000);
+  assert.match(referral.notes.join(" "), /紹介者の7,000ポイントは除外/);
+
+  const freeCall = await readJson(
+    "1977-service-standard-free-call.campaign.json",
+  );
+  assert.equal(freeCall.points.mnp, null);
+  assert.equal(freeCall.rankingEligible, true);
 });

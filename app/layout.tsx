@@ -4,7 +4,7 @@ import "./globals.css";
 
 const title = "楽天モバイル キャンペーン ナビ";
 const description =
-  "楽天モバイル公式一覧のキャンペーンをコード単位で整理し、固定ポイント額を申込方法別に比較します。";
+  "楽天モバイル公式一覧のキャンペーンをコード単位で整理し、申込者ポイントのランキングとポイント以外の特典・追加費用・実質価値を比較します。";
 
 async function getRequestOrigin() {
   const requestHeaders = await headers();

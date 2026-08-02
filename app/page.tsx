@@ -17,18 +17,18 @@ type HomeProps = {
 const nonDeviceCampaigns = campaigns.filter(
   (campaign) =>
     !campaign.requiresDevicePurchase &&
-    campaign.rankingEligible &&
-    campaign.audience !== "member",
+    campaign.rankingEligible,
 );
 const mnpRankedCampaigns = rankCampaigns(nonDeviceCampaigns, "mnp");
 const checkedDate = new Intl.DateTimeFormat("ja-JP", {
   dateStyle: "long",
+  timeZone: "Asia/Tokyo",
 }).format(new Date(`${campaignDataMeta.checkedAt}T00:00:00+09:00`));
 
 const excludedExamples = [
   "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須の特典",
   "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
-  "値引き・無料期間・倍率・抽選など、固定ポイント額のランキングに換算できない特典",
+  "回線申込や同時申込に直接関係しない、契約者向けの一般特典・情報ページ",
 ];
 
 const tableOfContents = [
@@ -204,7 +204,7 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <p className="section-label">結論</p>
             <h2 id="conclusion-title">
-              端末購入なしの固定ポイント特典では、最大
+              端末購入なしの申込者向け固定ポイントでは、最大
               {formatPoints(topPoints ?? 0)}ポイントが最上位
             </h2>
             {topCampaign ? (
@@ -216,7 +216,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <div className="winner-copy">
                   <h3>{topCampaign.title}</h3>
                   <p>
-                    最大{formatPoints(topPoints ?? 0)}ポイント。
+                    申込者本人が最大{formatPoints(topPoints ?? 0)}ポイント。
                     {topCampaign.summary}
                   </p>
                 </div>
@@ -239,12 +239,12 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <div className="section-heading">
               <p className="section-label">
-                端末購入不要・固定ポイント特典
+                端末購入不要・申込キャンペーン
                 {nonDeviceCampaigns.length}種比較
               </p>
-              <h2 id="ranking-title">実質配布ポイント額ランキング</h2>
+              <h2 id="ranking-title">獲得固定ポイント額ランキング</h2>
               <p>
-                順位は併用後の合計ではなく、個別キャンペーン単位の最大ポイントで並べています。
+                順位は申込者本人が受け取る固定ポイントだけで決定します。ポイント以外の特典、追加費用、実質お得額は各キャンペーンの詳細で確認できます。
               </p>
             </div>
 

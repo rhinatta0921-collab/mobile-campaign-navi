@@ -33,7 +33,7 @@
     "公式ページに掲載されたキャンペーンコードです。"
   ],
   "requiresDevicePurchase": false,
-  "rankingEligible": false,
+  "rankingEligible": true,
   "sourceCards": [
     {
       "listingIndex": 2,

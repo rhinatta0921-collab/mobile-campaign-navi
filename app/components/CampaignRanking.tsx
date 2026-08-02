@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  getCampaignPoints,
+  getRankingPoints,
   rankCampaigns,
   type ApplicationType,
   type Campaign,
@@ -16,7 +16,7 @@ type CampaignRankingProps = {
 const comparisonColumns = [
   "順位",
   "キャンペーン",
-  "最大ポイント",
+  "申込者ポイント",
   "おすすめ対象",
   "主な追加条件",
   "申込方法",
@@ -67,7 +67,7 @@ export function CampaignRanking({
       </div>
 
       <p className="ranking-mode-note">
-        {rankingLabel}の獲得ポイントで並べています。タブを切り替えると、ランキング表と詳細欄が切り替わります。
+        {rankingLabel}に申込者本人が受け取れる固定ポイントで並べています。ポイントがない特典は0ポイントとして末尾に掲載し、割引や追加費用は順位に含めません。
       </p>
 
       <div
@@ -93,7 +93,7 @@ export function CampaignRanking({
           </thead>
           <tbody>
             {rankedCampaigns.map((campaign, index) => {
-              const points = getCampaignPoints(campaign, applicationType);
+              const points = getRankingPoints(campaign, applicationType);
 
               return (
                 <tr key={campaign.campaignCode}>
@@ -103,7 +103,7 @@ export function CampaignRanking({
                     <span>{campaign.period}</span>
                   </td>
                   <td className="points-cell">
-                    {formatPoints(points ?? 0)}
+                    {formatPoints(points)}
                     <span>ポイント</span>
                   </td>
                   <td>{campaign.target}</td>
@@ -128,7 +128,7 @@ export function CampaignRanking({
 
       <div className="mobile-ranking-list" aria-label="キャンペーンランキング">
         {rankedCampaigns.map((campaign, index) => {
-          const points = getCampaignPoints(campaign, applicationType);
+          const points = getRankingPoints(campaign, applicationType);
 
           return (
             <article
@@ -138,7 +138,7 @@ export function CampaignRanking({
               <div className="mobile-ranking-head">
                 <span className="mobile-rank-badge">{index + 1}位</span>
                 <p className="mobile-points">
-                  <strong>{formatPoints(points ?? 0)}</strong>
+                  <strong>{formatPoints(points)}</strong>
                   ポイント
                 </p>
               </div>

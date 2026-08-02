@@ -538,6 +538,73 @@ h1 {
   display: none;
 }
 
+.ranking-overflow {
+  margin-top: 12px;
+}
+
+.ranking-overflow-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 10px 18px;
+  border: 1px solid #d4a0b3;
+  background: #fff;
+  color: var(--accent-deep);
+  font-size: 0.87rem;
+  font-weight: 900;
+  line-height: 1.5;
+  text-align: center;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ranking-overflow-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.ranking-overflow-toggle::after {
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.ranking-overflow-toggle:hover {
+  background: #fff9fb;
+}
+
+.ranking-overflow-toggle:focus-visible {
+  outline: 3px solid rgb(190 0 80 / 22%);
+  outline-offset: 2px;
+}
+
+.ranking-overflow-open-label {
+  display: none;
+}
+
+.ranking-overflow[open] .ranking-overflow-toggle::after {
+  margin-top: 4px;
+  transform: rotate(225deg);
+}
+
+.ranking-overflow[open] .ranking-overflow-closed-label {
+  display: none;
+}
+
+.ranking-overflow[open] .ranking-overflow-open-label {
+  display: inline;
+}
+
+.ranking-overflow-content {
+  margin-top: 10px;
+}
+
 .detail-list {
   border-bottom: 1px solid var(--line);
 }

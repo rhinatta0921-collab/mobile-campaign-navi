@@ -53,6 +53,22 @@ function tableBodyText(html) {
   return plainText(tableBody);
 }
 
+function rankingTableHtml(html, tableClassName) {
+  const table = html.match(
+    new RegExp(
+      `<table class="comparison-table ${tableClassName}">[\\s\\S]*?<\\/table>`,
+    ),
+  )?.[0];
+  assert.ok(table, `missing ranking table: ${tableClassName}`);
+  return table;
+}
+
+function tableRowCount(tableHtml) {
+  const tableBody = tableHtml.match(/<tbody>[\s\S]*?<\/tbody>/)?.[0];
+  assert.ok(tableBody, "missing ranking table body");
+  return [...tableBody.matchAll(/<tr>/g)].length;
+}
+
 function rankingPoints(html) {
   return [...html.matchAll(/class="points-cell">([\d,]+)<span>ポイント/g)].map(
     (match) => Number(match[1].replaceAll(",", "")),
@@ -88,10 +104,27 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.ok(rankingHtml);
   const rankingText = plainText(rankingHtml);
   const rankingTableText = tableBodyText(rankingHtml);
+  const primaryRankingTable = rankingTableHtml(
+    rankingHtml,
+    "comparison-table-primary",
+  );
+  const overflowRankingTable = rankingTableHtml(
+    rankingHtml,
+    "comparison-table-overflow",
+  );
   assert.match(
     rankingHtml,
     /href="\/\?application=mnp"[^>]*aria-selected="true"/,
   );
+  assert.equal(tableRowCount(primaryRankingTable), 10);
+  assert.equal(tableRowCount(overflowRankingTable), 10);
+  assert.match(plainText(primaryRankingTable), /10位/);
+  assert.doesNotMatch(plainText(primaryRankingTable), /11位/);
+  assert.match(plainText(overflowRankingTable), /11位/);
+  assert.match(plainText(overflowRankingTable), /20位/);
+  assert.match(rankingHtml, /<details class="ranking-overflow">/);
+  assert.match(rankingText, /11位以降を表示（残り10件）/);
+  assert.match(rankingText, /11位以降を閉じる/);
   assert.match(rankingText, /申込者ポイント/);
   assert.match(rankingText, /ポイントがない特典は0ポイントとして末尾に掲載/);
   assertInOrder(rankingTableText, ["13,000", "11,748", "10,000", "5,000"]);
@@ -125,6 +158,7 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   );
   assert.match(detailText, /毎月＋1,000円相当/);
   assert.match(detailText, /金額換算対象外/);
+  assert.match(detailText, /キャンペーンコード 1977/);
   assert.match(detailText, /この金額は詳細確認用です。ランキング順位には影響しません/);
 });
 
@@ -135,11 +169,25 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   assert.ok(rankingHtml);
   const rankingText = plainText(rankingHtml);
   const rankingTableText = tableBodyText(rankingHtml);
+  const primaryRankingTable = rankingTableHtml(
+    rankingHtml,
+    "comparison-table-primary",
+  );
+  const overflowRankingTable = rankingTableHtml(
+    rankingHtml,
+    "comparison-table-overflow",
+  );
 
   assert.match(
     rankingHtml,
     /href="\/\?application=new-number"[^>]*aria-selected="true"/,
   );
+  assert.equal(tableRowCount(primaryRankingTable), 10);
+  assert.equal(tableRowCount(overflowRankingTable), 9);
+  assert.match(plainText(primaryRankingTable), /10位/);
+  assert.match(plainText(overflowRankingTable), /11位/);
+  assert.match(plainText(overflowRankingTable), /19位/);
+  assert.match(rankingText, /11位以降を表示（残り9件）/);
   assertInOrder(rankingTableText, ["11,748", "10,000", "7,000", "5,000"]);
   assert.doesNotMatch(rankingText, /楽天モバイルただいまキャンペーン/);
   assert.doesNotMatch(
@@ -171,10 +219,16 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   assert.ok(rankingHtml);
   const rankingText = plainText(rankingHtml);
   const rankingTableText = tableBodyText(rankingHtml);
+  const primaryRankingTable = rankingTableHtml(
+    rankingHtml,
+    "comparison-table-primary",
+  );
   assert.match(
     rankingHtml,
     /href="\/device-campaigns\?application=mnp"[^>]*aria-selected="true"/,
   );
+  assert.equal(tableRowCount(primaryRankingTable), 10);
+  assert.doesNotMatch(rankingHtml, /<details class="ranking-overflow">/);
   assertInOrder(rankingTableText, ["25,000", "13,000", "7,000", "6,000"]);
   const mnpDevicePoints = rankingPoints(rankingHtml);
   assert.equal(mnpDevicePoints.includes(0), true);
@@ -212,11 +266,17 @@ test("keeps new-number and MNP-only device campaigns separate", async () => {
   assert.ok(rankingHtml);
   const rankingText = plainText(rankingHtml);
   const rankingTableText = tableBodyText(rankingHtml);
+  const primaryRankingTable = rankingTableHtml(
+    rankingHtml,
+    "comparison-table-primary",
+  );
 
   assert.match(
     rankingHtml,
     /href="\/device-campaigns\?application=new-number"[^>]*aria-selected="true"/,
   );
+  assert.equal(tableRowCount(primaryRankingTable), 7);
+  assert.doesNotMatch(rankingHtml, /<details class="ranking-overflow">/);
   assertInOrder(rankingTableText, ["25,000", "13,000", "6,000"]);
   assert.deepEqual(rankingPoints(rankingHtml).slice(0, 4), [
     25_000,

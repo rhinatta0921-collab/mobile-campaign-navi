@@ -2,6 +2,21 @@
   "campaignCode": "3293",
   "codeType": "campaign",
   "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン①",
+  "editorial": {
+    "headline": "Rakuten最強U-NEXTを初めて利用し、ポイントを受け取りたい人向け",
+    "paragraphs": [
+      "エントリーしてRakuten最強U-NEXTを初めて利用すると、申込者本人が最大5,000ポイントを受け取れます。ポイントは条件達成後、3カ月に分けて進呈されます。",
+      "Rakuten最強U-NEXTの追加負担は利用状況によって変わるため、固定の実質お得額は算出できません。ポイント額だけでなく、利用条件と料金差も確認してください。"
+    ],
+    "goodPoints": [
+      "Rakuten最強U-NEXTの初回利用で最大5,000ポイント",
+      "端末購入は条件に含まれない"
+    ],
+    "concerns": [
+      "事前エントリーとRakuten最強U-NEXTの初回利用が必要",
+      "追加負担を含む実質お得額は算出できない"
+    ]
+  },
   "summary": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
   "benefit": {
     "type": "points",

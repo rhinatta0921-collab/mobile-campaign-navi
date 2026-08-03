@@ -4,6 +4,7 @@ import {
   rankCampaigns,
   type ApplicationType,
   type Campaign,
+  type CampaignEditorial,
 } from "@/data/campaigns";
 
 type CampaignDetailsProps = {
@@ -11,19 +12,171 @@ type CampaignDetailsProps = {
   campaigns: readonly Campaign[];
 };
 
+type MetricSummary = {
+  value: string;
+  details: string[];
+};
+
+type ScoreMetricProps = {
+  label: string;
+  summary: MetricSummary;
+  tone?: "accent" | "positive" | "neutral";
+};
+
 function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
 
-function formatCheckedAt(checkedAt: string) {
-  return new Intl.DateTimeFormat("ja-JP", {
-    dateStyle: "long",
-    timeZone: "Asia/Tokyo",
-  }).format(new Date(`${checkedAt}T00:00:00+09:00`));
-}
-
 function formatYen(amount: number) {
   return `${amount.toLocaleString("ja-JP")}円`;
+}
+
+function requireEditorial(campaign: Campaign): CampaignEditorial {
+  if (!campaign.editorial) {
+    throw new Error(
+      `ランキング対象キャンペーン ${campaign.campaignCode} に編集記事データがありません。`,
+    );
+  }
+
+  return campaign.editorial;
+}
+
+function getOtherBenefitSummary(campaign: Campaign): MetricSummary {
+  const fixedBenefitTotal = campaign.valuation.otherBenefits.reduce(
+    (total, benefit) =>
+      total +
+      (benefit.includedInDevicePrice ? 0 : benefit.amountYen ?? 0),
+    0,
+  );
+  const includedDiscountTotal = campaign.valuation.otherBenefits.reduce(
+    (total, benefit) =>
+      total +
+      (benefit.includedInDevicePrice ? benefit.amountYen ?? 0 : 0),
+    0,
+  );
+  const monthlyBenefitTotal = campaign.valuation.ongoingBenefits.reduce(
+    (total, benefit) => total + (benefit.monthlyAmountYen ?? 0),
+    0,
+  );
+  const details = [
+    ...campaign.valuation.otherBenefits.map((benefit) => {
+      const amount =
+        benefit.amountYen !== null
+          ? benefit.includedInDevicePrice
+            ? `${formatYen(benefit.amountYen)}値引き`
+            : `${formatYen(benefit.amountYen)}相当`
+          : benefit.includedInDevicePrice
+            ? "端末価格に反映"
+            : "金額算出不可";
+
+      return `${benefit.label}：${amount}。${benefit.description}`;
+    }),
+    ...campaign.valuation.ongoingBenefits.map((benefit) =>
+      benefit.monthlyAmountYen !== null
+        ? `${benefit.label}：毎月＋${formatYen(benefit.monthlyAmountYen)}相当。${benefit.description}`
+        : `${benefit.label}：月額は算出不可。${benefit.description}`,
+    ),
+    ...campaign.valuation.unquantifiedBenefits.map(
+      (benefit) => `金額換算対象外：${benefit}`,
+    ),
+  ];
+
+  if (fixedBenefitTotal > 0) {
+    return {
+      value: `${formatYen(fixedBenefitTotal)}相当`,
+      details,
+    };
+  }
+
+  if (includedDiscountTotal > 0) {
+    return {
+      value: `${formatYen(includedDiscountTotal)}値引き`,
+      details,
+    };
+  }
+
+  if (monthlyBenefitTotal > 0) {
+    return {
+      value: `毎月＋${formatYen(monthlyBenefitTotal)}相当`,
+      details,
+    };
+  }
+
+  if (details.length > 0) {
+    return {
+      value: campaign.valuation.otherBenefits.some(
+        (benefit) => benefit.includedInDevicePrice,
+      )
+        ? "端末価格に反映"
+        : "金額換算対象外",
+      details,
+    };
+  }
+
+  return {
+    value: "なし",
+    details: ["同一キャンペーン内にポイント以外の特典はありません。"],
+  };
+}
+
+function getRequiredCostSummary(campaign: Campaign): MetricSummary {
+  const costs = campaign.valuation.requiredCosts;
+
+  if (costs.length === 0) {
+    return {
+      value: "0円",
+      details: ["通常の楽天モバイル回線料金は計算に含めていません。"],
+    };
+  }
+
+  const fixedCostTotal = costs.reduce(
+    (total, cost) => total + (cost.amountYen ?? 0),
+    0,
+  );
+  const monthlyCostTotal = costs.reduce(
+    (total, cost) => total + (cost.monthlyAmountYen ?? 0),
+    0,
+  );
+  const hasUnknownCost = costs.some((cost) => cost.amountYen === null);
+  const details = costs.map((cost) => {
+    const amount =
+      cost.amountYen !== null
+        ? formatYen(cost.amountYen)
+        : cost.monthlyAmountYen !== null
+          ? `${formatYen(cost.monthlyAmountYen)}/月（必要月数未確定）`
+          : "総額算出不可";
+
+    return `${cost.label}：${amount}。${cost.description}`;
+  });
+
+  return {
+    value: hasUnknownCost
+      ? monthlyCostTotal > 0
+        ? `${formatYen(monthlyCostTotal)}/月〜`
+        : "算出不可"
+      : formatYen(fixedCostTotal),
+    details,
+  };
+}
+
+function ScoreMetric({
+  label,
+  summary,
+  tone = "neutral",
+}: ScoreMetricProps) {
+  return (
+    <div className={`score-metric score-metric-${tone}`}>
+      <dt>{label}</dt>
+      <dd>
+        <strong>{summary.value}</strong>
+        <ul>
+          {summary.details.map((detail) => (
+            <li key={detail}>{detail}</li>
+          ))}
+        </ul>
+      </dd>
+    </div>
+  );
 }
 
 export function CampaignDetails({
@@ -35,272 +188,154 @@ export function CampaignDetails({
   return (
     <div className="detail-list">
       {rankedCampaigns.map((campaign, index) => {
+        const editorial = requireEditorial(campaign);
         const points = getRankingPoints(campaign, applicationType);
-        const breakdown = campaign.breakdown[applicationType] ?? [];
+        const pointBreakdown = campaign.breakdown[applicationType] ?? [];
         const valueResult = calculateCampaignValue(campaign, applicationType);
         const valueLabel =
           valueResult.kind === "burden" ? "実質負担額" : "実質お得額";
-        const codeLabel =
-          campaign.codeType === "initiative"
-            ? "施策コード"
-            : campaign.codeType === "generated"
-              ? "管理コード"
-              : "キャンペーンコード";
+        const valueSummary: MetricSummary = {
+          value:
+            valueResult.status === "calculated" &&
+            valueResult.amountYen !== null
+              ? formatYen(valueResult.amountYen)
+              : "算出不可",
+          details: [
+            valueResult.formula ??
+              `算出不可の理由：${valueResult.reason ?? "公式情報だけでは金額を確定できません"}`,
+          ],
+        };
+        const articleTitleId = `campaign-title-${campaign.campaignCode}`;
+        const scoreTitleId = `campaign-score-${campaign.campaignCode}`;
+        const editorialTitleId = `campaign-editorial-${campaign.campaignCode}`;
 
         return (
-          <details
-            className="offer-detail"
+          <article
+            className="campaign-detail-article"
             key={campaign.campaignCode}
-            open={index === 0}
+            aria-labelledby={articleTitleId}
           >
-            <summary className="offer-heading">
-              <span className="offer-main">
-                <span className="detail-rank">
-                  {index + 1}位 · {codeLabel} {campaign.campaignCode}
-                </span>
-                <span className="offer-title">{campaign.title}</span>
-                <span className="offer-target">{campaign.target}</span>
-              </span>
-              <span className="points-box">
-                <span>申込者分</span>
-                <strong>{formatPoints(points)}</strong>
-                <span>ポイント</span>
-              </span>
-              <span className="details-toggle" aria-hidden="true">
-                詳細を見る
-              </span>
-            </summary>
+            <header className="campaign-detail-header">
+              <p className="campaign-rank-badge">{index + 1}位</p>
+              <div className="campaign-recommendation">
+                <p className="campaign-recommendation-label">
+                  どんな人におすすめか
+                </p>
+                <p>{campaign.target}</p>
+              </div>
+              <h3 id={articleTitleId}>{campaign.title}</h3>
+            </header>
 
-            <div className="offer-body">
-              <div className="condition-list" aria-label="主な条件">
-                <span>
-                  対象製品購入{" "}
-                  {campaign.requiresDevicePurchase ? "必須" : "不要"}
-                </span>
-                {campaign.conditions.map((condition) => (
-                  <span key={condition}>{condition}</span>
+            <section
+              className="campaign-score"
+              aria-labelledby={scoreTitleId}
+            >
+              <div className="campaign-score-heading">
+                <p>4つの指標で比較</p>
+                <h4 id={scoreTitleId}>スコア</h4>
+              </div>
+              <dl className="campaign-score-grid">
+                <ScoreMetric
+                  label="獲得可能ポイント"
+                  tone="accent"
+                  summary={{
+                    value: `${formatPoints(points)}ポイント`,
+                    details:
+                      pointBreakdown.length > 0
+                        ? pointBreakdown
+                        : [
+                            "申込者向け固定ポイントなし（0ポイントとして順位付け）。",
+                          ],
+                  }}
+                />
+                <ScoreMetric
+                  label="その他特典"
+                  summary={getOtherBenefitSummary(campaign)}
+                />
+                <ScoreMetric
+                  label="キャンペーン適用にかかるコスト"
+                  summary={getRequiredCostSummary(campaign)}
+                />
+                <ScoreMetric
+                  label={valueLabel}
+                  tone={
+                    valueResult.status === "calculated"
+                      ? "positive"
+                      : "neutral"
+                  }
+                  summary={valueSummary}
+                />
+              </dl>
+              <p className="campaign-score-note">
+                順位は獲得可能ポイントだけで決まり、その他特典・コスト・実質価値は順位に影響しません。
+              </p>
+              <a
+                className="official-link campaign-official-link"
+                href={campaign.officialUrl}
+                rel="sponsored noopener noreferrer"
+                target="_blank"
+              >
+                公式サイトで情報を見る
+              </a>
+            </section>
+
+            <table className="campaign-facts-table">
+              <caption>キャンペーン情報</caption>
+              <tbody>
+                <tr>
+                  <th scope="row">キャンペーン開催期間</th>
+                  <td>{campaign.period}</td>
+                </tr>
+                <tr>
+                  <th scope="row">キャンペーン適用条件</th>
+                  <td>
+                    <ul>
+                      {campaign.conditions.map((condition) => (
+                        <li key={condition}>{condition}</li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <section
+              className="campaign-editorial"
+              aria-labelledby={editorialTitleId}
+            >
+              <h4 id={editorialTitleId}>{editorial.headline}</h4>
+              <div className="campaign-editorial-copy">
+                {editorial.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
 
-              <dl className="detail-grid">
-                <div>
-                  <dt>ポイント内訳</dt>
-                  <dd>
-                    {breakdown.length > 0 ? (
-                      <ul>
-                        {breakdown.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      "申込者向け固定ポイントなし（0ポイントとして順位付け）"
-                    )}
-                  </dd>
-                </div>
-                <div>
-                  <dt>申込方法</dt>
-                  <dd>{campaign.channel}</dd>
-                </div>
-                <div>
-                  <dt>期間</dt>
-                  <dd>{campaign.period}</dd>
-                </div>
-                <div>
-                  <dt>確認日</dt>
-                  <dd>{formatCheckedAt(campaign.checkedAt)}</dd>
-                </div>
-              </dl>
-
-              <section
-                className="value-analysis"
-                aria-labelledby={`value-title-${campaign.campaignCode}`}
-              >
-                <div className="value-analysis-heading">
-                  <div>
-                    <p className="value-kicker">詳細のみで比較</p>
-                    <h3 id={`value-title-${campaign.campaignCode}`}>
-                      ポイント以外の特典・追加費用
-                    </h3>
-                  </div>
-                  <p
-                    className={`value-result value-result-${valueResult.status}`}
-                  >
-                    <span>{valueLabel}</span>
-                    <strong>
-                      {valueResult.status === "calculated" &&
-                      valueResult.amountYen !== null
-                        ? formatYen(valueResult.amountYen)
-                        : "算出不可"}
-                    </strong>
-                  </p>
-                </div>
-
-                <p className="value-ranking-note">
-                  この金額は詳細確認用です。ランキング順位には影響しません。
-                </p>
-
-                <dl className="value-grid">
-                  <div>
-                    <dt>ポイント以外の特典</dt>
-                    <dd>
-                      {campaign.valuation.otherBenefits.length > 0 ? (
-                        <ul>
-                          {campaign.valuation.otherBenefits.map((benefit) => (
-                            <li key={`${benefit.label}-${benefit.description}`}>
-                              <strong>{benefit.label}</strong>：
-                              {benefit.description}
-                              {benefit.amountYen !== null
-                                ? `（${formatYen(benefit.amountYen)}相当）`
-                                : benefit.includedInDevicePrice
-                                  ? "（端末価格に反映。特典額の単独換算はしません）"
-                                  : "（金額保留）"}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        "同一キャンペーンコード内に金額特典なし"
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>適用に必要な追加費用</dt>
-                    <dd>
-                      {campaign.valuation.requiredCosts.length > 0 ? (
-                        <ul>
-                          {campaign.valuation.requiredCosts.map((cost) => (
-                            <li key={`${cost.label}-${cost.description}`}>
-                              <strong>{cost.label}</strong>：
-                              {cost.amountYen !== null
-                                ? formatYen(cost.amountYen)
-                                : cost.monthlyAmountYen !== null
-                                  ? `${formatYen(cost.monthlyAmountYen)}/月（必要月数未確定）`
-                                  : "総額保留"}
-                              <span>{cost.description}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        "キャンペーン固有の追加必須費用なし（通常の回線料金は計算対象外）"
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>計算対象期間</dt>
-                    <dd>{campaign.valuation.calculationPeriod}</dd>
-                  </div>
-                  <div>
-                    <dt>{valueLabel}</dt>
-                    <dd>
-                      {valueResult.formula ? (
-                        <span className="value-formula">{valueResult.formula}</span>
-                      ) : (
-                        `算出不可（${valueResult.reason}）`
-                      )}
-                      {campaign.valuation.devicePriceNote ? (
-                        <span>{campaign.valuation.devicePriceNote}</span>
-                      ) : null}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>継続する月次特典</dt>
-                    <dd>
-                      {campaign.valuation.ongoingBenefits.length > 0 ? (
-                        <ul>
-                          {campaign.valuation.ongoingBenefits.map((benefit) => (
-                            <li key={`${benefit.label}-${benefit.description}`}>
-                              {benefit.monthlyAmountYen !== null ? (
-                                <strong>
-                                  毎月＋
-                                  {formatYen(benefit.monthlyAmountYen)}相当
-                                </strong>
-                              ) : (
-                                <strong>月額は算出不可</strong>
-                              )}
-                              <span>{benefit.description}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        "なし"
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>金額換算対象外</dt>
-                    <dd>
-                      {campaign.valuation.unquantifiedBenefits.length > 0 ? (
-                        <ul>
-                          {campaign.valuation.unquantifiedBenefits.map(
-                            (benefit) => (
-                              <li key={benefit}>{benefit}</li>
-                            ),
-                          )}
-                        </ul>
-                      ) : (
-                        "なし"
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>併用候補（別コード）</dt>
-                    <dd>
-                      {campaign.valuation.relatedCampaigns.length > 0 ? (
-                        <ul>
-                          {campaign.valuation.relatedCampaigns.map((related) => (
-                            <li key={related.campaignCode}>
-                              コード {related.campaignCode}：{related.description}
-                              （実質価値には合算していません）
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        "この詳細での合算なし"
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>算出根拠</dt>
-                    <dd>
-                      <ul>
-                        {campaign.valuation.evidence.calculationInputs.map(
-                          (input) => (
-                            <li key={input}>{input}</li>
-                          ),
-                        )}
-                      </ul>
-                      <span>
-                        公式情報の確認日：
-                        {formatCheckedAt(campaign.valuation.evidence.checkedAt)}
-                      </span>
-                      <a
-                        href={campaign.valuation.evidence.officialUrl}
-                        rel="sponsored noopener noreferrer"
-                        target="_blank"
-                      >
-                        算出に使用した公式ページ
-                      </a>
-                    </dd>
-                  </div>
-                </dl>
-              </section>
-
-              <div className="notes-row">
-                <ul>
-                  {campaign.notes.map((note) => (
-                    <li key={note}>{note}</li>
-                  ))}
-                </ul>
-                <a
-                  className="official-link"
-                  href={campaign.officialUrl}
-                  rel="sponsored noopener noreferrer"
-                  target="_blank"
-                >
-                  公式ページで確認
-                </a>
+              <div className="campaign-pros-cons">
+                <section className="campaign-point-list campaign-point-good">
+                  <h5>
+                    <span aria-hidden="true">✓</span>
+                    おすすめなポイント
+                  </h5>
+                  <ul>
+                    {editorial.goodPoints.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </section>
+                <section className="campaign-point-list campaign-point-concern">
+                  <h5>
+                    <span aria-hidden="true">!</span>
+                    気になるポイント
+                  </h5>
+                  <ul>
+                    {editorial.concerns.map((concern) => (
+                      <li key={concern}>{concern}</li>
+                    ))}
+                  </ul>
+                </section>
               </div>
-            </div>
-          </details>
+            </section>
+          </article>
         );
       })}
     </div>

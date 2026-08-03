@@ -2,6 +2,21 @@
   "campaignCode": "2808",
   "codeType": "campaign",
   "title": "Rakutenオリジナル製品 特価キャンペーン",
+  "editorial": {
+    "headline": "Rakuten WiFi Pocket 5Gを回線と一緒に購入したい人向け",
+    "paragraphs": [
+      "楽天モバイルの申し込みと同時に対象オリジナル製品を購入すると、Rakuten WiFi Pocket 5Gは本体価格から13,810円値引きされます。値引きは端末価格へ直接反映されます。",
+      "対象製品の購入が必要で、申し込みは1人1点までです。対象製品によってキャンペーン適用後価格が異なるため、実質負担額は公式サイトで確認してください。"
+    ],
+    "goodPoints": [
+      "Rakuten WiFi Pocket 5Gを13,810円値引き",
+      "値引きが端末価格へ直接反映される"
+    ],
+    "concerns": [
+      "対象オリジナル製品の購入が必要",
+      "1人1点までで、対象製品ごとに実質負担額が異なる"
+    ]
+  },
   "summary": "Rakuten WiFi Pocket 5Gが製品購入＋ 楽天モバイルお申し込みで2,990円！",
   "benefit": {
     "type": "discount",

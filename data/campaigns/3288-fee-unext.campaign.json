@@ -2,6 +2,21 @@
   "campaignCode": "3288",
   "codeType": "campaign",
   "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン②",
+  "editorial": {
+    "headline": "Rakuten最強U-NEXT利用者がUber Oneを初めて使うときの候補",
+    "paragraphs": [
+      "Rakuten最強U-NEXT利用者がエントリーし、Uber Oneを初めて申し込むと初回1年間無料になります。無料特典は5,598円相当として実質価値に反映しています。",
+      "Rakuten最強U-NEXTの利用とUber Oneへの初回申し込みが必要です。通常の回線料金との差額を固定できないため、追加負担を含む実質お得額は算出不可です。"
+    ],
+    "goodPoints": [
+      "Uber Oneを初回1年間無料で利用できる",
+      "無料特典を5,598円相当として比較できる"
+    ],
+    "concerns": [
+      "Rakuten最強U-NEXT利用者でUber Oneを初めて申し込む人に限られる",
+      "Rakuten最強U-NEXTの追加負担を含む実質お得額は算出できない"
+    ]
+  },
   "summary": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
   "benefit": {
     "type": "free",

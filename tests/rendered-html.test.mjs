@@ -69,6 +69,10 @@ function tableRowCount(tableHtml) {
   return [...tableBody.matchAll(/<tr>/g)].length;
 }
 
+function detailArticleCount(html) {
+  return [...html.matchAll(/class="campaign-detail-article"/g)].length;
+}
+
 function rankingPoints(html) {
   return [...html.matchAll(/class="points-cell">([\d,]+)<span>ポイント/g)].map(
     (match) => Number(match[1].replaceAll(",", "")),
@@ -140,10 +144,23 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   ]);
   assert.doesNotMatch(rankingText, /iPhone対象製品 特価キャンペーン/);
 
-  const detailText = plainText(htmlFromSection(html, "detail-section"));
-  assert.match(detailText, /キャンペーンコード 1784/);
-  assert.match(detailText, /申込者分13,000ポイント/);
-  assert.match(detailText, /紹介者の7,000ポイントは除外/);
+  const detailHtml = htmlFromSection(html, "detail-section");
+  const detailText = plainText(detailHtml);
+  assert.equal(detailArticleCount(detailHtml), 20);
+  assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
+  assert.doesNotMatch(detailHtml, /<summary class="offer-heading"/);
+  assert.doesNotMatch(detailText, /詳細を見る/);
+  assert.match(detailText, /どんな人におすすめか/);
+  assert.match(detailText, /4つの指標で比較スコア/);
+  assert.match(detailText, /獲得可能ポイント13,000ポイント/);
+  assert.match(detailText, /その他特典/);
+  assert.match(detailText, /キャンペーン適用にかかるコスト/);
+  assert.match(detailText, /公式サイトで情報を見る/);
+  assert.match(detailText, /キャンペーン開催期間/);
+  assert.match(detailText, /キャンペーン適用条件/);
+  assert.match(detailText, /おすすめなポイント/);
+  assert.match(detailText, /気になるポイント/);
+  assert.match(detailText, /紹介者分は除外/);
   assert.match(
     detailText,
     /13,000ポイント \+ 0円相当 − 0円 = 13,000円/,
@@ -158,8 +175,11 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   );
   assert.match(detailText, /毎月＋1,000円相当/);
   assert.match(detailText, /金額換算対象外/);
-  assert.match(detailText, /キャンペーンコード 1977/);
-  assert.match(detailText, /この金額は詳細確認用です。ランキング順位には影響しません/);
+  assert.match(detailText, /15分（標準）通話かけ放題 料金1カ月無料特典/);
+  assert.match(
+    detailText,
+    /順位は獲得可能ポイントだけで決まり、その他特典・コスト・実質価値は順位に影響しません/,
+  );
 });
 
 test("switches to new-number points without mixing MNP-only campaigns", async () => {
@@ -196,11 +216,17 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   );
   assert.match(rankingText, /0ポイント/);
 
-  const detailText = plainText(htmlFromSection(html, "detail-section"));
-  assert.match(detailText, /申込者分11,748ポイント/);
-  assert.match(detailText, /申込者分10,000ポイント/);
-  assert.match(detailText, /キャンペーンコード 2142/);
-  assert.doesNotMatch(detailText, /キャンペーンコード 2207/);
+  const detailHtml = htmlFromSection(html, "detail-section");
+  const detailText = plainText(detailHtml);
+  assert.equal(detailArticleCount(detailHtml), 19);
+  assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
+  assert.match(detailText, /獲得可能ポイント11,748ポイント/);
+  assert.match(detailText, /獲得可能ポイント10,000ポイント/);
+  assert.match(
+    detailText,
+    /【Rakuten最強プランはじめてお申し込み特典】新規ご契約でポイントプレゼント/,
+  );
+  assert.doesNotMatch(detailText, /楽天モバイルただいまキャンペーン/);
 });
 
 test("includes zero-point device discounts and avoids double-counting", async () => {
@@ -241,7 +267,10 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   assert.match(rankingText, /Rakuten認定中古製品キャンペーン/);
   assert.doesNotMatch(rankingText, /Rakuten最強プラン紹介キャンペーン/);
 
-  const detailText = plainText(htmlFromSection(html, "detail-section"));
+  const detailHtml = htmlFromSection(html, "detail-section");
+  const detailText = plainText(detailHtml);
+  assert.equal(detailArticleCount(detailHtml), 10);
+  assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.match(
     detailText,
     /1円 \+ 0円 − 0ポイント − 0円相当 = 1円/,
@@ -249,12 +278,16 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   assert.match(detailText, /対象Android製品を最大22,000円値引き/);
   assert.match(
     detailText,
-    /算出不可（キャンペーン適用後の端末価格が確定できないため）/,
+    /算出不可の理由：キャンペーン適用後の端末価格が確定できないため/,
   );
   assert.match(
     detailText,
-    /端末価格に反映。特典額の単独換算はしません/,
+    /端末価格に反映/,
   );
+  assert.match(detailText, /25,000ポイント/);
+  assert.match(detailText, /550円\/月〜/);
+  assert.match(detailText, /おすすめなポイント/);
+  assert.match(detailText, /気になるポイント/);
 });
 
 test("keeps new-number and MNP-only device campaigns separate", async () => {
@@ -294,8 +327,14 @@ test("keeps new-number and MNP-only device campaigns separate", async () => {
   );
   assert.doesNotMatch(rankingText, /iPhone対象製品 特価キャンペーン/);
 
-  const detailText = plainText(htmlFromSection(html, "detail-section"));
-  assert.match(detailText, /キャンペーンコード 3186/);
+  const detailHtml = htmlFromSection(html, "detail-section");
+  const detailText = plainText(detailHtml);
+  assert.equal(detailArticleCount(detailHtml), 7);
+  assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
+  assert.match(
+    detailText,
+    /【ショップ限定】18歳までのスマホデビュー応援キャンペーン/,
+  );
   assert.match(
     detailText,
     /1円 \+ 0円 − 0ポイント − 0円相当 = 1円/,

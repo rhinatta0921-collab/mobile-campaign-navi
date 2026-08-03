@@ -21,6 +21,13 @@ export type CampaignBenefit = {
   description: string;
 };
 
+export type CampaignEditorial = {
+  headline: string;
+  paragraphs: string[];
+  goodPoints: string[];
+  concerns: string[];
+};
+
 export type CampaignValueItem = {
   label: string;
   description: string;
@@ -73,6 +80,7 @@ type CampaignSource = {
   campaignCode: string;
   codeType: CampaignCodeType;
   title: string;
+  editorial?: CampaignEditorial;
   summary: string;
   benefit: CampaignBenefit;
   points: {

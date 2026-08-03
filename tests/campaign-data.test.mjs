@@ -143,6 +143,47 @@ test("stores one normalized campaign per JSON file", async () => {
         true,
         `${filename}: ranking benefit type`,
       );
+
+      assert.equal(
+        typeof campaign.editorial,
+        "object",
+        `${filename}: editorial`,
+      );
+      assert.equal(
+        typeof campaign.editorial.headline,
+        "string",
+        `${filename}: editorial.headline`,
+      );
+      assert.notEqual(
+        campaign.editorial.headline.length,
+        0,
+        `${filename}: editorial.headline`,
+      );
+      for (const field of ["paragraphs", "goodPoints", "concerns"]) {
+        assert.equal(
+          Array.isArray(campaign.editorial[field]),
+          true,
+          `${filename}: editorial.${field}`,
+        );
+        assert.notEqual(
+          campaign.editorial[field].length,
+          0,
+          `${filename}: editorial.${field}`,
+        );
+        assert.equal(
+          campaign.editorial[field].every(
+            (item) => typeof item === "string" && item.length > 0,
+          ),
+          true,
+          `${filename}: editorial.${field} items`,
+        );
+      }
+      assert.equal(
+        campaign.editorial.paragraphs.length >= 2 &&
+          campaign.editorial.paragraphs.length <= 4,
+        true,
+        `${filename}: editorial.paragraphs count`,
+      );
     }
 
     assert.equal(

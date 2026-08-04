@@ -100,6 +100,15 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     text,
     /楽天モバイル申し込みキャンペーンおすすめ比較ランキング/,
   );
+  assert.match(
+    html,
+    /srcSet="\/hero-firstview-pop-mobile\.png"/,
+  );
+  assert.match(html, /media="\(max-width: 860px\)"/);
+  assert.match(html, /width="1080" height="1350"/);
+  assert.match(html, /src="\/hero-firstview-pop-desktop\.png"/);
+  assert.match(html, /width="1400" height="768"/);
+  assert.doesNotMatch(html, /src="\/hero-editorial\.png"/);
   assert.match(text, /2026年7月31日 更新/);
   assert.doesNotMatch(text, /最終確認:/);
   assert.match(text, /申込者向け固定ポイントでは、最大13,000ポイント/);

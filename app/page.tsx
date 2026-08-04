@@ -99,13 +99,21 @@ export default async function Home({ searchParams }: HomeProps) {
               </p>
             </div>
             <div className="hero-visual" aria-hidden="true">
-              <img
-                src="/hero-editorial.png"
-                alt=""
-                width="1694"
-                height="929"
-                fetchPriority="high"
-              />
+              <picture>
+                <source
+                  media="(max-width: 860px)"
+                  srcSet="/hero-firstview-pop-mobile.png"
+                  width="1080"
+                  height="1350"
+                />
+                <img
+                  src="/hero-firstview-pop-desktop.png"
+                  alt=""
+                  width="1400"
+                  height="768"
+                  fetchPriority="high"
+                />
+              </picture>
             </div>
           </section>
 

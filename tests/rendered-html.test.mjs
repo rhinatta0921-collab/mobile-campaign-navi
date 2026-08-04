@@ -96,9 +96,10 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
 
   const html = await response.text();
   const text = plainText(html);
-  assert.match(text, /楽天モバイルのお申し込み前に/);
-  assert.match(text, /楽天モバイルキャンペーンをポイント額順に比較/);
-  assert.match(html, /src="\/hero-ranking-v2\.png"/);
+  assert.match(
+    text,
+    /楽天モバイル申し込みキャンペーンおすすめ比較ランキング/,
+  );
   assert.match(text, /2026年7月31日 更新/);
   assert.doesNotMatch(text, /最終確認:/);
   assert.match(text, /申込者向け固定ポイントでは、最大13,000ポイント/);

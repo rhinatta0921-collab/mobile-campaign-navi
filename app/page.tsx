@@ -86,28 +86,35 @@ export default async function Home({ searchParams }: HomeProps) {
             aria-labelledby="page-title"
           >
             <div className="hero-copy">
-              <div className="meta-row" aria-label="ページ情報">
-                <span>広告・PR</span>
-              </div>
-              <p className="category-label">{checkedDate} 更新</p>
+              <p className="hero-eyebrow">楽天モバイルのお申し込み前に</p>
               <h1 id="page-title">
-                楽天モバイル申し込みキャンペーンおすすめ比較ランキング
+                <span className="hero-title-context">
+                  楽天モバイルキャンペーンを
+                </span>
+                <span className="hero-title-focus">ポイント額順に比較</span>
               </h1>
-              <p className="lead">
-                楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
-                このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
-              </p>
+              <div className="hero-meta" aria-label="ページ情報">
+                <span>広告・PR</span>
+                <span>{checkedDate} 更新</span>
+              </div>
             </div>
             <div className="hero-visual" aria-hidden="true">
               <img
-                src="/hero-editorial.png"
+                src="/hero-ranking-v2.png"
                 alt=""
-                width="1694"
-                height="929"
+                width="1662"
+                height="946"
                 fetchPriority="high"
               />
             </div>
           </section>
+
+          <div className="article-introduction">
+            <p>
+              楽天モバイルへの申し込みを考えていると、「どのキャンペーンが一番お得？」「併用できるキャンペーンはある？」「iPhoneやAndroidの端末割引はどれを選べばいい？」と迷う方も多いのではないでしょうか。
+              このページでは、現在開催されている楽天モバイルの申し込みキャンペーンを特典の配布ポイント額の多さで比較し、ランキング形式で紹介します。キャンペーンの開催期間や利用条件なども掲載しており、また公式ページには載っていないキャンペーンも掲載しているので、ぜひ楽天モバイルへの申し込み時にどのキャンペーンを利用してお得に楽天モバイルの利用を開始するのかの参考にしてください。
+            </p>
+          </div>
 
           <section
             className="editor-note"

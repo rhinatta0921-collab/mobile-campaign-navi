@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
-import { readdir, readFile } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
+import sharp from "sharp";
 
 const campaignDirectory = new URL("../data/campaigns/", import.meta.url);
 
@@ -26,6 +28,11 @@ test("stores one normalized campaign per JSON file", async () => {
   const coveredListingIndexes = new Set();
   let generatedCodeCount = 0;
   let rankingCampaignCount = 0;
+  const rankedOfficialUrls = new Set();
+  const rankedDesktopPaths = new Set();
+  const rankedMobilePaths = new Set();
+  const sourcePaths = new Map();
+  const checkedImageFiles = new Map();
 
   for (const filename of filenames) {
     const campaign = await readJson(filename);
@@ -130,6 +137,7 @@ test("stores one normalized campaign per JSON file", async () => {
     assert.equal(typeof campaign.rankingEligible, "boolean");
     if (campaign.rankingEligible) {
       rankingCampaignCount += 1;
+      rankedOfficialUrls.add(campaign.officialUrl);
       assert.equal(
         [
           "points",
@@ -184,6 +192,71 @@ test("stores one normalized campaign per JSON file", async () => {
         true,
         `${filename}: editorial.paragraphs count`,
       );
+
+      assert.equal(
+        typeof campaign.officialImage,
+        "object",
+        `${filename}: officialImage`,
+      );
+      assert.equal(
+        campaign.officialImage.checkedAt,
+        "2026-08-06",
+        `${filename}: officialImage.checkedAt`,
+      );
+
+      for (const [role, variant] of [
+        ["desktop", campaign.officialImage.desktop],
+        ["mobile", campaign.officialImage.mobile],
+      ]) {
+        if (role === "mobile" && variant === null) continue;
+        assert.equal(typeof variant, "object", `${filename}: ${role}`);
+        assert.match(
+          variant.path,
+          /^\/assets\/campaigns\/official\/[a-z0-9-]+\.(?:png|jpg|webp|gif|svg)$/,
+          `${filename}: ${role}.path`,
+        );
+        const sourceUrl = new URL(variant.sourceUrl);
+        assert.equal(sourceUrl.protocol, "https:", `${filename}: ${role}.sourceUrl`);
+        assert.equal(
+          sourceUrl.hostname,
+          "network.mobile.rakuten.co.jp",
+          `${filename}: ${role}.sourceUrl host`,
+        );
+        assert.equal(Number.isInteger(variant.width), true, `${filename}: ${role}.width`);
+        assert.equal(Number.isInteger(variant.height), true, `${filename}: ${role}.height`);
+        assert.equal(variant.width > 0, true, `${filename}: ${role}.width positive`);
+        assert.equal(variant.height > 0, true, `${filename}: ${role}.height positive`);
+
+        const priorPath = sourcePaths.get(variant.sourceUrl);
+        if (priorPath) {
+          assert.equal(
+            variant.path,
+            priorPath,
+            `${filename}: identical official sources must share a local file`,
+          );
+        } else {
+          sourcePaths.set(variant.sourceUrl, variant.path);
+        }
+
+        const localUrl = new URL(`../public${variant.path}`, import.meta.url);
+        const localPath = fileURLToPath(localUrl);
+        const fileStats = await stat(localPath);
+        assert.equal(fileStats.isFile(), true, `${filename}: ${role} file`);
+        assert.equal(fileStats.size > 0, true, `${filename}: ${role} non-empty`);
+
+        let metadata = checkedImageFiles.get(localPath);
+        if (!metadata) {
+          metadata = await sharp(localPath).metadata();
+          checkedImageFiles.set(localPath, metadata);
+        }
+        assert.equal(metadata.width, variant.width, `${filename}: ${role}.width metadata`);
+        assert.equal(metadata.height, variant.height, `${filename}: ${role}.height metadata`);
+      }
+
+      rankedDesktopPaths.add(campaign.officialImage.desktop.path);
+      if (campaign.officialImage.mobile) {
+        rankedMobilePaths.add(campaign.officialImage.mobile.path);
+      }
     }
 
     assert.equal(
@@ -208,6 +281,9 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(campaignCodes.size, index.campaignCount);
   assert.equal(generatedCodeCount, 12);
   assert.equal(rankingCampaignCount, 32);
+  assert.equal(rankedOfficialUrls.size, 28);
+  assert.equal(rankedDesktopPaths.size, 28);
+  assert.equal(rankedMobilePaths.size, 22);
   assert.deepEqual(
     [...coveredListingIndexes].sort((a, b) => a - b),
     Array.from(

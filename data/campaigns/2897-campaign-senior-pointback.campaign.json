@@ -47,6 +47,21 @@
   "audience": "applicant",
   "period": "2025年6月17日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/senior-pointback/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2897-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/senior-pointback/kv-pc-251024.png",
+      "width": 4000,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2897-mobile.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/senior-pointback/kv-sp-251024.png",
+      "width": 750,
+      "height": 660
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

@@ -46,6 +46,21 @@
   "audience": "member",
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-extra-sim/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2331-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-extra-sim/hero-pc-240603.png",
+      "width": 2064,
+      "height": 563
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2331-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-extra-sim/hero-sp-240603.png",
+      "width": 750,
+      "height": 480
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

@@ -42,6 +42,21 @@
   "audience": "both",
   "period": "2026年6月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/3288-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-pc-260728.png",
+      "width": 4000,
+      "height": 840
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/3288-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260728.png",
+      "width": 750,
+      "height": 1000
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

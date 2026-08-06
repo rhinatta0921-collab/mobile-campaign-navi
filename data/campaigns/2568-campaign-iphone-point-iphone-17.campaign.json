@@ -44,6 +44,21 @@
   "audience": "applicant",
   "period": "2024年11月21日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-17/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2568-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/iphone-point-iphone-17/kv-pc-260617.png",
+      "width": 4000,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2568-mobile.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/iphone-point-iphone-17/kv-sp-260617.png",
+      "width": 750,
+      "height": 920
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

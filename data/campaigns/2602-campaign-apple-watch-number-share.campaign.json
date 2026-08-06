@@ -48,6 +48,21 @@
   "audience": "both",
   "period": "2025年1月27日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/apple-watch-number-share/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2602-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/apple-watch-number-share/kv-pc-260803.png",
+      "width": 4000,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2602-mobile.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/apple-watch-number-share/kv-sp-260803.png",
+      "width": 750,
+      "height": 920
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

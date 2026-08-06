@@ -42,6 +42,21 @@
   "audience": "applicant",
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-platinum/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/1875-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/product/internet/rakuten-wifi-pocket-platinum/kv-pc-260715.png",
+      "width": 4000,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/1875-mobile.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/product/internet/rakuten-wifi-pocket-platinum/kv-sp-260715.png",
+      "width": 750,
+      "height": 480
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

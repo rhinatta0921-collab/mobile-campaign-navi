@@ -5,6 +5,7 @@ import {
   type ApplicationType,
   type Campaign,
 } from "@/data/campaigns";
+import { CampaignOfficialImage } from "./CampaignOfficialImage";
 
 type CampaignRankingProps = {
   applicationType: ApplicationType;
@@ -65,7 +66,11 @@ function RankingRange({
               return (
                 <tr key={campaign.campaignCode}>
                   <td className="rank-cell">{rank}位</td>
-                  <td>
+                  <td className="campaign-column">
+                    <CampaignOfficialImage
+                      campaign={campaign}
+                      className="ranking-campaign-picture"
+                    />
                     <strong>{campaign.title}</strong>
                     <span>{campaign.period}</span>
                   </td>
@@ -103,14 +108,22 @@ function RankingRange({
               className="mobile-ranking-card"
               key={`mobile-${campaign.campaignCode}`}
             >
-              <div className="mobile-ranking-head">
-                <span className="mobile-rank-badge">{rank}位</span>
-                <p className="mobile-points">
-                  <strong>{formatPoints(points)}</strong>
-                  ポイント
-                </p>
+              <div className="mobile-ranking-summary">
+                <CampaignOfficialImage
+                  campaign={campaign}
+                  className="mobile-ranking-picture"
+                />
+                <div className="mobile-ranking-summary-copy">
+                  <div className="mobile-ranking-head">
+                    <span className="mobile-rank-badge">{rank}位</span>
+                    <p className="mobile-points">
+                      <strong>{formatPoints(points)}</strong>
+                      ポイント
+                    </p>
+                  </div>
+                  <h3>{campaign.title}</h3>
+                </div>
               </div>
-              <h3>{campaign.title}</h3>
               <p className="mobile-ranking-target">{campaign.target}</p>
               <div className="mobile-condition-list">
                 {campaign.conditions.slice(0, 3).map((condition) => (

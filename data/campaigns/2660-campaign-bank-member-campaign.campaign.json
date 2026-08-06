@@ -47,6 +47,21 @@
   "audience": "applicant",
   "period": "常時開催",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/bank-member-campaign/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2660-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/bank-member-campaign/img-heading-pc_260601.png",
+      "width": 2128,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2660-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/bank-member-campaign/img-heading-sp_260601.png",
+      "width": 750,
+      "height": 660
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

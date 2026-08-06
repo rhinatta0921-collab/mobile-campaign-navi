@@ -47,6 +47,21 @@
   "audience": "applicant",
   "period": "常時開催",
   "officialUrl": "https://network.mobile.rakuten.co.jp/guide/application/card-campaign/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/1238-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/guide/application/card-bank/kv-pc-11000-20260126.png",
+      "width": 2880,
+      "height": 500
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/1238-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/guide/application/card-bank/kv-sp-11000-20260126.png",
+      "width": 750,
+      "height": 336
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

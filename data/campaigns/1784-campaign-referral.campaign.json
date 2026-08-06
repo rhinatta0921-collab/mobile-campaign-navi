@@ -47,6 +47,21 @@
   "audience": "applicant",
   "period": "2023年2月15日 7:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/1784-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/referral/img-kv-pc-260128.png",
+      "width": 2880,
+      "height": 800
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/1784-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/referral/img-kv-sp-260128.png",
+      "width": 750,
+      "height": 822
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

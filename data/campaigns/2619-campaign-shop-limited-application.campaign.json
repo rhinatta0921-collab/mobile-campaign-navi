@@ -47,6 +47,21 @@
   "audience": "applicant",
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-limited-application",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2619-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-limited-application/kv-pc-250912.png",
+      "width": 4000,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2619-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-limited-application/kv-sp-250912.png",
+      "width": 750,
+      "height": 920
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

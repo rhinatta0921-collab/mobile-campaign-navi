@@ -41,6 +41,16 @@
   "audience": "both",
   "period": "2025年9月25日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/anshin-control/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2833-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-anshin-control-328-185-250925.png",
+      "width": 656,
+      "height": 370
+    },
+    "mobile": null,
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

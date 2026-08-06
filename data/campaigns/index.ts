@@ -76,6 +76,19 @@ export type CampaignSourceCard = {
   url: string;
 };
 
+export type CampaignImageVariant = {
+  path: string;
+  sourceUrl: string;
+  width: number;
+  height: number;
+};
+
+export type CampaignOfficialImage = {
+  desktop: CampaignImageVariant;
+  mobile: CampaignImageVariant | null;
+  checkedAt: string;
+};
+
 type CampaignSource = {
   campaignCode: string;
   codeType: CampaignCodeType;
@@ -98,6 +111,7 @@ type CampaignSource = {
   audience: CampaignAudience;
   period: string;
   officialUrl: string;
+  officialImage?: CampaignOfficialImage;
   listingUrl: string;
   checkedAt: string;
   notes: string[];

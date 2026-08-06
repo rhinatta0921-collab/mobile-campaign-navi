@@ -506,6 +506,34 @@ h1 {
   display: block;
 }
 
+.campaign-column {
+  width: 260px;
+}
+
+.official-campaign-picture {
+  display: block;
+  overflow: hidden;
+  background: #fff;
+}
+
+.official-campaign-picture img {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+}
+
+.ranking-campaign-picture {
+  width: 168px;
+  max-width: 100%;
+  height: 96px;
+  margin-bottom: 9px;
+  border: 1px solid var(--line-light);
+}
+
+.ranking-campaign-picture img {
+  height: 100%;
+}
+
 .comparison-table td strong {
   color: var(--ink);
   line-height: 1.5;
@@ -667,6 +695,33 @@ h1 {
   font-size: clamp(1.2rem, 2vw, 1.52rem);
   line-height: 1.55;
   font-weight: 900;
+}
+
+.campaign-official-figure {
+  margin: 0 0 26px;
+}
+
+.campaign-detail-picture {
+  width: 100%;
+  border: 1px solid var(--line-light);
+}
+
+.campaign-detail-picture img {
+  height: auto;
+}
+
+.campaign-official-figure figcaption {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.campaign-official-figure figcaption a {
+  color: inherit;
+  text-underline-offset: 3px;
 }
 
 .campaign-score {
@@ -1060,23 +1115,143 @@ h1 {
   }
 
   .table-scroll {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .mobile-ranking-list {
     display: none;
   }
 
-  .comparison-table {
-    min-width: 940px;
+  .mobile-ranking-list {
+    display: block;
+    border-top: 1px solid var(--line);
+    background: #fff;
   }
 
-  .comparison-table th,
-  .comparison-table td {
-    padding: 11px 10px;
+  .mobile-ranking-card {
+    padding: 18px 0 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-ranking-summary {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .mobile-ranking-picture {
+    width: 112px;
+    height: 84px;
+    border: 1px solid var(--line-light);
+  }
+
+  .mobile-ranking-picture img {
+    height: 100%;
+  }
+
+  .mobile-ranking-summary-copy {
+    min-width: 0;
+  }
+
+  .mobile-ranking-head {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+  }
+
+  .mobile-rank-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 3px 9px;
+    background: #c69c3b;
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .mobile-points {
+    display: flex;
+    gap: 3px;
+    align-items: baseline;
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .mobile-points strong {
+    font-size: 1.07rem;
+  }
+
+  .mobile-ranking-summary h3 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 900;
+    line-height: 1.5;
+  }
+
+  .mobile-ranking-target {
+    margin: 13px 0 0;
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.65;
+  }
+
+  .mobile-condition-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .mobile-condition-list span {
+    padding: 3px 7px;
+    border: 1px solid #ddc9d1;
+    background: #fff8fa;
+    color: #6f2341;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .mobile-ranking-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 14px 0 0;
+    border-top: 1px solid var(--line-light);
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .mobile-ranking-meta div {
+    padding: 9px 8px;
+  }
+
+  .mobile-ranking-meta div + div {
+    border-left: 1px solid var(--line-light);
+  }
+
+  .mobile-ranking-meta dt {
+    margin-bottom: 3px;
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 900;
+  }
+
+  .mobile-ranking-meta dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.73rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .mobile-official-link {
+    width: 100%;
+    margin-top: 12px;
   }
 
   .campaign-detail-article {
@@ -1085,6 +1260,14 @@ h1 {
 
   .campaign-detail-header {
     margin-bottom: 18px;
+  }
+
+  .campaign-official-figure {
+    margin-bottom: 20px;
+  }
+
+  .campaign-official-figure figcaption {
+    text-align: left;
   }
 
   .campaign-recommendation {

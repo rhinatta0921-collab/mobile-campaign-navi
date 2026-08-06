@@ -41,6 +41,16 @@
   "audience": "both",
   "period": "2026年6月17日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/whoscall/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/3329-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-whoscall-328-185-260617.png",
+      "width": 656,
+      "height": 370
+    },
+    "mobile": null,
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

@@ -42,6 +42,21 @@
   "audience": "applicant",
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/heyduggee/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/3351-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/heyduggee/img-heading-pc.png",
+      "width": 2056,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/3351-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/heyduggee/img-heading-sp.png",
+      "width": 750,
+      "height": 1020
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

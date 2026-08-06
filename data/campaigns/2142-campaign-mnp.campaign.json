@@ -46,6 +46,21 @@
   "audience": "applicant",
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/mnp/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2091-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/mnp/kv-pc-251205.png",
+      "width": 2064,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2091-mobile.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/mnp/kv-sp-251201.png",
+      "width": 750,
+      "height": 660
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

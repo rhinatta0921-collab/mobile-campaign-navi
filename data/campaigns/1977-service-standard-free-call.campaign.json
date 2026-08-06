@@ -41,6 +41,21 @@
   "audience": "both",
   "period": "2023年9月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/standard-free-call/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/1977-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/service/standard-free-call/kv-pc.png",
+      "width": 4000,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/1977-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/service/standard-free-call/kv-sp.png",
+      "width": 750,
+      "height": 660
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

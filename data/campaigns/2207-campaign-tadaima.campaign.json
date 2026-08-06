@@ -45,6 +45,21 @@
   "audience": "applicant",
   "period": "2026年3月2日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/tadaima/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2207-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/tadaima/img-heading-pc_260310.png",
+      "width": 2128,
+      "height": 600
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2207-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/tadaima/img-heading-sp_260310.png",
+      "width": 750,
+      "height": 486
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

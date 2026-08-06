@@ -6,6 +6,10 @@ import {
   type Campaign,
   type CampaignEditorial,
 } from "@/data/campaigns";
+import {
+  CampaignOfficialImage,
+  requireOfficialImage,
+} from "./CampaignOfficialImage";
 
 type CampaignDetailsProps = {
   applicationType: ApplicationType;
@@ -29,6 +33,11 @@ function formatPoints(points: number) {
 
 function formatYen(amount: number) {
   return `${amount.toLocaleString("ja-JP")}円`;
+}
+
+function formatJapaneseDate(date: string) {
+  const [year, month, day] = date.split("-").map(Number);
+  return `${year}年${month}月${day}日`;
 }
 
 function requireEditorial(campaign: Campaign): CampaignEditorial {
@@ -189,6 +198,7 @@ export function CampaignDetails({
     <div className="detail-list">
       {rankedCampaigns.map((campaign, index) => {
         const editorial = requireEditorial(campaign);
+        const officialImage = requireOfficialImage(campaign);
         const points = getRankingPoints(campaign, applicationType);
         const pointBreakdown = campaign.breakdown[applicationType] ?? [];
         const valueResult = calculateCampaignValue(campaign, applicationType);
@@ -225,6 +235,25 @@ export function CampaignDetails({
               </div>
               <h3 id={articleTitleId}>{campaign.title}</h3>
             </header>
+
+            <figure className="campaign-official-figure">
+              <CampaignOfficialImage
+                campaign={campaign}
+                className="campaign-detail-picture"
+              />
+              <figcaption>
+                画像：
+                <a
+                  href={campaign.officialUrl}
+                  rel="sponsored noopener noreferrer"
+                  target="_blank"
+                  aria-label={`${campaign.title}の画像出典：楽天モバイル公式ページ`}
+                >
+                  楽天モバイル公式ページ
+                </a>
+                （{formatJapaneseDate(officialImage.checkedAt)}確認）
+              </figcaption>
+            </figure>
 
             <section
               className="campaign-score"

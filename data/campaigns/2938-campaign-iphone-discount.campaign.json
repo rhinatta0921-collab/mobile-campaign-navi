@@ -43,6 +43,21 @@
   "audience": "applicant",
   "period": "2025年9月8日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/",
+  "officialImage": {
+    "desktop": {
+      "path": "/assets/campaigns/official/2938-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/iphone-discount/kv-21000-pc.png",
+      "width": 4000,
+      "height": 112
+    },
+    "mobile": {
+      "path": "/assets/campaigns/official/2938-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/iphone-discount/kv-21000-sp.png",
+      "width": 750,
+      "height": 192
+    },
+    "checkedAt": "2026-08-06"
+  },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "notes": [

@@ -59,6 +59,12 @@
       "width": 750,
       "height": 1000
     },
+    "detail": {
+      "path": "/assets/campaigns/official/3288-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260728.png",
+      "width": 750,
+      "height": 1000
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

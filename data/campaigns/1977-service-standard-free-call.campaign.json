@@ -54,6 +54,12 @@
       "width": 750,
       "height": 660
     },
+    "detail": {
+      "path": "/assets/campaigns/official/1977-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/service/standard-free-call/kv-sp.png",
+      "width": 750,
+      "height": 660
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

@@ -86,6 +86,7 @@ export type CampaignImageVariant = {
 export type CampaignOfficialImage = {
   desktop: CampaignImageVariant;
   mobile: CampaignImageVariant | null;
+  detail: CampaignImageVariant;
   checkedAt: string;
 };
 

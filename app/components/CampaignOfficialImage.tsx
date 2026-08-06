@@ -3,6 +3,7 @@ import type { Campaign, CampaignOfficialImage as OfficialImageData } from "@/dat
 type CampaignOfficialImageProps = {
   campaign: Campaign;
   className: string;
+  variant?: "responsive" | "detail";
 };
 
 export function requireOfficialImage(
@@ -20,15 +21,17 @@ export function requireOfficialImage(
 export function CampaignOfficialImage({
   campaign,
   className,
+  variant = "responsive",
 }: CampaignOfficialImageProps) {
   const image = requireOfficialImage(campaign);
+  const primaryImage = variant === "detail" ? image.detail : image.desktop;
 
   return (
     <picture
       className={`official-campaign-picture ${className}`}
       data-campaign-code={campaign.campaignCode}
     >
-      {image.mobile ? (
+      {variant === "responsive" && image.mobile ? (
         <source
           media="(max-width: 860px)"
           srcSet={image.mobile.path}
@@ -37,9 +40,9 @@ export function CampaignOfficialImage({
         />
       ) : null}
       <img
-        src={image.desktop.path}
-        width={image.desktop.width}
-        height={image.desktop.height}
+        src={primaryImage.path}
+        width={primaryImage.width}
+        height={primaryImage.height}
         alt=""
         loading="lazy"
         decoding="async"

@@ -59,6 +59,12 @@
       "width": 750,
       "height": 480
     },
+    "detail": {
+      "path": "/assets/campaigns/official/2331-mobile.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-extra-sim/hero-sp-240603.png",
+      "width": 750,
+      "height": 480
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

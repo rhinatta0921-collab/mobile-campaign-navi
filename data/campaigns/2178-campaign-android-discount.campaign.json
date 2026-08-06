@@ -55,6 +55,12 @@
       "width": 750,
       "height": 660
     },
+    "detail": {
+      "path": "/assets/campaigns/official/2178-mobile.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/android-discount/kv-sp-260724.png",
+      "width": 750,
+      "height": 660
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

@@ -35,6 +35,13 @@ const forceListingImagePaths = new Set([
   "/service/whoscall/",
 ]);
 
+// Their SP key visuals remain unusually wide, so the campaign-listing artwork
+// is the more square, legible source for the editorial detail view.
+const preferListingForDetailPaths = new Set([
+  "/campaign/iphone-discount/",
+  "/guide/application/card-campaign/",
+]);
+
 function decodeHtml(value) {
   return value
     .replaceAll("&amp;", "&")
@@ -160,12 +167,25 @@ function extractListingImages(html) {
   for (const match of html.matchAll(
     /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi,
   )) {
-    const image = firstAttribute(match[2], [
-      "data-srcset",
-      "srcset",
-      "data-src",
-      "src",
-    ]);
+    const image = [...match[2].matchAll(/<img\b[^>]*>/gi)]
+      .map((imageMatch) =>
+        firstAttribute(imageMatch[0], [
+          "data-srcset",
+          "srcset",
+          "data-src",
+          "src",
+        ]),
+      )
+      .find((candidate) => {
+        if (!candidate) return false;
+        try {
+          return new URL(candidate, LISTING_URL).pathname.startsWith(
+            "/assets/img/banner/campaign/",
+          );
+        } catch {
+          return false;
+        }
+      });
     if (!image) continue;
 
     try {
@@ -318,7 +338,21 @@ async function main() {
     if (!selected) {
       throw new Error(`${officialUrl}: no campaign-specific official image found`);
     }
-    pageSelections.set(officialUrl, selected);
+
+    const listingImage = listingImages.get(pathname) ?? null;
+    const detailImage = preferListingForDetailPaths.has(pathname)
+      ? listingImage
+      : selected.mobile ?? listingImage ?? selected.desktop;
+    if (!detailImage) {
+      throw new Error(`${officialUrl}: no official detail image found`);
+    }
+
+    pageSelections.set(officialUrl, {
+      ...selected,
+      detail: detailImage,
+      detailSource:
+        detailImage === selected.mobile ? "mobile KV" : "campaign listing image",
+    });
   }
 
   if (SHOULD_WRITE) await mkdir(IMAGE_DIRECTORY, { recursive: true });
@@ -347,16 +381,18 @@ async function main() {
 
     const desktop = await localize(selected.desktop, "desktop");
     const mobile = await localize(selected.mobile, "mobile");
+    const detail = await localize(selected.detail, "detail");
     imageDataByPage.set(officialUrl, {
       desktop,
       mobile,
+      detail,
       checkedAt: IMAGE_CHECKED_AT,
     });
 
     process.stdout.write(
       `${campaignCodes.join(",")}\t${selected.source}\t${desktop.sourceUrl}${
         mobile ? `\t${mobile.sourceUrl}` : ""
-      }\n`,
+      }\tdetail: ${selected.detailSource} ${detail.sourceUrl}\n`,
     );
   }
 
@@ -376,8 +412,11 @@ async function main() {
   const responsiveCount = [...imageDataByPage.values()].filter(
     ({ mobile }) => mobile !== null,
   ).length;
+  const detailMobileCount = [...pageSelections.values()].filter(
+    ({ detail, mobile }) => detail === mobile,
+  ).length;
   process.stdout.write(
-    `\n${SHOULD_WRITE ? "Saved" : "Previewed"} ${rankedCampaigns.length} campaigns across ${groupedByPage.size} official pages (${responsiveCount} responsive image pairs, ${groupedByPage.size - responsiveCount} single images).\n`,
+    `\n${SHOULD_WRITE ? "Saved" : "Previewed"} ${rankedCampaigns.length} campaigns across ${groupedByPage.size} official pages (${responsiveCount} responsive image pairs, ${groupedByPage.size - responsiveCount} single images; detail: ${detailMobileCount} mobile KVs and ${groupedByPage.size - detailMobileCount} listing images).\n`,
   );
 }
 

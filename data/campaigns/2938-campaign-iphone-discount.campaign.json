@@ -56,6 +56,12 @@
       "width": 750,
       "height": 192
     },
+    "detail": {
+      "path": "/assets/campaigns/official/2938-detail.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-iphone-discount-328-185-260327.png",
+      "width": 656,
+      "height": 370
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

@@ -49,6 +49,12 @@
       "height": 370
     },
     "mobile": null,
+    "detail": {
+      "path": "/assets/campaigns/official/2834-desktop.png",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-call-waiting-328-185-260316.png",
+      "width": 656,
+      "height": 370
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

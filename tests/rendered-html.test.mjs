@@ -173,9 +173,17 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.equal(detailArticleCount(detailHtml), 20);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 20);
   assert.equal(classCount(detailHtml, "campaign-detail-picture"), 20);
+  assert.doesNotMatch(
+    detailHtml,
+    /<picture class="official-campaign-picture campaign-detail-picture"[^>]*>\s*<source/,
+  );
   assert.match(
     detailHtml,
-    /<source media="\(max-width: 860px\)" srcSet="\/assets\/campaigns\/official\/[^"]+"/,
+    /data-campaign-code="1784"><img src="\/assets\/campaigns\/official\/1784-mobile\.png"/,
+  );
+  assert.match(
+    detailHtml,
+    /data-campaign-code="1238"><img src="\/assets\/campaigns\/official\/1238-detail\.(?:png|jpg)"/,
   );
   assert.match(
     detailText,
@@ -306,6 +314,10 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 10);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 10);
+  assert.match(
+    detailHtml,
+    /data-campaign-code="2938"><img src="\/assets\/campaigns\/official\/2938-detail\.(?:png|jpg)"/,
+  );
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.match(
     detailText,
@@ -394,5 +406,21 @@ test("uses mobile ranking cards instead of the wide table at 860px and below", a
   assert.match(
     css,
     /\.ranking-campaign-picture\s*{[\s\S]*?width: 168px;[\s\S]*?height: 96px;/,
+  );
+  assert.match(
+    css,
+    /\.campaign-official-figure\s*{[\s\S]*?width: 320px;[\s\S]*?max-width: 100%;/,
+  );
+  assert.match(
+    css,
+    /\.campaign-detail-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,
+  );
+  assert.match(
+    css,
+    /\.official-campaign-picture img\s*{[\s\S]*?object-fit: contain;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.campaign-official-figure\s*{[\s\S]*?width: 100%;/,
   );
 });

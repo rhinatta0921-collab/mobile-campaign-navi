@@ -31,6 +31,8 @@ test("stores one normalized campaign per JSON file", async () => {
   const rankedOfficialUrls = new Set();
   const rankedDesktopPaths = new Set();
   const rankedMobilePaths = new Set();
+  const rankedDetailPaths = new Set();
+  const rankedImagesByOfficialUrl = new Map();
   const sourcePaths = new Map();
   const checkedImageFiles = new Map();
 
@@ -207,6 +209,7 @@ test("stores one normalized campaign per JSON file", async () => {
       for (const [role, variant] of [
         ["desktop", campaign.officialImage.desktop],
         ["mobile", campaign.officialImage.mobile],
+        ["detail", campaign.officialImage.detail],
       ]) {
         if (role === "mobile" && variant === null) continue;
         assert.equal(typeof variant, "object", `${filename}: ${role}`);
@@ -254,8 +257,15 @@ test("stores one normalized campaign per JSON file", async () => {
       }
 
       rankedDesktopPaths.add(campaign.officialImage.desktop.path);
+      rankedDetailPaths.add(campaign.officialImage.detail.path);
       if (campaign.officialImage.mobile) {
         rankedMobilePaths.add(campaign.officialImage.mobile.path);
+      }
+      if (!rankedImagesByOfficialUrl.has(campaign.officialUrl)) {
+        rankedImagesByOfficialUrl.set(
+          campaign.officialUrl,
+          campaign.officialImage,
+        );
       }
     }
 
@@ -284,6 +294,24 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(rankedOfficialUrls.size, 28);
   assert.equal(rankedDesktopPaths.size, 28);
   assert.equal(rankedMobilePaths.size, 22);
+  assert.equal(rankedDetailPaths.size, 28);
+  const uniqueOfficialImages = [...rankedImagesByOfficialUrl.values()];
+  assert.equal(
+    uniqueOfficialImages.filter(
+      (image) =>
+        image.mobile !== null &&
+        image.detail.sourceUrl === image.mobile.sourceUrl,
+    ).length,
+    20,
+  );
+  assert.equal(
+    uniqueOfficialImages.filter((image) =>
+      new URL(image.detail.sourceUrl).pathname.startsWith(
+        "/assets/img/banner/campaign/",
+      ),
+    ).length,
+    8,
+  );
   assert.deepEqual(
     [...coveredListingIndexes].sort((a, b) => a - b),
     Array.from(
@@ -299,6 +327,22 @@ test("stores one normalized campaign per JSON file", async () => {
     iphoneSpecialPrice.sourceCards.map((card) => card.listingIndex),
     [3, 6, 12],
   );
+  assert.match(
+    iphoneSpecialPrice.officialImage.detail.sourceUrl,
+    /\/assets\/img\/banner\/campaign\/bnr-iphone-discount-/,
+  );
+  assert.notEqual(
+    iphoneSpecialPrice.officialImage.detail.sourceUrl,
+    iphoneSpecialPrice.officialImage.mobile.sourceUrl,
+  );
+
+  const cardCampaign = await readJson(
+    "1238-application-card-campaign.campaign.json",
+  );
+  assert.match(
+    cardCampaign.officialImage.detail.sourceUrl,
+    /\/assets\/img\/banner\/campaign\/bnr-card-campaign-/,
+  );
 
   const referral = await readJson(
     "1784-campaign-referral.campaign.json",
@@ -306,6 +350,10 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(referral.points.mnp, 13_000);
   assert.equal(referral.points.newNumber, 10_000);
   assert.match(referral.notes.join(" "), /紹介者の7,000ポイントは除外/);
+  assert.equal(
+    referral.officialImage.detail.sourceUrl,
+    referral.officialImage.mobile.sourceUrl,
+  );
 
   const freeCall = await readJson(
     "1977-service-standard-free-call.campaign.json",

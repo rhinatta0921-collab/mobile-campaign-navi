@@ -698,16 +698,18 @@ h1 {
 }
 
 .campaign-official-figure {
+  width: 320px;
+  max-width: 100%;
   margin: 0 0 26px;
 }
 
 .campaign-detail-picture {
   width: 100%;
-  border: 1px solid var(--line-light);
+  aspect-ratio: 1 / 1;
 }
 
 .campaign-detail-picture img {
-  height: auto;
+  height: 100%;
 }
 
 .campaign-official-figure figcaption {
@@ -716,7 +718,7 @@ h1 {
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.5;
-  text-align: right;
+  text-align: left;
 }
 
 .campaign-official-figure figcaption a {
@@ -1263,11 +1265,8 @@ h1 {
   }
 
   .campaign-official-figure {
+    width: 100%;
     margin-bottom: 20px;
-  }
-
-  .campaign-official-figure figcaption {
-    text-align: left;
   }
 
   .campaign-recommendation {

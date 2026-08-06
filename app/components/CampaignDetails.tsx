@@ -240,6 +240,7 @@ export function CampaignDetails({
               <CampaignOfficialImage
                 campaign={campaign}
                 className="campaign-detail-picture"
+                variant="detail"
               />
               <figcaption>
                 画像：

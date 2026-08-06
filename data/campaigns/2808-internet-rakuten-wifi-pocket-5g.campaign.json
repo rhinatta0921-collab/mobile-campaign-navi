@@ -50,6 +50,12 @@
       "height": 370
     },
     "mobile": null,
+    "detail": {
+      "path": "/assets/campaigns/official/2808-desktop.jpg",
+      "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-wifi-pocket-5g-328-185-260805.png",
+      "width": 656,
+      "height": 370
+    },
     "checkedAt": "2026-08-06"
   },
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",

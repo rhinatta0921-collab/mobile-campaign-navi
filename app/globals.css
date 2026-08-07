@@ -383,6 +383,37 @@ h1 {
   background: var(--gold-soft);
 }
 
+.winner-campaign-figure {
+  grid-column: 1 / -1;
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.winner-campaign-picture {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line-light);
+}
+
+.winner-campaign-picture img {
+  height: 100%;
+}
+
+.winner-campaign-figure figcaption {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.winner-campaign-figure figcaption a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
 .winner-rank {
   display: grid;
   place-items: center;

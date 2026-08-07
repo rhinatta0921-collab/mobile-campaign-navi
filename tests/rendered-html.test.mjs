@@ -128,6 +128,23 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.doesNotMatch(text, /最終確認:/);
   assert.match(text, /申込者向け固定ポイントでは、最大13,000ポイント/);
 
+  const conclusionHtml = sectionHtml(html, "conclusion");
+  assert.ok(conclusionHtml);
+  const conclusionText = plainText(conclusionHtml);
+  assert.equal(classCount(conclusionHtml, "winner-campaign-picture"), 1);
+  assert.doesNotMatch(conclusionHtml, /<source\b/);
+  assert.match(
+    conclusionHtml,
+    /data-campaign-code="1784"><img src="\/assets\/campaigns\/official\/1784-mobile\.png"/,
+  );
+  assert.match(conclusionText, /1位/);
+  assert.match(conclusionText, /13,000ポイント/);
+  assert.match(
+    conclusionText,
+    /画像：楽天モバイル公式ページ（2026年8月6日確認）/,
+  );
+  assert.match(conclusionText, /公式ページで確認/);
+
   const rankingHtml = sectionHtml(html, "ranking-section");
   assert.ok(rankingHtml);
   const rankingText = plainText(rankingHtml);
@@ -450,6 +467,14 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.match(
     css,
     /\.campaign-official-figure\s*{[\s\S]*?width: 320px;[\s\S]*?max-width: 100%;/,
+  );
+  assert.match(
+    css,
+    /\.winner-campaign-figure\s*{[\s\S]*?width: 320px;[\s\S]*?max-width: 100%;/,
+  );
+  assert.match(
+    css,
+    /\.winner-campaign-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,
   );
   assert.match(
     css,

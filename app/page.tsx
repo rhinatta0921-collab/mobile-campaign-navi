@@ -1,4 +1,8 @@
 import { CampaignDetails } from "@/app/components/CampaignDetails";
+import {
+  CampaignOfficialImage,
+  requireOfficialImage,
+} from "@/app/components/CampaignOfficialImage";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
 import {
   campaignDataMeta,
@@ -51,6 +55,11 @@ function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
 
+function formatJapaneseDate(date: string) {
+  const [year, month, day] = date.split("-").map(Number);
+  return `${year}年${month}月${day}日`;
+}
+
 function resolveApplicationType(
   application: string | string[] | undefined,
 ): ApplicationType {
@@ -63,6 +72,9 @@ export default async function Home({ searchParams }: HomeProps) {
   const topCampaign = mnpRankedCampaigns[0];
   const topPoints = topCampaign
     ? getCampaignPoints(topCampaign, "mnp")
+    : null;
+  const topCampaignOfficialImage = topCampaign
+    ? requireOfficialImage(topCampaign)
     : null;
 
   return (
@@ -215,8 +227,29 @@ export default async function Home({ searchParams }: HomeProps) {
               端末購入なしの申込者向け固定ポイントでは、最大
               {formatPoints(topPoints ?? 0)}ポイントが最上位
             </h2>
-            {topCampaign ? (
+            {topCampaign && topCampaignOfficialImage ? (
               <div className="winner-box">
+                <figure className="winner-campaign-figure">
+                  <CampaignOfficialImage
+                    campaign={topCampaign}
+                    className="winner-campaign-picture"
+                    variant="detail"
+                  />
+                  <figcaption>
+                    画像：
+                    <a
+                      href={topCampaign.officialUrl}
+                      rel="sponsored noopener noreferrer"
+                      target="_blank"
+                      aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
+                    >
+                      楽天モバイル公式ページ
+                    </a>
+                    （
+                    {formatJapaneseDate(topCampaignOfficialImage.checkedAt)}
+                    確認）
+                  </figcaption>
+                </figure>
                 <div className="winner-rank">
                   <img src="/assets/crown.svg" alt="" aria-hidden="true" />
                   <span>1位</span>

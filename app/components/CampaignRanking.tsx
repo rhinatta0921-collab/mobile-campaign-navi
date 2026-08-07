@@ -15,12 +15,12 @@ type CampaignRankingProps = {
 };
 
 const comparisonColumns = [
-  "順位",
   "キャンペーン",
-  "申込者ポイント",
+  "画像",
+  "獲得ポイント",
   "おすすめ対象",
   "主な追加条件",
-  "申込方法",
+  "開催期間",
   "公式",
 ];
 
@@ -46,113 +46,63 @@ function RankingRange({
   tableClassName,
 }: RankingRangeProps) {
   return (
-    <>
-      <div className="table-scroll" tabIndex={0} aria-label={label}>
-        <table className={`comparison-table ${tableClassName}`}>
-          <thead>
-            <tr>
-              {comparisonColumns.map((column) => (
-                <th key={column} scope="col">
-                  {column}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {campaigns.map((campaign, index) => {
-              const rank = startIndex + index + 1;
-              const points = getRankingPoints(campaign, applicationType);
+    <div className="table-scroll" tabIndex={0} aria-label={label}>
+      <table className={`comparison-table ${tableClassName}`}>
+        <thead>
+          <tr>
+            {comparisonColumns.map((column) => (
+              <th key={column} scope="col">
+                {column}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {campaigns.map((campaign, index) => {
+            const rank = startIndex + index + 1;
+            const points = getRankingPoints(campaign, applicationType);
+            const rankTone = rank <= 3 ? rank : "standard";
 
-              return (
-                <tr key={campaign.campaignCode}>
-                  <td className="rank-cell">{rank}位</td>
-                  <td className="campaign-column">
-                    <CampaignOfficialImage
-                      campaign={campaign}
-                      className="ranking-campaign-picture"
-                    />
-                    <strong>{campaign.title}</strong>
-                    <span>{campaign.period}</span>
-                  </td>
-                  <td className="points-cell">
-                    {formatPoints(points)}
-                    <span>ポイント</span>
-                  </td>
-                  <td>{campaign.target}</td>
-                  <td>{campaign.conditions.slice(0, 3).join(" / ")}</td>
-                  <td>{campaign.channel}</td>
-                  <td>
-                    <a
-                      className="table-link"
-                      href={campaign.officialUrl}
-                      rel="sponsored noopener noreferrer"
-                      target="_blank"
-                    >
-                      公式
-                    </a>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="mobile-ranking-list" aria-label={label}>
-        {campaigns.map((campaign, index) => {
-          const rank = startIndex + index + 1;
-          const points = getRankingPoints(campaign, applicationType);
-
-          return (
-            <article
-              className="mobile-ranking-card"
-              key={`mobile-${campaign.campaignCode}`}
-            >
-              <div className="mobile-ranking-summary">
-                <CampaignOfficialImage
-                  campaign={campaign}
-                  className="mobile-ranking-picture"
-                />
-                <div className="mobile-ranking-summary-copy">
-                  <div className="mobile-ranking-head">
-                    <span className="mobile-rank-badge">{rank}位</span>
-                    <p className="mobile-points">
-                      <strong>{formatPoints(points)}</strong>
-                      ポイント
-                    </p>
-                  </div>
-                  <h3>{campaign.title}</h3>
-                </div>
-              </div>
-              <p className="mobile-ranking-target">{campaign.target}</p>
-              <div className="mobile-condition-list">
-                {campaign.conditions.slice(0, 3).map((condition) => (
-                  <span key={condition}>{condition}</span>
-                ))}
-              </div>
-              <dl className="mobile-ranking-meta">
-                <div>
-                  <dt>申込方法</dt>
-                  <dd>{campaign.channel}</dd>
-                </div>
-                <div>
-                  <dt>期間</dt>
-                  <dd>{campaign.period}</dd>
-                </div>
-              </dl>
-              <a
-                className="mobile-official-link"
-                href={campaign.officialUrl}
-                rel="sponsored noopener noreferrer"
-                target="_blank"
-              >
-                公式ページで確認
-              </a>
-            </article>
-          );
-        })}
-      </div>
-    </>
+            return (
+              <tr key={campaign.campaignCode}>
+                <td className="campaign-column">
+                  <span
+                    className={`table-rank-badge table-rank-badge--${rankTone}`}
+                  >
+                    {rank}位
+                  </span>
+                  <strong>{campaign.title}</strong>
+                </td>
+                <td className="image-column">
+                  <CampaignOfficialImage
+                    campaign={campaign}
+                    className="ranking-campaign-picture"
+                    variant="detail"
+                  />
+                </td>
+                <td className="points-cell">
+                  {formatPoints(points)}
+                  <span>ポイント</span>
+                </td>
+                <td>{campaign.target}</td>
+                <td>{campaign.conditions.slice(0, 3).join(" / ")}</td>
+                <td className="period-cell">{campaign.period}</td>
+                <td>
+                  <a
+                    className="table-link"
+                    href={campaign.officialUrl}
+                    rel="sponsored noopener noreferrer"
+                    target="_blank"
+                  >
+                    公式
+                  </a>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -205,6 +155,7 @@ export function CampaignRanking({
       <p className="ranking-mode-note">
         {rankingLabel}に申込者本人が受け取れる固定ポイントで並べています。ポイントがない特典は0ポイントとして末尾に掲載し、割引や追加費用は順位に含めません。
       </p>
+      <p className="ranking-scroll-note">横にスクロールして比較できます</p>
 
       <div
         id={panelId}

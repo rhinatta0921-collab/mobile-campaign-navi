@@ -54,6 +54,14 @@ function tableBodyText(html) {
   return plainText(tableBody);
 }
 
+function tableHeadCells(html) {
+  const tableHead = html.match(/<thead>[\s\S]*?<\/thead>/)?.[0];
+  assert.ok(tableHead, "missing ranking table head");
+  return [...tableHead.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(
+    (match) => plainText(match[1]),
+  );
+}
+
 function rankingTableHtml(html, tableClassName) {
   const table = html.match(
     new RegExp(
@@ -141,7 +149,26 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.equal([...primaryRankingTable.matchAll(/<th\b/g)].length, 7);
   assert.equal(classCount(primaryRankingTable, "ranking-campaign-picture"), 10);
   assert.equal(classCount(overflowRankingTable, "ranking-campaign-picture"), 10);
-  assert.equal(classCount(rankingHtml, "mobile-ranking-picture"), 20);
+  assert.equal(classCount(rankingHtml, "mobile-ranking-picture"), 0);
+  assert.deepEqual(
+    tableHeadCells(primaryRankingTable),
+    [
+      "キャンペーン",
+      "画像",
+      "獲得ポイント",
+      "おすすめ対象",
+      "主な追加条件",
+      "開催期間",
+      "公式",
+    ],
+  );
+  assert.equal(tableHeadCells(primaryRankingTable).includes("申込方法"), false);
+  assert.match(rankingTableText, /終了日未定/);
+  assert.doesNotMatch(primaryRankingTable, /<source\b/);
+  assert.match(
+    primaryRankingTable,
+    /data-campaign-code="1784"><img src="\/assets\/campaigns\/official\/1784-mobile\.png"/,
+  );
   assert.match(
     rankingHtml,
     /src="\/assets\/campaigns\/official\/[^"]+"[^>]*alt=""[^>]*loading="lazy"/,
@@ -153,7 +180,7 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.match(rankingHtml, /<details class="ranking-overflow">/);
   assert.match(rankingText, /11位以降を表示（残り10件）/);
   assert.match(rankingText, /11位以降を閉じる/);
-  assert.match(rankingText, /申込者ポイント/);
+  assert.match(rankingText, /獲得ポイント/);
   assert.match(rankingText, /ポイントがない特典は0ポイントとして末尾に掲載/);
   assertInOrder(rankingTableText, ["13,000", "11,748", "10,000", "5,000"]);
   const mnpPoints = rankingPoints(rankingHtml);
@@ -390,22 +417,35 @@ test("keeps new-number and MNP-only device campaigns separate", async () => {
   );
 });
 
-test("uses mobile ranking cards instead of the wide table at 860px and below", async () => {
+test("uses one horizontally scrollable ranking table on desktop and mobile", async () => {
   const css = await readFile(
     new URL("../app/globals.css", import.meta.url),
     "utf8",
   );
   const mobileCss = css.slice(css.indexOf("@media (max-width: 860px)"));
 
-  assert.match(mobileCss, /\.table-scroll\s*{\s*display: none;/);
-  assert.match(mobileCss, /\.mobile-ranking-list\s*{\s*display: block;/);
+  assert.doesNotMatch(mobileCss, /\.table-scroll\s*{\s*display: none;/);
+  assert.doesNotMatch(css, /\.mobile-ranking-list\b/);
+  assert.doesNotMatch(css, /\.mobile-ranking-card\b/);
   assert.match(
     mobileCss,
-    /\.mobile-ranking-picture\s*{[\s\S]*?width: 112px;[\s\S]*?height: 84px;/,
+    /\.ranking-scroll-note\s*{[\s\S]*?display: block;/,
   );
   assert.match(
     css,
-    /\.ranking-campaign-picture\s*{[\s\S]*?width: 168px;[\s\S]*?height: 96px;/,
+    /\.comparison-table\s*{[\s\S]*?min-width: 960px;/,
+  );
+  assert.match(
+    css,
+    /\.ranking-campaign-picture\s*{[\s\S]*?width: 96px;[\s\S]*?height: 96px;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.campaign-column\s*{[\s\S]*?position: sticky;[\s\S]*?width: 160px;[\s\S]*?min-width: 160px;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.ranking-campaign-picture\s*{[\s\S]*?width: 84px;[\s\S]*?height: 84px;/,
   );
   assert.match(
     css,

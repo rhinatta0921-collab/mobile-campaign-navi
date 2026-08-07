@@ -453,15 +453,20 @@ h1 {
   font-weight: 600;
 }
 
+.ranking-scroll-note {
+  display: none;
+}
+
 .table-scroll {
   overflow-x: auto;
   border: 1px solid var(--line);
   background: #fff;
+  -webkit-overflow-scrolling: touch;
 }
 
 .comparison-table {
   width: 100%;
-  min-width: 1020px;
+  min-width: 960px;
   border-collapse: collapse;
   font-size: 0.84rem;
 }
@@ -507,7 +512,14 @@ h1 {
 }
 
 .campaign-column {
-  width: 260px;
+  width: 240px;
+  min-width: 240px;
+}
+
+.image-column {
+  width: 120px;
+  min-width: 120px;
+  text-align: center;
 }
 
 .official-campaign-picture {
@@ -523,10 +535,9 @@ h1 {
 }
 
 .ranking-campaign-picture {
-  width: 168px;
-  max-width: 100%;
+  width: 96px;
   height: 96px;
-  margin-bottom: 9px;
+  margin: 0 auto;
   border: 1px solid var(--line-light);
 }
 
@@ -546,27 +557,51 @@ h1 {
   line-height: 1.45;
 }
 
-.rank-cell {
-  width: 60px;
-  color: var(--accent);
+.table-rank-badge {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  min-height: 26px;
+  margin: 0 0 8px !important;
+  padding: 3px 8px;
+  background: #70777b;
+  color: #fff !important;
+  font-size: 0.74rem !important;
   font-weight: 900;
+  line-height: 1;
   white-space: nowrap;
 }
 
+.table-rank-badge--1 {
+  background: #b58b25;
+}
+
+.table-rank-badge--2 {
+  background: #818b91;
+}
+
+.table-rank-badge--3 {
+  background: #a56f4b;
+}
+
 .points-cell {
+  width: 120px;
+  min-width: 120px !important;
   color: var(--accent);
   font-size: 1.08rem;
   font-weight: 900;
   white-space: nowrap;
 }
 
+.period-cell {
+  width: 170px;
+  min-width: 170px !important;
+}
+
 .table-link {
   min-height: 34px;
   padding: 0 11px;
-}
-
-.mobile-ranking-list {
-  display: none;
 }
 
 .ranking-overflow {
@@ -1116,144 +1151,54 @@ h1 {
     padding: 7px 8px;
   }
 
-  .table-scroll {
-    display: none;
+  .ranking-scroll-note {
+    display: block;
+    margin: -4px 0 9px;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-align: right;
   }
 
-  .mobile-ranking-list {
-    display: block;
-    border-top: 1px solid var(--line);
+  .comparison-table {
+    min-width: 960px;
+  }
+
+  .comparison-table th:first-child {
+    left: 0;
+    z-index: 3;
+  }
+
+  .campaign-column {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 160px;
+    min-width: 160px;
     background: #fff;
   }
 
-  .mobile-ranking-card {
-    padding: 18px 0 20px;
-    border-bottom: 1px solid var(--line);
+  .comparison-table tbody tr:nth-child(even) .campaign-column {
+    background: #fafafa;
   }
 
-  .mobile-ranking-summary {
-    display: grid;
-    grid-template-columns: 112px minmax(0, 1fr);
-    gap: 12px;
-    align-items: start;
+  .comparison-table tbody tr:hover .campaign-column {
+    background: #fff9f2;
   }
 
-  .mobile-ranking-picture {
-    width: 112px;
+  .image-column {
+    width: 108px;
+    min-width: 108px;
+  }
+
+  .ranking-campaign-picture {
+    width: 84px;
     height: 84px;
-    border: 1px solid var(--line-light);
   }
 
-  .mobile-ranking-picture img {
-    height: 100%;
-  }
-
-  .mobile-ranking-summary-copy {
-    min-width: 0;
-  }
-
-  .mobile-ranking-head {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 7px;
-  }
-
-  .mobile-rank-badge {
-    display: inline-flex;
-    align-items: center;
-    min-height: 26px;
-    padding: 3px 9px;
-    background: #c69c3b;
-    color: #fff;
-    font-size: 0.76rem;
-    font-weight: 900;
-    white-space: nowrap;
-  }
-
-  .mobile-points {
-    display: flex;
-    gap: 3px;
-    align-items: baseline;
-    margin: 0;
-    color: var(--accent);
-    font-size: 0.68rem;
-    font-weight: 900;
-    white-space: nowrap;
-  }
-
-  .mobile-points strong {
-    font-size: 1.07rem;
-  }
-
-  .mobile-ranking-summary h3 {
-    margin: 0;
-    color: var(--ink);
-    font-size: 0.9rem;
-    font-weight: 900;
-    line-height: 1.5;
-  }
-
-  .mobile-ranking-target {
-    margin: 13px 0 0;
-    color: var(--ink);
-    font-size: 0.82rem;
-    font-weight: 700;
-    line-height: 1.65;
-  }
-
-  .mobile-condition-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-top: 10px;
-  }
-
-  .mobile-condition-list span {
-    padding: 3px 7px;
-    border: 1px solid #ddc9d1;
-    background: #fff8fa;
-    color: #6f2341;
-    font-size: 0.68rem;
-    font-weight: 800;
-    line-height: 1.4;
-  }
-
-  .mobile-ranking-meta {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin: 14px 0 0;
-    border-top: 1px solid var(--line-light);
-    border-bottom: 1px solid var(--line-light);
-  }
-
-  .mobile-ranking-meta div {
-    padding: 9px 8px;
-  }
-
-  .mobile-ranking-meta div + div {
-    border-left: 1px solid var(--line-light);
-  }
-
-  .mobile-ranking-meta dt {
-    margin-bottom: 3px;
-    color: var(--muted);
-    font-size: 0.65rem;
-    font-weight: 900;
-  }
-
-  .mobile-ranking-meta dd {
-    margin: 0;
-    color: var(--ink);
-    font-size: 0.73rem;
-    font-weight: 700;
-    line-height: 1.5;
-  }
-
-  .mobile-official-link {
-    width: 100%;
-    margin-top: 12px;
+  .points-cell {
+    width: 110px;
+    min-width: 110px !important;
   }
 
   .campaign-detail-article {

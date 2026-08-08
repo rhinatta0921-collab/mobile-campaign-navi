@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -113,19 +115,50 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   const text = plainText(html);
   assert.match(
     text,
-    /楽天モバイル申し込みキャンペーンおすすめ比較ランキング/,
+    /楽天モバイル 申し込みキャンペーン比較ランキング【2026年8月最新】/,
   );
+  assert.match(text, /楽天モバイル キャンペーン比較ナビ/);
   assert.match(
     html,
-    /srcSet="\/hero-firstview-pop-mobile\.png"/,
+    /srcSet="\/hero-firstview-pop-v2-mobile\.png"/,
   );
   assert.match(html, /media="\(max-width: 860px\)"/);
-  assert.match(html, /width="1080" height="1350"/);
-  assert.match(html, /src="\/hero-firstview-pop-desktop\.png"/);
-  assert.match(html, /width="1400" height="768"/);
+  assert.match(html, /width="390" height="292"/);
+  assert.match(html, /src="\/hero-firstview-pop-v2-desktop\.png"/);
+  assert.match(html, /width="700" height="525"/);
   assert.doesNotMatch(html, /src="\/hero-editorial\.png"/);
-  assert.match(text, /2026年7月31日 更新/);
+  assert.doesNotMatch(html, /class="meta-row"/);
+  assert.doesNotMatch(text, /広告・PR/);
+  assert.doesNotMatch(text, / 更新/);
   assert.doesNotMatch(text, /最終確認:/);
+  assert.match(
+    text,
+    /現在開催中の楽天モバイル申し込みキャンペーン21種を、申込者本人が受け取れる固定ポイント額の多い順にランキング形式で比較/,
+  );
+  assert.match(text, /当サイトはプロモーションを含みます/);
+  assert.match(text, /現在開催されている楽天モバイルのキャンペーン21種類を徹底調査/);
+  assert.match(text, /ポイント以外の特典と実質的なお得さ/);
+  assert.match(html, /src="\/assets\/comparison-point-points-v2\.png"/);
+  assert.match(html, /src="\/assets\/comparison-point-conditions-v2\.png"/);
+  assert.match(html, /src="\/assets\/comparison-point-period-v2\.png"/);
+  assert.match(html, /src="\/assets\/comparison-point-value-v2\.png"/);
+  assert.match(html, /src="\/assets\/campaign-types-guide-v2\.png"/);
+  assert.match(html, /width="690" height="692"/);
+  assertInOrder(html, [
+    'class="comparison-points"',
+    'class="campaign-choice"',
+    'class="route-link-band"',
+    'class="toc"',
+    'class="mobile-section-nav"',
+    'class="conclusion"',
+  ]);
+  assert.match(html, /<details class="toc-overflow">/);
+  assert.match(text, /全部見る閉じる端末購入ありのキャンペーン/);
+  assert.match(html, /href="\/device-campaigns">キャンペーン一覧を見る/);
+  assert.match(html, /href="#conclusion"[^>]*>結論<\/a>/);
+  assert.match(html, /href="#ranking"[^>]*>ランキング<\/a>/);
+  assert.match(html, /href="#details"[^>]*>詳細<\/a>/);
+  assert.doesNotMatch(text, /このページの比較・調査方法/);
   assert.match(text, /申込者向け固定ポイントでは、最大13,000ポイント/);
 
   const conclusionHtml = sectionHtml(html, "conclusion");
@@ -161,6 +194,8 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     rankingHtml,
     /href="\/\?application=mnp"[^>]*aria-selected="true"/,
   );
+  assert.match(rankingText, /電話番号そのまま他社から乗り換え/);
+  assert.match(rankingText, /新しい電話番号で契約/);
   assert.equal(tableRowCount(primaryRankingTable), 10);
   assert.equal(tableRowCount(overflowRankingTable), 10);
   assert.equal([...primaryRankingTable.matchAll(/<th\b/g)].length, 7);
@@ -488,4 +523,33 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     mobileCss,
     /\.campaign-official-figure\s*{[\s\S]*?width: 100%;/,
   );
+  assert.match(
+    css,
+    /\/\* Editorial article layout \*\/[\s\S]*?\.shell\s*{[\s\S]*?width: min\(700px, calc\(100% - 32px\)\);/,
+  );
+  assert.match(
+    css,
+    /\.mobile-section-nav\s*{[\s\S]*?position: sticky;[\s\S]*?top: 60px;[\s\S]*?height: 48px;/,
+  );
+});
+
+test("stores the finalized editorial artwork at the agreed dimensions", async () => {
+  const assets = [
+    ["../public/hero-firstview-pop-v2-desktop.png", 700, 525],
+    ["../public/hero-firstview-pop-v2-mobile.png", 390, 292],
+    ["../public/assets/comparison-point-points-v2.png", 320, 240],
+    ["../public/assets/comparison-point-conditions-v2.png", 320, 240],
+    ["../public/assets/comparison-point-period-v2.png", 320, 240],
+    ["../public/assets/comparison-point-value-v2.png", 320, 240],
+    ["../public/assets/campaign-types-guide-v2.png", 690, 692],
+    ["../public/og.png", 1200, 630],
+  ];
+
+  for (const [relativePath, width, height] of assets) {
+    const metadata = await sharp(
+      fileURLToPath(new URL(relativePath, import.meta.url)),
+    ).metadata();
+    assert.equal(metadata.width, width, `${relativePath} width`);
+    assert.equal(metadata.height, height, `${relativePath} height`);
+  }
 });

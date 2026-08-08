@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "楽天モバイル キャンペーン ナビ";
+const title = "楽天モバイル キャンペーン比較ナビ";
 const description =
   "楽天モバイル公式一覧のキャンペーンをコード単位で整理し、申込者ポイントのランキングとポイント以外の特典・追加費用・実質価値を比較します。";
 

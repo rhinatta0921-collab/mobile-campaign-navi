@@ -122,8 +122,8 @@ export function CampaignRanking({
   );
   const isMnp = applicationType === "mnp";
   const rankingLabel = isMnp
-    ? "他社から乗り換える場合"
-    : "新しい電話番号で申し込む場合";
+    ? "電話番号そのまま他社から乗り換える場合"
+    : "新しい電話番号で契約する場合";
 
   return (
     <>
@@ -137,7 +137,7 @@ export function CampaignRanking({
           aria-controls={panelId}
           aria-selected={isMnp}
         >
-          他社から乗り換え
+          電話番号そのまま他社から乗り換え
         </Link>
         <Link
           id={`${panelId}-new-number-tab`}
@@ -148,7 +148,7 @@ export function CampaignRanking({
           aria-controls={panelId}
           aria-selected={!isMnp}
         >
-          新しい電話番号
+          新しい電話番号で契約
         </Link>
       </div>
 

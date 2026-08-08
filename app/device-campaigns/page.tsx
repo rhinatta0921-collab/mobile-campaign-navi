@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CampaignDetails } from "@/app/components/CampaignDetails";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
+import { SiteHeader } from "@/app/components/SiteHeader";
 import {
   campaigns,
   type ApplicationType,
@@ -38,16 +39,7 @@ export default async function DeviceCampaignsPage({
 
   return (
     <main>
-      <header className="site-header">
-        <div className="shell header-inner">
-          <div className="brand-mark">楽天モバイルキャンペーン比較</div>
-          <nav aria-label="ページナビゲーション">
-            <Link href="/">端末購入なし</Link>
-            <a href="#ranking">ランキング</a>
-            <a href="#details">詳細</a>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <div className="shell page-grid">
         <article className="article">

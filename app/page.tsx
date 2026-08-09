@@ -198,77 +198,179 @@ export default async function Home({ searchParams }: HomeProps) {
             aria-labelledby="how-to-choose-title"
           >
             <h2 id="how-to-choose-title">キャンペーンの選び方</h2>
-            <h3>まず「自分のタイプ」を確認しよう</h3>
-            <p>
-              楽天モバイルの申し込みキャンペーンは、条件の違いから大きく
-              <strong>3つのタイプ</strong>
-              に分かれます。自分がどのタイプに当てはまるかを確認してから、ランキングを参照するとスムーズです。
+            <p className="choice-intro">
+              このページで比較する端末購入なしのキャンペーンは現在
+              <strong>{nonDeviceCampaigns.length}種類</strong>
+              です。条件や特典がそれぞれ異なるため、闇雲に選ぶと、本来もらえたはずのポイントを取りこぼす可能性があります。以下の3つを順番に確認して、自分に合ったキャンペーンを見つけましょう。
             </p>
-            <div className="choice-table-scroll">
-              <table className="choice-table">
-                <thead>
-                  <tr>
-                    <th scope="col">タイプ</th>
-                    <th scope="col">こんな人向け</th>
-                    <th scope="col">特徴</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr id="choice-sim-only">
-                    <th scope="row">① SIM（回線）のみ</th>
-                    <td data-label="こんな人向け">スマホはそのまま使いたい方</td>
-                    <td data-label="特徴">
-                      プランの申し込みだけで適用できる。端末購入不要で手軽
-                    </td>
-                  </tr>
-                  <tr id="choice-device">
-                    <th scope="row">② SIM＋スマホ本体購入</th>
-                    <td data-label="こんな人向け">機種変更も一緒にしたい方</td>
-                    <td data-label="特徴">
-                      対象スマートフォンの購入が条件。機種ごとにキャンペーンが異なる
-                    </td>
-                  </tr>
-                  <tr id="choice-service">
-                    <th scope="row">③ SIM＋その他サービス</th>
-                    <td data-label="こんな人向け">
-                      楽天カード・楽天ひかりなども検討中の方
-                    </td>
-                    <td data-label="特徴">
-                      楽天カードやRakuten Turboなど対象サービスとの同時申し込みが条件
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <figure className="campaign-types-figure">
+            <figure className="choice-steps-figure">
               <img
-                src="/assets/campaign-types-guide-v2.png"
-                alt="楽天モバイルの申込キャンペーンを、SIMのみ、SIMとスマホ本体購入、SIMとその他サービスの3タイプに整理した図"
+                src="/assets/campaign-choice-steps-v3.png"
+                alt=""
                 width="690"
-                height="692"
+                height="900"
                 loading="lazy"
+                aria-hidden="true"
               />
             </figure>
+            <div className="choice-step-list">
+              <section
+                className="choice-step"
+                id="choice-scope"
+                aria-labelledby="choice-scope-title"
+              >
+                <div className="choice-step-heading">
+                  <span className="choice-step-number" aria-hidden="true">
+                    POINT 01
+                  </span>
+                  <h3 id="choice-scope-title">申し込む範囲を決める</h3>
+                </div>
+                <p className="choice-step-lead">
+                  「SIMだけ」か「端末も一緒に買うか」を最初に決めましょう
+                </p>
+                <p>
+                  キャンペーンは申し込む内容によって大きく3つに分かれます。どのタイプに当てはまるかを最初に決めることで、比較すべきキャンペーンが一気に絞り込めます。
+                </p>
+                <div className="choice-type-list">
+                  <article id="choice-sim-only">
+                    <h4>SIMのみ</h4>
+                    <div>
+                      <p>
+                        通信プランだけを申し込む、最もシンプルなタイプです。
+                      </p>
+                      <p className="choice-recommendation">
+                        <span>こんな方に</span>
+                        今使っているスマホをそのまま使いたい方・まず手軽に乗り換えたい方
+                      </p>
+                    </div>
+                  </article>
+                  <article id="choice-device">
+                    <h4>SIM＋端末購入</h4>
+                    <div>
+                      <p>
+                        プランとスマホ本体を楽天モバイルで同時に購入するタイプです。
+                      </p>
+                      <p className="choice-recommendation">
+                        <span>こんな方に</span>
+                        スマホの買い替えを検討中の方
+                      </p>
+                    </div>
+                  </article>
+                  <article id="choice-service">
+                    <h4>SIM＋その他サービス</h4>
+                    <div>
+                      <p>
+                        楽天カードの申込や楽天銀行会員など、対象サービスの申込・利用条件を組み合わせるタイプです。
+                      </p>
+                      <p className="choice-recommendation">
+                        <span>こんな方に</span>
+                        手間がかかっても、もらえるポイントを少しでも増やしたい方
+                      </p>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <section
+                className="choice-step"
+                id="choice-conditions"
+                aria-labelledby="choice-conditions-title"
+              >
+                <div className="choice-step-heading">
+                  <span className="choice-step-number" aria-hidden="true">
+                    POINT 02
+                  </span>
+                  <h3 id="choice-conditions-title">
+                    自分の申し込み条件を確認する
+                  </h3>
+                </div>
+                <p className="choice-step-lead">
+                  条件によって、使えるキャンペーンともらえるポイントが変わります
+                </p>
+                <p>
+                  申し込む範囲が決まったら、次の2点を確認しましょう。同じキャンペーンでも条件によってポイント額が変わるケースがあります。
+                </p>
+                <div className="choice-condition-grid">
+                  <section aria-labelledby="choice-number-type-title">
+                    <h4 id="choice-number-type-title">
+                      新規番号かMNP（乗り換え）か
+                    </h4>
+                    <p>
+                      新しい電話番号を取得するのか、今使っている番号のまま他社から乗り換えるのかで、対象キャンペーンともらえるポイント額が異なります。一般的にMNPのほうが高ポイントになる傾向があります。
+                    </p>
+                  </section>
+                  <section aria-labelledby="choice-contract-history-title">
+                    <h4 id="choice-contract-history-title">
+                      初契約か2回線目以降か
+                    </h4>
+                    <p>
+                      楽天モバイルへの申し込みが初めてか、過去に利用したことがあるかによって、利用できるキャンペーンが変わります。多くの高額キャンペーンは初回申し込み限定です。
+                    </p>
+                  </section>
+                </div>
+              </section>
+
+              <section
+                className="choice-step"
+                id="choice-points"
+                aria-labelledby="choice-points-title"
+              >
+                <div className="choice-step-heading">
+                  <span className="choice-step-number" aria-hidden="true">
+                    POINT 03
+                  </span>
+                  <h3 id="choice-points-title">
+                    ポイント額が最も多いキャンペーンを選ぶ
+                  </h3>
+                </div>
+                <p className="choice-step-lead">
+                  絞り込んだ中で、一番ポイントが多いものを選べばOKです
+                </p>
+                <p>
+                  ポイント①②で自分に当てはまるキャンペーンが絞り込めたら、あとはその中でポイント額が最も多いものを選ぶだけです。このページのランキングはポイント額の多い順に並んでいるので、上から順に自分の条件に合うものを確認してください。
+                </p>
+                <ol className="choice-decision-flow">
+                  <li>条件に合うキャンペーンを絞る</li>
+                  <li>ランキングを上から確認</li>
+                  <li>最上位を選ぶ</li>
+                </ol>
+                <a className="choice-ranking-link" href="#ranking">
+                  ランキングを見る
+                </a>
+              </section>
+            </div>
           </section>
 
           <section
-            className="route-link-band"
-            aria-labelledby="device-campaign-link-title"
+            className="device-guide-section"
+            id="device-campaign-guide"
+            aria-labelledby="device-campaign-guide-title"
           >
-            <img
-              className="route-link-icon"
-              src="/assets/smartphone-device.svg"
-              alt=""
-              aria-hidden="true"
-            />
-            <div>
-              <h2 id="device-campaign-link-title">
-                スマホ本体も一緒に購入する方
-              </h2>
-              <p>端末購入が必要なキャンペーンの一覧はこちら</p>
-            </div>
-            <a className="route-link" href="/device-campaigns">
-              キャンペーン一覧を見る
+            <h2 id="device-campaign-guide-title">
+              スマホ本体も一緒に購入する方へ
+            </h2>
+            <p className="device-guide-intro">
+              端末購入が必要なキャンペーンは、別ページでまとめて紹介しています。
+            </p>
+            <p>
+              端末購入ありのキャンペーンは「どの機種を買うか」によって選択肢が決まるため、SIMのみとは選び方が根本的に異なります。見やすさのために、このページでは端末購入なしのキャンペーンのみを掲載しています。
+            </p>
+            <p className="device-guide-highlight">
+              スマホ本体も一緒に購入する場合は、
+              <strong>「欲しい機種を先に決める」</strong>
+              のがポイントです。
+            </p>
+            <p>
+              楽天モバイルでは基本的に1機種につき1つのキャンペーンが設定されているため、キャンペーン同士を比較する必要はありません。気になる端末のキャンペーン条件を確認し、他店での購入と比べてどちらがお得かをチェックするだけでOKです。
+            </p>
+            <ol className="device-guide-flow">
+              <li>機種を決める</li>
+              <li>キャンペーン条件を確認</li>
+              <li>他店価格と比較</li>
+            </ol>
+            <a className="device-guide-link" href="/device-campaigns">
+              端末購入ありのキャンペーンを見る
+              <span aria-hidden="true">→</span>
             </a>
           </section>
 
@@ -286,14 +388,14 @@ export default async function Home({ searchParams }: HomeProps) {
               <li>
                 <a href="#how-to-choose">キャンペーンの選び方</a>
                 <ul>
-                  <li><a href="#choice-sim-only">SIM（回線）のみ</a></li>
-                  <li><a href="#choice-device">SIM＋スマホ本体購入</a></li>
-                  <li><a href="#choice-service">SIM＋その他サービス</a></li>
+                  <li><a href="#choice-scope">申し込む範囲を決める</a></li>
+                  <li><a href="#choice-conditions">自分の申し込み条件を確認する</a></li>
+                  <li><a href="#choice-points">ポイント額が最も多いキャンペーンを選ぶ</a></li>
                 </ul>
               </li>
+              <li><a href="#device-campaign-guide">スマホ本体も一緒に購入する方へ</a></li>
               <li><a href="#conclusion">結論</a></li>
               <li><a href="#ranking">楽天モバイルキャンペーン獲得ポイント額ランキング</a></li>
-              <li><a href="#details">ランキング掲載キャンペーンの詳細</a></li>
             </ul>
             <details className="toc-overflow">
               <summary>
@@ -301,7 +403,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <span className="toc-close-label">閉じる</span>
               </summary>
               <ul className="toc-list toc-list-hidden">
-                <li><a href="/device-campaigns">端末購入ありのキャンペーン</a></li>
+                <li><a href="#details">ランキング掲載キャンペーンの詳細</a></li>
               </ul>
             </details>
           </nav>

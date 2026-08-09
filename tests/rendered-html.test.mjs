@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -151,19 +151,78 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     'id="comparison-points-total-value"',
     'id="comparison-points-conditions"',
   ]);
-  assert.match(html, /src="\/assets\/campaign-types-guide-v2\.png"/);
-  assert.match(html, /width="690" height="692"/);
+  assert.match(
+    text,
+    /このページで比較する端末購入なしのキャンペーンは現在21種類です/,
+  );
+  assert.match(html, /src="\/assets\/campaign-choice-steps-v3\.png"/);
+  assert.match(html, /width="690" height="900"/);
+  assert.doesNotMatch(html, /campaign-types-guide-v2\.png/);
+  assert.equal([...html.matchAll(/<section class="choice-step"/g)].length, 3);
+  assertInOrder(html, [
+    'id="choice-scope"',
+    'id="choice-conditions"',
+    'id="choice-points"',
+  ]);
+  assert.match(text, /「SIMだけ」か「端末も一緒に買うか」を最初に決めましょう/);
+  assert.match(
+    text,
+    /楽天カードの申込や楽天銀行会員など、対象サービスの申込・利用条件を組み合わせるタイプです/,
+  );
+  assert.match(text, /新規番号かMNP（乗り換え）か/);
+  assert.match(text, /初契約か2回線目以降か/);
+  assertInOrder(text, [
+    "条件に合うキャンペーンを絞る",
+    "ランキングを上から確認",
+    "最上位を選ぶ",
+  ]);
+  assert.match(html, /class="choice-ranking-link" href="#ranking"/);
+  assert.doesNotMatch(html, /class="choice-table/);
   assertInOrder(html, [
     'class="comparison-points"',
     'class="campaign-choice"',
-    'class="route-link-band"',
+    'class="device-guide-section"',
     'class="toc"',
     'class="mobile-section-nav"',
     'class="conclusion"',
   ]);
+  const choiceStart = html.indexOf('class="campaign-choice"');
+  const deviceGuideStart = html.indexOf('class="device-guide-section"');
+  assert.ok(choiceStart >= 0 && deviceGuideStart > choiceStart);
+  assert.doesNotMatch(
+    html.slice(choiceStart, deviceGuideStart),
+    /href="\/device-campaigns"/,
+  );
+  assert.match(
+    text,
+    /スマホ本体も一緒に購入する方へ端末購入が必要なキャンペーンは、別ページでまとめて紹介しています/,
+  );
+  assert.match(text, /「欲しい機種を先に決める」のがポイントです/);
+  const deviceFlowHtml = html.match(
+    /<ol class="device-guide-flow">[\s\S]*?<\/ol>/,
+  )?.[0];
+  assert.ok(deviceFlowHtml);
+  assertInOrder(plainText(deviceFlowHtml), [
+    "機種を決める",
+    "キャンペーン条件を確認",
+    "他店価格と比較",
+  ]);
+  assert.match(
+    html,
+    /class="device-guide-link" href="\/device-campaigns"/,
+  );
+  assert.match(text, /端末購入ありのキャンペーンを見る→/);
   assert.match(html, /<details class="toc-overflow">/);
-  assert.match(text, /全部見る閉じる端末購入ありのキャンペーン/);
-  assert.match(html, /href="\/device-campaigns">キャンペーン一覧を見る/);
+  assert.match(text, /全部見る閉じるランキング掲載キャンペーンの詳細/);
+  assert.match(html, /href="#choice-scope">申し込む範囲を決める/);
+  assert.match(html, /href="#choice-conditions">自分の申し込み条件を確認する/);
+  assert.match(html, /href="#choice-points">ポイント額が最も多いキャンペーンを選ぶ/);
+  assert.match(html, /href="#device-campaign-guide">スマホ本体も一緒に購入する方へ/);
+  const hiddenTocHtml = html.match(
+    /<ul class="toc-list toc-list-hidden">[\s\S]*?<\/ul>/,
+  )?.[0];
+  assert.ok(hiddenTocHtml);
+  assert.doesNotMatch(hiddenTocHtml, /href="\/device-campaigns"/);
   assert.match(html, /href="#conclusion"[^>]*>結論<\/a>/);
   assert.match(html, /href="#ranking"[^>]*>ランキング<\/a>/);
   assert.match(html, /href="#details"[^>]*>詳細<\/a>/);
@@ -549,7 +608,7 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
     ["../public/assets/comparison-point-points-v2.png", 320, 240],
     ["../public/assets/comparison-point-conditions-v2.png", 320, 240],
     ["../public/assets/comparison-point-value-v2.png", 320, 240],
-    ["../public/assets/campaign-types-guide-v2.png", 690, 692],
+    ["../public/assets/campaign-choice-steps-v3.png", 690, 900],
     ["../public/og.png", 1200, 630],
   ];
 
@@ -560,4 +619,15 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
     assert.equal(metadata.width, width, `${relativePath} width`);
     assert.equal(metadata.height, height, `${relativePath} height`);
   }
+
+  await assert.rejects(
+    access(
+      fileURLToPath(
+        new URL(
+          "../public/assets/campaign-types-guide-v2.png",
+          import.meta.url,
+        ),
+      ),
+    ),
+  );
 });

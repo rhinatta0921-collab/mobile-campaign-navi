@@ -155,8 +155,12 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     text,
     /このページで比較する端末購入なしのキャンペーンは現在21種類です/,
   );
-  assert.match(html, /src="\/assets\/campaign-choice-steps-v3\.png"/);
-  assert.match(html, /width="690" height="900"/);
+  assert.match(html, /src="\/assets\/campaign-choice-step-scope-v1\.png"/);
+  assert.match(html, /src="\/assets\/campaign-choice-step-conditions-v1\.png"/);
+  assert.match(html, /src="\/assets\/campaign-choice-step-ranking-v1\.png"/);
+  assert.equal(classCount(html, "choice-step-figure"), 3);
+  assert.equal([...html.matchAll(/width="690" height="460"/g)].length, 3);
+  assert.doesNotMatch(html, /campaign-choice-steps-v3\.png/);
   assert.doesNotMatch(html, /campaign-types-guide-v2\.png/);
   assert.equal([...html.matchAll(/<section class="choice-step"/g)].length, 3);
   assertInOrder(html, [
@@ -171,11 +175,40 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   );
   assert.match(text, /新規番号かMNP（乗り換え）か/);
   assert.match(text, /初契約か2回線目以降か/);
-  assertInOrder(text, [
-    "条件に合うキャンペーンを絞る",
-    "ランキングを上から確認",
-    "最上位を選ぶ",
+  const choiceScopeHtml = html.slice(
+    html.indexOf('id="choice-scope"'),
+    html.indexOf('id="choice-conditions"'),
+  );
+  const choiceConditionsHtml = html.slice(
+    html.indexOf('id="choice-conditions"'),
+    html.indexOf('id="choice-points"'),
+  );
+  const choicePointsHtml = html.slice(
+    html.indexOf('id="choice-points"'),
+    html.indexOf('class="device-guide-section"'),
+  );
+  assertInOrder(choiceScopeHtml, [
+    'class="choice-step-lead"',
+    'src="/assets/campaign-choice-step-scope-v1.png"',
+    "キャンペーンは申し込む内容によって",
+    'class="choice-type-list"',
   ]);
+  assertInOrder(choiceConditionsHtml, [
+    'class="choice-step-lead"',
+    'src="/assets/campaign-choice-step-conditions-v1.png"',
+    "申し込む範囲が決まったら",
+    'class="choice-condition-grid"',
+  ]);
+  assertInOrder(choicePointsHtml, [
+    'class="choice-step-lead"',
+    'src="/assets/campaign-choice-step-ranking-v1.png"',
+    "ポイント①②で自分に当てはまるキャンペーンが絞り込めたら",
+    'class="choice-ranking-link"',
+  ]);
+  assert.doesNotMatch(html, /class="choice-decision-flow"/);
+  assert.doesNotMatch(text, /条件に合うキャンペーンを絞る/);
+  assert.doesNotMatch(text, /ランキングを上から確認/);
+  assert.doesNotMatch(text, /最上位を選ぶ/);
   assert.match(html, /class="choice-ranking-link" href="#ranking"/);
   assert.doesNotMatch(html, /class="choice-table/);
   assertInOrder(html, [
@@ -599,6 +632,11 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     css,
     /\.mobile-section-nav\s*{[\s\S]*?position: sticky;[\s\S]*?top: 60px;[\s\S]*?height: 48px;/,
   );
+  assert.match(
+    css,
+    /\.choice-condition-grid\s*{[\s\S]*?grid-template-columns: 1fr;/,
+  );
+  assert.doesNotMatch(css, /\.choice-decision-flow\b/);
 });
 
 test("stores the finalized editorial artwork at the agreed dimensions", async () => {
@@ -608,7 +646,9 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
     ["../public/assets/comparison-point-points-v2.png", 320, 240],
     ["../public/assets/comparison-point-conditions-v2.png", 320, 240],
     ["../public/assets/comparison-point-value-v2.png", 320, 240],
-    ["../public/assets/campaign-choice-steps-v3.png", 690, 900],
+    ["../public/assets/campaign-choice-step-scope-v1.png", 690, 460],
+    ["../public/assets/campaign-choice-step-conditions-v1.png", 690, 460],
+    ["../public/assets/campaign-choice-step-ranking-v1.png", 690, 460],
     ["../public/og.png", 1200, 630],
   ];
 
@@ -625,6 +665,16 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
       fileURLToPath(
         new URL(
           "../public/assets/campaign-types-guide-v2.png",
+          import.meta.url,
+        ),
+      ),
+    ),
+  );
+  await assert.rejects(
+    access(
+      fileURLToPath(
+        new URL(
+          "../public/assets/campaign-choice-steps-v3.png",
           import.meta.url,
         ),
       ),

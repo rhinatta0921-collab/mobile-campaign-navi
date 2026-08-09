@@ -1543,13 +1543,13 @@ h1 {
   font-weight: 900;
 }
 
-.choice-steps-figure {
+.choice-step-figure {
   width: 690px;
   max-width: 100%;
-  margin: 26px auto 0;
+  margin: 18px auto 20px;
 }
 
-.choice-steps-figure img {
+.choice-step-figure img {
   width: 100%;
   height: auto;
 }
@@ -1669,26 +1669,25 @@ h1 {
 
 .choice-condition-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   margin-top: 23px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 
 .choice-condition-grid section {
-  padding: 20px;
-  border-right: 1px solid var(--line);
+  padding: 20px 4px;
+  border-bottom: 1px solid var(--line);
 }
 
 .choice-condition-grid section:last-child {
-  border-right: 0;
+  border-bottom: 0;
 }
 
 .choice-condition-grid h4 {
   margin-bottom: 8px;
 }
 
-.choice-decision-flow,
 .device-guide-flow {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1700,7 +1699,6 @@ h1 {
   list-style: none;
 }
 
-.choice-decision-flow li,
 .device-guide-flow li {
   position: relative;
   display: flex;
@@ -1714,7 +1712,6 @@ h1 {
   font-weight: 900;
 }
 
-.choice-decision-flow li::before,
 .device-guide-flow li::before {
   margin-right: 8px;
   color: var(--accent);
@@ -1725,7 +1722,6 @@ h1 {
   font-weight: 900;
 }
 
-.choice-decision-flow li::after,
 .device-guide-flow li::after {
   position: absolute;
   top: 50%;
@@ -1738,12 +1734,10 @@ h1 {
   transform: translateY(-50%) rotate(45deg);
 }
 
-.choice-decision-flow li:last-child,
 .device-guide-flow li:last-child {
   border-right: 0;
 }
 
-.choice-decision-flow li:last-child::after,
 .device-guide-flow li:last-child::after {
   display: none;
 }
@@ -2062,8 +2056,9 @@ h1 {
     line-height: 23px;
   }
 
-  .choice-steps-figure {
-    margin-top: 22px;
+  .choice-step-figure {
+    margin-top: 16px;
+    margin-bottom: 18px;
   }
 
   .choice-step-list {
@@ -2113,10 +2108,6 @@ h1 {
     margin-bottom: 5px;
   }
 
-  .choice-condition-grid {
-    grid-template-columns: 1fr;
-  }
-
   .choice-condition-grid section {
     padding: 17px 2px;
     border-right: 0;
@@ -2127,12 +2118,10 @@ h1 {
     border-bottom: 0;
   }
 
-  .choice-decision-flow,
   .device-guide-flow {
     grid-template-columns: 1fr;
   }
 
-  .choice-decision-flow li,
   .device-guide-flow li {
     min-height: 58px;
     padding: 12px 36px 12px 12px;
@@ -2140,12 +2129,10 @@ h1 {
     border-bottom: 1px solid var(--line);
   }
 
-  .choice-decision-flow li:last-child,
   .device-guide-flow li:last-child {
     border-bottom: 0;
   }
 
-  .choice-decision-flow li::after,
   .device-guide-flow li::after {
     top: auto;
     right: 50%;

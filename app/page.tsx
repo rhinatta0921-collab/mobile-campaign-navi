@@ -203,16 +203,6 @@ export default async function Home({ searchParams }: HomeProps) {
               <strong>{nonDeviceCampaigns.length}種類</strong>
               です。条件や特典がそれぞれ異なるため、闇雲に選ぶと、本来もらえたはずのポイントを取りこぼす可能性があります。以下の3つを順番に確認して、自分に合ったキャンペーンを見つけましょう。
             </p>
-            <figure className="choice-steps-figure">
-              <img
-                src="/assets/campaign-choice-steps-v3.png"
-                alt=""
-                width="690"
-                height="900"
-                loading="lazy"
-                aria-hidden="true"
-              />
-            </figure>
             <div className="choice-step-list">
               <section
                 className="choice-step"
@@ -228,6 +218,16 @@ export default async function Home({ searchParams }: HomeProps) {
                 <p className="choice-step-lead">
                   「SIMだけ」か「端末も一緒に買うか」を最初に決めましょう
                 </p>
+                <figure className="choice-step-figure">
+                  <img
+                    src="/assets/campaign-choice-step-scope-v1.png"
+                    alt=""
+                    width="690"
+                    height="460"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                </figure>
                 <p>
                   キャンペーンは申し込む内容によって大きく3つに分かれます。どのタイプに当てはまるかを最初に決めることで、比較すべきキャンペーンが一気に絞り込めます。
                 </p>
@@ -287,6 +287,16 @@ export default async function Home({ searchParams }: HomeProps) {
                 <p className="choice-step-lead">
                   条件によって、使えるキャンペーンともらえるポイントが変わります
                 </p>
+                <figure className="choice-step-figure">
+                  <img
+                    src="/assets/campaign-choice-step-conditions-v1.png"
+                    alt=""
+                    width="690"
+                    height="460"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                </figure>
                 <p>
                   申し込む範囲が決まったら、次の2点を確認しましょう。同じキャンペーンでも条件によってポイント額が変わるケースがあります。
                 </p>
@@ -326,14 +336,19 @@ export default async function Home({ searchParams }: HomeProps) {
                 <p className="choice-step-lead">
                   絞り込んだ中で、一番ポイントが多いものを選べばOKです
                 </p>
+                <figure className="choice-step-figure">
+                  <img
+                    src="/assets/campaign-choice-step-ranking-v1.png"
+                    alt=""
+                    width="690"
+                    height="460"
+                    loading="lazy"
+                    aria-hidden="true"
+                  />
+                </figure>
                 <p>
                   ポイント①②で自分に当てはまるキャンペーンが絞り込めたら、あとはその中でポイント額が最も多いものを選ぶだけです。このページのランキングはポイント額の多い順に並んでいるので、上から順に自分の条件に合うものを確認してください。
                 </p>
-                <ol className="choice-decision-flow">
-                  <li>条件に合うキャンペーンを絞る</li>
-                  <li>ランキングを上から確認</li>
-                  <li>最上位を選ぶ</li>
-                </ol>
                 <a className="choice-ranking-link" href="#ranking">
                   ランキングを見る
                 </a>

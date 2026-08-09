@@ -136,12 +136,21 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     /現在開催中の楽天モバイル申し込みキャンペーン21種を、申込者本人が受け取れる固定ポイント額の多い順にランキング形式で比較/,
   );
   assert.match(text, /当サイトはプロモーションを含みます/);
-  assert.match(text, /現在開催されている楽天モバイルのキャンペーン21種類を徹底調査/);
+  assert.match(
+    text,
+    /現在開催されている楽天モバイルのキャンペーン21種類を徹底調査し、以下の3つのポイントで比較しています/,
+  );
   assert.match(text, /ポイント以外の特典と実質的なお得さ/);
   assert.match(html, /src="\/assets\/comparison-point-points-v2\.png"/);
   assert.match(html, /src="\/assets\/comparison-point-conditions-v2\.png"/);
-  assert.match(html, /src="\/assets\/comparison-point-period-v2\.png"/);
   assert.match(html, /src="\/assets\/comparison-point-value-v2\.png"/);
+  assert.doesNotMatch(html, /comparison-points-period/);
+  assert.doesNotMatch(html, /comparison-point-period-v2\.png/);
+  assertInOrder(html, [
+    'id="comparison-points-value"',
+    'id="comparison-points-total-value"',
+    'id="comparison-points-conditions"',
+  ]);
   assert.match(html, /src="\/assets\/campaign-types-guide-v2\.png"/);
   assert.match(html, /width="690" height="692"/);
   assertInOrder(html, [
@@ -539,7 +548,6 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
     ["../public/hero-firstview-pop-v2-mobile.png", 390, 292],
     ["../public/assets/comparison-point-points-v2.png", 320, 240],
     ["../public/assets/comparison-point-conditions-v2.png", 320, 240],
-    ["../public/assets/comparison-point-period-v2.png", 320, 240],
     ["../public/assets/comparison-point-value-v2.png", 320, 240],
     ["../public/assets/campaign-types-guide-v2.png", 690, 692],
     ["../public/og.png", 1200, 630],

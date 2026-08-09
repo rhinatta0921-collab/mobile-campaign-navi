@@ -40,6 +40,13 @@ const comparisonPoints = [
       "キャンペーンで申込者本人が受け取れるポイントの合計額です。このページのランキングはこの数値をもとに決定しています。",
   },
   {
+    id: "comparison-points-total-value",
+    image: "/assets/comparison-point-value-v2.png",
+    title: "ポイント以外の特典と実質的なお得さ",
+    description:
+      "割引や無料特典など、ポイント以外に受けられる特典と、適用に必要な追加費用を整理しています。金額を確定できる場合は実質お得額も掲載しますが、これらはランキング順位には影響しません。",
+  },
+  {
     id: "comparison-points-conditions",
     image: "/assets/comparison-point-conditions-v2.png",
     title: "適用条件の難易度",
@@ -50,20 +57,6 @@ const comparisonPoints = [
       "楽天モバイルへの初めての申し込みか、2回線目以上の追加か",
       "端末購入・楽天カード申し込みなど、SIM以外の条件があるか。またその条件を満たすのにいくらのコストがかかるか",
     ],
-  },
-  {
-    id: "comparison-points-period",
-    image: "/assets/comparison-point-period-v2.png",
-    title: "キャンペーンの開催期間",
-    description:
-      "終了日が近いキャンペーンや、常時開催のキャンペーンなど、申し込みのタイミングに関わる情報を掲載しています。",
-  },
-  {
-    id: "comparison-points-total-value",
-    image: "/assets/comparison-point-value-v2.png",
-    title: "ポイント以外の特典と実質的なお得さ",
-    description:
-      "割引や無料特典など、ポイント以外に受けられる特典と、適用に必要な追加費用を整理しています。金額を確定できる場合は実質お得額も掲載しますが、これらはランキング順位には影響しません。",
   },
 ];
 
@@ -167,7 +160,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <p>
               現在開催されている楽天モバイルのキャンペーン
               {nonDeviceCampaigns.length}
-              種類を徹底調査し、以下の4つのポイントで比較しています。
+              種類を徹底調査し、以下の3つのポイントで比較しています。
             </p>
             <ol className="comparison-point-list">
               {comparisonPoints.map((point, index) => (
@@ -286,9 +279,8 @@ export default async function Home({ searchParams }: HomeProps) {
                 <a href="#comparison-points">比較のポイント</a>
                 <ul>
                   <li><a href="#comparison-points-value">獲得できるポイント額</a></li>
-                  <li><a href="#comparison-points-conditions">適用条件の難易度</a></li>
-                  <li><a href="#comparison-points-period">キャンペーンの開催期間</a></li>
                   <li><a href="#comparison-points-total-value">ポイント以外の特典と実質的なお得さ</a></li>
+                  <li><a href="#comparison-points-conditions">適用条件の難易度</a></li>
                 </ul>
               </li>
               <li>

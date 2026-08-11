@@ -193,6 +193,32 @@ export default async function Home({ searchParams }: HomeProps) {
             </ol>
           </section>
 
+          <nav className="toc" aria-label="目次">
+            <h2>目次</h2>
+            <ul className="toc-list">
+              <li>
+                <a href="#comparison-points">比較のポイント</a>
+              </li>
+              <li>
+                <a href="#how-to-choose">キャンペーンの選び方</a>
+              </li>
+              <li><a href="#device-campaign-guide">スマホ本体も一緒に購入する方へ</a></li>
+              <li><a href="#conclusion">結論</a></li>
+              <li><a href="#ranking">楽天モバイルキャンペーン獲得ポイント額ランキング</a></li>
+            </ul>
+            <details className="toc-overflow">
+              <summary>
+                <span className="toc-open-label">全部見る</span>
+                <span className="toc-close-label">閉じる</span>
+              </summary>
+              <ul className="toc-list toc-list-hidden">
+                <li><a href="#details">ランキング掲載キャンペーンの詳細</a></li>
+              </ul>
+            </details>
+          </nav>
+
+          <MobileSectionNav />
+
           <section
             className="campaign-choice"
             id="how-to-choose"
@@ -389,42 +415,6 @@ export default async function Home({ searchParams }: HomeProps) {
               <span aria-hidden="true">→</span>
             </a>
           </section>
-
-          <nav className="toc" aria-label="目次">
-            <h2>目次</h2>
-            <ul className="toc-list">
-              <li>
-                <a href="#comparison-points">比較のポイント</a>
-                <ul>
-                  <li><a href="#comparison-points-value">獲得できるポイント額</a></li>
-                  <li><a href="#comparison-points-total-value">ポイント以外の特典と実質的なお得さ</a></li>
-                  <li><a href="#comparison-points-conditions">適用条件の難易度</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#how-to-choose">キャンペーンの選び方</a>
-                <ul>
-                  <li><a href="#choice-scope">申し込む範囲を決める</a></li>
-                  <li><a href="#choice-conditions">自分の申し込み条件を確認する</a></li>
-                  <li><a href="#choice-points">ポイント額が最も多いキャンペーンを選ぶ</a></li>
-                </ul>
-              </li>
-              <li><a href="#device-campaign-guide">スマホ本体も一緒に購入する方へ</a></li>
-              <li><a href="#conclusion">結論</a></li>
-              <li><a href="#ranking">楽天モバイルキャンペーン獲得ポイント額ランキング</a></li>
-            </ul>
-            <details className="toc-overflow">
-              <summary>
-                <span className="toc-open-label">全部見る</span>
-                <span className="toc-close-label">閉じる</span>
-              </summary>
-              <ul className="toc-list toc-list-hidden">
-                <li><a href="#details">ランキング掲載キャンペーンの詳細</a></li>
-              </ul>
-            </details>
-          </nav>
-
-          <MobileSectionNav />
 
           <section
             className="conclusion"

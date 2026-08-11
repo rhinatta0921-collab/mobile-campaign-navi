@@ -1928,20 +1928,6 @@ h1 {
   display: none;
 }
 
-.toc-list ul {
-  margin: -2px 0 7px 16px;
-  padding: 0;
-  border-left: 2px solid #d7d7d7;
-  list-style: none;
-}
-
-.toc-list ul a {
-  padding: 4px 9px;
-  color: #5c5c5c;
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .toc-overflow {
   display: flex;
   flex-direction: column;

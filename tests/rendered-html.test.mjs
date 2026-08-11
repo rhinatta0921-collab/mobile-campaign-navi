@@ -232,10 +232,10 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.doesNotMatch(html, /class="choice-table/);
   assertInOrder(html, [
     'class="comparison-points"',
-    'class="campaign-choice"',
-    'class="device-guide-section"',
     'class="toc"',
     'class="mobile-section-nav"',
+    'class="campaign-choice"',
+    'class="device-guide-section"',
     'class="conclusion"',
   ]);
   const choiceStart = html.indexOf('class="campaign-choice"');
@@ -266,9 +266,12 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.match(text, /端末購入ありのキャンペーンを見る→/);
   assert.match(html, /<details class="toc-overflow">/);
   assert.match(text, /全部見る閉じるランキング掲載キャンペーンの詳細/);
-  assert.match(html, /href="#choice-scope">申し込む範囲を決める/);
-  assert.match(html, /href="#choice-conditions">自分の申し込み条件を確認する/);
-  assert.match(html, /href="#choice-points">ポイント額が最も多いキャンペーンを選ぶ/);
+  assert.doesNotMatch(html, /href="#comparison-points-value"/);
+  assert.doesNotMatch(html, /href="#comparison-points-total-value"/);
+  assert.doesNotMatch(html, /href="#comparison-points-conditions"/);
+  assert.doesNotMatch(html, /href="#choice-scope"/);
+  assert.doesNotMatch(html, /href="#choice-conditions"/);
+  assert.doesNotMatch(html, /href="#choice-points"/);
   assert.match(html, /href="#device-campaign-guide">スマホ本体も一緒に購入する方へ/);
   const hiddenTocHtml = html.match(
     /<ul class="toc-list toc-list-hidden">[\s\S]*?<\/ul>/,

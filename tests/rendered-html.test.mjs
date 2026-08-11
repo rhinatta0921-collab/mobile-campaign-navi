@@ -117,13 +117,14 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     text,
     /楽天モバイル 申し込みキャンペーン比較ランキング【2026年8月最新】/,
   );
-  assert.match(text, /楽天モバイル キャンペーン比較ナビ/);
+  assert.match(text, /楽天モバイルキャンペーン比較ナビ/);
   assert.match(
     html,
-    /<a(?=[^>]*href="\/")(?=[^>]*class="brand-mark")(?=[^>]*aria-label="楽天モバイル キャンペーン比較ナビ")[^>]*>/,
+    /<a(?=[^>]*href="\/")(?=[^>]*class="brand-mark")(?=[^>]*aria-label="楽天モバイルキャンペーン比較ナビ")[^>]*>/,
   );
-  assert.match(html, /class="brand-icon" aria-hidden="true"/);
-  assert.match(text, /キャンペーン比較ナビ迷わず選べる、申込ガイド/);
+  assert.match(html, /class="brand-emblem" aria-hidden="true"/);
+  assert.match(html, /class="brand-title-highlight"/);
+  assert.doesNotMatch(text, /迷わず選べる、申込ガイド/);
   assert.match(
     html,
     /srcSet="\/hero-firstview-pop-v2-mobile\.png"/,
@@ -677,7 +678,7 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
   );
 });
 
-test("uses the Smart Guide header and icon metadata", async () => {
+test("uses the exact pink wordmark header and keeps icon metadata", async () => {
   const [layout, css, favicon] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
@@ -688,12 +689,19 @@ test("uses the Smart Guide header and icon metadata", async () => {
   assert.match(layout, /sizes: "180x180"/);
   assert.match(
     css,
-    /\.brand-icon\s*{[\s\S]*?width: 42px;[\s\S]*?height: 42px;/,
+    /\.site-header\s*{[\s\S]*?background: var\(--accent\);[\s\S]*?border: 0;/,
   );
   assert.match(
     css,
-    /\.brand-subtitle\s*{[\s\S]*?font-weight: var\(--font-weight-medium\);/,
+    /\.brand-wordmark\s*{[\s\S]*?color: #fff;[\s\S]*?font-size: clamp\(13px, 4vw, 17px\);[\s\S]*?font-weight: var\(--font-weight-strong\);/,
   );
+  assert.match(
+    css,
+    /\.brand-title-highlight > span\s*{[\s\S]*?color: var\(--accent\);[\s\S]*?background: #fff;/,
+  );
+  assert.match(css, /\.brand-emblem::before\s*{[\s\S]*?clip-path:/);
+  assert.match(css, /\.brand-wordmark::after\s*{[\s\S]*?background: #ffd5e4;/);
+  assert.doesNotMatch(css, /\.brand-subtitle\s*{/);
   assert.match(favicon, /viewBox="0 0 32 32"/);
   assert.match(favicon, /fill="#FFF2F6"/);
   assert.match(favicon, /stroke="#C91F5D"/);

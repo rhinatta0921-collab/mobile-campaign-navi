@@ -75,10 +75,8 @@ p {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgb(255 242 246 / 97%);
-  border-bottom: 1px solid #f1d3df;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: var(--accent);
+  border: 0;
 }
 
 .header-inner {
@@ -86,62 +84,96 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 64px;
+  min-height: 60px;
 }
 
 .brand-mark {
+  position: relative;
   display: inline-flex;
   min-width: 0;
   align-items: center;
-  gap: 10px;
-  color: var(--ink);
+  gap: 7px;
+  color: #fff;
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.brand-icon {
+.brand-emblem {
+  position: relative;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 30px;
+}
+
+.brand-emblem::before {
+  position: absolute;
+  inset: 3px 0 2px;
+  background: #fff;
+  clip-path: polygon(0 72%, 100% 0, 61% 67%, 100% 54%, 0 100%, 43% 70%);
+  content: "";
+}
+
+.brand-emblem::after {
+  position: absolute;
+  right: 1px;
+  bottom: 3px;
+  width: 19px;
+  height: 3px;
+  border-radius: 999px;
+  background: #ffd5e4;
+  content: "";
+  transform: rotate(-14deg);
+  transform-origin: right center;
+}
+
+.brand-wordmark {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  color: #fff;
+  font-size: clamp(13px, 4vw, 17px);
+  font-weight: var(--font-weight-strong);
+  line-height: 1;
+}
+
+.brand-wordmark::after {
+  position: absolute;
+  z-index: -1;
+  right: 24%;
+  bottom: -8px;
+  left: 18%;
+  height: 8px;
+  background: #ffd5e4;
+  clip-path: polygon(0 52%, 100% 0, 88% 72%, 8% 100%);
+  content: "";
+}
+
+.brand-title-main {
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.04em;
+}
+
+.brand-title-highlight {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 1px;
+  margin-left: 3px;
+}
+
+.brand-title-highlight > span {
   display: grid;
-  flex: 0 0 42px;
-  width: 42px;
-  height: 42px;
+  min-width: 1.08em;
+  height: 1.25em;
+  padding: 0 0.06em;
   place-items: center;
   color: var(--accent);
-  background: var(--paper);
-  border: 1px solid #f1d3df;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgb(36 36 36 / 8%);
-}
-
-.brand-icon svg {
-  width: 32px;
-  height: 32px;
-}
-
-.brand-sparkle {
-  fill: var(--gold);
-}
-
-.brand-copy {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 1px;
-  text-align: left;
-}
-
-.brand-title {
-  color: var(--ink);
-  font-size: 1rem;
-  font-weight: var(--font-weight-strong);
-  line-height: 1.35;
-  white-space: nowrap;
-}
-
-.brand-subtitle {
-  color: var(--muted);
-  font-size: 0.69rem;
-  font-weight: var(--font-weight-medium);
-  line-height: 1.35;
-  white-space: nowrap;
+  background: #fff;
+  line-height: 1;
 }
 
 .site-header nav {
@@ -1366,12 +1398,12 @@ body {
   position: sticky;
   top: 0;
   z-index: 30;
-  height: 64px;
+  height: 60px;
 }
 
 .header-inner {
   justify-content: flex-start;
-  min-height: 64px;
+  min-height: 60px;
 }
 
 .brand-mark {
@@ -2003,25 +2035,18 @@ h1 {
 
   .header-inner {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 60px;
     padding: 0 16px;
   }
 
   .brand-mark {
-    gap: 9px;
+    gap: 6px;
   }
 
-  .brand-icon {
-    flex-basis: 38px;
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
-  }
-
-  .brand-icon svg {
-    width: 28px;
-    height: 28px;
+  .brand-emblem {
+    flex-basis: 20px;
+    width: 20px;
   }
 
   .page-grid {

@@ -7,6 +7,8 @@
 - `index.ts`: `*.campaign.json`を一括で読み込み、ランキング用の型と関数を提供
 - `banners/`: キャンペーンバナー画像
 
+公式一覧には掲載されていないものの個別の公式ページが存在するキャンペーンは、補足キャンペーンとしてJSONと`index.json`へ追加します。この場合、`sourceCards[].listingIndex`は`null`とし、一覧カード由来ではないことを明示します。
+
 同じコードが複数の掲載カードに現れた場合は、1つのJSONの`sourceCards`へ統合します。1枚の掲載カードが複数コードの合算特典を案内している場合は、コードごとのJSONへ分割します。
 
 公式ページにキャンペーンコードがない掲載カードは、URL由来の`NO-CODE-*`を補助コードとして使い、`codeType`を`generated`にします。公式に「施策コード」として案内されるものは、`codeType`を`initiative`にします。
@@ -20,3 +22,9 @@ node scripts/sync-rakuten-campaigns.mjs
 ```
 
 同期スクリプトは公式一覧が52枚であることを確認し、現在のコード対応表を使ってJSONを再生成します。公式一覧の構成が変わった場合は、安全のため件数エラーで停止します。
+
+特定キャンペーンの公式画像だけを更新する場合は、キャンペーンコードを指定できます。
+
+```sh
+node scripts/sync-campaign-images.mjs --write --campaign-code=2162
+```

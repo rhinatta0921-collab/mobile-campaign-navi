@@ -21,7 +21,7 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(index.listingUrl, "https://network.mobile.rakuten.co.jp/campaign/");
   assert.equal(index.checkedAt, "2026-07-31");
   assert.equal(index.listingCardCount, 52);
-  assert.equal(index.campaignCount, 53);
+  assert.equal(index.campaignCount, 54);
   assert.deepEqual(filenames, [...index.items].sort());
 
   const campaignCodes = new Set();
@@ -93,7 +93,10 @@ test("stores one normalized campaign per JSON file", async () => {
       );
       assert.notEqual(campaign[field].length, 0, `${filename}: ${field}`);
     }
-    assert.equal(campaign.checkedAt, index.checkedAt);
+    assert.equal(
+      campaign.checkedAt,
+      campaign.campaignCode === "2162" ? "2026-08-11" : index.checkedAt,
+    );
     assert.equal(campaign.listingUrl, index.listingUrl);
     assert.doesNotThrow(() => new URL(campaign.officialUrl));
 
@@ -202,7 +205,7 @@ test("stores one normalized campaign per JSON file", async () => {
       );
       assert.equal(
         campaign.officialImage.checkedAt,
-        "2026-08-06",
+        campaign.campaignCode === "2162" ? "2026-08-11" : "2026-08-06",
         `${filename}: officialImage.checkedAt`,
       );
 
@@ -276,25 +279,29 @@ test("stores one normalized campaign per JSON file", async () => {
     );
 
     for (const sourceCard of campaign.sourceCards) {
-      assert.equal(Number.isInteger(sourceCard.listingIndex), true);
-      assert.equal(
-        sourceCard.listingIndex >= 1 &&
-          sourceCard.listingIndex <= index.listingCardCount,
-        true,
-      );
       assert.equal(typeof sourceCard.title, "string");
       assert.equal(typeof sourceCard.url, "string");
-      coveredListingIndexes.add(sourceCard.listingIndex);
+      if (sourceCard.listingIndex === null) {
+        assert.equal(campaign.campaignCode, "2162");
+      } else {
+        assert.equal(Number.isInteger(sourceCard.listingIndex), true);
+        assert.equal(
+          sourceCard.listingIndex >= 1 &&
+            sourceCard.listingIndex <= index.listingCardCount,
+          true,
+        );
+        coveredListingIndexes.add(sourceCard.listingIndex);
+      }
     }
   }
 
   assert.equal(campaignCodes.size, index.campaignCount);
   assert.equal(generatedCodeCount, 12);
-  assert.equal(rankingCampaignCount, 32);
-  assert.equal(rankedOfficialUrls.size, 28);
-  assert.equal(rankedDesktopPaths.size, 28);
-  assert.equal(rankedMobilePaths.size, 22);
-  assert.equal(rankedDetailPaths.size, 28);
+  assert.equal(rankingCampaignCount, 33);
+  assert.equal(rankedOfficialUrls.size, 29);
+  assert.equal(rankedDesktopPaths.size, 29);
+  assert.equal(rankedMobilePaths.size, 23);
+  assert.equal(rankedDetailPaths.size, 29);
   const uniqueOfficialImages = [...rankedImagesByOfficialUrl.values()];
   assert.equal(
     uniqueOfficialImages.filter(
@@ -302,7 +309,7 @@ test("stores one normalized campaign per JSON file", async () => {
         image.mobile !== null &&
         image.detail.sourceUrl === image.mobile.sourceUrl,
     ).length,
-    20,
+    21,
   );
   assert.equal(
     uniqueOfficialImages.filter((image) =>
@@ -353,6 +360,31 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(
     referral.officialImage.detail.sourceUrl,
     referral.officialImage.mobile.sourceUrl,
+  );
+
+  const employeeReferral = await readJson(
+    "2162-campaign-referral-application-employee.campaign.json",
+  );
+  assert.equal(employeeReferral.points.mnp, 14_000);
+  assert.equal(employeeReferral.points.newNumber, 11_000);
+  assert.deepEqual(employeeReferral.breakdown.mnp, [
+    "1回目：4,000ポイント",
+    "2回目：5,000ポイント",
+    "3回目：5,000ポイント",
+  ]);
+  assert.equal(employeeReferral.sourceCards[0].listingIndex, null);
+  assert.match(employeeReferral.notes.join(" "), /Rakuten Turboの7,000ポイント/);
+  assert.equal(
+    employeeReferral.officialImage.desktop.path,
+    "/assets/campaigns/official/2162-desktop.jpg",
+  );
+  assert.equal(
+    employeeReferral.officialImage.detail.path,
+    "/assets/campaigns/official/2162-mobile.jpg",
+  );
+  assert.equal(
+    employeeReferral.officialImage.detail.sourceUrl,
+    employeeReferral.officialImage.mobile.sourceUrl,
   );
 
   const freeCall = await readJson(

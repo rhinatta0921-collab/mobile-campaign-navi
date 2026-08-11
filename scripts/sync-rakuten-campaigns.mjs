@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const LISTING_URL = "https://network.mobile.rakuten.co.jp/campaign/";
 const CHECKED_AT = "2026-07-31";
 const OUTPUT_DIRECTORY = path.resolve("data/campaigns");
+const SUPPLEMENTAL_CAMPAIGN_FILENAMES = [
+  "2162-campaign-referral-application-employee.campaign.json",
+];
 
 const cardCodes = new Map(
   Object.entries({
@@ -796,12 +799,36 @@ async function main() {
     );
   }
 
+  const supplementalCampaigns = await Promise.all(
+    SUPPLEMENTAL_CAMPAIGN_FILENAMES.map(async (filename) => ({
+      filename,
+      campaign: JSON.parse(
+        await readFile(path.join(OUTPUT_DIRECTORY, filename), "utf8"),
+      ),
+    })),
+  );
+  const generatedCodes = new Set(
+    campaigns.map(({ campaignCode }) => campaignCode),
+  );
+  for (const { filename, campaign } of supplementalCampaigns) {
+    if (generatedCodes.has(campaign.campaignCode)) {
+      throw new Error(
+        `${filename}: 公式一覧から生成したキャンペーンコード ${campaign.campaignCode} と重複しています`,
+      );
+    }
+  }
+
+  const allFilenames = [
+    ...filenames,
+    ...supplementalCampaigns.map(({ filename }) => filename),
+  ].sort((a, b) => a.localeCompare(b, "en"));
+  const campaignCount = campaigns.length + supplementalCampaigns.length;
   const index = {
     listingUrl: LISTING_URL,
     checkedAt: CHECKED_AT,
     listingCardCount: cards.length,
-    campaignCount: campaigns.length,
-    items: filenames,
+    campaignCount,
+    items: allFilenames,
   };
   await writeFile(
     path.join(OUTPUT_DIRECTORY, "index.json"),
@@ -810,7 +837,7 @@ async function main() {
   );
 
   console.log(
-    `楽天モバイル公式一覧 ${cards.length}枚を ${campaigns.length}キャンペーンへ正規化しました。`,
+    `楽天モバイル公式一覧 ${cards.length}枚と補足${supplementalCampaigns.length}件を ${campaignCount}キャンペーンへ正規化しました。`,
   );
 }
 

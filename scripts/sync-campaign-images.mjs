@@ -6,7 +6,7 @@ import sharp from "sharp";
 
 const OFFICIAL_HOST = "network.mobile.rakuten.co.jp";
 const LISTING_URL = `https://${OFFICIAL_HOST}/campaign/`;
-const IMAGE_CHECKED_AT = "2026-08-06";
+const IMAGE_CHECKED_AT = "2026-08-11";
 const CAMPAIGN_DIRECTORY = path.resolve("data/campaigns");
 const PUBLIC_DIRECTORY = path.resolve("public");
 const IMAGE_DIRECTORY = path.join(
@@ -14,6 +14,16 @@ const IMAGE_DIRECTORY = path.join(
   "assets/campaigns/official",
 );
 const SHOULD_WRITE = process.argv.includes("--write");
+const CAMPAIGN_CODE_ARGUMENT = process.argv.find((argument) =>
+  argument.startsWith("--campaign-code="),
+);
+const CAMPAIGN_CODE_FILTER = CAMPAIGN_CODE_ARGUMENT
+  ? CAMPAIGN_CODE_ARGUMENT.slice("--campaign-code=".length)
+  : null;
+
+if (CAMPAIGN_CODE_ARGUMENT && CAMPAIGN_CODE_FILTER.length === 0) {
+  throw new Error("--campaign-code にはキャンペーンコードを指定してください");
+}
 
 const explicitImagePairs = new Map([
   [
@@ -287,7 +297,18 @@ async function main() {
   for (const filename of filenames) {
     const filePath = path.join(CAMPAIGN_DIRECTORY, filename);
     const campaign = JSON.parse(await readFile(filePath, "utf8"));
-    if (campaign.rankingEligible) rankedCampaigns.push({ filename, campaign });
+    if (
+      campaign.rankingEligible &&
+      (!CAMPAIGN_CODE_FILTER || campaign.campaignCode === CAMPAIGN_CODE_FILTER)
+    ) {
+      rankedCampaigns.push({ filename, campaign });
+    }
+  }
+
+  if (CAMPAIGN_CODE_FILTER && rankedCampaigns.length === 0) {
+    throw new Error(
+      `ランキング対象のキャンペーンコード ${CAMPAIGN_CODE_FILTER} が見つかりません`,
+    );
   }
 
   const groupedByPage = new Map();

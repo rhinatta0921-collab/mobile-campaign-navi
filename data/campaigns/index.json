@@ -2,7 +2,7 @@
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "listingCardCount": 52,
-  "campaignCount": 53,
+  "campaignCount": 54,
   "items": [
     "1173-campaign-spu.campaign.json",
     "1238-application-card-campaign.campaign.json",
@@ -15,6 +15,7 @@
     "2006-campaign-start-point.campaign.json",
     "2091-campaign-mnp.campaign.json",
     "2142-campaign-mnp.campaign.json",
+    "2162-campaign-referral-application-employee.campaign.json",
     "2178-campaign-android-discount.campaign.json",
     "2207-campaign-tadaima.campaign.json",
     "2215-campaign-fee-simulation.campaign.json",

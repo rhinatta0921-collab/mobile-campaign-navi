@@ -70,7 +70,7 @@ export type CampaignValueResult = {
 };
 
 export type CampaignSourceCard = {
-  listingIndex: number;
+  listingIndex: number | null;
   title: string;
   description: string;
   url: string;
@@ -142,6 +142,9 @@ type ValuationOverride = {
 const valuationOverrides: Record<string, ValuationOverride> = {
   "1784": {
     calculationPeriod: "条件達成後、申込者ポイントを3カ月に分けて全額受け取るまで",
+  },
+  "2162": {
+    calculationPeriod: "紹介ログイン月の4カ月後から3カ月間",
   },
   "1977": {
     otherBenefitAmountYen: 1_100,

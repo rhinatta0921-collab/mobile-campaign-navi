@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import "@fontsource-variable/noto-sans-jp/wght.css";
 import "./globals.css";
 
 const title = "楽天モバイル キャンペーン比較ナビ";

@@ -639,6 +639,38 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.doesNotMatch(css, /\.choice-decision-flow\b/);
 });
 
+test("uses self-hosted Noto Sans JP with readable editorial weights", async () => {
+  const [layout, css] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(
+    layout,
+    /import "@fontsource-variable\/noto-sans-jp\/wght\.css";/,
+  );
+  assert.match(css, /--font-sans:[\s\S]*?"Noto Sans JP Variable"/);
+  assert.match(css, /--font-weight-body: 400;/);
+  assert.match(css, /--font-weight-medium: 500;/);
+  assert.match(css, /--font-weight-strong: 700;/);
+  assert.match(
+    css,
+    /h1\s*{[\s\S]*?font-weight: var\(--font-weight-strong\);/,
+  );
+  assert.match(
+    css,
+    /\.lead strong\s*{[\s\S]*?font-weight: var\(--font-weight-strong\);/,
+  );
+  assert.match(
+    css,
+    /\.comparison-points h2,[\s\S]*?font-weight: var\(--font-weight-strong\);/,
+  );
+  assert.match(
+    css,
+    /\.mobile-section-nav a\s*{[\s\S]*?font-weight: 600;/,
+  );
+});
+
 test("stores the finalized editorial artwork at the agreed dimensions", async () => {
   const assets = [
     ["../public/hero-firstview-pop-v2-desktop.png", 700, 525],

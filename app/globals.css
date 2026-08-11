@@ -13,6 +13,16 @@
   --green-soft: #eef7f4;
   --gold: #bc8620;
   --gold-soft: #fff9e9;
+  --font-sans:
+    "Noto Sans JP Variable",
+    "Noto Sans JP",
+    "Hiragino Sans",
+    "Yu Gothic",
+    system-ui,
+    sans-serif;
+  --font-weight-body: 400;
+  --font-weight-medium: 500;
+  --font-weight-strong: 700;
 }
 
 * {
@@ -22,12 +32,7 @@
 html {
   color: var(--ink);
   background: var(--paper);
-  font-family:
-    "Noto Sans JP",
-    "Hiragino Sans",
-    "Yu Gothic",
-    system-ui,
-    sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   scroll-behavior: smooth;
 }
@@ -36,6 +41,7 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--paper);
+  font-weight: var(--font-weight-body);
   line-height: 1.8;
 }
 
@@ -87,7 +93,7 @@ p {
   gap: 9px;
   color: var(--ink);
   font-size: 0.95rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .brand-mark::before {
@@ -109,7 +115,7 @@ p {
   border-bottom: 2px solid transparent;
   color: #5f5f5f;
   font-size: 0.82rem;
-  font-weight: 800;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -188,7 +194,7 @@ h1 {
   color: var(--ink);
   font-size: clamp(2rem, 3.5vw, 3rem);
   line-height: 1.35;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   letter-spacing: -0.025em;
 }
 
@@ -197,7 +203,7 @@ h1 {
   margin-bottom: 0;
   color: var(--text);
   font-size: 0.98rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: 2;
 }
 
@@ -224,7 +230,7 @@ h1 {
   color: var(--ink);
   font-size: clamp(1.45rem, 2.5vw, 2rem);
   line-height: 1.45;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   letter-spacing: -0.02em;
 }
 
@@ -274,7 +280,7 @@ h1 {
   color: var(--ink);
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .route-link-band {
@@ -300,7 +306,7 @@ h1 {
   color: var(--ink);
   font-size: 1.18rem;
   line-height: 1.5;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .route-link,
@@ -438,7 +444,7 @@ h1 {
   color: var(--ink);
   font-size: 1.12rem;
   line-height: 1.5;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .section-heading {
@@ -512,7 +518,7 @@ h1 {
   background: #f3f3f1;
   color: var(--ink);
   font-size: 0.74rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   text-align: left;
   white-space: nowrap;
 }
@@ -760,7 +766,7 @@ h1 {
   color: var(--ink);
   font-size: clamp(1.2rem, 2vw, 1.52rem);
   line-height: 1.55;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .campaign-official-figure {
@@ -816,7 +822,7 @@ h1 {
   color: var(--ink);
   font-size: 1.08rem;
   line-height: 1.4;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .campaign-score-grid {
@@ -839,7 +845,7 @@ h1 {
   margin-bottom: 8px;
   color: var(--muted);
   font-size: 0.7rem;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -851,7 +857,7 @@ h1 {
   display: block;
   color: var(--ink);
   font-size: 1.12rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   line-height: 1.35;
 }
 
@@ -906,7 +912,7 @@ h1 {
   padding: 0 0 9px;
   color: var(--ink);
   font-size: 0.9rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   text-align: left;
 }
 
@@ -925,7 +931,7 @@ h1 {
   width: 180px;
   background: #f6f6f4;
   color: var(--ink);
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .campaign-facts-table td {
@@ -951,14 +957,14 @@ h1 {
   border-bottom: 3px solid var(--ink);
   color: var(--ink);
   font-size: 1.12rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   line-height: 1.55;
 }
 
 .campaign-editorial-copy {
   color: #3f3f3f;
   font-size: 0.92rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: 1.9;
 }
 
@@ -990,7 +996,7 @@ h1 {
   padding: 11px 13px;
   border-bottom: 1px solid var(--line);
   font-size: 0.84rem;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .campaign-point-list h5 span {
@@ -1379,7 +1385,7 @@ h1 {
   color: var(--text);
   font-size: 14px;
   line-height: 23px;
-  font-weight: 500;
+  font-weight: var(--font-weight-body);
 }
 
 .lead p {
@@ -1392,13 +1398,13 @@ h1 {
 
 .lead strong {
   color: var(--ink);
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .lead-question {
   color: var(--ink);
   font-size: 15px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .lead-checks {
@@ -1462,7 +1468,7 @@ h1 {
   color: var(--ink);
   font-size: 20px;
   line-height: 30px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
   letter-spacing: -0.01em;
 }
 
@@ -1501,7 +1507,7 @@ h1 {
   color: var(--ink);
   font-size: 17px;
   line-height: 25px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .comparison-point-list h3 span {
@@ -1540,7 +1546,7 @@ h1 {
 
 .choice-intro strong {
   color: var(--accent-deep);
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .choice-step-figure {
@@ -1593,7 +1599,7 @@ h1 {
   color: var(--ink);
   font-size: 18px;
   line-height: 27px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .choice-step > p:not(.choice-step-lead) {
@@ -1610,7 +1616,7 @@ h1 {
   color: var(--ink);
   font-size: 15px;
   line-height: 23px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .choice-type-list {
@@ -1638,7 +1644,7 @@ h1 {
   color: var(--ink);
   font-size: 15px;
   line-height: 23px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .choice-type-list p,
@@ -1709,7 +1715,7 @@ h1 {
   color: var(--ink);
   font-size: 13px;
   line-height: 20px;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .device-guide-flow li::before {
@@ -1778,7 +1784,7 @@ h1 {
   color: var(--ink);
   font-size: 16px !important;
   line-height: 25px !important;
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .device-guide-highlight {
@@ -1792,7 +1798,7 @@ h1 {
 
 .device-guide-highlight strong {
   color: var(--accent-deep);
-  font-weight: 900;
+  font-weight: var(--font-weight-strong);
 }
 
 .device-guide-link {
@@ -1875,7 +1881,7 @@ h1 {
   color: var(--ink);
   font-size: 13px;
   line-height: 20px;
-  font-weight: 900;
+  font-weight: 600;
   cursor: pointer;
   list-style: none;
 }
@@ -2183,7 +2189,7 @@ h1 {
     color: #595959;
     font-size: 14px;
     line-height: 1;
-    font-weight: 900;
+    font-weight: 600;
     text-decoration: none;
   }
 

@@ -120,6 +120,12 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.match(text, /楽天モバイル キャンペーン比較ナビ/);
   assert.match(
     html,
+    /<a(?=[^>]*href="\/")(?=[^>]*class="brand-mark")(?=[^>]*aria-label="楽天モバイル キャンペーン比較ナビ")[^>]*>/,
+  );
+  assert.match(html, /class="brand-icon" aria-hidden="true"/);
+  assert.match(text, /キャンペーン比較ナビ迷わず選べる、申込ガイド/);
+  assert.match(
+    html,
     /srcSet="\/hero-firstview-pop-v2-mobile\.png"/,
   );
   assert.match(html, /media="\(max-width: 860px\)"/);
@@ -671,6 +677,29 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
   );
 });
 
+test("uses the Smart Guide header and icon metadata", async () => {
+  const [layout, css, favicon] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../public/favicon.svg", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(layout, /url: "\/apple-touch-icon\.png"/);
+  assert.match(layout, /sizes: "180x180"/);
+  assert.match(
+    css,
+    /\.brand-icon\s*{[\s\S]*?width: 42px;[\s\S]*?height: 42px;/,
+  );
+  assert.match(
+    css,
+    /\.brand-subtitle\s*{[\s\S]*?font-weight: var\(--font-weight-medium\);/,
+  );
+  assert.match(favicon, /viewBox="0 0 32 32"/);
+  assert.match(favicon, /fill="#FFF2F6"/);
+  assert.match(favicon, /stroke="#C91F5D"/);
+  assert.match(favicon, /fill="#BC8620"/);
+});
+
 test("stores the finalized editorial artwork at the agreed dimensions", async () => {
   const assets = [
     ["../public/hero-firstview-pop-v2-desktop.png", 700, 525],
@@ -682,6 +711,7 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
     ["../public/assets/campaign-choice-step-conditions-v1.png", 690, 460],
     ["../public/assets/campaign-choice-step-ranking-v1.png", 690, 460],
     ["../public/og.png", 1200, 630],
+    ["../public/apple-touch-icon.png", 180, 180],
   ];
 
   for (const [relativePath, width, height] of assets) {

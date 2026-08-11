@@ -75,8 +75,10 @@ p {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom: 1px solid var(--line);
+  background: rgb(255 242 246 / 97%);
+  border-bottom: 1px solid #f1d3df;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .header-inner {
@@ -89,18 +91,57 @@ p {
 
 .brand-mark {
   display: inline-flex;
+  min-width: 0;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   color: var(--ink);
-  font-size: 0.95rem;
-  font-weight: var(--font-weight-strong);
+  text-decoration: none;
 }
 
-.brand-mark::before {
-  width: 8px;
-  height: 25px;
-  background: var(--accent);
-  content: "";
+.brand-icon {
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: var(--accent);
+  background: var(--paper);
+  border: 1px solid #f1d3df;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgb(36 36 36 / 8%);
+}
+
+.brand-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.brand-sparkle {
+  fill: var(--gold);
+}
+
+.brand-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+}
+
+.brand-title {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: var(--font-weight-strong);
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  color: var(--muted);
+  font-size: 0.69rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.35;
+  white-space: nowrap;
 }
 
 .site-header nav {
@@ -1325,27 +1366,18 @@ body {
   position: sticky;
   top: 0;
   z-index: 30;
-  height: 60px;
-  border: 0;
-  background: var(--accent);
+  height: 64px;
 }
 
 .header-inner {
-  justify-content: center;
-  min-height: 60px;
+  justify-content: flex-start;
+  min-height: 64px;
 }
 
 .brand-mark {
   margin: 0;
-  color: #fff;
-  font-size: 17px;
-  line-height: 1.4;
-  font-weight: 900;
-  letter-spacing: 0.01em;
-  text-align: center;
 }
 
-.brand-mark::before,
 .site-header nav {
   display: none;
 }
@@ -1971,12 +2003,25 @@ h1 {
 
   .header-inner {
     display: flex;
+    justify-content: center;
     min-height: 60px;
     padding: 0 16px;
   }
 
   .brand-mark {
-    font-size: 16px;
+    gap: 9px;
+  }
+
+  .brand-icon {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  .brand-icon svg {
+    width: 28px;
+    height: 28px;
   }
 
   .page-grid {

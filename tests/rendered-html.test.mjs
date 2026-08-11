@@ -145,8 +145,20 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.match(text, /当サイトはプロモーションを含みます/);
   assert.match(
     text,
-    /現在開催されている楽天モバイルのキャンペーン21種類を徹底調査し、以下の3つのポイントで比較しています/,
+    /現在開催されている楽天モバイルのキャンペーンを徹底調査し、以下の3つのポイントで比較しました。/,
   );
+  assert.doesNotMatch(
+    text,
+    /現在開催されている楽天モバイルのキャンペーン21種類/,
+  );
+  assert.doesNotMatch(text, /3つのポイントで比較しています/);
+  const comparisonPointsHtml = sectionHtml(html, "comparison-points");
+  assert.ok(comparisonPointsHtml);
+  assert.match(
+    comparisonPointsHtml,
+    /<strong>楽天モバイルのキャンペーン<\/strong>/,
+  );
+  assert.match(comparisonPointsHtml, /<strong>比較しました<\/strong>。/);
   assert.match(text, /ポイント以外の特典と実質的なお得さ/);
   assert.match(html, /src="\/assets\/comparison-point-points-v2\.png"/);
   assert.match(html, /src="\/assets\/comparison-point-conditions-v2\.png"/);
@@ -671,6 +683,31 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
   assert.match(
     css,
     /\.comparison-points h2,[\s\S]*?font-weight: var\(--font-weight-strong\);/,
+  );
+  assert.match(
+    css,
+    /\.comparison-points\s*{[\s\S]*?padding: 28px 30px 30px;[\s\S]*?border: 1px solid var\(--line-light\);[\s\S]*?border-radius: 4px;/,
+  );
+  assert.match(
+    css,
+    /\.comparison-points h2\s*{[\s\S]*?padding-bottom: 0;[\s\S]*?border-bottom: 0;/,
+  );
+  assert.match(
+    css,
+    /\.comparison-points-intro strong\s*{[\s\S]*?color: var\(--ink\);[\s\S]*?font-weight: var\(--font-weight-medium\);/,
+  );
+  assert.match(
+    css,
+    /\.comparison-point-list p\s*{[\s\S]*?color: var\(--muted\);/,
+  );
+  assert.match(
+    css,
+    /\.comparison-point-list ul\s*{[\s\S]*?color: var\(--muted\);/,
+  );
+  const mobileCss = css.slice(css.indexOf("@media (max-width: 860px)"));
+  assert.match(
+    mobileCss,
+    /\.comparison-points\s*{[\s\S]*?padding: 20px 16px 22px;/,
   );
   assert.match(
     css,

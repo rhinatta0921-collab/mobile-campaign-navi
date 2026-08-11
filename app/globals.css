@@ -1541,6 +1541,22 @@ h1 {
   margin-bottom: 22px;
 }
 
+.comparison-points {
+  padding: 28px 30px 30px;
+  border: 1px solid var(--line-light);
+  border-radius: 4px;
+}
+
+.comparison-points h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.comparison-points-intro strong {
+  color: var(--ink);
+  font-weight: var(--font-weight-medium);
+}
+
 .comparison-point-list {
   margin: 0;
   padding: 0;
@@ -1589,12 +1605,13 @@ h1 {
 
 .comparison-point-list p {
   margin: 0;
+  color: var(--muted);
 }
 
 .comparison-point-list ul {
   margin: 9px 0 0;
   padding-left: 1.2em;
-  color: #595959;
+  color: var(--muted);
   font-size: 13px;
   line-height: 21px;
 }
@@ -2105,6 +2122,10 @@ h1 {
   .detail-section,
   .exclusions-band {
     margin-top: 40px;
+  }
+
+  .comparison-points {
+    padding: 20px 16px 22px;
   }
 
   .comparison-points h2,

@@ -157,10 +157,11 @@ export default async function Home({ searchParams }: HomeProps) {
             aria-labelledby="comparison-points-title"
           >
             <h2 id="comparison-points-title">比較のポイント</h2>
-            <p>
-              現在開催されている楽天モバイルのキャンペーン
-              {nonDeviceCampaigns.length}
-              種類を徹底調査し、以下の3つのポイントで比較しています。
+            <p className="comparison-points-intro">
+              現在開催されている
+              <strong>楽天モバイルのキャンペーン</strong>
+              を徹底調査し、以下の3つのポイントで
+              <strong>比較しました</strong>。
             </p>
             <ol className="comparison-point-list">
               {comparisonPoints.map((point, index) => (

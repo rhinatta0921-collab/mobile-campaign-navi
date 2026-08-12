@@ -146,10 +146,22 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.doesNotMatch(text, /広告・PR/);
   assert.doesNotMatch(text, / 更新/);
   assert.doesNotMatch(text, /最終確認:/);
+  const heroHtml = sectionHtml(html, "article-hero home-hero");
+  assert.ok(heroHtml);
+  const heroText = plainText(heroHtml);
   assert.match(
-    text,
-    /現在開催中の楽天モバイル申し込みキャンペーン22種を、申込者本人が受け取れる固定ポイント額の多い順にランキング形式で比較/,
+    heroText,
+    /このページでは、現在開催中の楽天モバイル申し込みキャンペーンを、受け取れるポイント額の多い順にランキング形式で比較しています。/,
   );
+  assert.doesNotMatch(
+    heroText,
+    /22種|申込者本人が受け取れる固定ポイント額/,
+  );
+  assert.match(
+    heroHtml,
+    /<strong class="lead-highlight">受け取れるポイント額の多い順にランキング形式で比較しています<\/strong>。/,
+  );
+  assert.equal([...heroHtml.matchAll(/<strong\b/g)].length, 1);
   assert.match(text, /当サイトはプロモーションを含みます/);
   assert.match(
     text,
@@ -179,8 +191,8 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     'id="comparison-points-conditions"',
   ]);
   assert.match(
-    text,
-    /このページで比較する端末購入なしのキャンペーンは現在22種類です/,
+    html,
+    /<strong>楽天モバイルで申し込みキャンペーンを利用する際に必ずチェックしておきたい3つのポイント<\/strong>を紹介します/,
   );
   assert.match(html, /src="\/assets\/campaign-choice-step-scope-v1\.png"/);
   assert.match(html, /src="\/assets\/campaign-choice-step-conditions-v1\.png"/);
@@ -782,6 +794,10 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
+  const editorialCss = css.slice(css.indexOf("/* Editorial article layout */"));
+  const editorialMobileCss = editorialCss.slice(
+    editorialCss.indexOf("@media (max-width: 860px)"),
+  );
 
   assert.match(
     layout,
@@ -797,7 +813,27 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
   );
   assert.match(
     css,
-    /\.lead strong\s*{[\s\S]*?font-weight: var\(--font-weight-strong\);/,
+    /\.lead-highlight\s*{[\s\S]*?background: #fff0df;[\s\S]*?box-decoration-break: clone;[\s\S]*?-webkit-box-decoration-break: clone;[\s\S]*?font-weight: var\(--font-weight-strong\);/,
+  );
+  assert.match(
+    css,
+    /\.lead-question\s*{[\s\S]*?font-weight: var\(--font-weight-body\);/,
+  );
+  assert.match(
+    editorialCss,
+    /\.home-hero\s*{\s*gap: 0;\s*padding: 0;\s*border-bottom: 0;/,
+  );
+  assert.match(
+    editorialCss,
+    /\.comparison-points,[\s\S]*?margin-top: 48px;/,
+  );
+  assert.match(
+    editorialMobileCss,
+    /\.home-hero\s*{\s*gap: 0;\s*padding: 0;\s*}/,
+  );
+  assert.match(
+    editorialMobileCss,
+    /\.comparison-points,[\s\S]*?margin-top: 40px;/,
   );
   assert.match(
     css,

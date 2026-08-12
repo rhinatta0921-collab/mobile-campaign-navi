@@ -123,13 +123,11 @@ export default async function Home({ searchParams }: HomeProps) {
                   そう思って調べ始めると、公式サイトだけでも10種類以上のキャンペーンが並んでいて、条件や特典の違いを一つひとつ確認するのは大変です。
                 </p>
                 <p>
-                  このページでは、
-                  <strong>
-                    現在開催中の楽天モバイル申し込みキャンペーン
-                    {nonDeviceCampaigns.length}
-                    種を、申込者本人が受け取れる固定ポイント額の多い順にランキング形式で比較
+                  このページでは、現在開催中の楽天モバイル申し込みキャンペーンを、
+                  <strong className="lead-highlight">
+                    受け取れるポイント額の多い順にランキング形式で比較しています
                   </strong>
-                  しています。
+                  。
                 </p>
                 <ul className="lead-checks">
                   <li>各キャンペーンの開催期間・適用条件を一覧で確認できる</li>
@@ -138,9 +136,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 </ul>
                 <p>
                   「紹介URLがある人」「MNPで乗り換える人」「65歳以上の方」など、
-                  <strong>
-                    あなたの状況に合ったキャンペーンがすぐに見つかります。
-                  </strong>
+                  あなたの状況に合ったキャンペーンがすぐに見つかります。
                 </p>
               </div>
               <p className="promotion-notice">
@@ -282,9 +278,10 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <h2 id="how-to-choose-title">キャンペーンの選び方</h2>
             <p className="choice-intro">
-              このページで比較する端末購入なしのキャンペーンは現在
-              <strong>{nonDeviceCampaigns.length}種類</strong>
-              です。条件や特典がそれぞれ異なるため、闇雲に選ぶと、本来もらえたはずのポイントを取りこぼす可能性があります。以下の3つを順番に確認して、自分に合ったキャンペーンを見つけましょう。
+              <strong>
+                楽天モバイルで申し込みキャンペーンを利用する際に必ずチェックしておきたい3つのポイント
+              </strong>
+              を紹介します
             </p>
             <div className="choice-step-list">
               <section

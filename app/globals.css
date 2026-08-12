@@ -1396,7 +1396,7 @@ body {
 
 .home-hero {
   gap: 0;
-  padding: 0 0 36px;
+  padding: 0;
   border-bottom: 0;
 }
 
@@ -1436,7 +1436,11 @@ h1 {
   margin-bottom: 0;
 }
 
-.lead strong {
+.lead-highlight {
+  padding: 0 0.08em;
+  background: #fff0df;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
   color: var(--ink);
   font-weight: var(--font-weight-strong);
 }
@@ -1444,7 +1448,7 @@ h1 {
 .lead-question {
   color: var(--ink);
   font-size: 15px;
-  font-weight: var(--font-weight-strong);
+  font-weight: var(--font-weight-body);
 }
 
 .lead-checks {
@@ -2073,7 +2077,7 @@ h1 {
 
   .home-hero {
     gap: 0;
-    padding: 0 0 32px;
+    padding: 0;
   }
 
   .hero-visual {

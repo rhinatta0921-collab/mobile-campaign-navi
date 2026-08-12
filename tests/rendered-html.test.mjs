@@ -690,8 +690,9 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
-    /\.mobile-section-nav\s*{[\s\S]*?position: sticky;[\s\S]*?top: 60px;[\s\S]*?height: 48px;/,
+    /\.mobile-section-nav\s*{\s*position: sticky;[\s\S]*?top: 60px;[\s\S]*?display: grid;[\s\S]*?height: 48px;/,
   );
+  assert.doesNotMatch(css, /\.mobile-section-nav\s*{\s*display: none;/);
   assert.match(
     css,
     /\.choice-condition-grid\s*{[\s\S]*?grid-template-columns: 1fr;/,

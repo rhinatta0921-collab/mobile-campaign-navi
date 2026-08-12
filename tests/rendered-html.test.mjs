@@ -743,7 +743,7 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
-    /\.conclusion-official-link\s*{[\s\S]*?width: min\(100%, 360px\);[\s\S]*?margin: 26px auto 0;/,
+    /\.conclusion-official-link\s*{[\s\S]*?width: min\(100%, 360px\);[\s\S]*?margin: 26px 0 0;/,
   );
   assert.match(
     mobileCss,

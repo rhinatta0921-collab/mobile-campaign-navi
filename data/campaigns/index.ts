@@ -112,6 +112,7 @@ type CampaignSource = {
   audience: CampaignAudience;
   period: string;
   officialUrl: string;
+  applicationUrl?: string;
   officialImage?: CampaignOfficialImage;
   listingUrl: string;
   checkedAt: string;
@@ -448,6 +449,10 @@ export const campaigns: Campaign[] = Object.entries(campaignModules)
   }));
 
 export const campaignDataMeta = campaignIndex;
+
+export function getCampaignApplicationUrl(campaign: Campaign) {
+  return campaign.applicationUrl ?? campaign.officialUrl;
+}
 
 export function getCampaignPoints(
   campaign: Campaign,

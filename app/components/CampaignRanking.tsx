@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  getCampaignApplicationUrl,
   getRankingPoints,
   rankCampaigns,
   type ApplicationType,
@@ -90,11 +91,11 @@ function RankingRange({
                 <td>
                   <a
                     className="table-link"
-                    href={campaign.officialUrl}
+                    href={getCampaignApplicationUrl(campaign)}
                     rel="sponsored noopener noreferrer"
                     target="_blank"
                   >
-                    公式
+                    公式ページ
                   </a>
                 </td>
               </tr>

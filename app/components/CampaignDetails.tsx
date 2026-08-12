@@ -1,5 +1,6 @@
 import {
   calculateCampaignValue,
+  getCampaignApplicationUrl,
   getRankingPoints,
   rankCampaigns,
   type ApplicationType,
@@ -301,11 +302,11 @@ export function CampaignDetails({
               </p>
               <a
                 className="official-link campaign-official-link"
-                href={campaign.officialUrl}
+                href={getCampaignApplicationUrl(campaign)}
                 rel="sponsored noopener noreferrer"
                 target="_blank"
               >
-                公式サイトで情報を見る
+                公式ページの情報を見る
               </a>
             </section>
 

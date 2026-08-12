@@ -8,6 +8,7 @@ import { MobileSectionNav } from "@/app/components/MobileSectionNav";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import {
   campaigns,
+  getCampaignApplicationUrl,
   type ApplicationType,
 } from "@/data/campaigns";
 
@@ -264,6 +265,14 @@ export default async function Home({ searchParams }: HomeProps) {
                 楽天モバイル自体のプランは月々の使用量に応じて自動的に料金が変わるシンプルな仕組みが特徴。あまりデータを使わない月は勝手に安くなるので、使い方を気にしすぎる必要がありません。社員紹介キャンペーンを入口に使うことで、そのシンプルさをお得にスタートできるのが最大のメリットです。
               </p>
             </div>
+            <a
+              className="official-link conclusion-official-link"
+              href={getCampaignApplicationUrl(employeeReferralCampaign)}
+              rel="sponsored noopener noreferrer"
+              target="_blank"
+            >
+              公式ページの情報を見る
+            </a>
           </section>
 
           <section

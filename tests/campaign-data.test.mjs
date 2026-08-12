@@ -99,6 +99,10 @@ test("stores one normalized campaign per JSON file", async () => {
     );
     assert.equal(campaign.listingUrl, index.listingUrl);
     assert.doesNotThrow(() => new URL(campaign.officialUrl));
+    if ("applicationUrl" in campaign) {
+      assert.equal(typeof campaign.applicationUrl, "string");
+      assert.doesNotThrow(() => new URL(campaign.applicationUrl));
+    }
 
     for (const field of ["conditions", "notes", "sourceCards"]) {
       assert.equal(
@@ -367,6 +371,11 @@ test("stores one normalized campaign per JSON file", async () => {
   );
   assert.equal(employeeReferral.points.mnp, 14_000);
   assert.equal(employeeReferral.points.newNumber, 11_000);
+  assert.equal(employeeReferral.applicationUrl, "https://r10.to/hkD5ah");
+  assert.equal(
+    employeeReferral.officialUrl,
+    "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/",
+  );
   assert.deepEqual(employeeReferral.breakdown.mnp, [
     "1回目：4,000ポイント",
     "2回目：5,000ポイント",

@@ -293,24 +293,34 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   ]);
   assert.doesNotMatch(mobileSectionNavHtml, /href="#conclusion"/);
   assert.doesNotMatch(text, /このページの比較・調査方法/);
-  assert.match(text, /申込者向け固定ポイントでは、最大14,000ポイント/);
 
   const conclusionHtml = sectionHtml(html, "conclusion");
   assert.ok(conclusionHtml);
   const conclusionText = plainText(conclusionHtml);
-  assert.equal(classCount(conclusionHtml, "winner-campaign-picture"), 1);
-  assert.doesNotMatch(conclusionHtml, /<source\b/);
+  assert.equal(classCount(conclusionHtml, "conclusion-campaign-picture"), 1);
   assert.match(
     conclusionHtml,
-    /data-campaign-code="2162"><img src="\/assets\/campaigns\/official\/2162-mobile\.jpg"/,
+    /data-campaign-code="2162"><source media="\(max-width: 860px\)" srcSet="\/assets\/campaigns\/official\/2162-mobile\.jpg" width="750" height="972"\/><img src="\/assets\/campaigns\/official\/2162-desktop\.jpg" width="2880" height="960"/,
   );
-  assert.match(conclusionText, /1位/);
-  assert.match(conclusionText, /14,000ポイント/);
-  assert.match(
-    conclusionText,
-    /画像：楽天モバイル公式ページ（2026年8月11日確認）/,
-  );
-  assert.match(conclusionText, /公式ページで確認/);
+  assertInOrder(conclusionText, [
+    "【結論】楽天モバイルへの乗り換え・新規契約を考えているなら、「社員紹介キャンペーン」経由が最もお得に始める方法！",
+    "画像：楽天モバイル公式ページ（2026年8月11日確認）",
+    "楽天モバイルへの乗り換えや新規契約を検討しているなら、まず社員紹介キャンペーンを検討してください。他社から楽天モバイルへ乗り換え（MNP）で最大14,000ポイント、乗り換え以外の新規契約でも最大11,000ポイントが還元される、公式キャンペーンの中でもトップクラスのお得さです。",
+    "さらに、1人で複数回線を申し込んでも対象になるのがこのキャンペーンの魅力の一つで、最大5回線まで適用可能です。たとえば家族5人全員が乗り換えれば、最大70,000円相当のポイントを獲得できる計算になります。",
+    "ただし、注意点もあります。2026年3月2日以降に申し込んだ方は「Rakuten Linkアプリで10秒以上の通話」が達成条件となっており、対象プランは「Rakuten最強プラン」または「Rakuten最強U-NEXT」に限られます。ポイントは即時付与ではなく、分割での進呈となる点も覚えておきましょう。",
+    "楽天モバイル自体のプランは月々の使用量に応じて自動的に料金が変わるシンプルな仕組みが特徴。あまりデータを使わない月は勝手に安くなるので、使い方を気にしすぎる必要がありません。社員紹介キャンペーンを入口に使うことで、そのシンプルさをお得にスタートできるのが最大のメリットです。",
+  ]);
+  const highlightedText = [
+    ...conclusionHtml.matchAll(
+      /<strong class="conclusion-highlight">([\s\S]*?)<\/strong>/g,
+    ),
+  ].map((match) => plainText(match[1]));
+  assert.deepEqual(highlightedText, [
+    "楽天モバイルへの乗り換えや新規契約を検討しているなら、まず社員紹介キャンペーンを検討してください。",
+    "他社から楽天モバイルへ乗り換え（MNP）で最大14,000ポイント、乗り換え以外の新規契約でも最大11,000ポイントが還元される",
+  ]);
+  assert.doesNotMatch(conclusionHtml, /winner-/);
+  assert.doesNotMatch(conclusionText, /1位|公式ページで確認/);
 
   const rankingHtml = sectionHtml(html, "ranking-section");
   assert.ok(rankingHtml);
@@ -664,13 +674,12 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     css,
     /\.campaign-official-figure\s*{[\s\S]*?width: 320px;[\s\S]*?max-width: 100%;/,
   );
+  assert.match(css, /\.conclusion-campaign-figure\s*{[\s\S]*?width: 100%;/);
+  assert.match(css, /\.conclusion-campaign-picture\s*{[\s\S]*?width: 100%;/);
+  assert.doesNotMatch(css, /\.conclusion-campaign-picture\s*{[^}]*aspect-ratio:/);
   assert.match(
     css,
-    /\.winner-campaign-figure\s*{[\s\S]*?width: 320px;[\s\S]*?max-width: 100%;/,
-  );
-  assert.match(
-    css,
-    /\.winner-campaign-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,
+    /\.conclusion-highlight\s*{[\s\S]*?background: #fff0df;[\s\S]*?font-weight: var\(--font-weight-strong\);/,
   );
   assert.match(
     css,

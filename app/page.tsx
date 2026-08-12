@@ -8,8 +8,6 @@ import { MobileSectionNav } from "@/app/components/MobileSectionNav";
 import { SiteHeader } from "@/app/components/SiteHeader";
 import {
   campaigns,
-  getCampaignPoints,
-  rankCampaigns,
   type ApplicationType,
 } from "@/data/campaigns";
 
@@ -24,7 +22,17 @@ const nonDeviceCampaigns = campaigns.filter(
     !campaign.requiresDevicePurchase &&
     campaign.rankingEligible,
 );
-const mnpRankedCampaigns = rankCampaigns(nonDeviceCampaigns, "mnp");
+const employeeReferralCampaign = campaigns.find(
+  (campaign) => campaign.campaignCode === "2162",
+);
+
+if (!employeeReferralCampaign) {
+  throw new Error("キャンペーン2162のデータがありません。");
+}
+
+const employeeReferralOfficialImage = requireOfficialImage(
+  employeeReferralCampaign,
+);
 const excludedExamples = [
   "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須の特典",
   "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
@@ -60,10 +68,6 @@ const comparisonPoints = [
   },
 ];
 
-function formatPoints(points: number) {
-  return points.toLocaleString("ja-JP");
-}
-
 function formatJapaneseDate(date: string) {
   const [year, month, day] = date.split("-").map(Number);
   return `${year}年${month}月${day}日`;
@@ -78,13 +82,6 @@ function resolveApplicationType(
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
   const applicationType = resolveApplicationType(params?.application);
-  const topCampaign = mnpRankedCampaigns[0];
-  const topPoints = topCampaign
-    ? getCampaignPoints(topCampaign, "mnp")
-    : null;
-  const topCampaignOfficialImage = topCampaign
-    ? requireOfficialImage(topCampaign)
-    : null;
 
   return (
     <main>
@@ -224,55 +221,49 @@ export default async function Home({ searchParams }: HomeProps) {
             id="conclusion"
             aria-labelledby="conclusion-title"
           >
-            <p className="section-label">結論</p>
             <h2 id="conclusion-title">
-              端末購入なしの申込者向け固定ポイントでは、最大
-              {formatPoints(topPoints ?? 0)}ポイントが最上位
+              【結論】楽天モバイルへの乗り換え・新規契約を考えているなら、「社員紹介キャンペーン」経由が最もお得に始める方法！
             </h2>
-            {topCampaign && topCampaignOfficialImage ? (
-              <div className="winner-box">
-                <figure className="winner-campaign-figure">
-                  <CampaignOfficialImage
-                    campaign={topCampaign}
-                    className="winner-campaign-picture"
-                    variant="detail"
-                  />
-                  <figcaption>
-                    画像：
-                    <a
-                      href={topCampaign.officialUrl}
-                      rel="sponsored noopener noreferrer"
-                      target="_blank"
-                      aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
-                    >
-                      楽天モバイル公式ページ
-                    </a>
-                    （
-                    {formatJapaneseDate(topCampaignOfficialImage.checkedAt)}
-                    確認）
-                  </figcaption>
-                </figure>
-                <div className="winner-rank">
-                  <img src="/assets/crown.svg" alt="" aria-hidden="true" />
-                  <span>1位</span>
-                </div>
-                <div className="winner-copy">
-                  <h3>{topCampaign.title}</h3>
-                  <p>
-                    申込者本人が最大{formatPoints(topPoints ?? 0)}ポイント。
-                    {topCampaign.summary}
-                  </p>
-                </div>
+            <figure className="conclusion-campaign-figure">
+              <CampaignOfficialImage
+                campaign={employeeReferralCampaign}
+                className="conclusion-campaign-picture"
+              />
+              <figcaption>
+                画像：
                 <a
-                  className="text-link"
-                  href={topCampaign.officialUrl}
+                  href={employeeReferralCampaign.officialUrl}
                   rel="sponsored noopener noreferrer"
                   target="_blank"
+                  aria-label={`${employeeReferralCampaign.title}の画像出典：楽天モバイル公式ページ`}
                 >
-                  公式ページで確認
+                  楽天モバイル公式ページ
                 </a>
-              </div>
-            ) : null}
+                （
+                {formatJapaneseDate(employeeReferralOfficialImage.checkedAt)}
+                確認）
+              </figcaption>
+            </figure>
+            <div className="conclusion-lead">
+              <p>
+                <strong className="conclusion-highlight">
+                  楽天モバイルへの乗り換えや新規契約を検討しているなら、まず社員紹介キャンペーンを検討してください。
+                </strong>
+                <strong className="conclusion-highlight">
+                  他社から楽天モバイルへ乗り換え（MNP）で最大14,000ポイント、乗り換え以外の新規契約でも最大11,000ポイントが還元される
+                </strong>
+                、公式キャンペーンの中でもトップクラスのお得さです。
+              </p>
+              <p>
+                さらに、1人で複数回線を申し込んでも対象になるのがこのキャンペーンの魅力の一つで、最大5回線まで適用可能です。たとえば家族5人全員が乗り換えれば、最大70,000円相当のポイントを獲得できる計算になります。
+              </p>
+              <p>
+                ただし、注意点もあります。2026年3月2日以降に申し込んだ方は「Rakuten Linkアプリで10秒以上の通話」が達成条件となっており、対象プランは「Rakuten最強プラン」または「Rakuten最強U-NEXT」に限られます。ポイントは即時付与ではなく、分割での進呈となる点も覚えておきましょう。
+              </p>
+              <p>
+                楽天モバイル自体のプランは月々の使用量に応じて自動的に料金が変わるシンプルな仕組みが特徴。あまりデータを使わない月は勝手に安くなるので、使い方を気にしすぎる必要がありません。社員紹介キャンペーンを入口に使うことで、そのシンプルさをお得にスタートできるのが最大のメリットです。
+              </p>
+            </div>
           </section>
 
           <section

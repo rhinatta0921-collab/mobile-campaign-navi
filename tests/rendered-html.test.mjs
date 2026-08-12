@@ -234,9 +234,10 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     'class="comparison-points"',
     'class="toc"',
     'class="mobile-section-nav"',
+    'class="conclusion"',
     'class="campaign-choice"',
     'class="device-guide-section"',
-    'class="conclusion"',
+    'class="ranking-section"',
   ]);
   const choiceStart = html.indexOf('class="campaign-choice"');
   const deviceGuideStart = html.indexOf('class="device-guide-section"');

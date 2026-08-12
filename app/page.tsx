@@ -220,6 +220,62 @@ export default async function Home({ searchParams }: HomeProps) {
           <MobileSectionNav />
 
           <section
+            className="conclusion"
+            id="conclusion"
+            aria-labelledby="conclusion-title"
+          >
+            <p className="section-label">結論</p>
+            <h2 id="conclusion-title">
+              端末購入なしの申込者向け固定ポイントでは、最大
+              {formatPoints(topPoints ?? 0)}ポイントが最上位
+            </h2>
+            {topCampaign && topCampaignOfficialImage ? (
+              <div className="winner-box">
+                <figure className="winner-campaign-figure">
+                  <CampaignOfficialImage
+                    campaign={topCampaign}
+                    className="winner-campaign-picture"
+                    variant="detail"
+                  />
+                  <figcaption>
+                    画像：
+                    <a
+                      href={topCampaign.officialUrl}
+                      rel="sponsored noopener noreferrer"
+                      target="_blank"
+                      aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
+                    >
+                      楽天モバイル公式ページ
+                    </a>
+                    （
+                    {formatJapaneseDate(topCampaignOfficialImage.checkedAt)}
+                    確認）
+                  </figcaption>
+                </figure>
+                <div className="winner-rank">
+                  <img src="/assets/crown.svg" alt="" aria-hidden="true" />
+                  <span>1位</span>
+                </div>
+                <div className="winner-copy">
+                  <h3>{topCampaign.title}</h3>
+                  <p>
+                    申込者本人が最大{formatPoints(topPoints ?? 0)}ポイント。
+                    {topCampaign.summary}
+                  </p>
+                </div>
+                <a
+                  className="text-link"
+                  href={topCampaign.officialUrl}
+                  rel="sponsored noopener noreferrer"
+                  target="_blank"
+                >
+                  公式ページで確認
+                </a>
+              </div>
+            ) : null}
+          </section>
+
+          <section
             className="campaign-choice"
             id="how-to-choose"
             aria-labelledby="how-to-choose-title"
@@ -414,62 +470,6 @@ export default async function Home({ searchParams }: HomeProps) {
               端末購入ありのキャンペーンを見る
               <span aria-hidden="true">→</span>
             </a>
-          </section>
-
-          <section
-            className="conclusion"
-            id="conclusion"
-            aria-labelledby="conclusion-title"
-          >
-            <p className="section-label">結論</p>
-            <h2 id="conclusion-title">
-              端末購入なしの申込者向け固定ポイントでは、最大
-              {formatPoints(topPoints ?? 0)}ポイントが最上位
-            </h2>
-            {topCampaign && topCampaignOfficialImage ? (
-              <div className="winner-box">
-                <figure className="winner-campaign-figure">
-                  <CampaignOfficialImage
-                    campaign={topCampaign}
-                    className="winner-campaign-picture"
-                    variant="detail"
-                  />
-                  <figcaption>
-                    画像：
-                    <a
-                      href={topCampaign.officialUrl}
-                      rel="sponsored noopener noreferrer"
-                      target="_blank"
-                      aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
-                    >
-                      楽天モバイル公式ページ
-                    </a>
-                    （
-                    {formatJapaneseDate(topCampaignOfficialImage.checkedAt)}
-                    確認）
-                  </figcaption>
-                </figure>
-                <div className="winner-rank">
-                  <img src="/assets/crown.svg" alt="" aria-hidden="true" />
-                  <span>1位</span>
-                </div>
-                <div className="winner-copy">
-                  <h3>{topCampaign.title}</h3>
-                  <p>
-                    申込者本人が最大{formatPoints(topPoints ?? 0)}ポイント。
-                    {topCampaign.summary}
-                  </p>
-                </div>
-                <a
-                  className="text-link"
-                  href={topCampaign.officialUrl}
-                  rel="sponsored noopener noreferrer"
-                  target="_blank"
-                >
-                  公式ページで確認
-                </a>
-              </div>
-            ) : null}
           </section>
 
           <section

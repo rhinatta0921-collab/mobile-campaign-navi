@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 
 const navigationItems = [
-  { href: "#conclusion", id: "conclusion", label: "結論" },
+  { href: "#how-to-choose", id: "how-to-choose", label: "選び方" },
   { href: "#ranking", id: "ranking", label: "ランキング" },
   { href: "#details", id: "details", label: "詳細" },
 ];
 
 export function MobileSectionNav() {
-  const [activeId, setActiveId] = useState("conclusion");
+  const [activeId, setActiveId] = useState("how-to-choose");
 
   useEffect(() => {
     const sections = navigationItems

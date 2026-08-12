@@ -278,9 +278,19 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   )?.[0];
   assert.ok(hiddenTocHtml);
   assert.doesNotMatch(hiddenTocHtml, /href="\/device-campaigns"/);
-  assert.match(html, /href="#conclusion"[^>]*>結論<\/a>/);
-  assert.match(html, /href="#ranking"[^>]*>ランキング<\/a>/);
-  assert.match(html, /href="#details"[^>]*>詳細<\/a>/);
+  const mobileSectionNavHtml = html.match(
+    /<nav class="mobile-section-nav"[\s\S]*?<\/nav>/,
+  )?.[0];
+  assert.ok(mobileSectionNavHtml);
+  assertInOrder(mobileSectionNavHtml, [
+    'href="#how-to-choose"',
+    ">選び方</a>",
+    'href="#ranking"',
+    ">ランキング</a>",
+    'href="#details"',
+    ">詳細</a>",
+  ]);
+  assert.doesNotMatch(mobileSectionNavHtml, /href="#conclusion"/);
   assert.doesNotMatch(text, /このページの比較・調査方法/);
   assert.match(text, /申込者向け固定ポイントでは、最大14,000ポイント/);
 

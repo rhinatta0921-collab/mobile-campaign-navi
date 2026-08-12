@@ -444,25 +444,15 @@ export default async function Home({ searchParams }: HomeProps) {
             <h2 id="device-campaign-guide-title">
               スマホ本体も一緒に購入する方へ
             </h2>
-            <p className="device-guide-intro">
-              端末購入が必要なキャンペーンは、別ページでまとめて紹介しています。
+            <p>
+              端末購入ありのキャンペーンは、基本的に1機種につき1つのキャンペーンが設定されています。
             </p>
             <p>
-              端末購入ありのキャンペーンは「どの機種を買うか」によって選択肢が決まるため、SIMのみとは選び方が根本的に異なります。見やすさのために、このページでは端末購入なしのキャンペーンのみを掲載しています。
-            </p>
-            <p className="device-guide-highlight">
-              スマホ本体も一緒に購入する場合は、
-              <strong>「欲しい機種を先に決める」</strong>
-              のがポイントです。
+              そのため、気になる端末のキャンペーン条件を確認し、他店での購入と比べてどちらがお得かをチェックするだけでOKです。
             </p>
             <p>
-              楽天モバイルでは基本的に1機種につき1つのキャンペーンが設定されているため、キャンペーン同士を比較する必要はありません。気になる端末のキャンペーン条件を確認し、他店での購入と比べてどちらがお得かをチェックするだけでOKです。
+              SIMのみのキャンペーンとは選び方が根本的に異なるため、このページでは端末購入なしのキャンペーンのみを掲載しています。
             </p>
-            <ol className="device-guide-flow">
-              <li>機種を決める</li>
-              <li>キャンペーン条件を確認</li>
-              <li>他店価格と比較</li>
-            </ol>
             <a className="device-guide-link" href="/device-campaigns">
               端末購入ありのキャンペーンを見る
               <span aria-hidden="true">→</span>

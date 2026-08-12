@@ -266,20 +266,20 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     html.slice(choiceStart, deviceGuideStart),
     /href="\/device-campaigns"/,
   );
-  assert.match(
-    text,
-    /スマホ本体も一緒に購入する方へ端末購入が必要なキャンペーンは、別ページでまとめて紹介しています/,
-  );
-  assert.match(text, /「欲しい機種を先に決める」のがポイントです/);
-  const deviceFlowHtml = html.match(
-    /<ol class="device-guide-flow">[\s\S]*?<\/ol>/,
-  )?.[0];
-  assert.ok(deviceFlowHtml);
-  assertInOrder(plainText(deviceFlowHtml), [
-    "機種を決める",
-    "キャンペーン条件を確認",
-    "他店価格と比較",
+  const deviceGuideHtml = sectionHtml(html, "device-guide-section");
+  assert.ok(deviceGuideHtml);
+  const deviceGuideParagraphs = [
+    ...deviceGuideHtml.matchAll(/<p>([\s\S]*?)<\/p>/g),
+  ].map((match) => plainText(match[1]));
+  assert.deepEqual(deviceGuideParagraphs, [
+    "端末購入ありのキャンペーンは、基本的に1機種につき1つのキャンペーンが設定されています。",
+    "そのため、気になる端末のキャンペーン条件を確認し、他店での購入と比べてどちらがお得かをチェックするだけでOKです。",
+    "SIMのみのキャンペーンとは選び方が根本的に異なるため、このページでは端末購入なしのキャンペーンのみを掲載しています。",
   ]);
+  assert.doesNotMatch(deviceGuideHtml, /device-guide-highlight/);
+  assert.doesNotMatch(deviceGuideHtml, /device-guide-flow/);
+  assert.doesNotMatch(deviceGuideHtml, /端末購入が必要なキャンペーンは、別ページで/);
+  assert.doesNotMatch(deviceGuideHtml, /欲しい機種を先に決める/);
   assert.match(
     html,
     /class="device-guide-link" href="\/device-campaigns"/,

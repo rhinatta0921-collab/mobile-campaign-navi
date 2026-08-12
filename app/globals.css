@@ -1755,60 +1755,6 @@ h1 {
   margin-bottom: 8px;
 }
 
-.device-guide-flow {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 24px 0 0;
-  padding: 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  counter-reset: decision-flow;
-  list-style: none;
-}
-
-.device-guide-flow li {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 76px;
-  padding: 14px 28px 14px 14px;
-  border-right: 1px solid var(--line);
-  color: var(--ink);
-  font-size: 13px;
-  line-height: 20px;
-  font-weight: var(--font-weight-strong);
-}
-
-.device-guide-flow li::before {
-  margin-right: 8px;
-  color: var(--accent);
-  content: counter(decision-flow);
-  counter-increment: decision-flow;
-  font-size: 20px;
-  line-height: 1;
-  font-weight: 900;
-}
-
-.device-guide-flow li::after {
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-  content: "";
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.device-guide-flow li:last-child {
-  border-right: 0;
-}
-
-.device-guide-flow li:last-child::after {
-  display: none;
-}
-
 .choice-ranking-link,
 .device-guide-link {
   display: flex;
@@ -1841,25 +1787,15 @@ h1 {
   line-height: 23px;
 }
 
-.device-guide-intro {
-  color: var(--ink);
-  font-size: 16px !important;
-  line-height: 25px !important;
-  font-weight: var(--font-weight-strong);
+.device-guide-section {
+  padding: 28px 30px 30px;
+  border: 1px solid var(--line-light);
+  border-radius: 4px;
+  background: var(--soft);
 }
 
-.device-guide-highlight {
-  margin: 22px 0 !important;
-  padding: 13px 15px;
-  border-left: 4px solid var(--accent);
-  background: var(--accent-soft);
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.device-guide-highlight strong {
-  color: var(--accent-deep);
-  font-weight: var(--font-weight-strong);
+.device-guide-section > p:last-of-type {
+  margin-bottom: 0;
 }
 
 .device-guide-link {
@@ -2133,6 +2069,10 @@ h1 {
     padding: 20px 16px 22px;
   }
 
+  .device-guide-section {
+    padding: 20px 16px 22px;
+  }
+
   .comparison-points h2,
   .campaign-choice h2,
   .device-guide-section h2,
@@ -2236,28 +2176,6 @@ h1 {
 
   .choice-condition-grid section:last-child {
     border-bottom: 0;
-  }
-
-  .device-guide-flow {
-    grid-template-columns: 1fr;
-  }
-
-  .device-guide-flow li {
-    min-height: 58px;
-    padding: 12px 36px 12px 12px;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .device-guide-flow li:last-child {
-    border-bottom: 0;
-  }
-
-  .device-guide-flow li::after {
-    top: auto;
-    right: 50%;
-    bottom: -7px;
-    transform: translateX(50%) rotate(135deg);
   }
 
   .choice-ranking-link,

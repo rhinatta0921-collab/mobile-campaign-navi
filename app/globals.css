@@ -1833,7 +1833,7 @@ h1 {
 .toc-list a {
   display: block;
   padding: 8px 4px;
-  color: var(--ink);
+  color: #6d6d6d;
   font-size: 13px;
   line-height: 20px;
   font-weight: 700;
@@ -1861,7 +1861,7 @@ h1 {
   padding: 10px 20px;
   border-top: 1px solid #ddd;
   background: #f4f4f4;
-  color: var(--ink);
+  color: #6d6d6d;
   font-size: 13px;
   line-height: 20px;
   font-weight: 600;

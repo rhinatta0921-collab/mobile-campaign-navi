@@ -915,6 +915,14 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
     css,
     /\.comparison-point-list ul\s*{[\s\S]*?color: var\(--muted\);/,
   );
+  assert.match(
+    editorialCss,
+    /\.toc-list a\s*{[\s\S]*?color: #6d6d6d;/,
+  );
+  assert.match(
+    editorialCss,
+    /\.toc-overflow summary\s*{[\s\S]*?color: #6d6d6d;/,
+  );
   const mobileCss = css.slice(css.indexOf("@media (max-width: 860px)"));
   assert.match(
     mobileCss,

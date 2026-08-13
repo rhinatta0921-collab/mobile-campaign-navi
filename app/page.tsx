@@ -69,6 +69,28 @@ const comparisonPoints = [
   },
 ];
 
+const sectionTitles = {
+  conclusion:
+    "【結論】楽天モバイルへの乗り換え・新規契約を考えているなら、「社員紹介キャンペーン」経由が最もお得に始める方法！",
+  howToChoose: "キャンペーンの選び方",
+  deviceCampaignGuide: "スマホ本体も一緒に購入する方へ",
+  ranking: "獲得固定ポイント額ランキング",
+  details: "ランキング掲載キャンペーンの詳細",
+  exclusions: "ランキングから外したもの",
+} as const;
+
+const tocItems = [
+  { href: "#conclusion", title: sectionTitles.conclusion },
+  { href: "#how-to-choose", title: sectionTitles.howToChoose },
+  {
+    href: "#device-campaign-guide",
+    title: sectionTitles.deviceCampaignGuide,
+  },
+  { href: "#ranking", title: sectionTitles.ranking },
+  { href: "#details", title: sectionTitles.details },
+  { href: "#excluded-title", title: sectionTitles.exclusions },
+] as const;
+
 function formatJapaneseDate(date: string) {
   const [year, month, day] = date.split("-").map(Number);
   return `${year}年${month}月${day}日`;
@@ -190,15 +212,11 @@ export default async function Home({ searchParams }: HomeProps) {
           <nav className="toc" aria-label="目次">
             <h2>目次</h2>
             <ul className="toc-list">
-              <li>
-                <a href="#comparison-points">比較のポイント</a>
-              </li>
-              <li>
-                <a href="#how-to-choose">キャンペーンの選び方</a>
-              </li>
-              <li><a href="#device-campaign-guide">スマホ本体も一緒に購入する方へ</a></li>
-              <li><a href="#conclusion">結論</a></li>
-              <li><a href="#ranking">楽天モバイルキャンペーン獲得ポイント額ランキング</a></li>
+              {tocItems.slice(0, 5).map((item) => (
+                <li key={item.href}>
+                  <a href={item.href}>{item.title}</a>
+                </li>
+              ))}
             </ul>
             <details className="toc-overflow">
               <summary>
@@ -206,7 +224,11 @@ export default async function Home({ searchParams }: HomeProps) {
                 <span className="toc-close-label">閉じる</span>
               </summary>
               <ul className="toc-list toc-list-hidden">
-                <li><a href="#details">ランキング掲載キャンペーンの詳細</a></li>
+                {tocItems.slice(5).map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href}>{item.title}</a>
+                  </li>
+                ))}
               </ul>
             </details>
           </nav>
@@ -218,9 +240,7 @@ export default async function Home({ searchParams }: HomeProps) {
             id="conclusion"
             aria-labelledby="conclusion-title"
           >
-            <h2 id="conclusion-title">
-              【結論】楽天モバイルへの乗り換え・新規契約を考えているなら、「社員紹介キャンペーン」経由が最もお得に始める方法！
-            </h2>
+            <h2 id="conclusion-title">{sectionTitles.conclusion}</h2>
             <figure className="conclusion-campaign-figure">
               <CampaignOfficialImage
                 campaign={employeeReferralCampaign}
@@ -276,7 +296,7 @@ export default async function Home({ searchParams }: HomeProps) {
             id="how-to-choose"
             aria-labelledby="how-to-choose-title"
           >
-            <h2 id="how-to-choose-title">キャンペーンの選び方</h2>
+            <h2 id="how-to-choose-title">{sectionTitles.howToChoose}</h2>
             <p className="choice-intro">
               <strong>
                 楽天モバイルで申し込みキャンペーンを利用する際に必ずチェックしておきたい3つのポイント
@@ -442,7 +462,7 @@ export default async function Home({ searchParams }: HomeProps) {
             aria-labelledby="device-campaign-guide-title"
           >
             <h2 id="device-campaign-guide-title">
-              スマホ本体も一緒に購入する方へ
+              {sectionTitles.deviceCampaignGuide}
             </h2>
             <p>
               端末購入ありのキャンペーンは、基本的に1機種につき1つのキャンペーンが設定されています。
@@ -469,7 +489,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 端末購入不要・申込キャンペーン
                 {nonDeviceCampaigns.length}種比較
               </p>
-              <h2 id="ranking-title">獲得固定ポイント額ランキング</h2>
+              <h2 id="ranking-title">{sectionTitles.ranking}</h2>
               <p>
                 順位は申込者本人が受け取る固定ポイントだけで決定します。ポイント以外の特典、追加費用、実質お得額は各キャンペーンの詳細で確認できます。
               </p>
@@ -490,9 +510,7 @@ export default async function Home({ searchParams }: HomeProps) {
           >
             <div className="section-heading">
               <p className="section-label">詳細</p>
-              <h2 id="details-title">
-                ランキング掲載キャンペーンの詳細
-              </h2>
+              <h2 id="details-title">{sectionTitles.details}</h2>
             </div>
 
             <CampaignDetails
@@ -506,7 +524,7 @@ export default async function Home({ searchParams }: HomeProps) {
             aria-labelledby="excluded-title"
           >
             <p className="section-label">対象外</p>
-            <h2 id="excluded-title">ランキングから外したもの</h2>
+            <h2 id="excluded-title">{sectionTitles.exclusions}</h2>
             <ul>
               {excludedExamples.map((example) => (
                 <li key={example}>{example}</li>

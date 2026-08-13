@@ -285,8 +285,60 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     /class="device-guide-link" href="\/device-campaigns"/,
   );
   assert.match(text, /端末購入ありのキャンペーンを見る→/);
-  assert.match(html, /<details class="toc-overflow">/);
-  assert.match(text, /全部見る閉じるランキング掲載キャンペーンの詳細/);
+  const tocHtml = html.match(
+    /<nav class="toc" aria-label="目次">[\s\S]*?<\/nav>/,
+  )?.[0];
+  assert.ok(tocHtml);
+  const expectedTocItems = [
+    {
+      href: "#conclusion",
+      headingId: "conclusion-title",
+      title:
+        "【結論】楽天モバイルへの乗り換え・新規契約を考えているなら、「社員紹介キャンペーン」経由が最もお得に始める方法！",
+    },
+    {
+      href: "#how-to-choose",
+      headingId: "how-to-choose-title",
+      title: "キャンペーンの選び方",
+    },
+    {
+      href: "#device-campaign-guide",
+      headingId: "device-campaign-guide-title",
+      title: "スマホ本体も一緒に購入する方へ",
+    },
+    {
+      href: "#ranking",
+      headingId: "ranking-title",
+      title: "獲得固定ポイント額ランキング",
+    },
+    {
+      href: "#details",
+      headingId: "details-title",
+      title: "ランキング掲載キャンペーンの詳細",
+    },
+    {
+      href: "#excluded-title",
+      headingId: "excluded-title",
+      title: "ランキングから外したもの",
+    },
+  ];
+  const tocItems = [
+    ...tocHtml.matchAll(/<a href="([^"]+)">([\s\S]*?)<\/a>/g),
+  ].map((match) => ({ href: match[1], title: plainText(match[2]) }));
+  assert.deepEqual(
+    tocItems,
+    expectedTocItems.map(({ href, title }) => ({ href, title })),
+  );
+  for (const { headingId, title } of expectedTocItems) {
+    const headingHtml = html.match(
+      new RegExp(`<h2 id="${headingId}">([\\s\\S]*?)<\\/h2>`),
+    )?.[1];
+    assert.ok(headingHtml, `missing heading: ${headingId}`);
+    assert.equal(plainText(headingHtml), title);
+  }
+  assert.match(tocHtml, /<details class="toc-overflow">/);
+  assert.match(plainText(tocHtml), /全部見る閉じるランキングから外したもの/);
+  assert.doesNotMatch(tocHtml, /href="#comparison-points"/);
   assert.doesNotMatch(html, /href="#comparison-points-value"/);
   assert.doesNotMatch(html, /href="#comparison-points-total-value"/);
   assert.doesNotMatch(html, /href="#comparison-points-conditions"/);
@@ -298,7 +350,11 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     /<ul class="toc-list toc-list-hidden">[\s\S]*?<\/ul>/,
   )?.[0];
   assert.ok(hiddenTocHtml);
-  assert.doesNotMatch(hiddenTocHtml, /href="\/device-campaigns"/);
+  assert.match(
+    hiddenTocHtml,
+    /<a href="#excluded-title">ランキングから外したもの<\/a>/,
+  );
+  assert.equal([...hiddenTocHtml.matchAll(/<li>/g)].length, 1);
   const mobileSectionNavHtml = html.match(
     /<nav class="mobile-section-nav"[\s\S]*?<\/nav>/,
   )?.[0];

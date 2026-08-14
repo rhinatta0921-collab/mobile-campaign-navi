@@ -648,6 +648,19 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     employeeDetail,
     /<div class="campaign-recommendation">[\s\S]*?<p>一番多くの楽天ポイント特典を獲得したい人<\/p>/,
   );
+  const employeeDetailText = plainText(employeeDetail);
+  assert.match(
+    employeeDetailText,
+    /本ページの専用URLからのログイン後に契約し、対象プランの申し込みと利用開始、期限内のRakuten Linkによる10秒以上の通話が必要です。/,
+  );
+  assert.doesNotMatch(
+    employeeDetailText,
+    /利用開始とRakuten Linkで10秒以上の通話を期限内に完了する必要がある/,
+  );
+  assert.doesNotMatch(
+    employeeDetailText,
+    /通常紹介などの対象キャンペーンとは併用できない/,
+  );
   assert.match(
     employeeDetail,
     /class="official-link campaign-official-link" href="https:\/\/r10\.to\/hkD5ah"/,

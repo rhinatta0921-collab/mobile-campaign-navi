@@ -10,6 +10,7 @@ import {
   CampaignOfficialImage,
   requireOfficialImage,
 } from "./CampaignOfficialImage";
+import { getCampaignRecommendation } from "./campaignRecommendation";
 
 type CampaignDetailsProps = {
   applicationType: ApplicationType;
@@ -47,6 +48,7 @@ export function CampaignDetails({
         const editorial = requireEditorial(campaign);
         const officialImage = requireOfficialImage(campaign);
         const points = getRankingPoints(campaign, applicationType);
+        const recommendation = getCampaignRecommendation(campaign);
         const articleTitleId = `campaign-title-${campaign.campaignCode}`;
         const editorialTitleId = `campaign-editorial-${campaign.campaignCode}`;
 
@@ -62,7 +64,7 @@ export function CampaignDetails({
                 <p className="campaign-recommendation-label">
                   どんな人におすすめか
                 </p>
-                <p>{campaign.target}</p>
+                <p>{recommendation}</p>
               </div>
               <h3 id={articleTitleId}>{campaign.title}</h3>
             </header>

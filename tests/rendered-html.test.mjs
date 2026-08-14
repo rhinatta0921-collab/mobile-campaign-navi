@@ -92,6 +92,38 @@ function campaignDetailHtml(html, campaignCode) {
   )?.[0];
 }
 
+function rankingRecommendations(html) {
+  return [...html.matchAll(/<tr>[\s\S]*?<\/tr>/g)]
+    .map((match) => match[0])
+    .filter((row) => row.includes('data-campaign-code="'))
+    .map((row) => {
+      const campaignCode = row.match(/data-campaign-code="([^"]+)"/)?.[1];
+      const recommendation = row.match(
+        /<td class="ranking-recommendation-cell">([\s\S]*?)<\/td>/,
+      )?.[1];
+
+      assert.ok(campaignCode);
+      assert.ok(recommendation);
+      return [campaignCode, plainText(recommendation)];
+    });
+}
+
+function detailRecommendations(html) {
+  return [...html.matchAll(
+    /<article class="campaign-detail-article"[\s\S]*?<\/article>/g,
+  )].map((match) => {
+    const article = match[0];
+    const campaignCode = article.match(/data-campaign-code="([^"]+)"/)?.[1];
+    const recommendation = article.match(
+      /<div class="campaign-recommendation">[\s\S]*?<p class="campaign-recommendation-label">[\s\S]*?<\/p><p>([\s\S]*?)<\/p><\/div>/,
+    )?.[1];
+
+    assert.ok(campaignCode);
+    assert.ok(recommendation);
+    return [campaignCode, plainText(recommendation)];
+  });
+}
+
 function assertDetailStructure(html, expectedCount) {
   const articles = [...html.matchAll(
     /<article class="campaign-detail-article"[\s\S]*?<\/article>/g,
@@ -510,7 +542,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assert.match(
     employeeRankingRow,
-    /<ul class="ranking-bullet-list"><li>一番多くの楽天ポイント特典を獲得したい人<\/li><\/ul>/,
+    /<td class="ranking-recommendation-cell">一番多くの楽天ポイント特典を獲得したい人<\/td>/,
   );
   assert.match(
     employeeRankingRow,
@@ -519,6 +551,12 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.doesNotMatch(
     employeeRankingRow,
     /楽天従業員の専用URLから紹介ログインし、対象プランを申し込む方/,
+  );
+  assert.equal(classCount(rankingHtml, "ranking-recommendation-cell"), 21);
+  assert.equal(classCount(rankingHtml, "ranking-bullet-list"), 21);
+  assert.doesNotMatch(
+    rankingHtml,
+    /<td class="ranking-recommendation-cell">\s*<ul/,
   );
   assert.match(
     rankingHtml,
@@ -602,6 +640,14 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   const referralDetail = campaignDetailHtml(detailHtml, "1784");
   assert.ok(employeeDetail);
   assert.ok(referralDetail);
+  assert.deepEqual(
+    detailRecommendations(detailHtml),
+    rankingRecommendations(rankingHtml),
+  );
+  assert.match(
+    employeeDetail,
+    /<div class="campaign-recommendation">[\s\S]*?<p>一番多くの楽天ポイント特典を獲得したい人<\/p>/,
+  );
   assert.match(
     employeeDetail,
     /class="official-link campaign-official-link" href="https:\/\/r10\.to\/hkD5ah"/,
@@ -684,6 +730,10 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 20);
   assert.equal(classCount(detailHtml, "campaign-point-summary"), 20);
   assertDetailStructure(detailHtml, 20);
+  assert.deepEqual(
+    detailRecommendations(detailHtml),
+    rankingRecommendations(rankingHtml),
+  );
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.match(detailText, /獲得可能ポイント11,748ポイント/);
   assert.match(detailText, /獲得可能ポイント11,000ポイント/);
@@ -818,6 +868,7 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     "utf8",
   );
   const mobileCss = css.slice(css.indexOf("@media (max-width: 860px)"));
+  const narrowMobileCss = css.slice(css.indexOf("@media (max-width: 420px)"));
 
   assert.doesNotMatch(mobileCss, /\.table-scroll\s*{\s*display: none;/);
   assert.doesNotMatch(css, /\.mobile-ranking-list\b/);
@@ -882,14 +933,19 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     mobileCss,
     /\.conclusion-official-link\s*{[\s\S]*?width: 100%;[\s\S]*?margin-top: 22px;/,
   );
+  const conclusionLoginNoteCss = css.match(
+    /\.conclusion-login-note\s*{[^}]*}/,
+  )?.[0];
+  assert.ok(conclusionLoginNoteCss);
+  assert.doesNotMatch(conclusionLoginNoteCss, /width:/);
+  assert.match(conclusionLoginNoteCss, /margin: 8px 0 0;/);
+  assert.match(conclusionLoginNoteCss, /font-size: 12px;/);
+  assert.match(conclusionLoginNoteCss, /white-space: nowrap;/);
   assert.match(
-    css,
-    /\.conclusion-login-note\s*{[^}]*width: min\(100%, 360px\);[^}]*margin: 8px 0 0;[^}]*color: var\(--muted\);[^}]*font-size: 12px;[^}]*line-height: 1\.6;/,
+    narrowMobileCss,
+    /\.conclusion-login-note\s*{[^}]*white-space: normal;/,
   );
-  assert.match(
-    mobileCss,
-    /\.conclusion-login-note\s*{[^}]*width: 100%;/,
-  );
+  assert.doesNotMatch(css, /\.campaign-detail-article:first-child/);
   assert.match(
     css,
     /\.campaign-detail-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,

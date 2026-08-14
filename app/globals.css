@@ -508,11 +508,11 @@ h1 {
 }
 
 .conclusion-login-note {
-  width: min(100%, 360px);
   margin: 8px 0 0;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
+  white-space: nowrap;
 }
 
 .section-heading {
@@ -793,10 +793,6 @@ h1 {
   padding: 36px 0 42px;
   border-top: 1px solid var(--line);
   background: #fff;
-}
-
-.campaign-detail-article:first-child {
-  border-top: 3px solid var(--ink);
 }
 
 .campaign-detail-header {
@@ -2044,10 +2040,6 @@ h1 {
     margin-top: 22px;
   }
 
-  .conclusion-login-note {
-    width: 100%;
-  }
-
   .comparison-point-list > li {
     grid-template-columns: 128px minmax(0, 1fr);
     gap: 14px;
@@ -2149,5 +2141,11 @@ h1 {
   .detail-section,
   .exclusions-band {
     scroll-margin-top: 124px;
+  }
+}
+
+@media (max-width: 420px) {
+  .conclusion-login-note {
+    white-space: normal;
   }
 }

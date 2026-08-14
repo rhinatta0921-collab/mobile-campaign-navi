@@ -84,6 +84,25 @@ function detailArticleCount(html) {
   return [...html.matchAll(/class="campaign-detail-article"/g)].length;
 }
 
+function detailOverflowHtml(html) {
+  return html.match(
+    /<details class="ranking-overflow detail-overflow">[\s\S]*?<\/details>/,
+  )?.[0];
+}
+
+function initiallyVisibleDetailHtml(html) {
+  const overflowStart = html.indexOf(
+    '<details class="ranking-overflow detail-overflow">',
+  );
+  return overflowStart === -1 ? html : html.slice(0, overflowStart);
+}
+
+function detailRanks(html) {
+  return [...html.matchAll(
+    /<p class="campaign-rank-badge campaign-rank-badge--(?:1|2|3|standard)">([\s\S]*?)<\/p>/g,
+  )].map((match) => Number(plainText(match[1]).replace("位", "")));
+}
+
 function campaignDetailHtml(html, campaignCode) {
   return [...html.matchAll(
     /<article class="campaign-detail-article"[\s\S]*?<\/article>/g,
@@ -598,6 +617,25 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.equal(classCount(detailHtml, "campaign-point-summary"), 21);
   assert.equal(classCount(detailHtml, "campaign-official-link"), 21);
   assertDetailStructure(detailHtml, 21);
+  const detailOverflow = detailOverflowHtml(detailHtml);
+  assert.ok(detailOverflow);
+  assert.match(
+    detailOverflow,
+    /^<details class="ranking-overflow detail-overflow">/,
+  );
+  assert.equal(detailArticleCount(initiallyVisibleDetailHtml(detailHtml)), 10);
+  assert.equal(detailArticleCount(detailOverflow), 11);
+  assert.deepEqual(
+    detailRanks(detailHtml),
+    Array.from({ length: 21 }, (_, index) => index + 1),
+  );
+  assert.equal(classCount(detailHtml, "campaign-rank-badge--1"), 1);
+  assert.equal(classCount(detailHtml, "campaign-rank-badge--2"), 1);
+  assert.equal(classCount(detailHtml, "campaign-rank-badge--3"), 1);
+  assert.equal(classCount(detailHtml, "campaign-rank-badge--standard"), 18);
+  const detailOverflowText = plainText(detailOverflow);
+  assert.match(detailOverflowText, /11位以降を表示（残り11件）/);
+  assert.match(detailOverflowText, /11位以降を閉じる/);
   assert.doesNotMatch(
     detailHtml,
     /<picture class="official-campaign-picture campaign-detail-picture"[^>]*>\s*<source/,
@@ -743,6 +781,21 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 20);
   assert.equal(classCount(detailHtml, "campaign-point-summary"), 20);
   assertDetailStructure(detailHtml, 20);
+  const detailOverflow = detailOverflowHtml(detailHtml);
+  assert.ok(detailOverflow);
+  assert.match(
+    detailOverflow,
+    /^<details class="ranking-overflow detail-overflow">/,
+  );
+  assert.equal(detailArticleCount(initiallyVisibleDetailHtml(detailHtml)), 10);
+  assert.equal(detailArticleCount(detailOverflow), 10);
+  assert.deepEqual(
+    detailRanks(detailHtml),
+    Array.from({ length: 20 }, (_, index) => index + 1),
+  );
+  const detailOverflowText = plainText(detailOverflow);
+  assert.match(detailOverflowText, /11位以降を表示（残り10件）/);
+  assert.match(detailOverflowText, /11位以降を閉じる/);
   assert.deepEqual(
     detailRecommendations(detailHtml),
     rankingRecommendations(rankingHtml),
@@ -802,6 +855,7 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 10);
   assert.equal(classCount(detailHtml, "campaign-point-summary"), 10);
   assertDetailStructure(detailHtml, 10);
+  assert.equal(detailOverflowHtml(detailHtml), undefined);
   assert.match(
     detailHtml,
     /data-campaign-code="2938"><img src="\/assets\/campaigns\/official\/2938-detail\.(?:png|jpg)"/,
@@ -866,6 +920,7 @@ test("keeps new-number and MNP-only device campaigns separate", async () => {
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 7);
   assert.equal(classCount(detailHtml, "campaign-point-summary"), 7);
   assertDetailStructure(detailHtml, 7);
+  assert.equal(detailOverflowHtml(detailHtml), undefined);
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.match(
     detailText,
@@ -959,6 +1014,22 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     /\.conclusion-login-note\s*{[^}]*white-space: normal;/,
   );
   assert.doesNotMatch(css, /\.campaign-detail-article:first-child/);
+  assert.match(
+    css,
+    /\.table-rank-badge--1,\s*\.campaign-rank-badge--1\s*{[^}]*background: #b58b25;/,
+  );
+  assert.match(
+    css,
+    /\.table-rank-badge--2,\s*\.campaign-rank-badge--2\s*{[^}]*background: #818b91;/,
+  );
+  assert.match(
+    css,
+    /\.table-rank-badge--3,\s*\.campaign-rank-badge--3\s*{[^}]*background: #a56f4b;/,
+  );
+  assert.match(
+    css,
+    /\.campaign-rank-badge\s*{[^}]*background: #70777b;/,
+  );
   assert.match(
     css,
     /\.campaign-detail-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,

@@ -678,15 +678,18 @@ h1 {
   white-space: nowrap;
 }
 
-.table-rank-badge--1 {
+.table-rank-badge--1,
+.campaign-rank-badge--1 {
   background: #b58b25;
 }
 
-.table-rank-badge--2 {
+.table-rank-badge--2,
+.campaign-rank-badge--2 {
   background: #818b91;
 }
 
-.table-rank-badge--3 {
+.table-rank-badge--3,
+.campaign-rank-badge--3 {
   background: #a56f4b;
 }
 
@@ -805,7 +808,7 @@ h1 {
   min-height: 34px;
   margin: 0 0 15px;
   padding: 5px 14px;
-  background: #c69c3b;
+  background: #70777b;
   color: #fff;
   font-size: 0.88rem;
   font-weight: 900;

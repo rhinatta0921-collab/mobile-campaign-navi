@@ -494,7 +494,7 @@ export default async function Home({ searchParams }: HomeProps) {
               </p>
               <h2 id="ranking-title">{sectionTitles.ranking}</h2>
               <p>
-                順位は申込者本人が受け取る固定ポイントだけで決定します。ポイント以外の特典、追加費用、実質お得額は各キャンペーンの詳細で確認できます。
+                楽天モバイルのお得な申し込みキャンペーン順位は申込者本人が受け取る固定ポイントだけで決定します。ポイント以外の特典、追加費用、実質お得額は各キャンペーンの詳細で確認できます。
               </p>
             </div>
 

@@ -92,7 +92,7 @@ function campaignDetailHtml(html, campaignCode) {
   )?.[0];
 }
 
-function assertDetailCtasAtArticleEnd(html, expectedCount) {
+function assertDetailStructure(html, expectedCount) {
   const articles = [...html.matchAll(
     /<article class="campaign-detail-article"[\s\S]*?<\/article>/g,
   )].map((match) => match[0]);
@@ -100,11 +100,20 @@ function assertDetailCtasAtArticleEnd(html, expectedCount) {
   assert.equal(articles.length, expectedCount);
 
   for (const article of articles) {
-    const scoreHtml = article.match(
-      /<section class="campaign-score"[\s\S]*?<\/section>/,
+    const figureHtml = article.match(
+      /<figure class="campaign-official-figure"[\s\S]*?<\/figure>/,
     )?.[0];
-    assert.ok(scoreHtml);
-    assert.doesNotMatch(scoreHtml, /campaign-official-link/);
+    assert.ok(figureHtml);
+    assert.equal(classCount(figureHtml, "campaign-point-summary"), 1);
+    assertInOrder(figureHtml, [
+      "campaign-detail-picture",
+      'class="campaign-point-summary"',
+      "獲得可能ポイント",
+      "<figcaption>",
+      "画像：",
+    ]);
+    assert.doesNotMatch(figureHtml, /<ul>/);
+    assert.doesNotMatch(article, /campaign-score|score-metric/);
     assertInOrder(article, [
       'class="campaign-pros-cons"',
       "おすすめなポイント",
@@ -140,7 +149,7 @@ function assertInOrder(haystack, values) {
   }
 }
 
-test("ranks MNP campaigns by applicant fixed points and shows value details", async () => {
+test("ranks MNP campaigns by applicant fixed points and shows point summaries", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -548,8 +557,9 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.equal(detailArticleCount(detailHtml), 21);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 21);
   assert.equal(classCount(detailHtml, "campaign-detail-picture"), 21);
+  assert.equal(classCount(detailHtml, "campaign-point-summary"), 21);
   assert.equal(classCount(detailHtml, "campaign-official-link"), 21);
-  assertDetailCtasAtArticleEnd(detailHtml, 21);
+  assertDetailStructure(detailHtml, 21);
   assert.doesNotMatch(
     detailHtml,
     /<picture class="official-campaign-picture campaign-detail-picture"[^>]*>\s*<source/,
@@ -574,11 +584,11 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.doesNotMatch(detailHtml, /<summary class="offer-heading"/);
   assert.doesNotMatch(detailText, /詳細を見る/);
   assert.match(detailText, /どんな人におすすめか/);
-  assert.match(detailText, /4つの指標で比較スコア/);
+  assert.doesNotMatch(detailText, /4つの指標で比較スコア/);
   assert.match(detailText, /獲得可能ポイント14,000ポイント/);
   assert.match(detailText, /獲得可能ポイント13,000ポイント/);
-  assert.match(detailText, /その他特典/);
-  assert.match(detailText, /キャンペーン適用にかかるコスト/);
+  assert.doesNotMatch(detailText, /その他特典/);
+  assert.doesNotMatch(detailText, /キャンペーン適用にかかるコスト/);
   assert.equal(
     [...detailHtml.matchAll(
       /<a class="official-link campaign-official-link"[^>]*>([\s\S]*?)<\/a>/g,
@@ -608,31 +618,24 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.match(detailText, /キャンペーン適用条件/);
   assert.match(detailText, /おすすめなポイント/);
   assert.match(detailText, /気になるポイント/);
-  assert.match(detailText, /紹介者分は除外/);
   assert.match(detailText, /楽天従業員から送られる専用URLでの紹介ログインが必要/);
-  assert.match(
+  assert.doesNotMatch(
     detailText,
     /14,000ポイント \+ 0円相当 − 0円 = 14,000円/,
   );
-  assert.match(
+  assert.doesNotMatch(
     detailText,
     /13,000ポイント \+ 0円相当 − 0円 = 13,000円/,
   );
-  assert.match(
+  assert.doesNotMatch(
     detailText,
     /1,000ポイント \+ 0円相当 − 1,000円 = 0円/,
   );
-  assert.match(
+  assert.doesNotMatch(
     detailText,
     /0ポイント \+ 1,100円相当 − 0円 = 1,100円/,
   );
-  assert.match(detailText, /毎月＋1,000円相当/);
-  assert.match(detailText, /金額換算対象外/);
   assert.match(detailText, /15分（標準）通話かけ放題 料金1カ月無料特典/);
-  assert.match(
-    detailText,
-    /順位は獲得可能ポイントだけで決まり、その他特典・コスト・実質価値は順位に影響しません/,
-  );
 });
 
 test("switches to new-number points without mixing MNP-only campaigns", async () => {
@@ -679,6 +682,8 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 20);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 20);
+  assert.equal(classCount(detailHtml, "campaign-point-summary"), 20);
+  assertDetailStructure(detailHtml, 20);
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.match(detailText, /獲得可能ポイント11,748ポイント/);
   assert.match(detailText, /獲得可能ポイント11,000ポイント/);
@@ -732,27 +737,25 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 10);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 10);
-  assertDetailCtasAtArticleEnd(detailHtml, 10);
+  assert.equal(classCount(detailHtml, "campaign-point-summary"), 10);
+  assertDetailStructure(detailHtml, 10);
   assert.match(
     detailHtml,
     /data-campaign-code="2938"><img src="\/assets\/campaigns\/official\/2938-detail\.(?:png|jpg)"/,
   );
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
-  assert.match(
+  assert.doesNotMatch(
     detailText,
     /1円 \+ 0円 − 0ポイント − 0円相当 = 1円/,
   );
   assert.match(detailText, /対象Android製品を最大22,000円値引き/);
+  assert.match(detailText, /獲得可能ポイント25,000ポイント/);
+  const androidDiscountDetail = campaignDetailHtml(detailHtml, "2178");
+  assert.ok(androidDiscountDetail);
   assert.match(
-    detailText,
-    /算出不可の理由：キャンペーン適用後の端末価格が確定できないため/,
+    plainText(androidDiscountDetail),
+    /獲得可能ポイント0ポイント/,
   );
-  assert.match(
-    detailText,
-    /端末価格に反映/,
-  );
-  assert.match(detailText, /25,000ポイント/);
-  assert.match(detailText, /550円\/月〜/);
   assert.match(detailText, /おすすめなポイント/);
   assert.match(detailText, /気になるポイント/);
 });
@@ -798,15 +801,15 @@ test("keeps new-number and MNP-only device campaigns separate", async () => {
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 7);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 7);
+  assert.equal(classCount(detailHtml, "campaign-point-summary"), 7);
+  assertDetailStructure(detailHtml, 7);
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.match(
     detailText,
     /【ショップ限定】18歳までのスマホデビュー応援キャンペーン/,
   );
-  assert.match(
-    detailText,
-    /1円 \+ 0円 − 0ポイント − 0円相当 = 1円/,
-  );
+  assert.match(detailText, /獲得可能ポイント25,000ポイント/);
+  assert.match(detailText, /獲得可能ポイント0ポイント/);
 });
 
 test("uses one horizontally scrollable ranking table on desktop and mobile", async () => {
@@ -819,6 +822,11 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.doesNotMatch(mobileCss, /\.table-scroll\s*{\s*display: none;/);
   assert.doesNotMatch(css, /\.mobile-ranking-list\b/);
   assert.doesNotMatch(css, /\.mobile-ranking-card\b/);
+  assert.doesNotMatch(css, /\.campaign-score\b|\.score-metric\b/);
+  assert.match(
+    css,
+    /\.campaign-point-summary\s*{[\s\S]*?margin-top: 14px;/,
+  );
   assert.match(
     mobileCss,
     /\.ranking-scroll-note\s*{[\s\S]*?display: block;/,

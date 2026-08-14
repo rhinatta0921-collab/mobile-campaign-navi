@@ -861,6 +861,41 @@ h1 {
   height: 100%;
 }
 
+.campaign-point-summary {
+  margin-top: 14px;
+  text-align: left;
+}
+
+.campaign-point-label {
+  margin: 0 0 3px;
+  color: var(--accent-deep);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.campaign-point-value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px;
+  margin: 0;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.campaign-point-value strong {
+  font-size: clamp(1.75rem, 3vw, 2rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.campaign-point-value span {
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
 .campaign-official-figure figcaption {
   margin-top: 7px;
   color: var(--muted);
@@ -873,101 +908,6 @@ h1 {
 .campaign-official-figure figcaption a {
   color: inherit;
   text-underline-offset: 3px;
-}
-
-.campaign-score {
-  border-top: 3px solid var(--ink);
-  border-bottom: 1px solid var(--line);
-  background: #fff;
-}
-
-.campaign-score-heading {
-  padding: 15px 18px 13px;
-  background: #f6f4f1;
-}
-
-.campaign-score-heading p {
-  margin: 0 0 2px;
-  color: var(--accent-deep);
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-}
-
-.campaign-score-heading h4 {
-  margin: 0;
-  color: var(--ink);
-  font-size: 1.08rem;
-  line-height: 1.4;
-  font-weight: var(--font-weight-strong);
-}
-
-.campaign-score-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 0;
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-}
-
-.score-metric {
-  min-width: 0;
-  padding: 15px 14px 16px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.score-metric dt {
-  min-height: 2.8em;
-  margin-bottom: 8px;
-  color: var(--muted);
-  font-size: 0.7rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.score-metric dd {
-  margin: 0;
-}
-
-.score-metric dd > strong {
-  display: block;
-  color: var(--ink);
-  font-size: 1.12rem;
-  font-weight: var(--font-weight-strong);
-  line-height: 1.35;
-}
-
-.score-metric-accent dd > strong {
-  color: var(--accent);
-}
-
-.score-metric-positive dd > strong {
-  color: var(--green);
-}
-
-.score-metric ul {
-  margin: 9px 0 0;
-  padding: 0;
-  color: #6d6d6d;
-  font-size: 0.72rem;
-  font-weight: 600;
-  line-height: 1.55;
-  list-style: none;
-}
-
-.score-metric li + li {
-  margin-top: 5px;
-}
-
-.campaign-score-note {
-  margin: 0;
-  padding: 10px 16px;
-  background: #fafafa;
-  color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 700;
-  line-height: 1.55;
 }
 
 .campaign-official-link {
@@ -1319,22 +1259,6 @@ h1 {
 
   .campaign-recommendation {
     padding: 11px 12px;
-  }
-
-  .campaign-score-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .score-metric {
-    padding: 13px 11px 14px;
-  }
-
-  .score-metric dt {
-    min-height: 0;
-  }
-
-  .score-metric dd > strong {
-    font-size: 1rem;
   }
 
   .campaign-official-link {

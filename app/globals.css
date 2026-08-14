@@ -704,6 +704,15 @@ h1 {
   min-width: 170px !important;
 }
 
+.ranking-bullet-list {
+  margin: 0;
+  padding-left: 1.15em;
+}
+
+.ranking-bullet-list li + li {
+  margin-top: 4px;
+}
+
 .table-link {
   min-height: 34px;
   padding: 0 11px;

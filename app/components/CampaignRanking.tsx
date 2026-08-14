@@ -27,6 +27,16 @@ const comparisonColumns = [
 
 const initialVisibleCampaignCount = 10;
 
+const rankingCopyOverrides: Record<
+  string,
+  { recommendation: string[]; conditions: string[] }
+> = {
+  "2162": {
+    recommendation: ["一番多くの楽天ポイント特典を獲得したい人"],
+    conditions: ["楽天従業員の専用リンクから申し込み"],
+  },
+};
+
 function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
 }
@@ -63,6 +73,10 @@ function RankingRange({
             const rank = startIndex + index + 1;
             const points = getRankingPoints(campaign, applicationType);
             const rankTone = rank <= 3 ? rank : "standard";
+            const rankingCopy = rankingCopyOverrides[campaign.campaignCode] ?? {
+              recommendation: [campaign.target],
+              conditions: campaign.conditions.slice(0, 3),
+            };
 
             return (
               <tr key={campaign.campaignCode}>
@@ -85,8 +99,20 @@ function RankingRange({
                   {formatPoints(points)}
                   <span>ポイント</span>
                 </td>
-                <td>{campaign.target}</td>
-                <td>{campaign.conditions.slice(0, 3).join(" / ")}</td>
+                <td>
+                  <ul className="ranking-bullet-list">
+                    {rankingCopy.recommendation.map((recommendation) => (
+                      <li key={recommendation}>{recommendation}</li>
+                    ))}
+                  </ul>
+                </td>
+                <td>
+                  <ul className="ranking-bullet-list">
+                    {rankingCopy.conditions.map((condition) => (
+                      <li key={condition}>{condition}</li>
+                    ))}
+                  </ul>
+                </td>
                 <td className="period-cell">{campaign.period}</td>
                 <td>
                   <a

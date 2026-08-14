@@ -500,6 +500,18 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
     /class="table-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral\/"/,
   );
   assert.match(
+    employeeRankingRow,
+    /<ul class="ranking-bullet-list"><li>一番多くの楽天ポイント特典を獲得したい人<\/li><\/ul>/,
+  );
+  assert.match(
+    employeeRankingRow,
+    /<ul class="ranking-bullet-list"><li>楽天従業員の専用リンクから申し込み<\/li><\/ul>/,
+  );
+  assert.doesNotMatch(
+    employeeRankingRow,
+    /楽天従業員の専用URLから紹介ログインし、対象プランを申し込む方/,
+  );
+  assert.match(
     rankingHtml,
     /src="\/assets\/campaigns\/official\/[^"]+"[^>]*alt=""[^>]*loading="lazy"/,
   );

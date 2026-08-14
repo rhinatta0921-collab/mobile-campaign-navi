@@ -92,6 +92,32 @@ function campaignDetailHtml(html, campaignCode) {
   )?.[0];
 }
 
+function assertDetailCtasAtArticleEnd(html, expectedCount) {
+  const articles = [...html.matchAll(
+    /<article class="campaign-detail-article"[\s\S]*?<\/article>/g,
+  )].map((match) => match[0]);
+
+  assert.equal(articles.length, expectedCount);
+
+  for (const article of articles) {
+    const scoreHtml = article.match(
+      /<section class="campaign-score"[\s\S]*?<\/section>/,
+    )?.[0];
+    assert.ok(scoreHtml);
+    assert.doesNotMatch(scoreHtml, /campaign-official-link/);
+    assertInOrder(article, [
+      'class="campaign-pros-cons"',
+      "おすすめなポイント",
+      "気になるポイント",
+      'class="official-link campaign-official-link"',
+    ]);
+    assert.match(
+      article,
+      /<div class="campaign-pros-cons">[\s\S]*?<\/div><a class="official-link campaign-official-link"[\s\S]*?<\/a><\/section><\/article>$/,
+    );
+  }
+}
+
 function classCount(html, className) {
   return [
     ...html.matchAll(new RegExp(`class="[^"]*\\b${className}\\b[^"]*"`, "g")),
@@ -398,9 +424,10 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.doesNotMatch(conclusionHtml, /winner-/);
   assert.doesNotMatch(conclusionText, /1位|公式ページで確認/);
   assert.equal(classCount(conclusionHtml, "conclusion-official-link"), 1);
+  assert.equal(classCount(conclusionHtml, "conclusion-login-note"), 1);
   assert.match(
     conclusionHtml,
-    /class="official-link conclusion-official-link" href="https:\/\/r10\.to\/hkD5ah" rel="sponsored noopener noreferrer" target="_blank">公式ページの情報を見る<\/a>/,
+    /class="official-link conclusion-official-link" href="https:\/\/r10\.to\/hkD5ah" rel="sponsored noopener noreferrer" target="_blank">公式ページの情報を見る<\/a><p class="conclusion-login-note">※公式ページの確認には、楽天アカウントでのログインが必要です。<\/p>/,
   );
   assert.match(
     conclusionHtml,
@@ -510,6 +537,7 @@ test("ranks MNP campaigns by applicant fixed points and shows value details", as
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 21);
   assert.equal(classCount(detailHtml, "campaign-detail-picture"), 21);
   assert.equal(classCount(detailHtml, "campaign-official-link"), 21);
+  assertDetailCtasAtArticleEnd(detailHtml, 21);
   assert.doesNotMatch(
     detailHtml,
     /<picture class="official-campaign-picture campaign-detail-picture"[^>]*>\s*<source/,
@@ -692,6 +720,7 @@ test("includes zero-point device discounts and avoids double-counting", async ()
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 10);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 10);
+  assertDetailCtasAtArticleEnd(detailHtml, 10);
   assert.match(
     detailHtml,
     /data-campaign-code="2938"><img src="\/assets\/campaigns\/official\/2938-detail\.(?:png|jpg)"/,
@@ -807,6 +836,22 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.doesNotMatch(css, /\.conclusion-campaign-picture\s*{[^}]*aspect-ratio:/);
   assert.match(
     css,
+    /\.conclusion-lead\s*{[^}]*font-size: 16px;[^}]*line-height: 1\.8;/,
+  );
+  assert.match(
+    css,
+    /\.conclusion-lead p \+ p\s*{[^}]*margin-top: 20px;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.conclusion-lead\s*{[^}]*font-size: 15px;[^}]*line-height: 1\.8;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.conclusion-lead p \+ p\s*{[^}]*margin-top: 18px;/,
+  );
+  assert.match(
+    css,
     /\.conclusion-highlight\s*{[\s\S]*?background: #fff0df;[\s\S]*?font-weight: var\(--font-weight-strong\);/,
   );
   assert.match(
@@ -819,6 +864,14 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
+    /\.conclusion-login-note\s*{[^}]*width: min\(100%, 360px\);[^}]*margin: 8px 0 0;[^}]*color: var\(--muted\);[^}]*font-size: 12px;[^}]*line-height: 1\.6;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.conclusion-login-note\s*{[^}]*width: 100%;/,
+  );
+  assert.match(
+    css,
     /\.campaign-detail-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,
   );
   assert.match(
@@ -828,6 +881,14 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.match(
     mobileCss,
     /\.campaign-official-figure\s*{[\s\S]*?width: 100%;/,
+  );
+  assert.match(
+    css,
+    /\.campaign-official-link\s*{[^}]*width: min\(100%, 360px\);[^}]*margin: 22px 0 0;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.campaign-official-link\s*{[^}]*width: 100%;[^}]*margin: 20px 0 0;/,
   );
   assert.match(
     css,

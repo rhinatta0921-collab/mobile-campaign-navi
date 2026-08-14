@@ -289,6 +289,9 @@ export default async function Home({ searchParams }: HomeProps) {
             >
               公式ページの情報を見る
             </a>
+            <p className="conclusion-login-note">
+              ※公式ページの確認には、楽天アカウントでのログインが必要です。
+            </p>
           </section>
 
           <section

@@ -300,14 +300,6 @@ export function CampaignDetails({
               <p className="campaign-score-note">
                 順位は獲得可能ポイントだけで決まり、その他特典・コスト・実質価値は順位に影響しません。
               </p>
-              <a
-                className="official-link campaign-official-link"
-                href={getCampaignApplicationUrl(campaign)}
-                rel="sponsored noopener noreferrer"
-                target="_blank"
-              >
-                公式ページの情報を見る
-              </a>
             </section>
 
             <table className="campaign-facts-table">
@@ -365,6 +357,15 @@ export function CampaignDetails({
                   </ul>
                 </section>
               </div>
+
+              <a
+                className="official-link campaign-official-link"
+                href={getCampaignApplicationUrl(campaign)}
+                rel="sponsored noopener noreferrer"
+                target="_blank"
+              >
+                公式ページの情報を見る
+              </a>
             </section>
           </article>
         );

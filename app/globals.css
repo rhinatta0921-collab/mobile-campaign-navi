@@ -706,6 +706,21 @@ h1 {
   padding: 0 11px;
 }
 
+.ranking-official-action {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.comparison-table .ranking-login-note {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
 .ranking-overflow {
   margin-top: 12px;
 }

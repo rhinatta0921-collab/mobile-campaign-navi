@@ -556,9 +556,15 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.ok(referralRankingRow);
   assert.match(employeeRankingRow, /class="table-link" href="https:\/\/r10\.to\/hkD5ah"/);
   assert.match(
+    employeeRankingRow,
+    /<a class="table-link"[^>]*>公式ページ<\/a><span class="ranking-login-note">※要ログイン<\/span>/,
+  );
+  assert.equal(classCount(rankingHtml, "ranking-login-note"), 1);
+  assert.match(
     referralRankingRow,
     /class="table-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral\/"/,
   );
+  assert.doesNotMatch(referralRankingRow, /ranking-login-note|※要ログイン/);
   assert.match(
     employeeRankingRow,
     /<td class="ranking-recommendation-cell">一番多くの楽天ポイント特典を獲得したい人<\/td>/,
@@ -774,6 +780,15 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
     /他社から乗り換えでポイントプレゼント/,
   );
   assert.match(rankingText, /0ポイント/);
+  const employeeRankingRow = [...primaryRankingTable.matchAll(/<tr>[\s\S]*?<\/tr>/g)]
+    .map((match) => match[0])
+    .find((row) => row.includes('data-campaign-code="2162"'));
+  assert.ok(employeeRankingRow);
+  assert.match(
+    employeeRankingRow,
+    /<a class="table-link"[^>]*>公式ページ<\/a><span class="ranking-login-note">※要ログイン<\/span>/,
+  );
+  assert.equal(classCount(rankingHtml, "ranking-login-note"), 1);
 
   const detailHtml = htmlFromSection(html, "detail-section");
   const detailText = plainText(detailHtml);
@@ -1014,6 +1029,14 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     /\.conclusion-login-note\s*{[^}]*white-space: normal;/,
   );
   assert.doesNotMatch(css, /\.campaign-detail-article:first-child/);
+  assert.match(
+    css,
+    /\.ranking-official-action\s*{[^}]*display: inline-flex;[^}]*flex-direction: column;[^}]*align-items: center;/,
+  );
+  assert.match(
+    css,
+    /\.comparison-table \.ranking-login-note\s*{[^}]*color: var\(--muted\);[^}]*font-size: 0\.72rem;[^}]*white-space: nowrap;/,
+  );
   assert.match(
     css,
     /\.table-rank-badge--1,\s*\.campaign-rank-badge--1\s*{[^}]*background: #b58b25;/,

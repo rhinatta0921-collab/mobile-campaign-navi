@@ -27,9 +27,10 @@ const comparisonColumns = [
 ];
 
 const initialVisibleCampaignCount = 10;
+const employeeReferralCampaignCode = "2162";
 
 const rankingConditionOverrides: Record<string, string[]> = {
-  "2162": ["楽天従業員の専用リンクから申し込み"],
+  [employeeReferralCampaignCode]: ["楽天従業員の専用リンクから申し込み"],
 };
 
 function formatPoints(points: number) {
@@ -106,14 +107,19 @@ function RankingRange({
                 </td>
                 <td className="period-cell">{campaign.period}</td>
                 <td>
-                  <a
-                    className="table-link"
-                    href={getCampaignApplicationUrl(campaign)}
-                    rel="sponsored noopener noreferrer"
-                    target="_blank"
-                  >
-                    公式ページ
-                  </a>
+                  <div className="ranking-official-action">
+                    <a
+                      className="table-link"
+                      href={getCampaignApplicationUrl(campaign)}
+                      rel="sponsored noopener noreferrer"
+                      target="_blank"
+                    >
+                      公式ページ
+                    </a>
+                    {campaign.campaignCode === employeeReferralCampaignCode ? (
+                      <span className="ranking-login-note">※要ログイン</span>
+                    ) : null}
+                  </div>
                 </td>
               </tr>
             );

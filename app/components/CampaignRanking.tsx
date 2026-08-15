@@ -176,9 +176,6 @@ export function CampaignRanking({
         </Link>
       </div>
 
-      <p className="ranking-mode-note">
-        {rankingLabel}に申込者本人が受け取れる固定ポイントで並べています。ポイントがない特典は0ポイントとして末尾に掲載し、割引や追加費用は順位に含めません。
-      </p>
       <p className="ranking-scroll-note">横にスクロールして比較できます</p>
 
       <div

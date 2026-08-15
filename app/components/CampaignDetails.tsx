@@ -18,6 +18,7 @@ type CampaignDetailsProps = {
 };
 
 const initialVisibleCampaignCount = 10;
+const employeeReferralCampaignCode = "2162";
 
 function formatPoints(points: number) {
   return points.toLocaleString("ja-JP");
@@ -62,6 +63,8 @@ export function CampaignDetails({
       const officialImage = requireOfficialImage(campaign);
       const points = getRankingPoints(campaign, applicationType);
       const recommendation = getCampaignRecommendation(campaign);
+      const isEmployeeReferralCampaign =
+        campaign.campaignCode === employeeReferralCampaignCode;
       const articleTitleId = `campaign-title-${campaign.campaignCode}`;
       const editorialTitleId = `campaign-editorial-${campaign.campaignCode}`;
 
@@ -169,14 +172,40 @@ export function CampaignDetails({
               </section>
             </div>
 
-            <a
-              className="official-link campaign-official-link"
-              href={getCampaignApplicationUrl(campaign)}
-              rel="sponsored noopener noreferrer"
-              target="_blank"
-            >
-              公式ページの情報を見る
-            </a>
+            {isEmployeeReferralCampaign ? (
+              <div className="campaign-action-group">
+                <div className="campaign-action-buttons">
+                  <a
+                    className="official-link campaign-official-link"
+                    href={campaign.officialUrl}
+                    rel="sponsored noopener noreferrer"
+                    target="_blank"
+                  >
+                    公式ページの情報を見る
+                  </a>
+                  <a
+                    className="official-link campaign-entry-link"
+                    href={getCampaignApplicationUrl(campaign)}
+                    rel="sponsored noopener noreferrer"
+                    target="_blank"
+                  >
+                    キャンペーンにエントリーする
+                  </a>
+                </div>
+                <p className="campaign-action-note">
+                  楽天アカウントでのログインが必要です
+                </p>
+              </div>
+            ) : (
+              <a
+                className="official-link campaign-official-link"
+                href={getCampaignApplicationUrl(campaign)}
+                rel="sponsored noopener noreferrer"
+                target="_blank"
+              >
+                公式ページの情報を見る
+              </a>
+            )}
           </section>
         </article>
       );

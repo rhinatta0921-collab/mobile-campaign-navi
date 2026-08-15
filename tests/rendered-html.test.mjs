@@ -173,7 +173,7 @@ function assertDetailStructure(html, expectedCount) {
     ]);
     assert.match(
       article,
-      /<div class="campaign-pros-cons">[\s\S]*?<\/div><a class="official-link campaign-official-link"[\s\S]*?<\/a><\/section><\/article>$/,
+      /<div class="campaign-pros-cons">[\s\S]*?<\/div>[\s\S]*?<a class="official-link campaign-official-link"[\s\S]*?<\/section><\/article>$/,
     );
   }
 }
@@ -595,7 +595,11 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.match(rankingText, /11位以降を表示（残り11件）/);
   assert.match(rankingText, /11位以降を閉じる/);
   assert.match(rankingText, /獲得ポイント/);
-  assert.match(rankingText, /ポイントがない特典は0ポイントとして末尾に掲載/);
+  assert.doesNotMatch(rankingHtml, /ranking-mode-note/);
+  assert.doesNotMatch(
+    rankingText,
+    /申込者本人が受け取れる固定ポイントで並べています|ポイントがない特典は0ポイントとして末尾に掲載|割引や追加費用は順位に含めません/,
+  );
   assertInOrder(rankingTableText, [
     "14,000",
     "13,000",
@@ -707,8 +711,19 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assert.match(
     employeeDetail,
-    /class="official-link campaign-official-link" href="https:\/\/r10\.to\/hkD5ah"/,
+    /class="official-link campaign-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral-application-employee\/"/,
   );
+  assert.match(
+    employeeDetail,
+    /class="official-link campaign-entry-link" href="https:\/\/r10\.to\/hkD5ah"[^>]*>キャンペーンにエントリーする<\/a>/,
+  );
+  assert.match(
+    employeeDetail,
+    /<div class="campaign-action-buttons">[\s\S]*?<\/div><p class="campaign-action-note">楽天アカウントでのログインが必要です<\/p>/,
+  );
+  assert.equal(classCount(detailHtml, "campaign-action-group"), 1);
+  assert.equal(classCount(detailHtml, "campaign-entry-link"), 1);
+  assert.equal(classCount(detailHtml, "campaign-action-note"), 1);
   assert.match(
     employeeDetail,
     /href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral-application-employee\/"[^>]*aria-label="【楽天従業員から紹介された方限定】Rakuten最強プラン紹介キャンペーンの画像出典：楽天モバイル公式ページ"/,
@@ -716,6 +731,10 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.match(
     referralDetail,
     /class="official-link campaign-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral\/"/,
+  );
+  assert.doesNotMatch(
+    referralDetail,
+    /campaign-action-group|campaign-entry-link|campaign-action-note|キャンペーンにエントリーする/,
   );
   assert.match(detailText, /キャンペーン開催期間/);
   assert.match(detailText, /キャンペーン適用条件/);
@@ -780,6 +799,11 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
     /他社から乗り換えでポイントプレゼント/,
   );
   assert.match(rankingText, /0ポイント/);
+  assert.doesNotMatch(rankingHtml, /ranking-mode-note/);
+  assert.doesNotMatch(
+    rankingText,
+    /申込者本人が受け取れる固定ポイントで並べています|ポイントがない特典は0ポイントとして末尾に掲載|割引や追加費用は順位に含めません/,
+  );
   const employeeRankingRow = [...primaryRankingTable.matchAll(/<tr>[\s\S]*?<\/tr>/g)]
     .map((match) => match[0])
     .find((row) => row.includes('data-campaign-code="2162"'));
@@ -824,6 +848,18 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
     /【Rakuten最強プランはじめてお申し込み特典】新規ご契約でポイントプレゼント/,
   );
   assert.doesNotMatch(detailText, /楽天モバイルただいまキャンペーン/);
+  const employeeDetail = campaignDetailHtml(detailHtml, "2162");
+  assert.ok(employeeDetail);
+  assert.match(
+    employeeDetail,
+    /class="official-link campaign-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral-application-employee\/"/,
+  );
+  assert.match(
+    employeeDetail,
+    /class="official-link campaign-entry-link" href="https:\/\/r10\.to\/hkD5ah"/,
+  );
+  assert.equal(classCount(detailHtml, "campaign-entry-link"), 1);
+  assert.equal(classCount(detailHtml, "campaign-action-note"), 1);
 });
 
 test("includes zero-point device discounts and avoids double-counting", async () => {
@@ -951,11 +987,13 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     "utf8",
   );
   const mobileCss = css.slice(css.indexOf("@media (max-width: 860px)"));
+  const compactMobileCss = css.slice(css.indexOf("@media (max-width: 560px)"));
   const narrowMobileCss = css.slice(css.indexOf("@media (max-width: 420px)"));
 
   assert.doesNotMatch(mobileCss, /\.table-scroll\s*{\s*display: none;/);
   assert.doesNotMatch(css, /\.mobile-ranking-list\b/);
   assert.doesNotMatch(css, /\.mobile-ranking-card\b/);
+  assert.doesNotMatch(css, /\.ranking-mode-note\b/);
   assert.doesNotMatch(css, /\.campaign-score\b|\.score-metric\b/);
   assert.match(
     css,
@@ -1079,6 +1117,22 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.match(
     mobileCss,
     /\.campaign-official-link\s*{[^}]*width: 100%;[^}]*margin: 20px 0 0;/,
+  );
+  assert.match(
+    css,
+    /\.campaign-action-buttons\s*{[^}]*display: grid;[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);[^}]*gap: 12px;/,
+  );
+  assert.match(
+    css,
+    /\.campaign-entry-link\s*{[^}]*border-color: var\(--accent\);[^}]*background: var\(--accent\);/,
+  );
+  assert.match(
+    css,
+    /\.campaign-action-note\s*{[^}]*color: var\(--muted\);[^}]*font-size: 12px;[^}]*text-align: center;/,
+  );
+  assert.match(
+    compactMobileCss,
+    /\.campaign-action-buttons\s*{[^}]*grid-template-columns: 1fr;[^}]*gap: 10px;/,
   );
   assert.match(
     css,

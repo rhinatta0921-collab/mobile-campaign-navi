@@ -551,13 +551,6 @@ h1 {
   color: #fff;
 }
 
-.ranking-mode-note {
-  margin: 12px 0 15px;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
 .ranking-scroll-note {
   display: none;
 }
@@ -931,6 +924,44 @@ h1 {
   font-size: 0.9rem;
 }
 
+.campaign-action-group {
+  width: 100%;
+  margin-top: 22px;
+}
+
+.campaign-action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.campaign-action-group .campaign-official-link,
+.campaign-entry-link {
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.campaign-entry-link {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.campaign-entry-link:hover {
+  border-color: var(--accent-deep);
+  background: var(--accent-deep);
+}
+
+.campaign-action-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .campaign-facts-table {
   width: 100%;
   margin-top: 24px;
@@ -1280,6 +1311,10 @@ h1 {
     margin: 20px 0 0;
   }
 
+  .campaign-action-group {
+    margin-top: 20px;
+  }
+
   .campaign-facts-table th,
   .campaign-facts-table td {
     padding: 12px 10px;
@@ -1306,6 +1341,13 @@ h1 {
   .official-link:not(.campaign-official-link),
   .text-link {
     width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .campaign-action-buttons {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
 

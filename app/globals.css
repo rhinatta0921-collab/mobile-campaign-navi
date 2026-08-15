@@ -519,6 +519,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+.section-heading .ranking-method-note {
+  margin-top: 16px;
+}
+
 .ranking-tabs {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(190px, 1fr));

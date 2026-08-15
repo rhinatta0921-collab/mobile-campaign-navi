@@ -497,6 +497,14 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   const rankingHtml = sectionHtml(html, "ranking-section");
   assert.ok(rankingHtml);
   const rankingText = plainText(rankingHtml);
+  const rankingHeadingHtml = rankingHtml.match(
+    /<div class="section-heading">[\s\S]*?<\/div>/,
+  )?.[0];
+  assert.ok(rankingHeadingHtml);
+  assert.match(
+    rankingHeadingHtml,
+    /<p>楽天モバイル申し込みキャンペーンの獲得可能ポイントランキングは以下の通りです。順位は申込者本人が受け取る固定ポイントだけで決定します。<\/p><p class="ranking-method-note">現在使用している電話番号をそのままで乗り換える\(MNP\)か楽天モバイルで新しい電話番号を取得するかで獲得可能ポイント額が変動するため、タブで分けてランキングを算出しています。<\/p>/,
+  );
   const rankingTableText = tableBodyText(rankingHtml);
   const primaryRankingTable = rankingTableHtml(
     rankingHtml,
@@ -994,6 +1002,16 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.doesNotMatch(css, /\.mobile-ranking-list\b/);
   assert.doesNotMatch(css, /\.mobile-ranking-card\b/);
   assert.doesNotMatch(css, /\.ranking-mode-note\b/);
+  const rankingMethodNoteCss = css.match(
+    /\.section-heading \.ranking-method-note\s*{[^}]*}/,
+  )?.[0];
+  assert.ok(rankingMethodNoteCss);
+  assert.match(rankingMethodNoteCss, /margin-top: 16px;/);
+  assert.doesNotMatch(
+    rankingMethodNoteCss,
+    /background|border|padding|color|font-size/,
+  );
+  assert.match(css, /\.lead p\s*{[^}]*margin-bottom: 16px;/);
   assert.doesNotMatch(css, /\.campaign-score\b|\.score-metric\b/);
   assert.match(
     css,

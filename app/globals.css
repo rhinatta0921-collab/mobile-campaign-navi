@@ -678,21 +678,6 @@ h1 {
   white-space: nowrap;
 }
 
-.table-rank-badge--1,
-.campaign-rank-badge--1 {
-  background: #b58b25;
-}
-
-.table-rank-badge--2,
-.campaign-rank-badge--2 {
-  background: #818b91;
-}
-
-.table-rank-badge--3,
-.campaign-rank-badge--3 {
-  background: #a56f4b;
-}
-
 .points-cell {
   width: 120px;
   min-width: 120px !important;
@@ -812,6 +797,21 @@ h1 {
   color: #fff;
   font-size: 0.88rem;
   font-weight: 900;
+}
+
+.table-rank-badge--1,
+.campaign-rank-badge--1 {
+  background: #b58b25;
+}
+
+.table-rank-badge--2,
+.campaign-rank-badge--2 {
+  background: #818b91;
+}
+
+.table-rank-badge--3,
+.campaign-rank-badge--3 {
+  background: #a56f4b;
 }
 
 .campaign-recommendation {

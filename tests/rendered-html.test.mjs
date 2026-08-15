@@ -1030,6 +1030,13 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     css,
     /\.campaign-rank-badge\s*{[^}]*background: #70777b;/,
   );
+  const campaignRankBaseIndex = css.indexOf(".campaign-rank-badge {");
+  for (const rank of [1, 2, 3]) {
+    assert.ok(
+      css.indexOf(`.campaign-rank-badge--${rank} {`) > campaignRankBaseIndex,
+      `detail rank ${rank} color must override the base gray background`,
+    );
+  }
   assert.match(
     css,
     /\.campaign-detail-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,

@@ -2,7 +2,7 @@
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-07-31",
   "listingCardCount": 52,
-  "campaignCount": 54,
+  "campaignCount": 55,
   "items": [
     "1173-campaign-spu.campaign.json",
     "1238-application-card-campaign.campaign.json",
@@ -43,6 +43,7 @@
     "3297-product-rakuten-certified.campaign.json",
     "3303-campaign-galaxy.campaign.json",
     "3304-campaign-galaxy.campaign.json",
+    "3327-campaign-ichiba-debut.campaign.json",
     "3329-service-whoscall.campaign.json",
     "3350-campaign-shop-point.campaign.json",
     "3351-campaign-heyduggee.campaign.json",

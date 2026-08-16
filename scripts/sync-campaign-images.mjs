@@ -6,7 +6,7 @@ import sharp from "sharp";
 
 const OFFICIAL_HOST = "network.mobile.rakuten.co.jp";
 const LISTING_URL = `https://${OFFICIAL_HOST}/campaign/`;
-const IMAGE_CHECKED_AT = "2026-08-11";
+const IMAGE_CHECKED_AT = "2026-08-16";
 const CAMPAIGN_DIRECTORY = path.resolve("data/campaigns");
 const PUBLIC_DIRECTORY = path.resolve("public");
 const IMAGE_DIRECTORY = path.join(

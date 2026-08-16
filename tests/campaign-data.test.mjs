@@ -21,7 +21,7 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(index.listingUrl, "https://network.mobile.rakuten.co.jp/campaign/");
   assert.equal(index.checkedAt, "2026-07-31");
   assert.equal(index.listingCardCount, 52);
-  assert.equal(index.campaignCount, 54);
+  assert.equal(index.campaignCount, 55);
   assert.deepEqual(filenames, [...index.items].sort());
 
   const campaignCodes = new Set();
@@ -93,10 +93,13 @@ test("stores one normalized campaign per JSON file", async () => {
       );
       assert.notEqual(campaign[field].length, 0, `${filename}: ${field}`);
     }
-    assert.equal(
-      campaign.checkedAt,
-      campaign.campaignCode === "2162" ? "2026-08-11" : index.checkedAt,
-    );
+    const expectedCheckedAt =
+      campaign.campaignCode === "2162"
+        ? "2026-08-11"
+        : campaign.campaignCode === "3327"
+          ? "2026-08-16"
+          : index.checkedAt;
+    assert.equal(campaign.checkedAt, expectedCheckedAt);
     assert.equal(campaign.listingUrl, index.listingUrl);
     assert.doesNotThrow(() => new URL(campaign.officialUrl));
     if ("applicationUrl" in campaign) {
@@ -207,9 +210,15 @@ test("stores one normalized campaign per JSON file", async () => {
         "object",
         `${filename}: officialImage`,
       );
+      const expectedImageCheckedAt =
+        campaign.campaignCode === "2162"
+          ? "2026-08-11"
+          : campaign.campaignCode === "3327"
+            ? "2026-08-16"
+            : "2026-08-06";
       assert.equal(
         campaign.officialImage.checkedAt,
-        campaign.campaignCode === "2162" ? "2026-08-11" : "2026-08-06",
+        expectedImageCheckedAt,
         `${filename}: officialImage.checkedAt`,
       );
 
@@ -301,11 +310,11 @@ test("stores one normalized campaign per JSON file", async () => {
 
   assert.equal(campaignCodes.size, index.campaignCount);
   assert.equal(generatedCodeCount, 12);
-  assert.equal(rankingCampaignCount, 33);
-  assert.equal(rankedOfficialUrls.size, 29);
-  assert.equal(rankedDesktopPaths.size, 29);
-  assert.equal(rankedMobilePaths.size, 23);
-  assert.equal(rankedDetailPaths.size, 29);
+  assert.equal(rankingCampaignCount, 34);
+  assert.equal(rankedOfficialUrls.size, 30);
+  assert.equal(rankedDesktopPaths.size, 30);
+  assert.equal(rankedMobilePaths.size, 24);
+  assert.equal(rankedDetailPaths.size, 30);
   const uniqueOfficialImages = [...rankedImagesByOfficialUrl.values()];
   assert.equal(
     uniqueOfficialImages.filter(
@@ -313,7 +322,7 @@ test("stores one normalized campaign per JSON file", async () => {
         image.mobile !== null &&
         image.detail.sourceUrl === image.mobile.sourceUrl,
     ).length,
-    21,
+    22,
   );
   assert.equal(
     uniqueOfficialImages.filter((image) =>
@@ -394,6 +403,17 @@ test("stores one normalized campaign per JSON file", async () => {
   assert.equal(
     employeeReferral.officialImage.detail.sourceUrl,
     employeeReferral.officialImage.mobile.sourceUrl,
+  );
+
+  const ichibaDebut = await readJson(
+    "3327-campaign-ichiba-debut.campaign.json",
+  );
+  assert.equal(ichibaDebut.points.mnp, 20_000);
+  assert.equal(ichibaDebut.points.newNumber, 12_000);
+  assert.match(ichibaDebut.conditions.join(" "), /楽天市場で1,000円以上買い物/);
+  assert.equal(
+    ichibaDebut.officialUrl,
+    "https://network.mobile.rakuten.co.jp/campaign/ichiba-debut/",
   );
 
   const freeCall = await readJson(

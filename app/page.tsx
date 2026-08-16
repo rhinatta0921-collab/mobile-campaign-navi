@@ -23,6 +23,7 @@ const nonDeviceCampaigns = campaigns.filter(
     !campaign.requiresDevicePurchase &&
     campaign.rankingEligible,
 );
+const homepageDataCheckedAt = "2026-08-16";
 const employeeReferralCampaign = campaigns.find(
   (campaign) => campaign.campaignCode === "2162",
 );
@@ -71,7 +72,7 @@ const comparisonPoints = [
 
 const sectionTitles = {
   conclusion:
-    "【結論】楽天モバイルへの乗り換え・新規契約を考えているなら、「社員紹介キャンペーン」経由が最もお得に始める方法！",
+    "【結論】初回申込は楽天市場キャンペーン、追加回線・再契約は社員紹介キャンペーンを確認！",
   howToChoose: "キャンペーンの選び方",
   deviceCampaignGuide: "スマホ本体も一緒に購入する方へ",
   ranking: "獲得固定ポイント額ランキング",
@@ -135,7 +136,8 @@ export default async function Home({ searchParams }: HomeProps) {
             </div>
             <div className="hero-copy">
               <h1 id="page-title">
-                楽天モバイル 申し込みキャンペーン比較ランキング【2026年8月最新】
+                楽天モバイル 申し込みキャンペーン比較ランキング【
+                {formatJapaneseDate(homepageDataCheckedAt)}最終確認】
               </h1>
               <div className="lead">
                 <p className="lead-question">
@@ -264,21 +266,21 @@ export default async function Home({ searchParams }: HomeProps) {
             <div className="conclusion-lead">
               <p>
                 <strong className="conclusion-highlight">
-                  楽天モバイルへの乗り換えや新規契約を検討しているなら、まず社員紹介キャンペーンを検討してください。
+                  初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。
                 </strong>
                 <strong className="conclusion-highlight">
-                  他社から楽天モバイルへ乗り換え（MNP）で最大14,000ポイント、乗り換え以外の新規契約でも最大11,000ポイントが還元される
+                  他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます
                 </strong>
-                、公式キャンペーンの中でもトップクラスのお得さです。
+                。ただし、専用ページからの申し込み、Rakuten Linkで10秒以上の通話、楽天市場で1,000円以上の買い物が必要です。
               </p>
               <p>
-                さらに、1人で複数回線を申し込んでも対象になるのがこのキャンペーンの魅力の一つで、最大5回線まで適用可能です。たとえば家族5人全員が乗り換えれば、最大70,000円相当のポイントを獲得できる計算になります。
+                一方、初回申込ではない方や複数回線を申し込む方は、社員紹介キャンペーンが有力です。MNPなら最大14,000ポイント、新規・追加回線・再契約でも条件を満たせば最大11,000ポイントを受け取れ、1人最大5回線まで対象になります。
               </p>
               <p>
-                ただし、注意点もあります。2026年3月2日以降に申し込んだ方は「Rakuten Linkアプリで10秒以上の通話」が達成条件となっており、対象プランは「Rakuten最強プラン」または「Rakuten最強U-NEXT」に限られます。ポイントは即時付与ではなく、分割での進呈となる点も覚えておきましょう。
+                楽天市場キャンペーンのWeb申込期限は2026年9月7日8:59です。条件達成期限やポイントの分割進呈時期も決まっているため、ランキングの詳細と公式ルールを確認してから申し込んでください。
               </p>
               <p>
-                楽天モバイル自体のプランは月々の使用量に応じて自動的に料金が変わるシンプルな仕組みが特徴。あまりデータを使わない月は勝手に安くなるので、使い方を気にしすぎる必要がありません。社員紹介キャンペーンを入口に使うことで、そのシンプルさをお得にスタートできるのが最大のメリットです。
+                下のボタンは社員紹介キャンペーンの参加ページです。楽天アカウントでのログインが必要なため、ログイン前にランキングと詳細で対象条件を確認してください。
               </p>
             </div>
             <a
@@ -476,10 +478,6 @@ export default async function Home({ searchParams }: HomeProps) {
             <p>
               SIMのみのキャンペーンとは選び方が根本的に異なるため、このページでは端末購入なしのキャンペーンのみを掲載しています。
             </p>
-            <a className="device-guide-link" href="/device-campaigns">
-              端末購入ありのキャンペーンを見る
-              <span aria-hidden="true">→</span>
-            </a>
           </section>
 
           <section
@@ -536,9 +534,6 @@ export default async function Home({ searchParams }: HomeProps) {
                 <li key={example}>{example}</li>
               ))}
             </ul>
-            <a className="inline-route-link" href="/device-campaigns">
-              スマホ本体の購入が必要なキャンペーンはこちら
-            </a>
           </section>
         </article>
       </div>

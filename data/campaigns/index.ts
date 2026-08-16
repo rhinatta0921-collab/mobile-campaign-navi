@@ -141,6 +141,18 @@ type ValuationOverride = {
 };
 
 const valuationOverrides: Record<string, ValuationOverride> = {
+  "3327": {
+    requiredCosts: [
+      {
+        label: "楽天市場での最低購入額",
+        description:
+          "最大ポイントの獲得には、期限までに楽天市場で1注文1,000円以上の買い物が必要です。",
+        amountYen: 1_000,
+        monthlyAmountYen: null,
+      },
+    ],
+    calculationPeriod: "2026年11月から4カ月間",
+  },
   "1784": {
     calculationPeriod: "条件達成後、申込者ポイントを3カ月に分けて全額受け取るまで",
   },

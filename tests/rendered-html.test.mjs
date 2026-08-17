@@ -461,15 +461,17 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.equal(classCount(conclusionHtml, "conclusion-campaign-picture"), 1);
   assert.match(
     conclusionHtml,
-    /data-campaign-code="2162"><source media="\(max-width: 860px\)" srcSet="\/assets\/campaigns\/official\/2162-mobile\.jpg" width="750" height="972"\/><img src="\/assets\/campaigns\/official\/2162-desktop\.jpg" width="2880" height="960"/,
+    /data-campaign-code="3327"><source media="\(max-width: 860px\)" srcSet="\/assets\/campaigns\/official\/3327-mobile\.jpg" width="750" height="920"\/><img src="\/assets\/campaigns\/official\/3327-desktop\.jpg" width="4000" height="988"/,
   );
   assertInOrder(conclusionText, [
     "【結論】初回申込は楽天市場キャンペーン、追加回線・再契約は社員紹介キャンペーンを確認！",
-    "画像：楽天モバイル公式ページ（2026年8月11日確認）",
+    "画像：楽天モバイル公式ページ（2026年8月16日確認）",
     "初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます。ただし、専用ページからの申し込み、Rakuten Linkで10秒以上の通話、楽天市場で1,000円以上の買い物が必要です。",
     "一方、初回申込ではない方や複数回線を申し込む方は、社員紹介キャンペーンが有力です。MNPなら最大14,000ポイント、新規・追加回線・再契約でも条件を満たせば最大11,000ポイントを受け取れ、1人最大5回線まで対象になります。",
-    "楽天市場キャンペーンのWeb申込期限は2026年9月7日8:59です。条件達成期限やポイントの分割進呈時期も決まっているため、ランキングの詳細と公式ルールを確認してから申し込んでください。",
-    "下のボタンは社員紹介キャンペーンの参加ページです。楽天アカウントでのログインが必要なため、ログイン前にランキングと詳細で対象条件を確認してください。",
+    "しかし各キャンペーン特典のポイント額は期間限定で増量することもあるので、申し込む時点での情報は必ず公式ページでも確認してください。",
+    "楽天市場キャンペーンの公式ページを見る",
+    "社員紹介キャンペーンの公式ページを見る",
+    "※公式ページの確認には、楽天アカウントでのログインが必要です。",
   ]);
   const highlightedText = [
     ...conclusionHtml.matchAll(
@@ -477,20 +479,24 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     ),
   ].map((match) => plainText(match[1]));
   assert.deepEqual(highlightedText, [
-    "初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。",
-    "他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます",
+    "初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます",
   ]);
   assert.doesNotMatch(conclusionHtml, /winner-/);
-  assert.doesNotMatch(conclusionText, /1位|公式ページで確認/);
-  assert.equal(classCount(conclusionHtml, "conclusion-official-link"), 1);
+  assert.doesNotMatch(conclusionText, /楽天市場キャンペーンのWeb申込期限/);
+  assert.doesNotMatch(conclusionText, /下のボタンは社員紹介キャンペーン/);
+  assert.equal(classCount(conclusionHtml, "conclusion-official-link"), 2);
   assert.equal(classCount(conclusionHtml, "conclusion-login-note"), 1);
   assert.match(
     conclusionHtml,
-    /class="official-link conclusion-official-link" href="https:\/\/r10\.to\/hkD5ah" rel="sponsored noopener noreferrer" target="_blank">公式ページの情報を見る<\/a><p class="conclusion-login-note">※公式ページの確認には、楽天アカウントでのログインが必要です。<\/p>/,
+    /class="official-link conclusion-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/" rel="sponsored noopener noreferrer" target="_blank">楽天市場キャンペーンの公式ページを見る<\/a>/,
   );
   assert.match(
     conclusionHtml,
-    /href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral-application-employee\/"[^>]*aria-label="【楽天従業員から紹介された方限定】Rakuten最強プラン紹介キャンペーンの画像出典：楽天モバイル公式ページ"/,
+    /class="official-link conclusion-official-link" href="https:\/\/r10\.to\/hkD5ah" rel="sponsored noopener noreferrer" target="_blank">社員紹介キャンペーンの公式ページを見る<\/a><p class="conclusion-login-note">※公式ページの確認には、楽天アカウントでのログインが必要です。<\/p>/,
+  );
+  assert.match(
+    conclusionHtml,
+    /href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/"[^>]*aria-label="楽天モバイル初めてお申し込みで最大20,000ポイント進呈の画像出典：楽天モバイル公式ページ"/,
   );
 
   const rankingHtml = sectionHtml(html, "ranking-section");
@@ -1043,6 +1049,22 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
+    /--green: #3f7d73;[\s\S]*?\.official-link[\s\S]*?background: var\(--green\);/,
+  );
+  assert.match(
+    css,
+    /\.official-link:hover[\s\S]*?background: #2d6159;/,
+  );
+  assert.match(
+    css,
+    /\.conclusion-action-group\s*{[^}]*display: grid;[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);[^}]*gap: 12px;[^}]*margin-top: 26px;/,
+  );
+  assert.match(
+    css,
+    /\.conclusion-action-group \.conclusion-official-link\s*{[^}]*width: 100%;[^}]*margin: 0;[^}]*white-space: normal;/,
+  );
+  assert.match(
+    css,
     /\.campaign-entry-link\s*{[^}]*border-color: var\(--accent\);[^}]*background: var\(--accent\);/,
   );
   assert.match(
@@ -1052,6 +1074,10 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.match(
     compactMobileCss,
     /\.campaign-action-buttons\s*{[^}]*grid-template-columns: 1fr;[^}]*gap: 10px;/,
+  );
+  assert.match(
+    compactMobileCss,
+    /\.conclusion-action-group,[\s\S]*?\.campaign-action-buttons\s*{[^}]*grid-template-columns: 1fr;[^}]*gap: 10px;/,
   );
   assert.match(
     css,

@@ -9,6 +9,7 @@ import { SiteHeader } from "@/app/components/SiteHeader";
 import {
   campaigns,
   getCampaignApplicationUrl,
+  rankCampaigns,
   type ApplicationType,
 } from "@/data/campaigns";
 
@@ -32,9 +33,13 @@ if (!employeeReferralCampaign) {
   throw new Error("キャンペーン2162のデータがありません。");
 }
 
-const employeeReferralOfficialImage = requireOfficialImage(
-  employeeReferralCampaign,
-);
+const mnpTopCampaign = rankCampaigns(nonDeviceCampaigns, "mnp")[0];
+
+if (!mnpTopCampaign) {
+  throw new Error("MNPランキング対象のキャンペーンがありません。");
+}
+
+const mnpTopCampaignOfficialImage = requireOfficialImage(mnpTopCampaign);
 const excludedExamples = [
   "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須の特典",
   "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
@@ -245,55 +250,67 @@ export default async function Home({ searchParams }: HomeProps) {
             <h2 id="conclusion-title">{sectionTitles.conclusion}</h2>
             <figure className="conclusion-campaign-figure">
               <CampaignOfficialImage
-                campaign={employeeReferralCampaign}
+                campaign={mnpTopCampaign}
                 className="conclusion-campaign-picture"
               />
               <figcaption>
                 画像：
                 <a
-                  href={employeeReferralCampaign.officialUrl}
+                  href={mnpTopCampaign.officialUrl}
                   rel="sponsored noopener noreferrer"
                   target="_blank"
-                  aria-label={`${employeeReferralCampaign.title}の画像出典：楽天モバイル公式ページ`}
+                  aria-label={`${mnpTopCampaign.title}の画像出典：楽天モバイル公式ページ`}
                 >
                   楽天モバイル公式ページ
                 </a>
                 （
-                {formatJapaneseDate(employeeReferralOfficialImage.checkedAt)}
+                {formatJapaneseDate(mnpTopCampaignOfficialImage.checkedAt)}
                 確認）
               </figcaption>
             </figure>
             <div className="conclusion-lead">
               <p>
                 <strong className="conclusion-highlight">
-                  初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。
+                  {"初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。" +
+                    "他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます"}
                 </strong>
-                <strong className="conclusion-highlight">
-                  他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます
-                </strong>
-                。ただし、専用ページからの申し込み、Rakuten Linkで10秒以上の通話、楽天市場で1,000円以上の買い物が必要です。
+                。
+              </p>
+              <p>
+                ただし、専用ページからの申し込み、Rakuten Linkで10秒以上の通話、楽天市場で1,000円以上の買い物が必要です。
               </p>
               <p>
                 一方、初回申込ではない方や複数回線を申し込む方は、社員紹介キャンペーンが有力です。MNPなら最大14,000ポイント、新規・追加回線・再契約でも条件を満たせば最大11,000ポイントを受け取れ、1人最大5回線まで対象になります。
               </p>
               <p>
-                楽天市場キャンペーンのWeb申込期限は2026年9月7日8:59です。条件達成期限やポイントの分割進呈時期も決まっているため、ランキングの詳細と公式ルールを確認してから申し込んでください。
-              </p>
-              <p>
-                下のボタンは社員紹介キャンペーンの参加ページです。楽天アカウントでのログインが必要なため、ログイン前にランキングと詳細で対象条件を確認してください。
+                しかし各キャンペーン特典のポイント額は期間限定で増量することもあるので、申し込む時点での情報は必ず公式ページでも確認してください。
               </p>
             </div>
-            <a
-              className="official-link conclusion-official-link"
-              href={getCampaignApplicationUrl(employeeReferralCampaign)}
-              rel="sponsored noopener noreferrer"
-              target="_blank"
-            >
-              公式ページの情報を見る
-            </a>
-            <p className="conclusion-login-note">
-              ※公式ページの確認には、楽天アカウントでのログインが必要です。
-            </p>
+            <div className="conclusion-action-group">
+              <div className="conclusion-action-item">
+                <a
+                  className="official-link conclusion-official-link"
+                  href={mnpTopCampaign.officialUrl}
+                  rel="sponsored noopener noreferrer"
+                  target="_blank"
+                >
+                  楽天市場キャンペーンの公式ページを見る
+                </a>
+              </div>
+              <div className="conclusion-action-item">
+                <a
+                  className="official-link conclusion-official-link"
+                  href={getCampaignApplicationUrl(employeeReferralCampaign)}
+                  rel="sponsored noopener noreferrer"
+                  target="_blank"
+                >
+                  社員紹介キャンペーンの公式ページを見る
+                </a>
+                <p className="conclusion-login-note">
+                  ※公式ページの確認には、楽天アカウントでのログインが必要です。
+                </p>
+              </div>
+            </div>
           </section>
 
           <section

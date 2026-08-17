@@ -1,0 +1,60 @@
+{
+  "campaignCode": "2698",
+  "codeType": "campaign",
+  "title": "Rakuten Turboと楽天モバイルの最強おうちプログラム",
+  "editorial": {
+    "headline": "Rakuten Turboと楽天モバイルを継続して併用する人向け",
+    "paragraphs": [
+      "Rakuten Turboを初めて申し込み、楽天モバイルを利用している間、条件を満たした月ごとに1,000ポイントが還元されます。ホームルーターとモバイル回線を楽天にまとめる人向けです。",
+      "終了日のない月次還元のため、固定ポイント総額には含めずランキングでは0ポイントとして掲載しています。Rakuten Turboの利用料は契約内容で変わり、実質お得額の固定総額は算出できません。"
+    ],
+    "goodPoints": [
+      "条件を満たす間は毎月1,000ポイント還元",
+      "ホームルーターとモバイル回線をまとめて利用できる"
+    ],
+    "concerns": [
+      "Rakuten Turboの初回申し込みと継続利用が必要",
+      "Rakuten Turboの利用料を含む固定の実質お得額は算出できない"
+    ]
+  },
+  "summary": "Rakuten Turbo初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
+  "benefit": {
+    "type": "recurringPoints",
+    "amount": 1000,
+    "unit": "ポイント/月",
+    "description": "条件を満たす間、毎月1,000ポイントを還元します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "Rakuten Turboを初めて申し込み、楽天モバイルを利用する方",
+  "conditions": [
+    "Rakuten Turbo初回申し込み",
+    "楽天モバイル利用中"
+  ],
+  "channel": "公式ページ参照",
+  "category": "homeInternet",
+  "audience": "both",
+  "period": "2025年3月4日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/internet/turbo/campaign/home-internet/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 29,
+      "title": "Rakuten Turbo初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元 ※期間限定ポイント。条件あり",
+      "description": "Rakuten Turbo初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
+      "url": "https://network.mobile.rakuten.co.jp/internet/turbo/campaign/home-internet/"
+    }
+  ]
+}

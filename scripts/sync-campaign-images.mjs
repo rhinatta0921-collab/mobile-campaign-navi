@@ -1,36 +1,54 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import {
+  mkdtemp,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
 const OFFICIAL_HOST = "network.mobile.rakuten.co.jp";
 const LISTING_URL = `https://${OFFICIAL_HOST}/campaign/`;
-const IMAGE_CHECKED_AT = "2026-08-16";
-const CAMPAIGN_DIRECTORY = path.resolve("data/campaigns");
-const PUBLIC_DIRECTORY = path.resolve("public");
-const IMAGE_DIRECTORY = path.join(
-  PUBLIC_DIRECTORY,
-  "assets/campaigns/official",
-);
-const SHOULD_WRITE = process.argv.includes("--write");
-const CAMPAIGN_CODE_ARGUMENT = process.argv.find((argument) =>
-  argument.startsWith("--campaign-code="),
-);
-const CAMPAIGN_CODE_FILTER = CAMPAIGN_CODE_ARGUMENT
-  ? CAMPAIGN_CODE_ARGUMENT.slice("--campaign-code=".length)
-  : null;
+const CAMPAIGN_DIRECTORY = path.resolve("data/campaigns/generated");
+const MANIFEST_PATH = path.resolve("data/campaigns/images.json");
+const IMAGE_DIRECTORY = path.resolve("public/assets/campaigns/official");
+const CONCLUSION_CAMPAIGN_CODE = "3327";
+const CONCURRENCY = 6;
 
-if (CAMPAIGN_CODE_ARGUMENT && CAMPAIGN_CODE_FILTER.length === 0) {
-  throw new Error("--campaign-code にはキャンペーンコードを指定してください");
+function option(name) {
+  const prefix = `--${name}=`;
+  return process.argv.find((argument) => argument.startsWith(prefix))?.slice(
+    prefix.length,
+  );
+}
+
+const shouldWrite = process.argv.includes("--write");
+const shouldCheck = process.argv.includes("--check");
+const checkedAtArgument = option("checked-at");
+const campaignCodeFilter = option("campaign-code");
+
+if (shouldWrite && shouldCheck) {
+  throw new Error("--write と --check は同時に指定できません。");
+}
+if (shouldWrite && !checkedAtArgument) {
+  throw new Error("書き込み時は --checked-at=YYYY-MM-DD が必要です。");
+}
+if (checkedAtArgument && !/^\d{4}-\d{2}-\d{2}$/.test(checkedAtArgument)) {
+  throw new Error("--checked-at は YYYY-MM-DD 形式で指定してください。");
+}
+if (shouldWrite && campaignCodeFilter) {
+  throw new Error("孤立画像を防ぐため、--write は全件同期で実行してください。");
 }
 
 const explicitImagePairs = new Map([
   [
     "/campaign/tadaima/",
     {
-      desktop:
-        "/assets/img/campaign/tadaima/img-heading-pc_260310.png",
+      desktop: "/assets/img/campaign/tadaima/img-heading-pc_260310.png",
       mobile: "/assets/img/campaign/tadaima/img-heading-sp_260310.png",
     },
   ],
@@ -45,8 +63,6 @@ const forceListingImagePaths = new Set([
   "/service/whoscall/",
 ]);
 
-// Their SP key visuals remain unusually wide, so the campaign-listing artwork
-// is the more square, legible source for the editorial detail view.
 const preferListingForDetailPaths = new Set([
   "/campaign/iphone-discount/",
   "/guide/application/card-campaign/",
@@ -66,24 +82,19 @@ function normalizePathname(value, baseUrl = LISTING_URL) {
 
 function firstAttribute(tag, names) {
   for (const name of names) {
-    const match = tag.match(
-      new RegExp(`\\b${name}=["']([^"']+)["']`, "i"),
-    );
+    const match = tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, "i"));
     if (!match) continue;
-
     const values = decodeHtml(match[1])
       .split(",")
       .map((candidate) => candidate.trim().split(/\s+/)[0])
       .filter(Boolean);
     if (values.length > 0) return values.at(-1);
   }
-
   return null;
 }
 
 function extractImageCandidates(html, pageUrl) {
   const candidates = new Set();
-
   for (const match of html.matchAll(/<(?:img|source)\b[^>]*>/gi)) {
     const candidate = firstAttribute(match[0], [
       "data-srcset",
@@ -92,15 +103,13 @@ function extractImageCandidates(html, pageUrl) {
       "src",
     ]);
     if (!candidate || candidate.startsWith("data:")) continue;
-
     try {
       const resolved = new URL(candidate, pageUrl);
       if (resolved.hostname === OFFICIAL_HOST) candidates.add(resolved.href);
     } catch {
-      // Ignore malformed markup and continue evaluating the remaining images.
+      // Ignore malformed markup and inspect the remaining official assets.
     }
   }
-
   return [...candidates];
 }
 
@@ -108,7 +117,6 @@ function imageRole(url) {
   const pathname = new URL(url).pathname.toLowerCase();
   const desktop = /(?:^|[-_/])(pc|desktop)(?:[-_.\/]|$)/.test(pathname);
   const mobile = /(?:^|[-_/])(sp|mobile)(?:[-_.\/]|$)/.test(pathname);
-
   if (desktop === mobile) return null;
   return desktop ? "desktop" : "mobile";
 }
@@ -116,7 +124,6 @@ function imageRole(url) {
 function visualScore(url) {
   const pathname = new URL(url).pathname.toLowerCase();
   let score = 0;
-
   if (/img[-_]kv|kv[-_]/.test(pathname)) score += 120;
   else if (/[-_/]kv[-_.\/]/.test(pathname)) score += 110;
   if (/hero/.test(pathname)) score += 90;
@@ -124,56 +131,43 @@ function visualScore(url) {
   if (/mainvisual|main-visual|main_visual/.test(pathname)) score += 70;
   if (/campaign|service|product|internet|hikari|fee/.test(pathname)) score += 10;
   if (/logo|icon|header|footer|common|nav|menu/.test(pathname)) score -= 200;
-
   return score;
 }
 
 function selectResponsivePair(candidates) {
-  const desktopCandidates = candidates
-    .filter((url) => imageRole(url) === "desktop")
-    .map((url) => ({ url, score: visualScore(url) }))
-    .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score || a.url.localeCompare(b.url));
-  const mobileCandidates = candidates
-    .filter((url) => imageRole(url) === "mobile")
-    .map((url) => ({ url, score: visualScore(url) }))
-    .filter(({ score }) => score > 0)
-    .sort((a, b) => b.score - a.score || a.url.localeCompare(b.url));
-
-  if (desktopCandidates.length === 0 || mobileCandidates.length === 0) {
-    return null;
-  }
-
-  return {
-    desktop: desktopCandidates[0].url,
-    mobile: mobileCandidates[0].url,
-    source: "responsive KV",
-  };
+  const select = (role) =>
+    candidates
+      .filter((url) => imageRole(url) === role)
+      .map((url) => ({ url, score: visualScore(url) }))
+      .filter(({ score }) => score > 0)
+      .sort((left, right) =>
+        right.score - left.score || left.url.localeCompare(right.url),
+      )[0]?.url;
+  const desktop = select("desktop");
+  const mobile = select("mobile");
+  return desktop && mobile
+    ? { desktop, mobile, source: "responsive KV" }
+    : null;
 }
 
 function extractOgImage(html, pageUrl) {
   const metaTags = html.match(/<meta\b[^>]*>/gi) ?? [];
-
   for (const tag of metaTags) {
     if (!/(?:property|name)=["']og:image["']/i.test(tag)) continue;
     const candidate = firstAttribute(tag, ["content"]);
     if (!candidate) continue;
-
     const resolved = new URL(candidate, pageUrl);
     const pathname = resolved.pathname.toLowerCase();
     if (resolved.hostname !== OFFICIAL_HOST) continue;
     if (pathname === "/assets/img/common/ogp.png") continue;
     if (/\/common\/.+ogp/.test(pathname)) continue;
-
     return resolved.href;
   }
-
   return null;
 }
 
 function extractListingImages(html) {
   const images = new Map();
-
   for (const match of html.matchAll(
     /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi,
   )) {
@@ -197,30 +191,56 @@ function extractListingImages(html) {
         }
       });
     if (!image) continue;
-
     try {
       const linkedPath = normalizePathname(match[1]);
       const imageUrl = new URL(image, LISTING_URL);
-      if (imageUrl.hostname !== OFFICIAL_HOST) continue;
-      if (!images.has(linkedPath)) images.set(linkedPath, imageUrl.href);
+      if (imageUrl.hostname === OFFICIAL_HOST && !images.has(linkedPath)) {
+        images.set(linkedPath, imageUrl.href);
+      }
     } catch {
-      // Ignore malformed listing links.
+      // Ignore malformed listing cards.
     }
   }
-
   return images;
 }
 
-async function fetchText(url) {
-  const response = await fetch(url, {
-    headers: {
-      "user-agent":
-        "Mozilla/5.0 (compatible; CampaignImageArchiver/1.0; +https://network.mobile.rakuten.co.jp/)",
-    },
-    redirect: "follow",
-  });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.text();
+async function fetchWithRetry(url, responseType) {
+  let lastError;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "user-agent":
+            "Mozilla/5.0 (compatible; CampaignImageArchiver/2.0; +https://network.mobile.rakuten.co.jp/)",
+        },
+        redirect: "follow",
+        signal: AbortSignal.timeout(30_000),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return responseType === "text"
+        ? await response.text()
+        : { response, buffer: Buffer.from(await response.arrayBuffer()) };
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw new Error(`${url}: ${lastError}`);
+}
+
+async function mapLimit(items, limit, operation) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+  async function worker() {
+    while (nextIndex < items.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await operation(items[index], index);
+    }
+  }
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, () => worker()),
+  );
+  return results;
 }
 
 function extensionFor(response, sourceUrl) {
@@ -232,213 +252,235 @@ function extensionFor(response, sourceUrl) {
     ["image/gif", ".gif"],
     ["image/svg+xml", ".svg"],
   ]);
-
-  if (contentType && extensions.has(contentType)) {
-    return extensions.get(contentType);
-  }
-
+  if (contentType && extensions.has(contentType)) return extensions.get(contentType);
   const extension = path.extname(new URL(sourceUrl).pathname).toLowerCase();
   if ([".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"].includes(extension)) {
     return extension === ".jpeg" ? ".jpg" : extension;
   }
-
   throw new Error(`${sourceUrl}: unsupported image content type ${contentType}`);
 }
 
-async function downloadImage(sourceUrl, localBaseName) {
-  const response = await fetch(sourceUrl, {
-    headers: {
-      "user-agent":
-        "Mozilla/5.0 (compatible; CampaignImageArchiver/1.0; +https://network.mobile.rakuten.co.jp/)",
-    },
-    redirect: "follow",
-  });
-  if (!response.ok) throw new Error(`${sourceUrl}: HTTP ${response.status}`);
-
-  const buffer = Buffer.from(await response.arrayBuffer());
-  const metadata = await sharp(buffer).metadata();
-  if (!metadata.width || !metadata.height) {
-    throw new Error(`${sourceUrl}: image dimensions could not be determined`);
-  }
-
-  const extension = extensionFor(response, sourceUrl);
-  const relativePath = `/assets/campaigns/official/${localBaseName}${extension}`;
-  if (SHOULD_WRITE) {
-    await writeFile(path.join(PUBLIC_DIRECTORY, relativePath), buffer);
-  }
-
-  return {
-    path: relativePath,
-    sourceUrl,
-    width: metadata.width,
-    height: metadata.height,
-  };
+function applicationTypes(campaign) {
+  const pointTypes = ["mnp", "newNumber"].filter(
+    (type) => typeof campaign.points[type] === "number",
+  );
+  if (pointTypes.length > 0) return pointTypes;
+  if (campaign.conditions.includes("MNP")) return ["mnp"];
+  if (
+    campaign.conditions.some(
+      (condition) =>
+        condition === "新規契約" || condition.includes("新規申し込み"),
+    )
+  ) return ["newNumber"];
+  return ["mnp", "newNumber"];
 }
 
-function insertOfficialImage(campaign, officialImage) {
-  const updated = {};
-
-  for (const [key, value] of Object.entries(campaign)) {
-    if (key === "officialImage") continue;
-    updated[key] = value;
-    if (key === "officialUrl") updated.officialImage = officialImage;
-  }
-
-  if (!("officialImage" in updated)) updated.officialImage = officialImage;
-  return updated;
+function previousVariant(manifest, campaignCode, role) {
+  const campaign = manifest.campaigns[campaignCode];
+  if (!campaign) return null;
+  if (role === "detail") return campaign.detail;
+  return campaign.responsive?.[role] ?? null;
 }
 
-async function main() {
-  const filenames = (await readdir(CAMPAIGN_DIRECTORY))
-    .filter((filename) => filename.endsWith(".campaign.json"))
-    .sort();
-  const rankedCampaigns = [];
-
-  for (const filename of filenames) {
-    const filePath = path.join(CAMPAIGN_DIRECTORY, filename);
-    const campaign = JSON.parse(await readFile(filePath, "utf8"));
-    if (
-      campaign.rankingEligible &&
-      (!CAMPAIGN_CODE_FILTER || campaign.campaignCode === CAMPAIGN_CODE_FILTER)
-    ) {
-      rankedCampaigns.push({ filename, campaign });
-    }
-  }
-
-  if (CAMPAIGN_CODE_FILTER && rankedCampaigns.length === 0) {
-    throw new Error(
-      `ランキング対象のキャンペーンコード ${CAMPAIGN_CODE_FILTER} が見つかりません`,
-    );
-  }
-
-  const groupedByPage = new Map();
-  for (const record of rankedCampaigns) {
-    const records = groupedByPage.get(record.campaign.officialUrl) ?? [];
-    records.push(record);
-    groupedByPage.set(record.campaign.officialUrl, records);
-  }
-
-  const listingHtml = await fetchText(LISTING_URL);
-  const listingImages = extractListingImages(listingHtml);
-  const pageSelections = new Map();
-
-  for (const [officialUrl] of [...groupedByPage].sort(([a], [b]) =>
-    a.localeCompare(b),
-  )) {
-    const pageHtml = await fetchText(officialUrl);
-    const pathname = normalizePathname(officialUrl);
-    const explicitPair = explicitImagePairs.get(pathname);
-    let selected = forceListingImagePaths.has(pathname)
-      ? null
-      : explicitPair
+async function choosePageImage([officialUrl, records], listingImages) {
+  const pageHtml = await fetchWithRetry(officialUrl, "text");
+  const pathname = normalizePathname(officialUrl);
+  const explicitPair = explicitImagePairs.get(pathname);
+  let selected = forceListingImagePaths.has(pathname)
+    ? null
+    : explicitPair
       ? {
           desktop: new URL(explicitPair.desktop, officialUrl).href,
           mobile: new URL(explicitPair.mobile, officialUrl).href,
           source: "responsive KV override",
         }
       : selectResponsivePair(extractImageCandidates(pageHtml, officialUrl));
+  if (!selected && !forceListingImagePaths.has(pathname)) {
+    const ogImage = extractOgImage(pageHtml, officialUrl);
+    if (ogImage) selected = { desktop: ogImage, mobile: null, source: "OG image" };
+  }
+  if (!selected) {
+    const listingImage = listingImages.get(pathname);
+    if (listingImage) {
+      selected = {
+        desktop: listingImage,
+        mobile: null,
+        source: "campaign listing image",
+      };
+    }
+  }
+  if (!selected) throw new Error(`${officialUrl}: 公式画像を特定できません。`);
+  const listingImage = listingImages.get(pathname) ?? null;
+  const detail = preferListingForDetailPaths.has(pathname)
+    ? listingImage
+    : selected.mobile ?? listingImage ?? selected.desktop;
+  if (!detail) throw new Error(`${officialUrl}: 詳細画像を特定できません。`);
+  return { officialUrl, records, selected: { ...selected, detail } };
+}
 
-    if (!selected && !forceListingImagePaths.has(pathname)) {
-      const ogImage = extractOgImage(pageHtml, officialUrl);
-      if (ogImage) {
-        selected = { desktop: ogImage, mobile: null, source: "OG image" };
+async function main() {
+  const [filenames, previousManifest, listingHtml] = await Promise.all([
+    readdir(CAMPAIGN_DIRECTORY),
+    readFile(MANIFEST_PATH, "utf8").then(JSON.parse),
+    fetchWithRetry(LISTING_URL, "text"),
+  ]);
+  const checkedAt =
+    checkedAtArgument ??
+    Object.values(previousManifest.campaigns)[0]?.checkedAt ??
+    new Date().toISOString().slice(0, 10);
+  const campaigns = await Promise.all(
+    filenames
+      .filter((filename) => filename.endsWith(".campaign.json"))
+      .sort()
+      .map((filename) =>
+        readFile(path.join(CAMPAIGN_DIRECTORY, filename), "utf8").then(JSON.parse),
+      ),
+  );
+  const displayedCampaigns = campaigns.filter(
+    (campaign) =>
+      campaign.rankingEligible &&
+      !campaign.requiresDevicePurchase &&
+      applicationTypes(campaign).length > 0 &&
+      (!campaignCodeFilter || campaign.campaignCode === campaignCodeFilter),
+  );
+  if (campaignCodeFilter && displayedCampaigns.length === 0) {
+    throw new Error(`表示対象キャンペーン ${campaignCodeFilter} が見つかりません。`);
+  }
+
+  const groupedByPage = new Map();
+  for (const campaign of displayedCampaigns) {
+    const records = groupedByPage.get(campaign.officialUrl) ?? [];
+    records.push(campaign);
+    groupedByPage.set(campaign.officialUrl, records);
+  }
+  const pageEntries = [...groupedByPage].sort(([left], [right]) =>
+    left.localeCompare(right, "en"),
+  );
+  const listingImages = extractListingImages(listingHtml);
+  const selections = await mapLimit(pageEntries, CONCURRENCY, (entry) =>
+    choosePageImage(entry, listingImages),
+  );
+
+  const requests = [];
+  for (const { records, selected } of selections) {
+    const codes = records.map(({ campaignCode }) => campaignCode).sort();
+    requests.push({ codes, role: "detail", sourceUrl: selected.detail });
+    if (codes.includes(CONCLUSION_CAMPAIGN_CODE)) {
+      requests.push({ codes, role: "desktop", sourceUrl: selected.desktop });
+      if (selected.mobile) {
+        requests.push({ codes, role: "mobile", sourceUrl: selected.mobile });
       }
     }
+  }
 
-    if (!selected) {
-      const listingImage = listingImages.get(pathname);
-      if (listingImage) {
-        selected = {
-          desktop: listingImage,
-          mobile: null,
-          source: "campaign listing image",
+  const uniqueRequests = [];
+  const requestBySource = new Map();
+  for (const request of requests) {
+    const existing = requestBySource.get(request.sourceUrl);
+    if (existing) {
+      existing.codes.push(...request.codes);
+      existing.roles.push(request.role);
+      continue;
+    }
+    const record = { ...request, roles: [request.role] };
+    uniqueRequests.push(record);
+    requestBySource.set(request.sourceUrl, record);
+  }
+
+  const stagingDirectory = await mkdtemp(
+    path.join(path.dirname(IMAGE_DIRECTORY), "official.next-"),
+  );
+  const localizedBySource = new Map();
+  try {
+    const downloaded = await mapLimit(uniqueRequests, CONCURRENCY, async (request) => {
+      const { response, buffer } = await fetchWithRetry(request.sourceUrl, "buffer");
+      const metadata = await sharp(buffer).metadata();
+      if (!metadata.width || !metadata.height) {
+        throw new Error(`${request.sourceUrl}: 画像サイズを取得できません。`);
+      }
+      const canonicalCode = request.codes.sort()[0];
+      const preferred = request.codes
+        .flatMap((code) => request.roles.map((role) => previousVariant(previousManifest, code, role)))
+        .find((variant) => variant?.sourceUrl === request.sourceUrl);
+      const filename = preferred
+        ? path.basename(preferred.path)
+        : `${canonicalCode}-${request.role}${extensionFor(response, request.sourceUrl)}`;
+      await writeFile(path.join(stagingDirectory, filename), buffer);
+      return {
+        sourceUrl: request.sourceUrl,
+        localized: {
+          path: `/assets/campaigns/official/${filename}`,
+          sourceUrl: request.sourceUrl,
+          width: metadata.width,
+          height: metadata.height,
+        },
+      };
+    });
+    for (const result of downloaded) {
+      localizedBySource.set(result.sourceUrl, result.localized);
+    }
+
+    const nextManifest = { campaigns: {} };
+    for (const { records, selected } of selections) {
+      const detail = localizedBySource.get(selected.detail);
+      for (const campaign of records) {
+        nextManifest.campaigns[campaign.campaignCode] = {
+          detail,
+          ...(campaign.campaignCode === CONCLUSION_CAMPAIGN_CODE
+            ? {
+                responsive: {
+                  desktop: localizedBySource.get(selected.desktop),
+                  mobile: selected.mobile
+                    ? localizedBySource.get(selected.mobile)
+                    : null,
+                },
+              }
+            : {}),
+          checkedAt,
         };
       }
     }
 
-    if (!selected) {
-      throw new Error(`${officialUrl}: no campaign-specific official image found`);
-    }
-
-    const listingImage = listingImages.get(pathname) ?? null;
-    const detailImage = preferListingForDetailPaths.has(pathname)
-      ? listingImage
-      : selected.mobile ?? listingImage ?? selected.desktop;
-    if (!detailImage) {
-      throw new Error(`${officialUrl}: no official detail image found`);
-    }
-
-    pageSelections.set(officialUrl, {
-      ...selected,
-      detail: detailImage,
-      detailSource:
-        detailImage === selected.mobile ? "mobile KV" : "campaign listing image",
-    });
-  }
-
-  if (SHOULD_WRITE) await mkdir(IMAGE_DIRECTORY, { recursive: true });
-
-  const downloaded = new Map();
-  const imageDataByPage = new Map();
-  for (const [officialUrl, records] of [...groupedByPage].sort(([a], [b]) =>
-    a.localeCompare(b),
-  )) {
-    const campaignCodes = records
-      .map(({ campaign }) => campaign.campaignCode)
-      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-    const canonicalCode = campaignCodes[0].toLowerCase();
-    const selected = pageSelections.get(officialUrl);
-
-    async function localize(sourceUrl, role) {
-      if (!sourceUrl) return null;
-      if (downloaded.has(sourceUrl)) return downloaded.get(sourceUrl);
-      const image = await downloadImage(
-        sourceUrl,
-        `${canonicalCode}-${role}`,
+    if (shouldCheck) {
+      const expected = `${JSON.stringify(nextManifest, null, 2)}\n`;
+      const actual = `${JSON.stringify(previousManifest, null, 2)}\n`;
+      if (expected !== actual) throw new Error("画像マニフェストに同期差分があります。");
+      const requiredFiles = new Set(
+        Object.values(nextManifest.campaigns).flatMap((image) => [
+          image.detail.path,
+          ...(image.responsive
+            ? [image.responsive.desktop.path, image.responsive.mobile?.path]
+            : []),
+        ]).filter(Boolean).map((imagePath) => path.basename(imagePath)),
       );
-      downloaded.set(sourceUrl, image);
-      return image;
+      const currentFiles = new Set(await readdir(IMAGE_DIRECTORY));
+      const orphans = [...currentFiles].filter((name) => !requiredFiles.has(name));
+      if (orphans.length > 0) {
+        throw new Error(`孤立した公式画像があります: ${orphans.join(", ")}`);
+      }
+    } else if (shouldWrite) {
+      const manifestStagingPath = `${MANIFEST_PATH}.next`;
+      await writeFile(manifestStagingPath, `${JSON.stringify(nextManifest, null, 2)}\n`);
+      const previousDirectory = `${IMAGE_DIRECTORY}.previous`;
+      await rm(previousDirectory, { recursive: true, force: true });
+      await rename(IMAGE_DIRECTORY, previousDirectory);
+      try {
+        await rename(stagingDirectory, IMAGE_DIRECTORY);
+        await rename(manifestStagingPath, MANIFEST_PATH);
+        await rm(previousDirectory, { recursive: true, force: true });
+      } catch (error) {
+        await rm(IMAGE_DIRECTORY, { recursive: true, force: true });
+        await rename(previousDirectory, IMAGE_DIRECTORY);
+        throw error;
+      }
     }
 
-    const desktop = await localize(selected.desktop, "desktop");
-    const mobile = await localize(selected.mobile, "mobile");
-    const detail = await localize(selected.detail, "detail");
-    imageDataByPage.set(officialUrl, {
-      desktop,
-      mobile,
-      detail,
-      checkedAt: IMAGE_CHECKED_AT,
-    });
-
-    process.stdout.write(
-      `${campaignCodes.join(",")}\t${selected.source}\t${desktop.sourceUrl}${
-        mobile ? `\t${mobile.sourceUrl}` : ""
-      }\tdetail: ${selected.detailSource} ${detail.sourceUrl}\n`,
+    console.log(
+      `${shouldWrite ? "保存" : shouldCheck ? "確認" : "プレビュー"}: ${displayedCampaigns.length}キャンペーン、${uniqueRequests.length}画像`,
     );
+  } finally {
+    await rm(stagingDirectory, { recursive: true, force: true });
   }
-
-  if (SHOULD_WRITE) {
-    for (const { filename, campaign } of rankedCampaigns) {
-      const updated = insertOfficialImage(
-        campaign,
-        imageDataByPage.get(campaign.officialUrl),
-      );
-      await writeFile(
-        path.join(CAMPAIGN_DIRECTORY, filename),
-        `${JSON.stringify(updated, null, 2)}\n`,
-      );
-    }
-  }
-
-  const responsiveCount = [...imageDataByPage.values()].filter(
-    ({ mobile }) => mobile !== null,
-  ).length;
-  const detailMobileCount = [...pageSelections.values()].filter(
-    ({ detail, mobile }) => detail === mobile,
-  ).length;
-  process.stdout.write(
-    `\n${SHOULD_WRITE ? "Saved" : "Previewed"} ${rankedCampaigns.length} campaigns across ${groupedByPage.size} official pages (${responsiveCount} responsive image pairs, ${groupedByPage.size - responsiveCount} single images; detail: ${detailMobileCount} mobile KVs and ${groupedByPage.size - detailMobileCount} listing images).\n`,
-  );
 }
 
 await main();

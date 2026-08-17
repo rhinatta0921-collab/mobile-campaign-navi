@@ -529,7 +529,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assert.match(
     rankingHtml,
-    /href="\/\?application=mnp"[^>]*aria-selected="true"/,
+    /href="\/"[^>]*aria-selected="true"/,
   );
   assert.match(rankingText, /電話番号そのまま他社から乗り換え/);
   assert.match(rankingText, /新しい電話番号で契約/);
@@ -1147,7 +1147,7 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
   );
   assert.match(
     editorialCss,
-    /\.home-hero\s*{\s*gap: 0;\s*padding: 0;\s*border-bottom: 0;/,
+    /\.home-hero\s*{[^}]*gap: 0;[^}]*padding: 0;[^}]*border-bottom: 0;/,
   );
   assert.match(
     editorialCss,
@@ -1155,7 +1155,7 @@ test("uses self-hosted Noto Sans JP with readable editorial weights", async () =
   );
   assert.match(
     editorialMobileCss,
-    /\.home-hero\s*{\s*gap: 0;\s*padding: 0;\s*}/,
+    /\.home-hero\s*{[^}]*gap: 0;[^}]*padding: 0;/,
   );
   assert.match(
     editorialMobileCss,
@@ -1244,7 +1244,7 @@ test("stores the finalized editorial artwork at the agreed dimensions", async ()
     ["../public/assets/campaign-choice-step-scope-v1.png", 690, 460],
     ["../public/assets/campaign-choice-step-conditions-v1.png", 690, 460],
     ["../public/assets/campaign-choice-step-ranking-v1.png", 690, 460],
-    ["../public/og.png", 1200, 630],
+    ["../public/og-v2.png", 1200, 630],
     ["../public/apple-touch-icon.png", 180, 180],
   ];
 

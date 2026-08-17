@@ -1,0 +1,16 @@
+export const SITE_URL =
+  "https://rakuten-mobile-sim-campaign-ranking.hinatta0921.chatgpt.site";
+
+export const SITE_NAME = "楽天モバイル キャンペーン比較ナビ";
+export const HOMEPAGE_DATA_CHECKED_AT = "2026-08-16";
+export const INITIAL_VISIBLE_CAMPAIGN_COUNT = 10;
+
+export const CAMPAIGN_CODES = {
+  employeeReferral: "2162",
+  mnpConclusion: "3327",
+} as const;
+
+export const APPLICATION_PATHS = {
+  mnp: "/",
+  newNumber: "/?application=new-number",
+} as const;

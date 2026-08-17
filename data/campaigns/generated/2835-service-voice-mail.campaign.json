@@ -1,0 +1,59 @@
+{
+  "campaignCode": "2835",
+  "codeType": "campaign",
+  "title": "留守番電話オプション 初回1カ月無料キャンペーン",
+  "editorial": {
+    "headline": "留守番電話を初めて使う人が、最初の1カ月試せる",
+    "paragraphs": [
+      "留守番電話オプションを初めて申し込むと、月額料金が初回1カ月無料になります。不在時の伝言を受け取りたい人が、追加オプションを試す際の候補です。",
+      "申込者向け固定ポイントはなく、無料期間は初回1カ月です。無料特典の330円相当は実質お得額だけに反映しています。"
+    ],
+    "goodPoints": [
+      "留守番電話オプションを初回1カ月無料で試せる",
+      "無料特典を330円相当として実質価値に反映"
+    ],
+    "concerns": [
+      "留守番電話を初めて申し込む人に限られる",
+      "申込者向け固定ポイントはない"
+    ]
+  },
+  "summary": "電源OFF時や通信圏外時にも使える 留守番電話 はじめてのお申し込みで初回1カ月無料※ 2025年6月19日（木）0:00～終了日未定 ※その他条件あり。",
+  "benefit": {
+    "type": "free",
+    "amount": 1,
+    "unit": "カ月",
+    "description": "留守番電話オプションの月額料金が初回1カ月無料になります。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "留守番電話オプションを初めて申し込む方",
+  "conditions": [
+    "留守番電話を初めて申し込み"
+  ],
+  "channel": "公式ページ参照",
+  "category": "option",
+  "audience": "both",
+  "period": "2025年6月19日 0:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/service/voice-mail/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 45,
+      "title": "【留守番電話】月額330円が初回1カ月無料",
+      "description": "電源OFF時や通信圏外時にも使える 留守番電話 はじめてのお申し込みで初回1カ月無料※ 2025年6月19日（木）0:00～終了日未定 ※その他条件あり。",
+      "url": "https://network.mobile.rakuten.co.jp/service/voice-mail/"
+    }
+  ]
+}

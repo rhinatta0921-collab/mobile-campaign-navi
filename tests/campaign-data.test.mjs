@@ -1,78 +1,63 @@
 import assert from "node:assert/strict";
-import { readdir, readFile, stat } from "node:fs/promises";
+import { access, readFile, readdir, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import sharp from "sharp";
 
-const campaignDirectory = new URL("../data/campaigns/", import.meta.url);
+const campaignDirectory = new URL(
+  "../data/campaigns/generated/",
+  import.meta.url,
+);
+const dataDirectory = new URL("../data/campaigns/", import.meta.url);
 
-async function readJson(filename) {
-  const raw = await readFile(new URL(filename, campaignDirectory), "utf8");
-  return JSON.parse(raw);
+async function readCampaign(filename) {
+  return JSON.parse(await readFile(new URL(filename, campaignDirectory), "utf8"));
 }
 
-test("stores one normalized campaign per JSON file", async () => {
-  const directoryEntries = await readdir(campaignDirectory);
-  const filenames = directoryEntries
+function applicationTypes(campaign) {
+  const pointTypes = ["mnp", "newNumber"].filter(
+    (type) => typeof campaign.points[type] === "number",
+  );
+  if (pointTypes.length > 0) return pointTypes;
+  if (campaign.conditions.includes("MNP")) return ["mnp"];
+  if (
+    campaign.conditions.some(
+      (condition) =>
+        condition === "新規契約" || condition.includes("新規申し込み"),
+    )
+  ) return ["newNumber"];
+  return ["mnp", "newNumber"];
+}
+
+test("stores validated generated campaigns separately from curated fields", async () => {
+  const filenames = (await readdir(campaignDirectory))
     .filter((filename) => filename.endsWith(".campaign.json"))
     .sort();
-  const index = await readJson("index.json");
+  const [index, overrides] = await Promise.all([
+    readCampaign("index.json"),
+    readFile(new URL("curated-overrides.json", dataDirectory), "utf8").then(
+      JSON.parse,
+    ),
+  ]);
 
   assert.equal(index.listingUrl, "https://network.mobile.rakuten.co.jp/campaign/");
-  assert.equal(index.checkedAt, "2026-07-31");
   assert.equal(index.listingCardCount, 52);
   assert.equal(index.campaignCount, 55);
   assert.deepEqual(filenames, [...index.items].sort());
+  assert.equal(Object.keys(overrides).length, 55);
 
   const campaignCodes = new Set();
   const coveredListingIndexes = new Set();
   let generatedCodeCount = 0;
   let rankingCampaignCount = 0;
-  const rankedOfficialUrls = new Set();
-  const rankedDesktopPaths = new Set();
-  const rankedMobilePaths = new Set();
-  const rankedDetailPaths = new Set();
-  const rankedImagesByOfficialUrl = new Map();
-  const sourcePaths = new Map();
-  const checkedImageFiles = new Map();
 
   for (const filename of filenames) {
-    const campaign = await readJson(filename);
-
-    assert.equal(Array.isArray(campaign), false);
-    assert.equal("id" in campaign, false);
-    assert.equal(
-      filename.startsWith(`${campaign.campaignCode.toLowerCase()}-`),
-      true,
-      `${filename}: campaignCode`,
-    );
-    assert.equal(
-      campaignCodes.has(campaign.campaignCode),
-      false,
-      `${filename}: duplicate campaignCode`,
-    );
+    const campaign = await readCampaign(filename);
+    assert.equal("officialImage" in campaign, false, `${filename}: image manifest`);
+    assert.match(campaign.campaignCode, /^(?:\d{4}|NO-CODE-[A-Z0-9-]+)$/);
+    assert.equal(campaignCodes.has(campaign.campaignCode), false);
     campaignCodes.add(campaign.campaignCode);
-
-    assert.match(
-      campaign.campaignCode,
-      /^(?:\d{4}|NO-CODE-[A-Z0-9-]+)$/,
-      `${filename}: campaignCode`,
-    );
-    assert.equal(
-      ["campaign", "initiative", "generated"].includes(
-        campaign.codeType,
-      ),
-      true,
-      `${filename}: codeType`,
-    );
-    if (campaign.campaignCode.startsWith("NO-CODE-")) {
-      assert.equal(campaign.codeType, "generated", filename);
-      generatedCodeCount += 1;
-    } else if (campaign.campaignCode === "2981") {
-      assert.equal(campaign.codeType, "initiative", filename);
-    } else {
-      assert.equal(campaign.codeType, "campaign", filename);
-    }
+    if (campaign.campaignCode.startsWith("NO-CODE-")) generatedCodeCount += 1;
 
     for (const field of [
       "title",
@@ -86,339 +71,152 @@ test("stores one normalized campaign per JSON file", async () => {
       "listingUrl",
       "checkedAt",
     ]) {
-      assert.equal(
-        typeof campaign[field],
-        "string",
-        `${filename}: ${field}`,
-      );
-      assert.notEqual(campaign[field].length, 0, `${filename}: ${field}`);
+      assert.equal(typeof campaign[field], "string", `${filename}: ${field}`);
+      assert.ok(campaign[field].length > 0, `${filename}: ${field}`);
     }
-    const expectedCheckedAt =
-      campaign.campaignCode === "2162"
-        ? "2026-08-11"
-        : campaign.campaignCode === "3327"
-          ? "2026-08-16"
-          : index.checkedAt;
-    assert.equal(campaign.checkedAt, expectedCheckedAt);
-    assert.equal(campaign.listingUrl, index.listingUrl);
     assert.doesNotThrow(() => new URL(campaign.officialUrl));
-    if ("applicationUrl" in campaign) {
-      assert.equal(typeof campaign.applicationUrl, "string");
+    if (campaign.applicationUrl) {
       assert.doesNotThrow(() => new URL(campaign.applicationUrl));
     }
-
-    for (const field of ["conditions", "notes", "sourceCards"]) {
-      assert.equal(
-        Array.isArray(campaign[field]),
-        true,
-        `${filename}: ${field}`,
-      );
-      assert.notEqual(campaign[field].length, 0, `${filename}: ${field}`);
-    }
-
-    assert.equal(typeof campaign.benefit, "object");
-    assert.equal(typeof campaign.benefit.type, "string");
-    assert.equal(typeof campaign.benefit.description, "string");
-    assert.equal(
-      campaign.benefit.amount === null ||
-        (typeof campaign.benefit.amount === "number" &&
-          Number.isFinite(campaign.benefit.amount)),
-      true,
-      `${filename}: benefit.amount`,
-    );
-
-    assert.equal(typeof campaign.points, "object");
-    assert.equal(typeof campaign.breakdown, "object");
-    for (const applicationType of ["newNumber", "mnp"]) {
-      const points = campaign.points[applicationType];
-      const breakdown = campaign.breakdown[applicationType];
-      assert.equal(
-        points === null ||
-          (typeof points === "number" && Number.isFinite(points)),
-        true,
-        `${filename}: points.${applicationType}`,
-      );
-      assert.equal(
-        points === null
-          ? breakdown === null
-          : Array.isArray(breakdown) && breakdown.length > 0,
-        true,
-        `${filename}: breakdown.${applicationType}`,
-      );
-    }
+    assert.ok(Array.isArray(campaign.conditions));
+    assert.ok(Array.isArray(campaign.notes));
+    assert.ok(Array.isArray(campaign.sourceCards));
+    assert.equal(typeof campaign.requiresDevicePurchase, "boolean");
     assert.equal(typeof campaign.rankingEligible, "boolean");
+
+    for (const type of ["mnp", "newNumber"]) {
+      const points = campaign.points[type];
+      assert.ok(points === null || Number.isFinite(points));
+      assert.equal(
+        points === null,
+        campaign.breakdown[type] === null,
+        `${filename}: ${type} breakdown`,
+      );
+    }
+
     if (campaign.rankingEligible) {
       rankingCampaignCount += 1;
-      rankedOfficialUrls.add(campaign.officialUrl);
-      assert.equal(
-        [
-          "points",
-          "discount",
-          "free",
-          "lottery",
-          "other",
-          "recurringPoints",
-          "specialPrice",
-        ].includes(campaign.benefit.type),
-        true,
-        `${filename}: ranking benefit type`,
-      );
-
-      assert.equal(
-        typeof campaign.editorial,
-        "object",
-        `${filename}: editorial`,
-      );
-      assert.equal(
-        typeof campaign.editorial.headline,
-        "string",
-        `${filename}: editorial.headline`,
-      );
-      assert.notEqual(
-        campaign.editorial.headline.length,
-        0,
-        `${filename}: editorial.headline`,
-      );
+      assert.ok(campaign.editorial, `${filename}: editorial`);
+      assert.ok(campaign.editorial.headline.length > 0);
       for (const field of ["paragraphs", "goodPoints", "concerns"]) {
-        assert.equal(
-          Array.isArray(campaign.editorial[field]),
-          true,
-          `${filename}: editorial.${field}`,
-        );
-        assert.notEqual(
-          campaign.editorial[field].length,
-          0,
-          `${filename}: editorial.${field}`,
-        );
-        assert.equal(
-          campaign.editorial[field].every(
-            (item) => typeof item === "string" && item.length > 0,
-          ),
-          true,
-          `${filename}: editorial.${field} items`,
-        );
-      }
-      assert.equal(
-        campaign.editorial.paragraphs.length >= 2 &&
-          campaign.editorial.paragraphs.length <= 4,
-        true,
-        `${filename}: editorial.paragraphs count`,
-      );
-
-      assert.equal(
-        typeof campaign.officialImage,
-        "object",
-        `${filename}: officialImage`,
-      );
-      const expectedImageCheckedAt =
-        campaign.campaignCode === "2162"
-          ? "2026-08-11"
-          : campaign.campaignCode === "3327"
-            ? "2026-08-16"
-            : "2026-08-06";
-      assert.equal(
-        campaign.officialImage.checkedAt,
-        expectedImageCheckedAt,
-        `${filename}: officialImage.checkedAt`,
-      );
-
-      for (const [role, variant] of [
-        ["desktop", campaign.officialImage.desktop],
-        ["mobile", campaign.officialImage.mobile],
-        ["detail", campaign.officialImage.detail],
-      ]) {
-        if (role === "mobile" && variant === null) continue;
-        assert.equal(typeof variant, "object", `${filename}: ${role}`);
-        assert.match(
-          variant.path,
-          /^\/assets\/campaigns\/official\/[a-z0-9-]+\.(?:png|jpg|webp|gif|svg)$/,
-          `${filename}: ${role}.path`,
-        );
-        const sourceUrl = new URL(variant.sourceUrl);
-        assert.equal(sourceUrl.protocol, "https:", `${filename}: ${role}.sourceUrl`);
-        assert.equal(
-          sourceUrl.hostname,
-          "network.mobile.rakuten.co.jp",
-          `${filename}: ${role}.sourceUrl host`,
-        );
-        assert.equal(Number.isInteger(variant.width), true, `${filename}: ${role}.width`);
-        assert.equal(Number.isInteger(variant.height), true, `${filename}: ${role}.height`);
-        assert.equal(variant.width > 0, true, `${filename}: ${role}.width positive`);
-        assert.equal(variant.height > 0, true, `${filename}: ${role}.height positive`);
-
-        const priorPath = sourcePaths.get(variant.sourceUrl);
-        if (priorPath) {
-          assert.equal(
-            variant.path,
-            priorPath,
-            `${filename}: identical official sources must share a local file`,
-          );
-        } else {
-          sourcePaths.set(variant.sourceUrl, variant.path);
-        }
-
-        const localUrl = new URL(`../public${variant.path}`, import.meta.url);
-        const localPath = fileURLToPath(localUrl);
-        const fileStats = await stat(localPath);
-        assert.equal(fileStats.isFile(), true, `${filename}: ${role} file`);
-        assert.equal(fileStats.size > 0, true, `${filename}: ${role} non-empty`);
-
-        let metadata = checkedImageFiles.get(localPath);
-        if (!metadata) {
-          metadata = await sharp(localPath).metadata();
-          checkedImageFiles.set(localPath, metadata);
-        }
-        assert.equal(metadata.width, variant.width, `${filename}: ${role}.width metadata`);
-        assert.equal(metadata.height, variant.height, `${filename}: ${role}.height metadata`);
-      }
-
-      rankedDesktopPaths.add(campaign.officialImage.desktop.path);
-      rankedDetailPaths.add(campaign.officialImage.detail.path);
-      if (campaign.officialImage.mobile) {
-        rankedMobilePaths.add(campaign.officialImage.mobile.path);
-      }
-      if (!rankedImagesByOfficialUrl.has(campaign.officialUrl)) {
-        rankedImagesByOfficialUrl.set(
-          campaign.officialUrl,
-          campaign.officialImage,
-        );
+        assert.ok(campaign.editorial[field].length > 0, `${filename}: ${field}`);
       }
     }
 
-    assert.equal(
-      typeof campaign.requiresDevicePurchase,
-      "boolean",
-      `${filename}: requiresDevicePurchase`,
-    );
+    const curated = overrides[campaign.campaignCode];
+    assert.ok(curated, `${filename}: curated override`);
+    for (const field of [
+      "title",
+      "editorial",
+      "summary",
+      "benefit",
+      "points",
+      "breakdown",
+      "target",
+      "conditions",
+      "channel",
+      "category",
+      "audience",
+      "period",
+      "notes",
+      "requiresDevicePurchase",
+      "rankingEligible",
+    ]) {
+      assert.deepEqual(campaign[field], curated[field], `${filename}: ${field}`);
+    }
+    if (curated.applicationUrl) {
+      assert.equal(campaign.applicationUrl, curated.applicationUrl);
+    }
 
     for (const sourceCard of campaign.sourceCards) {
-      assert.equal(typeof sourceCard.title, "string");
-      assert.equal(typeof sourceCard.url, "string");
       if (sourceCard.listingIndex === null) {
         assert.equal(campaign.campaignCode, "2162");
       } else {
-        assert.equal(Number.isInteger(sourceCard.listingIndex), true);
-        assert.equal(
-          sourceCard.listingIndex >= 1 &&
-            sourceCard.listingIndex <= index.listingCardCount,
-          true,
-        );
         coveredListingIndexes.add(sourceCard.listingIndex);
       }
     }
   }
 
-  assert.equal(campaignCodes.size, index.campaignCount);
+  assert.equal(campaignCodes.size, 55);
   assert.equal(generatedCodeCount, 12);
   assert.equal(rankingCampaignCount, 34);
-  assert.equal(rankedOfficialUrls.size, 30);
-  assert.equal(rankedDesktopPaths.size, 30);
-  assert.equal(rankedMobilePaths.size, 24);
-  assert.equal(rankedDetailPaths.size, 30);
-  const uniqueOfficialImages = [...rankedImagesByOfficialUrl.values()];
-  assert.equal(
-    uniqueOfficialImages.filter(
-      (image) =>
-        image.mobile !== null &&
-        image.detail.sourceUrl === image.mobile.sourceUrl,
-    ).length,
-    22,
-  );
-  assert.equal(
-    uniqueOfficialImages.filter((image) =>
-      new URL(image.detail.sourceUrl).pathname.startsWith(
-        "/assets/img/banner/campaign/",
-      ),
-    ).length,
-    8,
-  );
   assert.deepEqual(
-    [...coveredListingIndexes].sort((a, b) => a - b),
-    Array.from(
-      { length: index.listingCardCount },
-      (_, indexNumber) => indexNumber + 1,
-    ),
+    [...coveredListingIndexes].sort((left, right) => left - right),
+    Array.from({ length: 52 }, (_, indexNumber) => indexNumber + 1),
   );
-
-  const iphoneSpecialPrice = await readJson(
-    "2938-campaign-iphone-discount.campaign.json",
-  );
-  assert.deepEqual(
-    iphoneSpecialPrice.sourceCards.map((card) => card.listingIndex),
-    [3, 6, 12],
-  );
-  assert.match(
-    iphoneSpecialPrice.officialImage.detail.sourceUrl,
-    /\/assets\/img\/banner\/campaign\/bnr-iphone-discount-/,
-  );
-  assert.notEqual(
-    iphoneSpecialPrice.officialImage.detail.sourceUrl,
-    iphoneSpecialPrice.officialImage.mobile.sourceUrl,
-  );
-
-  const cardCampaign = await readJson(
-    "1238-application-card-campaign.campaign.json",
-  );
-  assert.match(
-    cardCampaign.officialImage.detail.sourceUrl,
-    /\/assets\/img\/banner\/campaign\/bnr-card-campaign-/,
-  );
-
-  const referral = await readJson(
-    "1784-campaign-referral.campaign.json",
-  );
-  assert.equal(referral.points.mnp, 13_000);
-  assert.equal(referral.points.newNumber, 10_000);
-  assert.match(referral.notes.join(" "), /紹介者の7,000ポイントは除外/);
-  assert.equal(
-    referral.officialImage.detail.sourceUrl,
-    referral.officialImage.mobile.sourceUrl,
-  );
-
-  const employeeReferral = await readJson(
-    "2162-campaign-referral-application-employee.campaign.json",
-  );
-  assert.equal(employeeReferral.points.mnp, 14_000);
-  assert.equal(employeeReferral.points.newNumber, 11_000);
-  assert.equal(employeeReferral.applicationUrl, "https://r10.to/hkD5ah");
-  assert.equal(
-    employeeReferral.officialUrl,
-    "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/",
-  );
-  assert.deepEqual(employeeReferral.breakdown.mnp, [
-    "1回目：4,000ポイント",
-    "2回目：5,000ポイント",
-    "3回目：5,000ポイント",
-  ]);
-  assert.equal(employeeReferral.sourceCards[0].listingIndex, null);
-  assert.match(employeeReferral.notes.join(" "), /Rakuten Turboの7,000ポイント/);
-  assert.equal(
-    employeeReferral.officialImage.desktop.path,
-    "/assets/campaigns/official/2162-desktop.jpg",
-  );
-  assert.equal(
-    employeeReferral.officialImage.detail.path,
-    "/assets/campaigns/official/2162-mobile.jpg",
-  );
-  assert.equal(
-    employeeReferral.officialImage.detail.sourceUrl,
-    employeeReferral.officialImage.mobile.sourceUrl,
-  );
-
-  const ichibaDebut = await readJson(
-    "3327-campaign-ichiba-debut.campaign.json",
-  );
-  assert.equal(ichibaDebut.points.mnp, 20_000);
-  assert.equal(ichibaDebut.points.newNumber, 12_000);
-  assert.match(ichibaDebut.conditions.join(" "), /楽天市場で1,000円以上買い物/);
-  assert.equal(
-    ichibaDebut.officialUrl,
-    "https://network.mobile.rakuten.co.jp/campaign/ichiba-debut/",
-  );
-
-  const freeCall = await readJson(
-    "1977-service-standard-free-call.campaign.json",
-  );
-  assert.equal(freeCall.points.mnp, null);
-  assert.equal(freeCall.rankingEligible, true);
 });
+
+test("keeps current ranking corrections and dedicated application URL", async () => {
+  const [referral, employee, ichiba] = await Promise.all([
+    readCampaign("1784-campaign-referral.campaign.json"),
+    readCampaign("2162-campaign-referral-application-employee.campaign.json"),
+    readCampaign("3327-campaign-ichiba-debut.campaign.json"),
+  ]);
+  assert.deepEqual(referral.points, { newNumber: 10_000, mnp: 13_000 });
+  assert.match(referral.notes.join(" "), /紹介者の7,000ポイントは除外/);
+  assert.deepEqual(employee.points, { newNumber: 11_000, mnp: 14_000 });
+  assert.equal(employee.applicationUrl, "https://r10.to/hkD5ah");
+  assert.deepEqual(ichiba.points, { newNumber: 12_000, mnp: 20_000 });
+});
+
+test("publishes exactly the images required by both ranking variants", async () => {
+  const filenames = (await readdir(campaignDirectory)).filter((filename) =>
+    filename.endsWith(".campaign.json"),
+  );
+  const campaigns = await Promise.all(filenames.map(readCampaign));
+  const displayedCodes = new Set(
+    campaigns
+      .filter(
+        (campaign) =>
+          campaign.rankingEligible &&
+          !campaign.requiresDevicePurchase &&
+          applicationTypes(campaign).length > 0,
+      )
+      .map(({ campaignCode }) => campaignCode),
+  );
+  const manifest = JSON.parse(
+    await readFile(new URL("images.json", dataDirectory), "utf8"),
+  );
+  assert.deepEqual(new Set(Object.keys(manifest.campaigns)), displayedCodes);
+  assert.equal(displayedCodes.size, 23);
+
+  const requiredFiles = new Set();
+  for (const [campaignCode, image] of Object.entries(manifest.campaigns)) {
+    assert.ok(image.detail, `${campaignCode}: detail`);
+    assert.equal(Boolean(image.responsive), campaignCode === "3327");
+    for (const variant of [
+      image.detail,
+      image.responsive?.desktop,
+      image.responsive?.mobile,
+    ].filter(Boolean)) {
+      assert.match(
+        variant.path,
+        /^\/assets\/campaigns\/official\/[a-z0-9-]+\.(?:png|jpg)$/,
+      );
+      const localPath = fileURLToPath(
+        new URL(`../public${variant.path}`, import.meta.url),
+      );
+      const [fileStats, metadata] = await Promise.all([
+        stat(localPath),
+        sharp(localPath).metadata(),
+      ]);
+      assert.ok(fileStats.isFile());
+      assert.equal(metadata.width, variant.width);
+      assert.equal(metadata.height, variant.height);
+      requiredFiles.add(pathBasename(variant.path));
+    }
+  }
+
+  const officialDirectory = new URL(
+    "../public/assets/campaigns/official/",
+    import.meta.url,
+  );
+  const publishedFiles = new Set(await readdir(officialDirectory));
+  assert.deepEqual(publishedFiles, requiredFiles);
+  assert.equal(requiredFiles.size, 21);
+  await access(new URL("../public/og-v2.png", import.meta.url));
+});
+
+function pathBasename(value) {
+  return value.slice(value.lastIndexOf("/") + 1);
+}

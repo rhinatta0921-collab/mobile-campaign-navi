@@ -1,0 +1,66 @@
+{
+  "campaignCode": "1784",
+  "codeType": "campaign",
+  "title": "【楽天モバイル】Rakuten最強プラン紹介キャンペーン",
+  "editorial": {
+    "headline": "紹介URLを用意できる初回申込者なら、高額な申込者ポイントを狙いやすい",
+    "paragraphs": [
+      "家族や友人などから受け取った紹介URLまたはQRを経由して、楽天モバイルへ初めて申し込む人向けです。申込者本人はMNPで13,000ポイント、新しい電話番号で10,000ポイントを受け取れます。",
+      "紹介ログインに加えてRakuten Linkの利用が必要です。このページの順位と実質お得額には申込者分だけを使い、紹介者が受け取る7,000ポイントは含めていません。"
+    ],
+    "goodPoints": [
+      "MNPなら申込者本人が13,000ポイントを受け取れる",
+      "新しい電話番号での申し込みも10,000ポイントの対象"
+    ],
+    "concerns": [
+      "申し込み前に紹介URLまたはQRを用意する必要がある",
+      "紹介ログインとRakuten Link利用の条件がある"
+    ]
+  },
+  "summary": "楽天モバイルをこれからお申し込みの方も、ご家族やお友達に紹介可能！",
+  "benefit": {
+    "type": "points",
+    "amount": 13000,
+    "unit": "ポイント",
+    "description": "紹介された申込者本人へ最大13,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": 10000,
+    "mnp": 13000
+  },
+  "breakdown": {
+    "newNumber": [
+      "申込者本人：10,000ポイント（紹介者分は除外）"
+    ],
+    "mnp": [
+      "申込者本人：13,000ポイント（紹介者分は除外）"
+    ]
+  },
+  "target": "紹介URLまたはQRから楽天モバイルへ初めて申し込む方",
+  "conditions": [
+    "紹介ログイン",
+    "初めての申し込み",
+    "Rakuten Link利用"
+  ],
+  "channel": "紹介URLまたは紹介QR",
+  "category": "simOnly",
+  "audience": "applicant",
+  "period": "2023年2月15日 7:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。",
+    "ランキングと実質お得額には申込者本人が受け取るMNP 13,000ポイントまたは新規10,000ポイントだけを使用し、紹介者の7,000ポイントは除外しています。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 15,
+      "title": "楽天モバイル紹介キャンペーン！2人で楽天モバイルを紹介し合って申し込むとそれぞれ最大20,000ポイント！",
+      "description": "楽天モバイルをこれからお申し込みの方も、ご家族やお友達に紹介可能！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/referral/"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-import type { Campaign, CampaignOfficialImage as OfficialImageData } from "@/data/campaigns";
+import type { Campaign } from "@/data/campaigns";
+import { requireCampaignImage } from "@/data/campaigns/images";
 
 type CampaignOfficialImageProps = {
   campaign: Campaign;
@@ -6,17 +7,7 @@ type CampaignOfficialImageProps = {
   variant?: "responsive" | "detail";
 };
 
-export function requireOfficialImage(
-  campaign: Campaign,
-): OfficialImageData {
-  if (!campaign.officialImage) {
-    throw new Error(
-      `ランキング対象キャンペーン ${campaign.campaignCode} に公式画像データがありません。`,
-    );
-  }
-
-  return campaign.officialImage;
-}
+export const requireOfficialImage = requireCampaignImage;
 
 export function CampaignOfficialImage({
   campaign,
@@ -24,19 +15,26 @@ export function CampaignOfficialImage({
   variant = "responsive",
 }: CampaignOfficialImageProps) {
   const image = requireOfficialImage(campaign);
-  const primaryImage = variant === "detail" ? image.detail : image.desktop;
+  const responsiveImage = image.responsive;
+  if (variant === "responsive" && !responsiveImage) {
+    throw new Error(
+      `キャンペーン ${campaign.campaignCode} にレスポンシブ画像がありません。`,
+    );
+  }
+  const primaryImage =
+    variant === "detail" ? image.detail : responsiveImage!.desktop;
 
   return (
     <picture
       className={`official-campaign-picture ${className}`}
       data-campaign-code={campaign.campaignCode}
     >
-      {variant === "responsive" && image.mobile ? (
+      {variant === "responsive" && responsiveImage?.mobile ? (
         <source
           media="(max-width: 860px)"
-          srcSet={image.mobile.path}
-          width={image.mobile.width}
-          height={image.mobile.height}
+          srcSet={responsiveImage.mobile.path}
+          width={responsiveImage.mobile.width}
+          height={responsiveImage.mobile.height}
         />
       ) : null}
       <img

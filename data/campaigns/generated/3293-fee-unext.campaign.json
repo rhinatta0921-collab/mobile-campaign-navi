@@ -1,0 +1,64 @@
+{
+  "campaignCode": "3293",
+  "codeType": "campaign",
+  "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン①",
+  "editorial": {
+    "headline": "Rakuten最強U-NEXTを初めて利用し、ポイントを受け取りたい人向け",
+    "paragraphs": [
+      "エントリーしてRakuten最強U-NEXTを初めて利用すると、申込者本人が最大5,000ポイントを受け取れます。ポイントは条件達成後、3カ月に分けて進呈されます。",
+      "Rakuten最強U-NEXTの追加負担は利用状況によって変わるため、固定の実質お得額は算出できません。ポイント額だけでなく、利用条件と料金差も確認してください。"
+    ],
+    "goodPoints": [
+      "Rakuten最強U-NEXTの初回利用で最大5,000ポイント",
+      "端末購入は条件に含まれない"
+    ],
+    "concerns": [
+      "事前エントリーとRakuten最強U-NEXTの初回利用が必要",
+      "追加負担を含む実質お得額は算出できない"
+    ]
+  },
+  "summary": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
+  "benefit": {
+    "type": "points",
+    "amount": 5000,
+    "unit": "ポイント",
+    "description": "最大5,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": 5000,
+    "mnp": 5000
+  },
+  "breakdown": {
+    "newNumber": [
+      "最大5,000ポイント"
+    ],
+    "mnp": [
+      "最大5,000ポイント"
+    ]
+  },
+  "target": "Rakuten最強U-NEXTを初めて利用する方",
+  "conditions": [
+    "要エントリー",
+    "Rakuten最強U-NEXTを初めて利用"
+  ],
+  "channel": "Webまたは楽天モバイルショップ",
+  "category": "service",
+  "audience": "both",
+  "period": "2026年6月1日 0:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 2,
+      "title": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！Rakuten最強U-NEXT初めて利用 ＆エントリーで5,000ポイント還元＋Uber One 初めてお申し込みで1年間無料！※ 速度制限の場合あり。一部対象外番号あり。有料作品等あり。通話料等別",
+      "description": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
+      "url": "https://network.mobile.rakuten.co.jp/fee/unext/"
+    }
+  ]
+}

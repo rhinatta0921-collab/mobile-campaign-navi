@@ -80,7 +80,7 @@ const sectionTitles = {
     "【結論】初回申込は楽天市場キャンペーン、追加回線・再契約は社員紹介キャンペーンを確認！",
   howToChoose: "キャンペーンの選び方",
   deviceCampaignGuide: "スマホ本体も一緒に購入する方へ",
-  ranking: "獲得固定ポイント額ランキング",
+  ranking: "獲得可能ポイントランキング",
   details: "ランキング掲載キャンペーンの詳細",
   exclusions: "ランキングから外したもの",
 } as const;
@@ -161,7 +161,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 <ul className="lead-checks">
                   <li>各キャンペーンの開催期間・適用条件を一覧で確認できる</li>
                   <li>公式サイトに掲載されていないキャンペーンも網羅</li>
-                  <li>ポイント以外の特典・追加コスト・実質お得額も掲載</li>
+                  <li>MNP・新規番号別の獲得ポイントランキングを確認できる</li>
                 </ul>
                 <p>
                   「紹介URLがある人」「MNPで乗り換える人」「65歳以上の方」など、

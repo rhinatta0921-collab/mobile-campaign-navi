@@ -248,6 +248,14 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     heroHtml,
     /<strong class="lead-highlight">受け取れるポイント額の多い順にランキング形式で比較しています<\/strong>。/,
   );
+  assert.match(
+    heroText,
+    /MNP・新規番号別の獲得ポイントランキングを確認できる/,
+  );
+  assert.doesNotMatch(
+    heroText,
+    /ポイント以外の特典・追加コスト・実質お得額も掲載/,
+  );
   assert.equal([...heroHtml.matchAll(/<strong\b/g)].length, 1);
   assert.match(text, /当サイトはプロモーションを含みます/);
   assert.match(
@@ -394,7 +402,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     {
       href: "#ranking",
       headingId: "ranking-title",
-      title: "獲得固定ポイント額ランキング",
+      title: "獲得可能ポイントランキング",
     },
     {
       href: "#details",
@@ -581,6 +589,14 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     referralRankingRow,
     /class="table-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/referral\/"/,
   );
+  assert.match(
+    referralRankingRow,
+    /<span class="table-rank-badge table-rank-badge--3">3<!-- -->位<\/span>/,
+  );
+  assert.match(
+    referralRankingRow,
+    /<td class="ranking-recommendation-cell">友人や家族に楽天モバイルユーザーがいる方<\/td>/,
+  );
   assert.doesNotMatch(referralRankingRow, /ranking-login-note|※要ログイン/);
   assert.match(
     employeeRankingRow,
@@ -722,6 +738,10 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.match(
     employeeDetail,
     /<div class="campaign-recommendation">[\s\S]*?<p>2回線目以降・再契約でも高ポイントを狙いたい人<\/p>/,
+  );
+  assert.match(
+    referralDetail,
+    /<div class="campaign-recommendation">[\s\S]*?<p>友人や家族に楽天モバイルユーザーがいる方<\/p>/,
   );
   const employeeDetailText = plainText(employeeDetail);
   assert.match(

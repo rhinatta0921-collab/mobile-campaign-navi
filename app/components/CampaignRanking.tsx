@@ -1,11 +1,10 @@
-import Link from "next/link";
 import {
   getCampaignApplicationUrl,
   getRankingPoints,
   type ApplicationType,
   type Campaign,
 } from "@/data/campaigns";
-import { APPLICATION_PATHS, INITIAL_VISIBLE_CAMPAIGN_COUNT } from "@/app/site-config";
+import { INITIAL_VISIBLE_CAMPAIGN_COUNT } from "@/app/site-config";
 import { formatPoints } from "@/app/lib/format";
 import { CampaignOfficialImage } from "./CampaignOfficialImage";
 import { getCampaignRecommendation } from "./campaignRecommendation";
@@ -18,7 +17,6 @@ import {
 type CampaignRankingProps = {
   applicationType: ApplicationType;
   rankedCampaigns: readonly Campaign[];
-  panelId: string;
 };
 
 const comparisonColumns = [
@@ -131,7 +129,6 @@ function RankingRange({
 export function CampaignRanking({
   applicationType,
   rankedCampaigns,
-  panelId,
 }: CampaignRankingProps) {
   const { initiallyVisibleCampaigns, collapsedCampaigns } =
     splitRankedCampaigns(rankedCampaigns);
@@ -141,74 +138,36 @@ export function CampaignRanking({
     : "新しい電話番号で契約する場合";
 
   return (
-    <>
-      <div className="ranking-tabs" role="tablist" aria-label="申込方法">
-        <Link
-          id={`${panelId}-mnp-tab`}
-          className="ranking-tab"
-          href={APPLICATION_PATHS.mnp}
-          scroll={false}
-          role="tab"
-          aria-controls={panelId}
-          aria-selected={isMnp}
-        >
-          電話番号そのまま他社から乗り換え
-        </Link>
-        <Link
-          id={`${panelId}-new-number-tab`}
-          className="ranking-tab"
-          href={APPLICATION_PATHS.newNumber}
-          scroll={false}
-          role="tab"
-          aria-controls={panelId}
-          aria-selected={!isMnp}
-        >
-          新しい電話番号で契約
-        </Link>
-      </div>
+    <div className="ranking-panel">
+      <RankingRange
+        applicationType={applicationType}
+        campaigns={initiallyVisibleCampaigns}
+        label={`${rankingLabel}の1位から${initiallyVisibleCampaigns.length}位`}
+        startIndex={0}
+        tableClassName="comparison-table-primary"
+      />
 
-      <p className="ranking-scroll-note">横にスクロールして比較できます</p>
-
-      <div
-        id={panelId}
-        className="ranking-panel"
-        role="tabpanel"
-        aria-labelledby={
-          isMnp
-            ? `${panelId}-mnp-tab`
-            : `${panelId}-new-number-tab`
-        }
-      >
-        <RankingRange
-          applicationType={applicationType}
-          campaigns={initiallyVisibleCampaigns}
-          label={`${rankingLabel}の1位から${initiallyVisibleCampaigns.length}位`}
-          startIndex={0}
-          tableClassName="comparison-table-primary"
-        />
-
-        {collapsedCampaigns.length > 0 ? (
-          <details className="ranking-overflow">
-            <summary className="ranking-overflow-toggle">
-              <span className="ranking-overflow-closed-label">
-                11位以降を表示（残り{collapsedCampaigns.length}件）
-              </span>
-              <span className="ranking-overflow-open-label">
-                11位以降を閉じる
-              </span>
-            </summary>
-            <div className="ranking-overflow-content">
-              <RankingRange
-                applicationType={applicationType}
-                campaigns={collapsedCampaigns}
-                label={`${rankingLabel}の11位から${rankedCampaigns.length}位`}
-                startIndex={INITIAL_VISIBLE_CAMPAIGN_COUNT}
-                tableClassName="comparison-table-overflow"
-              />
-            </div>
-          </details>
-        ) : null}
-      </div>
-    </>
+      {collapsedCampaigns.length > 0 ? (
+        <details className="ranking-overflow">
+          <summary className="ranking-overflow-toggle">
+            <span className="ranking-overflow-closed-label">
+              11位以降を表示（残り{collapsedCampaigns.length}件）
+            </span>
+            <span className="ranking-overflow-open-label">
+              11位以降を閉じる
+            </span>
+          </summary>
+          <div className="ranking-overflow-content">
+            <RankingRange
+              applicationType={applicationType}
+              campaigns={collapsedCampaigns}
+              label={`${rankingLabel}の11位から${rankedCampaigns.length}位`}
+              startIndex={INITIAL_VISIBLE_CAMPAIGN_COUNT}
+              tableClassName="comparison-table-overflow"
+            />
+          </div>
+        </details>
+      ) : null}
+    </div>
   );
 }

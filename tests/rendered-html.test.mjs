@@ -5,24 +5,17 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 async function render(pathname = "/") {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request(new URL(pathname, "http://localhost"), {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+  const url = new URL(pathname, "http://localhost");
+  const isHome = url.pathname === "/";
+  const html = await readFile(
+    new URL(isHome ? "../out/index.html" : "../out/404.html", import.meta.url),
+    "utf8",
   );
+
+  return new Response(html, {
+    status: isHome ? 200 : 404,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
 }
 
 function sectionHtml(html, className) {
@@ -33,12 +26,44 @@ function sectionHtml(html, className) {
   )?.[0];
 }
 
-function htmlFromSection(html, className) {
-  const marker = `<section class="${className}"`;
-  const start = html.indexOf(marker);
+function htmlBetweenDivMarkers(html, startMarker, endMarker) {
+  const startMarkerIndex = html.indexOf(startMarker);
+  assert.notEqual(startMarkerIndex, -1, `missing marker: ${startMarker}`);
+  const start = html.lastIndexOf("<div", startMarkerIndex);
+  const endMarkerIndex = html.indexOf(endMarker, startMarkerIndex + 1);
+  assert.notEqual(endMarkerIndex, -1, `missing marker: ${endMarker}`);
+  const end = endMarker.startsWith("data-")
+    ? html.lastIndexOf("<div", endMarkerIndex)
+    : endMarkerIndex;
+  return html.slice(start, end);
+}
 
-  assert.notEqual(start, -1, `missing section: ${className}`);
-  return html.slice(start);
+function applicationRankingHtml(html, applicationType) {
+  return applicationType === "mnp"
+    ? htmlBetweenDivMarkers(
+        html,
+        'data-application-ranking="mnp"',
+        'data-application-ranking="new-number"',
+      )
+    : htmlBetweenDivMarkers(
+        html,
+        'data-application-ranking="new-number"',
+        '<section class="detail-section"',
+      );
+}
+
+function applicationDetailsHtml(html, applicationType) {
+  return applicationType === "mnp"
+    ? htmlBetweenDivMarkers(
+        html,
+        'data-application-details="mnp"',
+        'data-application-details="new-number"',
+      )
+    : htmlBetweenDivMarkers(
+        html,
+        'data-application-details="new-number"',
+        '<section class="exclusions-band"',
+      );
 }
 
 function plainText(html) {
@@ -507,10 +532,11 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     /href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/"[^>]*aria-label="楽天モバイル初めてお申し込みで最大20,000ポイント進呈の画像出典：楽天モバイル公式ページ"/,
   );
 
-  const rankingHtml = sectionHtml(html, "ranking-section");
-  assert.ok(rankingHtml);
+  const rankingSectionHtml = sectionHtml(html, "ranking-section");
+  assert.ok(rankingSectionHtml);
+  const rankingHtml = applicationRankingHtml(html, "mnp");
   const rankingText = plainText(rankingHtml);
-  const rankingHeadingHtml = rankingHtml.match(
+  const rankingHeadingHtml = rankingSectionHtml.match(
     /<div class="section-heading">[\s\S]*?<\/div>/,
   )?.[0];
   assert.ok(rankingHeadingHtml);
@@ -528,11 +554,22 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     "comparison-table-overflow",
   );
   assert.match(
-    rankingHtml,
-    /href="\/"[^>]*aria-selected="true"/,
+    rankingSectionHtml,
+    /<button(?=[^>]*id="sim-only-ranking-tab-mnp")(?=[^>]*aria-selected="true")[^>]*>/,
   );
-  assert.match(rankingText, /電話番号そのまま他社から乗り換え/);
-  assert.match(rankingText, /新しい電話番号で契約/);
+  assert.match(
+    rankingSectionHtml,
+    /<button(?=[^>]*id="sim-only-ranking-tab-new-number")(?=[^>]*aria-selected="false")[^>]*>/,
+  );
+  assert.match(
+    rankingSectionHtml,
+    /id="sim-only-ranking-panel-new-number"[^>]*hidden=""/,
+  );
+  assert.match(
+    plainText(rankingSectionHtml),
+    /電話番号そのまま他社から乗り換え/,
+  );
+  assert.match(plainText(rankingSectionHtml), /新しい電話番号で契約/);
   assert.equal(tableRowCount(primaryRankingTable), 10);
   assert.equal(tableRowCount(overflowRankingTable), 12);
   assert.equal([...primaryRankingTable.matchAll(/<th\b/g)].length, 7);
@@ -653,7 +690,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   ]);
   assert.doesNotMatch(rankingText, /iPhone対象製品 特価キャンペーン/);
 
-  const detailHtml = htmlFromSection(html, "detail-section");
+  const detailHtml = applicationDetailsHtml(html, "mnp");
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 22);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 22);
@@ -807,11 +844,10 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.match(detailText, /15分（標準）通話かけ放題 料金1カ月無料特典/);
 });
 
-test("switches to new-number points without mixing MNP-only campaigns", async () => {
+test("includes new-number points without mixing MNP-only campaigns", async () => {
   const response = await render("/?application=new-number");
   const html = await response.text();
-  const rankingHtml = sectionHtml(html, "ranking-section");
-  assert.ok(rankingHtml);
+  const rankingHtml = applicationRankingHtml(html, "newNumber");
   const rankingText = plainText(rankingHtml);
   const rankingTableText = tableBodyText(rankingHtml);
   const primaryRankingTable = rankingTableHtml(
@@ -824,8 +860,8 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   );
 
   assert.match(
-    rankingHtml,
-    /href="\/\?application=new-number"[^>]*aria-selected="true"/,
+    html,
+    /<button(?=[^>]*id="sim-only-ranking-tab-new-number")(?=[^>]*aria-selected="false")[^>]*>/,
   );
   assert.equal(tableRowCount(primaryRankingTable), 10);
   assert.equal(tableRowCount(overflowRankingTable), 11);
@@ -862,7 +898,7 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   );
   assert.equal(classCount(rankingHtml, "ranking-login-note"), 1);
 
-  const detailHtml = htmlFromSection(html, "detail-section");
+  const detailHtml = applicationDetailsHtml(html, "newNumber");
   const detailText = plainText(detailHtml);
   assert.equal(detailArticleCount(detailHtml), 21);
   assert.equal(classCount(detailHtml, "campaign-official-figure"), 21);
@@ -908,12 +944,27 @@ test("switches to new-number points without mixing MNP-only campaigns", async ()
   );
   assert.equal(classCount(detailHtml, "campaign-entry-link"), 1);
   assert.equal(classCount(detailHtml, "campaign-action-note"), 1);
+
+  const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+  assert.equal(new Set(ids).size, ids.length, "static HTML ids must be unique");
+
+  const switcherSource = await readFile(
+    new URL("../app/components/CampaignApplicationSections.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(switcherSource, /URLSearchParams\(window\.location\.search\)/);
+  assert.match(switcherSource, /url\.searchParams\.set\("application", "new-number"\)/);
+  assert.match(switcherSource, /url\.searchParams\.delete\("application"\)/);
+  assert.match(switcherSource, /window\.history\.replaceState/);
 });
 
 test("returns 404 for the removed device campaign route", async () => {
   const response = await render("/device-campaigns");
   assert.equal(response.status, 404);
-  assert.doesNotMatch(await response.text(), /device-ranking-panel/);
+  const html = await response.text();
+  assert.match(html, /ページが見つかりません/);
+  assert.match(html, /href="\/">トップページへ戻る<\/a>/);
+  assert.doesNotMatch(html, /device-ranking-panel|data-application-ranking/);
 });
 
 test("uses one horizontally scrollable ranking table on desktop and mobile", async () => {

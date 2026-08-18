@@ -7,8 +7,11 @@
 ```sh
 npm run dev
 npm run lint
+npm run build
 npm test
 ```
+
+`npm run build`は、Cloudflare Workers Static Assetsへそのまま配置できる静的ファイルを`out/`へ生成します。
 
 ## データ更新
 

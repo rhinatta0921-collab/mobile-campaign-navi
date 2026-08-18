@@ -16,6 +16,7 @@ public/assets/images/mobile-campaign-UI.png
 node_modules/
 .next/
 dist/
+out/
 .wrangler/
 .env*
 *.tsbuildinfo

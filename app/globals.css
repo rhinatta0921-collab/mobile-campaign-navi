@@ -359,6 +359,7 @@ p {
 }
 
 .ranking-tab {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -368,6 +369,8 @@ p {
   border-bottom: 0;
   background: #fff;
   color: var(--accent-deep);
+  cursor: pointer;
+  font-family: inherit;
   font-size: 0.87rem;
   font-weight: 900;
   text-align: center;
@@ -385,6 +388,26 @@ p {
 
 .ranking-scroll-note {
   display: none;
+}
+
+.not-found-page {
+  max-width: 720px;
+  margin: 80px auto;
+  padding: 40px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  text-align: center;
+}
+
+.not-found-page h1 {
+  margin-bottom: 16px;
+  color: var(--ink);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  line-height: 1.4;
+}
+
+.not-found-page .official-link {
+  margin-top: 16px;
 }
 
 .table-scroll {

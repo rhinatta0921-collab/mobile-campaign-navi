@@ -52,8 +52,8 @@ export function CampaignDetails({
       const points = getRankingPoints(campaign, applicationType);
       const recommendation = getCampaignRecommendation(campaign);
       const isEmployeeReferral = isEmployeeReferralCampaign(campaign);
-      const articleTitleId = `campaign-title-${campaign.campaignCode}`;
-      const editorialTitleId = `campaign-editorial-${campaign.campaignCode}`;
+      const articleTitleId = `campaign-title-${applicationType}-${campaign.campaignCode}`;
+      const editorialTitleId = `campaign-editorial-${applicationType}-${campaign.campaignCode}`;
 
       return (
         <article

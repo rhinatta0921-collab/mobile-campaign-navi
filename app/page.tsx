@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CampaignApplicationSections } from "@/app/components/CampaignApplicationSections";
 import { CampaignDetails } from "@/app/components/CampaignDetails";
 import { CampaignRanking } from "@/app/components/CampaignRanking";
 import {
@@ -13,7 +14,6 @@ import { formatJapaneseDate } from "@/app/lib/format";
 import {
   CAMPAIGN_CODES,
   HOMEPAGE_DATA_CHECKED_AT,
-  APPLICATION_PATHS,
   SITE_NAME,
   SITE_URL,
 } from "@/app/site-config";
@@ -23,12 +23,6 @@ import {
   rankingCampaigns,
   type ApplicationType,
 } from "@/data/campaigns";
-
-type HomeProps = {
-  searchParams?: Promise<{
-    application?: string | string[];
-  }>;
-};
 
 const employeeReferralCampaign = campaigns.find(
   (campaign) => campaign.campaignCode === CAMPAIGN_CODES.employeeReferral,
@@ -101,12 +95,6 @@ const tocItems = [
   { href: "#excluded-title", title: sectionTitles.exclusions },
 ] as const;
 
-function resolveApplicationType(
-  application: string | string[] | undefined,
-): ApplicationType {
-  return application === "new-number" ? "newNumber" : "mnp";
-}
-
 const seoByApplication: Record<
   ApplicationType,
   { title: string; description: string }
@@ -123,56 +111,47 @@ const seoByApplication: Record<
   },
 };
 
-export async function generateMetadata({ searchParams }: HomeProps): Promise<Metadata> {
-  const params = await searchParams;
-  const applicationType = resolveApplicationType(params?.application);
-  const seo = seoByApplication[applicationType];
-  const canonicalPath = APPLICATION_PATHS[applicationType];
-  const canonicalUrl = new URL(canonicalPath, SITE_URL).href;
-  const imageUrl = new URL("/og-v2.png", SITE_URL).href;
+const defaultSeo = seoByApplication.mnp;
 
-  return {
-    title: seo.title,
-    description: seo.description,
-    alternates: { canonical: canonicalPath },
-    openGraph: {
-      title: seo.title,
-      description: seo.description,
-      type: "website",
-      url: canonicalUrl,
-      siteName: SITE_NAME,
-      locale: "ja_JP",
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: SITE_NAME,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: seo.title,
-      description: seo.description,
-      images: [imageUrl],
-    },
-  };
-}
+export const metadata: Metadata = {
+  title: defaultSeo.title,
+  description: defaultSeo.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: defaultSeo.title,
+    description: defaultSeo.description,
+    type: "website",
+    url: new URL("/", SITE_URL).href,
+    siteName: SITE_NAME,
+    locale: "ja_JP",
+    images: [
+      {
+        url: new URL("/og-v2.png", SITE_URL).href,
+        width: 1200,
+        height: 630,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultSeo.title,
+    description: defaultSeo.description,
+    images: [new URL("/og-v2.png", SITE_URL).href],
+  },
+};
 
-export default async function Home({ searchParams }: HomeProps) {
-  const params = await searchParams;
-  const applicationType = resolveApplicationType(params?.application);
-  const rankedCampaigns = getRankedCampaigns(applicationType);
-  const seo = seoByApplication[applicationType];
+export default function Home() {
+  const mnpRankedCampaigns = getRankedCampaigns("mnp");
+  const newNumberRankedCampaigns = getRankedCampaigns("newNumber");
 
   return (
     <main>
       <SeoStructuredData
-        applicationType={applicationType}
-        description={seo.description}
-        rankedCampaigns={rankedCampaigns}
-        title={seo.title}
+        applicationType="mnp"
+        description={defaultSeo.description}
+        rankedCampaigns={mnpRankedCampaigns}
+        title={defaultSeo.title}
       />
       <SiteHeader />
 
@@ -312,47 +291,35 @@ export default async function Home({ searchParams }: HomeProps) {
 
           <DeviceCampaignGuide title={sectionTitles.deviceCampaignGuide} />
 
-          <section
-            className="ranking-section"
-            id="ranking"
-            aria-labelledby="ranking-title"
-          >
-            <div className="section-heading">
-              <p className="section-label">
-                端末購入不要・申込キャンペーン
-                {rankingCampaigns.length}種比較
-              </p>
-              <h2 id="ranking-title">{sectionTitles.ranking}</h2>
-              <p>
-                楽天モバイル申し込みキャンペーンの獲得可能ポイントランキングは以下の通りです。順位は申込者本人が受け取る固定ポイントだけで決定します。
-              </p>
-              <p className="ranking-method-note">
-                現在使用している電話番号をそのままで乗り換える(MNP)か楽天モバイルで新しい電話番号を取得するかで獲得可能ポイント額が変動するため、タブで分けてランキングを算出しています。
-              </p>
-            </div>
-
-            <CampaignRanking
-              applicationType={applicationType}
-              rankedCampaigns={rankedCampaigns}
-              panelId="sim-only-ranking-panel"
-            />
-          </section>
-
-          <section
-            className="detail-section"
-            id="details"
-            aria-labelledby="details-title"
-          >
-            <div className="section-heading">
-              <p className="section-label">詳細</p>
-              <h2 id="details-title">{sectionTitles.details}</h2>
-            </div>
-
-            <CampaignDetails
-              applicationType={applicationType}
-              rankedCampaigns={rankedCampaigns}
-            />
-          </section>
+          <CampaignApplicationSections
+            rankingCampaignCount={rankingCampaigns.length}
+            rankingTitle={sectionTitles.ranking}
+            detailsTitle={sectionTitles.details}
+            mnpRanking={
+              <CampaignRanking
+                applicationType="mnp"
+                rankedCampaigns={mnpRankedCampaigns}
+              />
+            }
+            newNumberRanking={
+              <CampaignRanking
+                applicationType="newNumber"
+                rankedCampaigns={newNumberRankedCampaigns}
+              />
+            }
+            mnpDetails={
+              <CampaignDetails
+                applicationType="mnp"
+                rankedCampaigns={mnpRankedCampaigns}
+              />
+            }
+            newNumberDetails={
+              <CampaignDetails
+                applicationType="newNumber"
+                rankedCampaigns={newNumberRankedCampaigns}
+              />
+            }
+          />
 
           <section
             className="exclusions-band"

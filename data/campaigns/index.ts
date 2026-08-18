@@ -1,4 +1,7 @@
-/// <reference types="vite/client" />
+import "server-only";
+
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 export type ApplicationType = "mnp" | "newNumber";
 export type CampaignCodeType = "campaign" | "initiative" | "generated";
@@ -57,14 +60,6 @@ export type Campaign = {
   rankingEligible: boolean;
   sourceCards: CampaignSourceCard[];
 };
-
-const campaignModules = import.meta.glob<unknown>(
-  "./generated/*.campaign.json",
-  {
-    eager: true,
-    import: "default",
-  },
-);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -128,12 +123,44 @@ function assertCampaign(value: unknown, filename: string): asserts value is Camp
   }
 }
 
-export const campaigns: readonly Campaign[] = Object.entries(campaignModules)
-  .sort(([left], [right]) => left.localeCompare(right, "en"))
-  .map(([filename, campaign]) => {
-    assertCampaign(campaign, filename);
-    return campaign;
+function loadCampaigns(): readonly Campaign[] {
+  const generatedDirectory = resolve(
+    process.cwd(),
+    "data",
+    "campaigns",
+    "generated",
+  );
+  const indexPath = resolve(generatedDirectory, "index.json");
+  const index: unknown = JSON.parse(readFileSync(indexPath, "utf8"));
+
+  if (!isRecord(index) || !Array.isArray(index.items)) {
+    throw new Error("キャンペーンインデックスのitemsが不正です。");
+  }
+
+  const filenames = index.items.map((filename) => {
+    if (
+      typeof filename !== "string" ||
+      !filename.endsWith(".campaign.json") ||
+      filename.includes("/") ||
+      filename.includes("\\")
+    ) {
+      throw new Error(`キャンペーンファイル名が不正です: ${String(filename)}`);
+    }
+    return filename;
   });
+
+  return filenames
+    .sort((left, right) => left.localeCompare(right, "en"))
+    .map((filename) => {
+      const campaign: unknown = JSON.parse(
+        readFileSync(resolve(generatedDirectory, filename), "utf8"),
+      );
+      assertCampaign(campaign, filename);
+      return campaign;
+    });
+}
+
+export const campaigns = loadCampaigns();
 
 export function getCampaignApplicationUrl(campaign: Campaign) {
   return campaign.applicationUrl ?? campaign.officialUrl;

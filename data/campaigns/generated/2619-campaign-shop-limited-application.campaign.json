@@ -1,0 +1,65 @@
+{
+  "campaignCode": "2619",
+  "codeType": "campaign",
+  "title": "【楽天モバイルショップ限定】初めてのお申し込み＆楽天市場利用",
+  "editorial": {
+    "headline": "ショップ申し込み後に楽天市場で買い物をする予定がある人向け",
+    "paragraphs": [
+      "楽天モバイルショップで初めて回線を申し込み、楽天市場で条件を満たす買い物をすると最大1,000ポイントを受け取れます。対面で申し込みたい人向けの追加特典です。",
+      "楽天市場で1注文1,000円以上の購入が必要なため、ポイントと最低購入額だけで計算した実質お得額は0円です。もともと買い物の予定があるかを基準に検討してください。"
+    ],
+    "goodPoints": [
+      "ショップで初めて申し込む人が最大1,000ポイントを受け取れる",
+      "楽天市場で買い物予定がある人は条件をまとめて満たせる"
+    ],
+    "concerns": [
+      "ショップ限定で、楽天市場で1注文1,000円以上の購入が必要",
+      "最低購入額を差し引いた実質お得額は0円"
+    ]
+  },
+  "summary": "【楽天モバイルショップ限定】楽天モバイル初めてのお申し込み＋他社から電話番号そのまま乗り換え＋楽天市場でのお買い物で最大14,000ポイント",
+  "benefit": {
+    "type": "points",
+    "amount": 1000,
+    "unit": "ポイント",
+    "description": "最大1,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": 1000,
+    "mnp": 1000
+  },
+  "breakdown": {
+    "newNumber": [
+      "最大1,000ポイント"
+    ],
+    "mnp": [
+      "最大1,000ポイント"
+    ]
+  },
+  "target": "ショップで初めて申し込み、楽天市場で条件を満たす買い物をする方",
+  "conditions": [
+    "ショップ限定",
+    "初めての申し込み",
+    "楽天市場で1注文1,000円以上"
+  ],
+  "channel": "楽天モバイルショップ",
+  "category": "service",
+  "audience": "applicant",
+  "period": "終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-limited-application",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 11,
+      "title": "楽天モバイル初めてのお申し込み＋他社から電話番号そのまま乗り換え＋楽天市場でのお買い物で最大14,000ポイント",
+      "description": "【楽天モバイルショップ限定】楽天モバイル初めてのお申し込み＋他社から電話番号そのまま乗り換え＋楽天市場でのお買い物で最大14,000ポイント",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/shop-limited-application"
+    }
+  ]
+}

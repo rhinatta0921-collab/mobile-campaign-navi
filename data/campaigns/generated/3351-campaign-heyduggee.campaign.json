@@ -1,0 +1,60 @@
+{
+  "campaignCode": "3351",
+  "codeType": "campaign",
+  "title": "Rakuten最強U-NEXT「ヘイ！ダギー」キャンペーン",
+  "editorial": {
+    "headline": "Rakuten最強U-NEXTへ初めて申し込み、抽選特典に応募したい人向け",
+    "paragraphs": [
+      "Rakuten最強U-NEXTへ初めて申し込み、エントリーすると、グッズまたは楽天ポイント1,000ポイントが抽選で当たります。対象サービスを利用する予定がある人向けの抽選特典です。",
+      "特典は抽選のため、受け取れる金額を確定できません。Rakuten最強U-NEXTの追加負担も利用状況で変わるため、ランキングでは0ポイント、実質お得額は算出不可として扱います。"
+    ],
+    "goodPoints": [
+      "グッズまたは楽天ポイント1,000ポイントの抽選に応募できる",
+      "Rakuten最強U-NEXTの初回申込者が対象"
+    ],
+    "concerns": [
+      "抽選特典のため当選や金額は確定しない",
+      "事前エントリーとRakuten最強U-NEXTの初回申し込みが必要"
+    ]
+  },
+  "summary": "「Rakuten最強U-NEXT」初めてお申し込みで「ヘイ！ダギー」グッズや楽天ポイント1,000ポイントが当たる！",
+  "benefit": {
+    "type": "lottery",
+    "amount": 1000,
+    "unit": "ポイント",
+    "description": "グッズまたは楽天ポイント1,000ポイントが抽選で当たります。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "Rakuten最強U-NEXTへ初めて申し込む方",
+  "conditions": [
+    "要エントリー",
+    "Rakuten最強U-NEXTを初めて申し込み"
+  ],
+  "channel": "公式ページ参照",
+  "category": "service",
+  "audience": "applicant",
+  "period": "終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/heyduggee/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 27,
+      "title": "「Rakuten最強U-NEXT」初めてお申し込みで「ヘイ！ダギー」グッズや楽天ポイント1,000ポイントが当たる！",
+      "description": "「Rakuten最強U-NEXT」初めてお申し込みで「ヘイ！ダギー」グッズや楽天ポイント1,000ポイントが当たる！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/heyduggee/"
+    }
+  ]
+}

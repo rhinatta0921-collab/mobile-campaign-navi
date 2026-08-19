@@ -1,0 +1,60 @@
+{
+  "campaignCode": "1875",
+  "codeType": "campaign",
+  "title": "Rakutenオリジナル製品 1円キャンペーン",
+  "editorial": {
+    "headline": "モバイルルーターを低い端末負担で用意したい人に向く",
+    "paragraphs": [
+      "楽天モバイルの申し込みと同時に対象モバイルルーターを購入すると、キャンペーン適用後の端末価格が1円になります。2回線目以降の申し込みも対象です。",
+      "特典はポイント還元ではなく、対象製品の販売価格に反映されます。スマートフォンではなく対象モバイルルーターの購入が必要な点に注意してください。"
+    ],
+    "goodPoints": [
+      "対象モバイルルーターのキャンペーン適用後価格が1円",
+      "2回線目以降の申し込みも対象"
+    ],
+    "concerns": [
+      "対象モバイルルーターの購入が必須",
+      "固定ポイントはなく、ランキング上は0ポイントとして扱われる"
+    ]
+  },
+  "summary": "楽天モバイルへお申し込み（2回線目以降でも対象）でモバイルルーターを1円で購入できる！",
+  "benefit": {
+    "type": "specialPrice",
+    "amount": 1,
+    "unit": "円",
+    "description": "対象のモバイルルーターを1円で購入できます。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイル申し込みと同時に対象モバイルルーターを購入する方",
+  "conditions": [
+    "対象製品購入",
+    "2回線目以降も対象"
+  ],
+  "channel": "公式ページ参照",
+  "category": "device",
+  "audience": "applicant",
+  "period": "終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-platinum/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": true,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 10,
+      "title": "Rakuten WiFi Pocket 1円キャンペーン",
+      "description": "楽天モバイルへお申し込み（2回線目以降でも対象）でモバイルルーターを1円で購入できる！",
+      "url": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-platinum/"
+    }
+  ]
+}

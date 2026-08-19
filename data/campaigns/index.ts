@@ -1,6 +1,7 @@
-/// <reference types="vite/client" />
+import "server-only";
 
-import campaignIndex from "./index.json";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 export type ApplicationType = "mnp" | "newNumber";
 export type CampaignCodeType = "campaign" | "initiative" | "generated";
@@ -28,47 +29,6 @@ export type CampaignEditorial = {
   concerns: string[];
 };
 
-export type CampaignValueItem = {
-  label: string;
-  description: string;
-  amountYen: number | null;
-  monthlyAmountYen: number | null;
-  includedInDevicePrice: boolean;
-};
-
-export type CampaignValuation = {
-  applicationTypes: ApplicationType[];
-  ranking: {
-    additionalConditionCount: number;
-    webEligible: boolean;
-    audienceBreadth: number;
-  };
-  otherBenefits: CampaignValueItem[];
-  requiredCosts: CampaignValueItem[];
-  ongoingBenefits: CampaignValueItem[];
-  unquantifiedBenefits: string[];
-  calculationPeriod: string;
-  devicePriceAfterCampaignYen: number | null;
-  devicePriceNote: string | null;
-  relatedCampaigns: {
-    campaignCode: string;
-    description: string;
-  }[];
-  evidence: {
-    officialUrl: string;
-    checkedAt: string;
-    calculationInputs: string[];
-  };
-};
-
-export type CampaignValueResult = {
-  kind: "savings" | "burden";
-  status: "calculated" | "unavailable";
-  amountYen: number | null;
-  formula: string | null;
-  reason: string | null;
-};
-
 export type CampaignSourceCard = {
   listingIndex: number | null;
   title: string;
@@ -76,35 +36,15 @@ export type CampaignSourceCard = {
   url: string;
 };
 
-export type CampaignImageVariant = {
-  path: string;
-  sourceUrl: string;
-  width: number;
-  height: number;
-};
-
-export type CampaignOfficialImage = {
-  desktop: CampaignImageVariant;
-  mobile: CampaignImageVariant | null;
-  detail: CampaignImageVariant;
-  checkedAt: string;
-};
-
-type CampaignSource = {
+export type Campaign = {
   campaignCode: string;
   codeType: CampaignCodeType;
   title: string;
   editorial?: CampaignEditorial;
   summary: string;
   benefit: CampaignBenefit;
-  points: {
-    newNumber: number | null;
-    mnp: number | null;
-  };
-  breakdown: {
-    newNumber: string[] | null;
-    mnp: string[] | null;
-  };
+  points: Record<ApplicationType, number | null>;
+  breakdown: Record<ApplicationType, string[] | null>;
   target: string;
   conditions: string[];
   channel: string;
@@ -113,7 +53,6 @@ type CampaignSource = {
   period: string;
   officialUrl: string;
   applicationUrl?: string;
-  officialImage?: CampaignOfficialImage;
   listingUrl: string;
   checkedAt: string;
   notes: string[];
@@ -122,453 +61,140 @@ type CampaignSource = {
   sourceCards: CampaignSourceCard[];
 };
 
-export type Campaign = CampaignSource & {
-  valuation: CampaignValuation;
-};
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
 
-const campaignModules = import.meta.glob<CampaignSource>("./*.campaign.json", {
-  eager: true,
-  import: "default",
-});
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === "string");
+}
 
-type ValuationOverride = {
-  otherBenefitAmountYen?: number;
-  requiredCosts?: Omit<CampaignValueItem, "includedInDevicePrice">[];
-  devicePriceAfterCampaignYen?: number;
-  devicePriceNote?: string;
-  calculationPeriod?: string;
-  relatedCampaigns?: CampaignValuation["relatedCampaigns"];
-};
+function assertUrl(value: unknown, label: string) {
+  if (typeof value !== "string") throw new Error(`${label} はURL文字列ではありません。`);
+  try {
+    new URL(value);
+  } catch {
+    throw new Error(`${label} は有効なURLではありません。`);
+  }
+}
 
-const valuationOverrides: Record<string, ValuationOverride> = {
-  "3327": {
-    requiredCosts: [
-      {
-        label: "楽天市場での最低購入額",
-        description:
-          "最大ポイントの獲得には、期限までに楽天市場で1注文1,000円以上の買い物が必要です。",
-        amountYen: 1_000,
-        monthlyAmountYen: null,
-      },
-    ],
-    calculationPeriod: "2026年11月から4カ月間",
-  },
-  "1784": {
-    calculationPeriod: "条件達成後、申込者ポイントを3カ月に分けて全額受け取るまで",
-  },
-  "2162": {
-    calculationPeriod: "紹介ログイン月の4カ月後から3カ月間",
-  },
-  "1977": {
-    otherBenefitAmountYen: 1_100,
-    calculationPeriod: "初回1カ月",
-  },
-  "2602": {
-    requiredCosts: [
-      {
-        label: "電話番号シェアサービス利用料",
-        description:
-          "月額550円。ポイント全額獲得までに必要な利用月数は公式ルールで確認が必要です。",
-        amountYen: null,
-        monthlyAmountYen: 550,
-      },
-    ],
-    devicePriceNote: "対象Apple Watchによりキャンペーン適用後価格が異なります。",
-  },
-  "2619": {
-    requiredCosts: [
-      {
-        label: "楽天市場での最低購入額",
-        description: "特典獲得には1注文1,000円以上の買い物が必要です。",
-        amountYen: 1_000,
-        monthlyAmountYen: null,
-      },
-    ],
-  },
-  "2697": {
-    requiredCosts: [
-      {
-        label: "楽天ひかり利用料",
-        description:
-          "契約内容で料金が変わるため、固定総額には換算していません。",
-        amountYen: null,
-        monthlyAmountYen: null,
-      },
-    ],
-    calculationPeriod: "終了日なし（条件を満たした月ごとに判定）",
-  },
-  "2698": {
-    requiredCosts: [
-      {
-        label: "Rakuten Turbo利用料",
-        description:
-          "契約内容で料金が変わるため、固定総額には換算していません。",
-        amountYen: null,
-        monthlyAmountYen: null,
-      },
-    ],
-    calculationPeriod: "終了日なし（条件を満たした月ごとに判定）",
-  },
-  "2833": {
-    otherBenefitAmountYen: 1_650,
-    calculationPeriod: "初回3カ月",
-  },
-  "2834": {
-    otherBenefitAmountYen: 220,
-    calculationPeriod: "初回1カ月",
-  },
-  "2835": {
-    otherBenefitAmountYen: 330,
-    calculationPeriod: "初回1カ月",
-  },
-  "2956": {
-    calculationPeriod: "初回3カ月",
-  },
-  "3288": {
-    otherBenefitAmountYen: 5_598,
-    requiredCosts: [
-      {
-        label: "Rakuten最強U-NEXTの追加負担",
-        description:
-          "通常の回線料金との差額は利用状況で変わるため、固定総額を確定できません。",
-        amountYen: null,
-        monthlyAmountYen: null,
-      },
-    ],
-    calculationPeriod: "Uber One申込日から1年間",
-    relatedCampaigns: [
-      {
-        campaignCode: "3293",
-        description: "Rakuten最強U-NEXT初回利用の5,000ポイント特典",
-      },
-    ],
-  },
-  "3293": {
-    requiredCosts: [
-      {
-        label: "Rakuten最強U-NEXTの追加負担",
-        description:
-          "通常の回線料金との差額は利用状況で変わるため、固定総額を確定できません。",
-        amountYen: null,
-        monthlyAmountYen: null,
-      },
-    ],
-    calculationPeriod: "条件達成後、5,000ポイントを3カ月に分けて全額受け取るまで",
-    relatedCampaigns: [
-      {
-        campaignCode: "3288",
-        description: "Uber Oneを1年間無料で利用できる別コードの特典",
-      },
-    ],
-  },
-  "3329": {
-    otherBenefitAmountYen: 990,
-    calculationPeriod: "初回3カ月",
-  },
-  "3351": {
-    requiredCosts: [
-      {
-        label: "Rakuten最強U-NEXTの追加負担",
-        description:
-          "通常の回線料金との差額は利用状況で変わるため、固定総額を確定できません。",
-        amountYen: null,
-        monthlyAmountYen: null,
-      },
-    ],
-  },
-  "1875": {
-    devicePriceAfterCampaignYen: 1,
-    devicePriceNote: "対象モバイルルーターのキャンペーン適用後価格です。",
-  },
-  "2178": {
-    devicePriceNote: "対象Android製品によりキャンペーン適用後価格が異なります。",
-  },
-  "2568": {
-    devicePriceNote: "対象iPhoneによりキャンペーン適用後価格が異なります。",
-  },
-  "2808": {
-    devicePriceNote: "対象オリジナル製品によりキャンペーン適用後価格が異なります。",
-  },
-  "2938": {
-    devicePriceNote:
-      "月額1円からの対象製品・支払回数により総額が異なるため、端末価格を一意に確定できません。",
-  },
-  "3186": {
-    devicePriceAfterCampaignYen: 1,
-    devicePriceNote: "対象製品のキャンペーン適用後価格です。",
-  },
-  "3297": {
-    devicePriceNote: "対象の認定中古製品により販売価格が異なります。",
-  },
-};
+function assertCampaign(value: unknown, filename: string): asserts value is Campaign {
+  if (!isRecord(value)) throw new Error(`${filename}: JSONオブジェクトではありません。`);
 
-function getApplicationTypes(campaign: CampaignSource): ApplicationType[] {
-  const pointBasedTypes = (["mnp", "newNumber"] as const).filter(
-    (applicationType) => typeof campaign.points[applicationType] === "number",
+  for (const key of [
+    "campaignCode",
+    "title",
+    "summary",
+    "target",
+    "channel",
+    "period",
+    "checkedAt",
+  ]) {
+    if (typeof value[key] !== "string" || value[key].length === 0) {
+      throw new Error(`${filename}: ${key} がありません。`);
+    }
+  }
+
+  assertUrl(value.officialUrl, `${filename}: officialUrl`);
+  assertUrl(value.listingUrl, `${filename}: listingUrl`);
+  if (value.applicationUrl !== undefined) {
+    assertUrl(value.applicationUrl, `${filename}: applicationUrl`);
+  }
+
+  if (!isRecord(value.points)) throw new Error(`${filename}: points が不正です。`);
+  for (const type of ["mnp", "newNumber"] as const) {
+    const points = value.points[type];
+    if (points !== null && (!Number.isFinite(points) || typeof points !== "number")) {
+      throw new Error(`${filename}: points.${type} が不正です。`);
+    }
+  }
+
+  if (!isStringArray(value.conditions) || !isStringArray(value.notes)) {
+    throw new Error(`${filename}: conditions または notes が不正です。`);
+  }
+  if (
+    typeof value.requiresDevicePurchase !== "boolean" ||
+    typeof value.rankingEligible !== "boolean"
+  ) {
+    throw new Error(`${filename}: 表示対象フラグが不正です。`);
+  }
+  if (!Array.isArray(value.sourceCards)) {
+    throw new Error(`${filename}: sourceCards が不正です。`);
+  }
+}
+
+function loadCampaigns(): readonly Campaign[] {
+  const generatedDirectory = resolve(
+    process.cwd(),
+    "data",
+    "campaigns",
+    "generated",
   );
+  const indexPath = resolve(generatedDirectory, "index.json");
+  const index: unknown = JSON.parse(readFileSync(indexPath, "utf8"));
 
-  if (pointBasedTypes.length > 0) {
-    return pointBasedTypes;
+  if (!isRecord(index) || !Array.isArray(index.items)) {
+    throw new Error("キャンペーンインデックスのitemsが不正です。");
   }
 
-  if (campaign.conditions.some((condition) => condition === "MNP")) {
-    return ["mnp"];
-  }
+  const filenames = index.items.map((filename) => {
+    if (
+      typeof filename !== "string" ||
+      !filename.endsWith(".campaign.json") ||
+      filename.includes("/") ||
+      filename.includes("\\")
+    ) {
+      throw new Error(`キャンペーンファイル名が不正です: ${String(filename)}`);
+    }
+    return filename;
+  });
 
-  if (
-    campaign.conditions.some(
-      (condition) => condition === "新規契約" || condition.includes("新規申し込み"),
-    )
-  ) {
-    return ["newNumber"];
-  }
-
-  return ["mnp", "newNumber"];
+  return filenames
+    .sort((left, right) => left.localeCompare(right, "en"))
+    .map((filename) => {
+      const campaign: unknown = JSON.parse(
+        readFileSync(resolve(generatedDirectory, filename), "utf8"),
+      );
+      assertCampaign(campaign, filename);
+      return campaign;
+    });
 }
 
-function getCalculationPeriod(
-  campaign: CampaignSource,
-  override: ValuationOverride,
-) {
-  if (override.calculationPeriod) {
-    return override.calculationPeriod;
-  }
-
-  if (campaign.benefit.type === "free") {
-    return `公式の無料期間（${campaign.benefit.amount ?? "金額未確定"}${campaign.benefit.unit ?? ""}）`;
-  }
-
-  if (campaign.benefit.type === "recurringPoints") {
-    return "終了日なし（条件を満たした月ごとに判定）";
-  }
-
-  if (
-    typeof campaign.points.newNumber === "number" ||
-    typeof campaign.points.mnp === "number"
-  ) {
-    return "公式の進呈条件を満たし、固定ポイントを全額受け取るまでの最短期間";
-  }
-
-  return "公式ページに記載された特典適用期間";
-}
-
-function buildValuation(campaign: CampaignSource): CampaignValuation {
-  const override = valuationOverrides[campaign.campaignCode] ?? {};
-  const otherBenefits: CampaignValueItem[] = [];
-  const ongoingBenefits: CampaignValueItem[] = [];
-  const unquantifiedBenefits: string[] = [];
-
-  if (campaign.benefit.type === "recurringPoints") {
-    ongoingBenefits.push({
-      label: "継続する月次特典",
-      description: campaign.benefit.description,
-      amountYen: null,
-      monthlyAmountYen: campaign.benefit.amount,
-      includedInDevicePrice: false,
-    });
-  } else if (campaign.benefit.type === "points") {
-    // Fixed applicant points are stored separately in campaign.points.
-  } else if (campaign.benefit.type === "discount") {
-    otherBenefits.push({
-      label: "端末価格の値引き",
-      description: campaign.benefit.description,
-      amountYen: campaign.benefit.amount,
-      monthlyAmountYen: null,
-      includedInDevicePrice: campaign.requiresDevicePurchase,
-    });
-  } else if (campaign.benefit.type === "free") {
-    otherBenefits.push({
-      label: "無料特典",
-      description: campaign.benefit.description,
-      amountYen: override.otherBenefitAmountYen ?? null,
-      monthlyAmountYen: null,
-      includedInDevicePrice: false,
-    });
-  } else if (campaign.benefit.type === "specialPrice") {
-    otherBenefits.push({
-      label: "キャンペーン適用価格",
-      description: campaign.benefit.description,
-      amountYen: null,
-      monthlyAmountYen: null,
-      includedInDevicePrice: true,
-    });
-  } else {
-    unquantifiedBenefits.push(campaign.benefit.description);
-  }
-
-  const requiredCosts = (override.requiredCosts ?? []).map((cost) => ({
-    ...cost,
-    includedInDevicePrice: false,
-  }));
-
-  const devicePriceAfterCampaignYen =
-    override.devicePriceAfterCampaignYen ?? null;
-  const calculationInputs = [
-    "申込者本人の固定ポイント（1ポイント＝1円）",
-    ...otherBenefits.map((benefit) =>
-      benefit.amountYen === null
-        ? `${benefit.label}：金額保留`
-        : `${benefit.label}：${benefit.amountYen.toLocaleString("ja-JP")}円`,
-    ),
-    ...requiredCosts.map((cost) =>
-      cost.amountYen === null
-        ? `${cost.label}：総額保留`
-        : `${cost.label}：${cost.amountYen.toLocaleString("ja-JP")}円`,
-    ),
-  ];
-
-  if (campaign.requiresDevicePurchase) {
-    calculationInputs.push(
-      devicePriceAfterCampaignYen === null
-        ? "キャンペーン適用後の端末価格：保留"
-        : `キャンペーン適用後の端末価格：${devicePriceAfterCampaignYen.toLocaleString("ja-JP")}円`,
-    );
-  }
-
-  return {
-    applicationTypes: getApplicationTypes(campaign),
-    ranking: {
-      additionalConditionCount: campaign.conditions.length,
-      webEligible: !campaign.channel.includes("楽天モバイルショップ"),
-      audienceBreadth:
-        campaign.audience === "both"
-          ? 3
-          : campaign.audience === "applicant"
-            ? 2
-            : 1,
-    },
-    otherBenefits,
-    requiredCosts,
-    ongoingBenefits,
-    unquantifiedBenefits,
-    calculationPeriod: getCalculationPeriod(campaign, override),
-    devicePriceAfterCampaignYen,
-    devicePriceNote: override.devicePriceNote ?? null,
-    relatedCampaigns: override.relatedCampaigns ?? [],
-    evidence: {
-      officialUrl: campaign.officialUrl,
-      checkedAt: campaign.checkedAt,
-      calculationInputs,
-    },
-  };
-}
-
-export const campaigns: Campaign[] = Object.entries(campaignModules)
-  .sort(([left], [right]) => left.localeCompare(right, "en"))
-  .map(([, campaign]) => ({
-    ...campaign,
-    valuation: buildValuation(campaign),
-  }));
-
-export const campaignDataMeta = campaignIndex;
+export const campaigns = loadCampaigns();
 
 export function getCampaignApplicationUrl(campaign: Campaign) {
   return campaign.applicationUrl ?? campaign.officialUrl;
-}
-
-export function getCampaignPoints(
-  campaign: Campaign,
-  applicationType: ApplicationType,
-) {
-  return campaign.points[applicationType];
 }
 
 export function getRankingPoints(
   campaign: Campaign,
   applicationType: ApplicationType,
 ) {
-  return getCampaignPoints(campaign, applicationType) ?? 0;
+  return campaign.points[applicationType] ?? 0;
 }
 
-export function calculateCampaignValue(
+export function getCampaignApplicationTypes(
   campaign: Campaign,
-  applicationType: ApplicationType,
-): CampaignValueResult {
-  const points = getRankingPoints(campaign, applicationType);
-  const requiredCostTotal = campaign.valuation.requiredCosts.reduce(
-    (total, cost) => total + (cost.amountYen ?? 0),
-    0,
+): readonly ApplicationType[] {
+  const pointBasedTypes = (["mnp", "newNumber"] as const).filter(
+    (applicationType) => typeof campaign.points[applicationType] === "number",
   );
-  const unknownRequiredCost = campaign.valuation.requiredCosts.some(
-    (cost) => cost.amountYen === null,
-  );
-  const monetaryBenefitTotal = campaign.valuation.otherBenefits.reduce(
-    (total, benefit) =>
-      total +
-      (benefit.includedInDevicePrice ? 0 : benefit.amountYen ?? 0),
-    0,
-  );
-  const hasUnknownOnlyBenefit =
-    points === 0 &&
-    monetaryBenefitTotal === 0 &&
-    campaign.valuation.otherBenefits.some(
-      (benefit) => benefit.amountYen === null,
-    );
-
-  if (campaign.requiresDevicePurchase) {
-    const devicePrice = campaign.valuation.devicePriceAfterCampaignYen;
-
-    if (devicePrice === null) {
-      return {
-        kind: "burden",
-        status: "unavailable",
-        amountYen: null,
-        formula: null,
-        reason: "キャンペーン適用後の端末価格が確定できないため",
-      };
-    }
-
-    if (unknownRequiredCost) {
-      return {
-        kind: "burden",
-        status: "unavailable",
-        amountYen: null,
-        formula: null,
-        reason: "追加必須費用の総額が確定できないため",
-      };
-    }
-
-    const amountYen =
-      devicePrice + requiredCostTotal - points - monetaryBenefitTotal;
-
-    return {
-      kind: "burden",
-      status: "calculated",
-      amountYen,
-      formula: `${devicePrice.toLocaleString("ja-JP")}円 + ${requiredCostTotal.toLocaleString("ja-JP")}円 − ${points.toLocaleString("ja-JP")}ポイント − ${monetaryBenefitTotal.toLocaleString("ja-JP")}円相当 = ${amountYen.toLocaleString("ja-JP")}円`,
-      reason: null,
-    };
+  if (pointBasedTypes.length > 0) return pointBasedTypes;
+  if (campaign.conditions.includes("MNP")) return ["mnp"];
+  if (
+    campaign.conditions.some(
+      (condition) =>
+        condition === "新規契約" || condition.includes("新規申し込み"),
+    )
+  ) {
+    return ["newNumber"];
   }
+  return ["mnp", "newNumber"];
+}
 
-  if (unknownRequiredCost) {
-    return {
-      kind: "savings",
-      status: "unavailable",
-      amountYen: null,
-      formula: null,
-      reason: "追加必須費用の総額が確定できないため",
-    };
-  }
-
-  if (hasUnknownOnlyBenefit) {
-    return {
-      kind: "savings",
-      status: "unavailable",
-      amountYen: null,
-      formula: null,
-      reason: "ポイント以外の特典額が確定できないため",
-    };
-  }
-
-  const amountYen = points + monetaryBenefitTotal - requiredCostTotal;
-
-  return {
-    kind: "savings",
-    status: "calculated",
-    amountYen,
-    formula: `${points.toLocaleString("ja-JP")}ポイント + ${monetaryBenefitTotal.toLocaleString("ja-JP")}円相当 − ${requiredCostTotal.toLocaleString("ja-JP")}円 = ${amountYen.toLocaleString("ja-JP")}円`,
-    reason: null,
-  };
+function audienceBreadth(audience: CampaignAudience) {
+  if (audience === "both") return 3;
+  return audience === "applicant" ? 2 : 1;
 }
 
 export function rankCampaigns(
@@ -581,24 +207,40 @@ export function rankCampaigns(
       originalIndex,
       points: getRankingPoints(campaign, applicationType),
     }))
-    .filter(({ campaign }) =>
-      campaign.rankingEligible &&
-      campaign.valuation.applicationTypes.includes(applicationType),
+    .filter(
+      ({ campaign }) =>
+        campaign.rankingEligible &&
+        getCampaignApplicationTypes(campaign).includes(applicationType),
     )
     .sort(
-      (a, b) =>
-        b.points - a.points ||
-        a.campaign.valuation.ranking.additionalConditionCount -
-          b.campaign.valuation.ranking.additionalConditionCount ||
-        Number(b.campaign.valuation.ranking.webEligible) -
-          Number(a.campaign.valuation.ranking.webEligible) ||
-        b.campaign.valuation.ranking.audienceBreadth -
-          a.campaign.valuation.ranking.audienceBreadth ||
-        a.campaign.campaignCode.localeCompare(
-          b.campaign.campaignCode,
+      (left, right) =>
+        right.points - left.points ||
+        left.campaign.conditions.length - right.campaign.conditions.length ||
+        Number(!right.campaign.channel.includes("楽天モバイルショップ")) -
+          Number(!left.campaign.channel.includes("楽天モバイルショップ")) ||
+        audienceBreadth(right.campaign.audience) -
+          audienceBreadth(left.campaign.audience) ||
+        left.campaign.campaignCode.localeCompare(
+          right.campaign.campaignCode,
           "en",
         ) ||
-        a.originalIndex - b.originalIndex,
+        left.originalIndex - right.originalIndex,
     )
     .map(({ campaign }) => campaign);
+}
+
+export const rankingCampaigns = campaigns.filter(
+  (campaign) =>
+    campaign.rankingEligible && !campaign.requiresDevicePurchase,
+);
+
+export const rankedCampaignsByApplication: Readonly<
+  Record<ApplicationType, readonly Campaign[]>
+> = {
+  mnp: rankCampaigns(rankingCampaigns, "mnp"),
+  newNumber: rankCampaigns(rankingCampaigns, "newNumber"),
+};
+
+export function getRankedCampaigns(applicationType: ApplicationType) {
+  return rankedCampaignsByApplication[applicationType];
 }

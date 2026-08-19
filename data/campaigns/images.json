@@ -1,0 +1,225 @@
+{
+  "campaigns": {
+    "1238": {
+      "detail": {
+        "path": "/assets/campaigns/official/1238-detail.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-card-campaign-11000-328-185-260713.png",
+        "width": 656,
+        "height": 370
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "1784": {
+      "detail": {
+        "path": "/assets/campaigns/official/1784-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/referral/img-kv-sp-260128.png",
+        "width": 750,
+        "height": 822
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "1977": {
+      "detail": {
+        "path": "/assets/campaigns/official/1977-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/service/standard-free-call/kv-sp.png",
+        "width": 750,
+        "height": 660
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2091": {
+      "detail": {
+        "path": "/assets/campaigns/official/2091-mobile.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/mnp/kv-sp-251201.png",
+        "width": 750,
+        "height": 660
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2142": {
+      "detail": {
+        "path": "/assets/campaigns/official/2091-mobile.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/mnp/kv-sp-251201.png",
+        "width": 750,
+        "height": 660
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2162": {
+      "detail": {
+        "path": "/assets/campaigns/official/2162-mobile.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/referral-application-employee/kv-sp-260630.png",
+        "width": 750,
+        "height": 972
+      },
+      "checkedAt": "2026-08-11"
+    },
+    "2207": {
+      "detail": {
+        "path": "/assets/campaigns/official/2207-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/tadaima/img-heading-sp_260310.png",
+        "width": 750,
+        "height": 486
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2331": {
+      "detail": {
+        "path": "/assets/campaigns/official/2331-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-extra-sim/hero-sp-240603.png",
+        "width": 750,
+        "height": 480
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2619": {
+      "detail": {
+        "path": "/assets/campaigns/official/2619-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-limited-application/kv-sp-250912.png",
+        "width": 750,
+        "height": 920
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2660": {
+      "detail": {
+        "path": "/assets/campaigns/official/2660-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/bank-member-campaign/img-heading-sp_260601.png",
+        "width": 750,
+        "height": 660
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2697": {
+      "detail": {
+        "path": "/assets/campaigns/official/2697-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/hikari/campaign/home-internet/kv-sp-260323.png",
+        "width": 750,
+        "height": 920
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2698": {
+      "detail": {
+        "path": "/assets/campaigns/official/2698-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/internet/turbo/campaign/home-internet/kv-sp-260323.png",
+        "width": 750,
+        "height": 920
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2833": {
+      "detail": {
+        "path": "/assets/campaigns/official/2833-desktop.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-anshin-control-328-185-250925.png",
+        "width": 656,
+        "height": 370
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2834": {
+      "detail": {
+        "path": "/assets/campaigns/official/2834-desktop.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-call-waiting-328-185-260316.png",
+        "width": 656,
+        "height": 370
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2835": {
+      "detail": {
+        "path": "/assets/campaigns/official/2835-desktop.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-voice-mail-328-185-260316.png",
+        "width": 656,
+        "height": 370
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2897": {
+      "detail": {
+        "path": "/assets/campaigns/official/2897-mobile.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/senior-pointback/kv-sp-251024.png",
+        "width": 750,
+        "height": 660
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2956": {
+      "detail": {
+        "path": "/assets/campaigns/official/2956-mobile.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/service/saikyo-protection/hero-sp-260701.png",
+        "width": 750,
+        "height": 920
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "2995": {
+      "detail": {
+        "path": "/assets/campaigns/official/2619-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/shop-limited-application/kv-sp-250912.png",
+        "width": 750,
+        "height": 920
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "3288": {
+      "detail": {
+        "path": "/assets/campaigns/official/3288-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260728.png",
+        "width": 750,
+        "height": 1000
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "3293": {
+      "detail": {
+        "path": "/assets/campaigns/official/3288-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260728.png",
+        "width": 750,
+        "height": 1000
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "3327": {
+      "detail": {
+        "path": "/assets/campaigns/official/3327-mobile.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/ichiba-debut/img-heading-sp-260807.png",
+        "width": 750,
+        "height": 920
+      },
+      "responsive": {
+        "desktop": {
+          "path": "/assets/campaigns/official/3327-desktop.jpg",
+          "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/ichiba-debut/img-heading-pc-260807.png",
+          "width": 4000,
+          "height": 988
+        },
+        "mobile": {
+          "path": "/assets/campaigns/official/3327-mobile.jpg",
+          "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/ichiba-debut/img-heading-sp-260807.png",
+          "width": 750,
+          "height": 920
+        }
+      },
+      "checkedAt": "2026-08-16"
+    },
+    "3329": {
+      "detail": {
+        "path": "/assets/campaigns/official/3329-desktop.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/banner/campaign/bnr-whoscall-328-185-260617.png",
+        "width": 656,
+        "height": 370
+      },
+      "checkedAt": "2026-08-06"
+    },
+    "3351": {
+      "detail": {
+        "path": "/assets/campaigns/official/3351-mobile.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/heyduggee/img-heading-sp.png",
+        "width": 750,
+        "height": 1020
+      },
+      "checkedAt": "2026-08-06"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "campaignCode": "2207",
+  "codeType": "campaign",
+  "title": "楽天モバイルただいまキャンペーン",
+  "editorial": {
+    "headline": "楽天モバイルを以前使っていて、MNPで戻る人向けの再契約特典",
+    "paragraphs": [
+      "楽天モバイルを過去に利用したことがあり、他社からの乗り換えで再契約する人が最大2,162ポイントを受け取れるキャンペーンです。初回申込者向け特典を利用できない再契約者の候補になります。",
+      "新しい電話番号での申し込みは対象外で、Rakuten Linkの利用が必要です。過去の利用状況と今回の申し込み方法が条件に合うか確認してください。"
+    ],
+    "goodPoints": [
+      "楽天モバイルの過去利用者が再契約時に使える",
+      "MNPで最大2,162ポイントを受け取れる"
+    ],
+    "concerns": [
+      "MNPでの再契約に限られる",
+      "Rakuten Linkの利用条件がある"
+    ]
+  },
+  "summary": "楽天モバイルただいまキャンペーン 他社から電話番号そのまま乗り換えでポイントプレゼント ※キャンペーン開始時点で解約から2カ月以内の方は対象外、実質価格はRakuten最強プランお申し込みの場合",
+  "benefit": {
+    "type": "points",
+    "amount": 2162,
+    "unit": "ポイント",
+    "description": "最大2,162ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": 2162
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": [
+      "最大2,162ポイント"
+    ]
+  },
+  "target": "楽天モバイルを過去に利用し、MNPで再契約する方",
+  "conditions": [
+    "過去利用者",
+    "MNP",
+    "Rakuten Link利用"
+  ],
+  "channel": "公式ページ参照",
+  "category": "simOnly",
+  "audience": "applicant",
+  "period": "2026年3月2日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/tadaima/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-07-31",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": true,
+  "sourceCards": [
+    {
+      "listingIndex": 19,
+      "title": "ただいまキャンペーン",
+      "description": "楽天モバイルただいまキャンペーン 他社から電話番号そのまま乗り換えでポイントプレゼント ※キャンペーン開始時点で解約から2カ月以内の方は対象外、実質価格はRakuten最強プランお申し込みの場合",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/tadaima/"
+    }
+  ]
+}

@@ -1,0 +1,2413 @@
+{
+  "1173": {
+    "codeType": "campaign",
+    "title": "SPU（楽天モバイル）",
+    "summary": "楽天市場のお買い物が毎日全員ポイント5倍に！さらに楽天のサービスを使えば使うほどポイントUP",
+    "benefit": {
+      "type": "multiplier",
+      "amount": 5,
+      "unit": "倍",
+      "description": "楽天市場での買い物が楽天会員通常分と合わせて最大5倍になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル契約中で楽天市場を利用する方",
+    "conditions": [
+      "要エントリー",
+      "楽天モバイル契約中",
+      "楽天市場利用"
+    ],
+    "channel": "公式ページ参照",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "常時開催",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "1238": {
+    "codeType": "campaign",
+    "title": "楽天カード＋楽天モバイル同時申し込み特典",
+    "editorial": {
+      "headline": "楽天カードも新しく作るなら、同時申し込みでポイントを上乗せできる",
+      "paragraphs": [
+        "楽天カードへの新規入会と楽天モバイルへの初めての申し込みを同時に進める人向けの特典です。条件を満たすと、申込者本人が最大3,000ポイントを受け取れます。",
+        "楽天カードと楽天モバイルを同一の楽天IDで申し込む必要があります。すでに楽天カードを持っている人や、楽天モバイルを利用したことがある人は対象条件を確認してください。"
+      ],
+      "goodPoints": [
+        "回線申し込みとカード入会をまとめて進められる",
+        "申込者本人が最大3,000ポイントを受け取れる"
+      ],
+      "concerns": [
+        "楽天カードへの新規入会が必要",
+        "楽天モバイルへの初めての申し込みに限られる"
+      ]
+    },
+    "summary": "楽天モバイル初めてお申し込み＋楽天カードJCBブランド新規入会・3回利用で最大11,000ポイント! ※楽天モバイルと楽天カードにご登録の楽天IDが同一でない場合対象外になります。 11,000ポイントの内訳:①楽天カード＋楽天モバイル同時申し込みで3,000ポイント。②楽天カード新規入会＆3回利用で5,000ポイント③楽天カード利用特典（JCBブランド選択特典）の3,000ポイント",
+    "benefit": {
+      "type": "points",
+      "amount": 3000,
+      "unit": "ポイント",
+      "description": "最大3,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 3000,
+      "mnp": 3000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大3,000ポイント"
+      ],
+      "mnp": [
+        "最大3,000ポイント"
+      ]
+    },
+    "target": "楽天カードと楽天モバイルを同時に申し込む方",
+    "conditions": [
+      "楽天カード新規入会",
+      "楽天モバイル初めての申し込み",
+      "同一楽天ID"
+    ],
+    "channel": "公式ページ参照",
+    "category": "service",
+    "audience": "applicant",
+    "period": "常時開催",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "1680": {
+    "codeType": "campaign",
+    "title": "YouTube Premium 3カ月無料キャンペーン",
+    "summary": "3カ月無料！広告なしのYouTubeを、バックグラウンド再生やオフライン環境で楽しめる！",
+    "benefit": {
+      "type": "free",
+      "amount": 3,
+      "unit": "カ月",
+      "description": "YouTube Premiumを3カ月無料で利用できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル契約中でYouTube Premiumを初めて利用する方",
+    "conditions": [
+      "YouTube Premiumを初めて利用",
+      "楽天モバイル契約中"
+    ],
+    "channel": "公式ページ参照",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "2023年5月16日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "1784": {
+    "codeType": "campaign",
+    "title": "【楽天モバイル】Rakuten最強プラン紹介キャンペーン",
+    "editorial": {
+      "headline": "紹介URLを用意できる初回申込者なら、高額な申込者ポイントを狙いやすい",
+      "paragraphs": [
+        "家族や友人などから受け取った紹介URLまたはQRを経由して、楽天モバイルへ初めて申し込む人向けです。申込者本人はMNPで13,000ポイント、新しい電話番号で10,000ポイントを受け取れます。",
+        "紹介ログインに加えてRakuten Linkの利用が必要です。このページの順位と実質お得額には申込者分だけを使い、紹介者が受け取る7,000ポイントは含めていません。"
+      ],
+      "goodPoints": [
+        "MNPなら申込者本人が13,000ポイントを受け取れる",
+        "新しい電話番号での申し込みも10,000ポイントの対象"
+      ],
+      "concerns": [
+        "申し込み前に紹介URLまたはQRを用意する必要がある",
+        "紹介ログインとRakuten Link利用の条件がある"
+      ]
+    },
+    "summary": "楽天モバイルをこれからお申し込みの方も、ご家族やお友達に紹介可能！",
+    "benefit": {
+      "type": "points",
+      "amount": 13000,
+      "unit": "ポイント",
+      "description": "紹介された申込者本人へ最大13,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 10000,
+      "mnp": 13000
+    },
+    "breakdown": {
+      "newNumber": [
+        "申込者本人：10,000ポイント（紹介者分は除外）"
+      ],
+      "mnp": [
+        "申込者本人：13,000ポイント（紹介者分は除外）"
+      ]
+    },
+    "target": "紹介URLまたはQRから楽天モバイルへ初めて申し込む方",
+    "conditions": [
+      "紹介ログイン",
+      "初めての申し込み",
+      "Rakuten Link利用"
+    ],
+    "channel": "紹介URLまたは紹介QR",
+    "category": "simOnly",
+    "audience": "applicant",
+    "period": "2023年2月15日 7:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。",
+      "ランキングと実質お得額には申込者本人が受け取るMNP 13,000ポイントまたは新規10,000ポイントだけを使用し、紹介者の7,000ポイントは除外しています。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "1819": {
+    "codeType": "campaign",
+    "title": "iPhone 対象端末ポイントバックキャンペーン",
+    "editorial": {
+      "headline": "楽天モバイルの申し込みと対象iPhone購入をまとめたい人向け",
+      "paragraphs": [
+        "楽天モバイルの回線申し込みと同時に対象iPhoneを購入することで、最大6,000ポイントを受け取れるキャンペーンです。回線と端末を同じ窓口でそろえたい人に向いています。",
+        "対象iPhoneの購入とRakuten Linkの利用が必要です。購入予定の機種が対象に含まれるか、公式サイトで確認してから申し込んでください。"
+      ],
+      "goodPoints": [
+        "対象iPhone購入で最大6,000ポイントを受け取れる",
+        "回線と端末の申し込みをまとめられる"
+      ],
+      "concerns": [
+        "対象iPhoneの購入が必須",
+        "Rakuten Linkの利用条件がある"
+      ]
+    },
+    "summary": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
+    "benefit": {
+      "type": "points",
+      "amount": 6000,
+      "unit": "ポイント",
+      "description": "最大6,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 6000,
+      "mnp": 6000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大6,000ポイント"
+      ],
+      "mnp": [
+        "最大6,000ポイント"
+      ]
+    },
+    "target": "楽天モバイル申し込みと同時に対象iPhoneを購入する方",
+    "conditions": [
+      "対象iPhone購入",
+      "Rakuten Link利用"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "1875": {
+    "codeType": "campaign",
+    "title": "Rakutenオリジナル製品 1円キャンペーン",
+    "editorial": {
+      "headline": "モバイルルーターを低い端末負担で用意したい人に向く",
+      "paragraphs": [
+        "楽天モバイルの申し込みと同時に対象モバイルルーターを購入すると、キャンペーン適用後の端末価格が1円になります。2回線目以降の申し込みも対象です。",
+        "特典はポイント還元ではなく、対象製品の販売価格に反映されます。スマートフォンではなく対象モバイルルーターの購入が必要な点に注意してください。"
+      ],
+      "goodPoints": [
+        "対象モバイルルーターのキャンペーン適用後価格が1円",
+        "2回線目以降の申し込みも対象"
+      ],
+      "concerns": [
+        "対象モバイルルーターの購入が必須",
+        "固定ポイントはなく、ランキング上は0ポイントとして扱われる"
+      ]
+    },
+    "summary": "楽天モバイルへお申し込み（2回線目以降でも対象）でモバイルルーターを1円で購入できる！",
+    "benefit": {
+      "type": "specialPrice",
+      "amount": 1,
+      "unit": "円",
+      "description": "対象のモバイルルーターを1円で購入できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル申し込みと同時に対象モバイルルーターを購入する方",
+    "conditions": [
+      "対象製品購入",
+      "2回線目以降も対象"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "1922": {
+    "codeType": "campaign",
+    "title": "楽天モバイルキャリア決済利用で1％ポイント還元",
+    "summary": "「楽天モバイルキャリア決済」ならAndroidでのアプリ購入、アプリ内課金が最大2％分ポイント還元 ※楽天カードご利用通常ポイント1%＋キャリア決済ご利用1%ポイント還元。",
+    "benefit": {
+      "type": "percentage",
+      "amount": 1,
+      "unit": "%",
+      "description": "Google Playでのキャリア決済利用額の1％をポイント還元します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "Androidで楽天モバイルキャリア決済を利用する方",
+    "conditions": [
+      "Android",
+      "Google Play",
+      "楽天モバイルキャリア決済"
+    ],
+    "channel": "公式ページ参照",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "2023年7月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "1977": {
+    "codeType": "campaign",
+    "title": "15分（標準）通話かけ放題 料金1カ月無料特典",
+    "editorial": {
+      "headline": "標準電話アプリの通話オプションを、最初の1カ月試したい人向け",
+      "paragraphs": [
+        "15分（標準）通話かけ放題を初めて申し込むと、対象オプションの月額料金が初回1カ月無料になります。OS標準アプリからの国内通話や国内SMSを利用したい人に向く特典です。",
+        "固定ポイントはなく、無料になるのは初回1カ月です。ランキングでは0ポイントとして掲載し、無料特典の1,100円相当は実質お得額だけに反映しています。"
+      ],
+      "goodPoints": [
+        "対象オプションを初回1カ月無料で試せる",
+        "無料特典を1,100円相当として実質価値に反映"
+      ],
+      "concerns": [
+        "15分（標準）通話かけ放題を初めて申し込む人に限られる",
+        "申込者向け固定ポイントはない"
+      ]
+    },
+    "summary": "OS標準アプリでの1回15分の国内通話かけ放題＆国内SMSが使い放題になるサービスが、1カ月無料",
+    "benefit": {
+      "type": "free",
+      "amount": 1,
+      "unit": "カ月",
+      "description": "15分（標準）通話かけ放題の月額料金が初回1カ月無料になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "対象オプションを初めて申し込む方",
+    "conditions": [
+      "15分（標準）通話かけ放題を初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "option",
+    "audience": "both",
+    "period": "2023年9月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2006": {
+    "codeType": "campaign",
+    "title": "「Rakuten最強プラン」＋対象Android製品購入でポイント還元",
+    "editorial": {
+      "headline": "対象Android端末を回線と一緒に購入し、ポイント還元を受けたい人向け",
+      "paragraphs": [
+        "楽天モバイルの申し込みと同時に対象Android製品を購入すると、申込者本人が最大13,000ポイントを受け取れます。回線とAndroid端末をまとめて用意する人に向くキャンペーンです。",
+        "対象製品によって進呈ポイント数が異なり、表示している13,000ポイントは最大値です。対象端末の購入とRakuten Linkの利用条件を確認してください。"
+      ],
+      "goodPoints": [
+        "対象Android製品の購入で最大13,000ポイント",
+        "回線とAndroid端末を同時に申し込める"
+      ],
+      "concerns": [
+        "端末によって受け取れるポイント数が異なる",
+        "対象製品購入とRakuten Link利用が必要"
+      ]
+    },
+    "summary": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
+    "benefit": {
+      "type": "points",
+      "amount": 13000,
+      "unit": "ポイント",
+      "description": "最大13,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 13000,
+      "mnp": 13000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大13,000ポイント"
+      ],
+      "mnp": [
+        "最大13,000ポイント"
+      ]
+    },
+    "target": "楽天モバイル申し込みと同時に対象Android製品を購入する方",
+    "conditions": [
+      "対象Android製品購入",
+      "Rakuten Link利用"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "2023年8月31日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。",
+      "対象製品によって進呈ポイント数が異なります。表示額は最大値です。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "2091": {
+    "codeType": "campaign",
+    "title": "【Rakuten最強プランはじめてお申し込み特典】他社から乗り換えでポイントプレゼント",
+    "editorial": {
+      "headline": "紹介URLを使わず、初めてMNPで申し込む人の基本候補",
+      "paragraphs": [
+        "楽天モバイルへ初めて他社から乗り換える人が、最大10,000ポイントを受け取れるキャンペーンです。端末購入を条件にせず、回線のMNP申し込みで利用できます。",
+        "申し込み前のエントリーとRakuten Linkの利用が必要です。新しい電話番号での申し込みや、楽天モバイルの利用経験がある人は対象外となるため注意してください。"
+      ],
+      "goodPoints": [
+        "端末を購入せずMNP申し込みだけで最大10,000ポイント",
+        "紹介URLを用意せず利用できる"
+      ],
+      "concerns": [
+        "楽天モバイルへの初めての申し込みに限られる",
+        "事前エントリーとRakuten Link利用が必要"
+      ]
+    },
+    "summary": "電話番号そのまま他社から乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント",
+    "benefit": {
+      "type": "points",
+      "amount": 10000,
+      "unit": "ポイント",
+      "description": "最大10,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": 10000
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": [
+        "最大10,000ポイント"
+      ]
+    },
+    "target": "楽天モバイルへ初めてMNPで申し込む方",
+    "conditions": [
+      "初めての申し込み",
+      "MNP",
+      "要エントリー",
+      "Rakuten Link利用"
+    ],
+    "channel": "Webまたは楽天モバイルショップ",
+    "category": "simOnly",
+    "audience": "applicant",
+    "period": "2024年11月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2142": {
+    "codeType": "campaign",
+    "title": "【Rakuten最強プランはじめてお申し込み特典】新規ご契約でポイントプレゼント",
+    "editorial": {
+      "headline": "新しい電話番号で楽天モバイルを初めて契約する人の基本候補",
+      "paragraphs": [
+        "楽天モバイルへ初めて新しい電話番号で申し込む人が、最大7,000ポイントを受け取れるキャンペーンです。端末購入なしの回線申し込みでも利用できます。",
+        "申し込み前のエントリーとRakuten Linkの利用が必要です。他社から電話番号を引き継ぐMNPではなく、新規契約を選ぶ人向けの特典です。"
+      ],
+      "goodPoints": [
+        "端末を購入せず新規契約だけで最大7,000ポイント",
+        "新しい電話番号を取得したい初回申込者が対象"
+      ],
+      "concerns": [
+        "MNP申し込みには適用されない",
+        "事前エントリーとRakuten Link利用が必要"
+      ]
+    },
+    "summary": "電話番号そのまま他社から乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント",
+    "benefit": {
+      "type": "points",
+      "amount": 7000,
+      "unit": "ポイント",
+      "description": "最大7,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 7000,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大7,000ポイント"
+      ],
+      "mnp": null
+    },
+    "target": "楽天モバイルへ初めて新しい電話番号で申し込む方",
+    "conditions": [
+      "初めての申し込み",
+      "新規契約",
+      "要エントリー",
+      "Rakuten Link利用"
+    ],
+    "channel": "Webまたは楽天モバイルショップ",
+    "category": "simOnly",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2162": {
+    "codeType": "campaign",
+    "title": "【楽天従業員から紹介された方限定】Rakuten最強プラン紹介キャンペーン",
+    "editorial": {
+      "headline": "楽天従業員から専用URLを受け取れるなら、MNPで14,000ポイントの最上位候補",
+      "paragraphs": [
+        "楽天従業員から送られる専用URLを経由して対象プランを申し込む人向けです。申込者本人はMNPで14,000ポイント、新しい電話番号での申し込みや対象のプラン変更では11,000ポイントを受け取れます。",
+        "本ページの専用URLからのログイン後に契約し、対象プランの申し込みと利用開始、期限内のRakuten Linkによる10秒以上の通話が必要です。",
+        "初めての申し込みだけでなく、2回線目以降や再契約も1人最大5回線まで対象です。通常の紹介キャンペーンなどとは併用できず、同じコードで案内されるRakuten Turboの7,000ポイントはこの回線ランキングに含めていません。"
+      ],
+      "goodPoints": [
+        "MNPなら申込者本人が14,000ポイントを受け取れる",
+        "新規・追加回線・再契約も条件を満たせば対象になる"
+      ],
+      "concerns": [
+        "楽天従業員から送られる専用URLでの紹介ログインが必要"
+      ]
+    },
+    "summary": "楽天従業員から紹介された方限定で、MNPなら14,000ポイント、新規・移行なら11,000ポイントを進呈",
+    "benefit": {
+      "type": "points",
+      "amount": 14000,
+      "unit": "ポイント",
+      "description": "紹介された回線申込者本人へ最大14,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 11000,
+      "mnp": 14000
+    },
+    "breakdown": {
+      "newNumber": [
+        "1回目：3,000ポイント",
+        "2回目：4,000ポイント",
+        "3回目：4,000ポイント"
+      ],
+      "mnp": [
+        "1回目：4,000ポイント",
+        "2回目：5,000ポイント",
+        "3回目：5,000ポイント"
+      ]
+    },
+    "target": "楽天従業員の専用URLから紹介ログインし、対象プランを申し込む方",
+    "conditions": [
+      "楽天従業員の専用URLから紹介ログイン",
+      "対象プランの申し込み・利用開始",
+      "Rakuten Linkで10秒以上通話"
+    ],
+    "channel": "楽天従業員から送られる専用URL（Webまたは楽天モバイルショップ）",
+    "category": "simOnly",
+    "audience": "both",
+    "period": "Web：2023年12月5日 9:00 - 終了日未定／ショップ：2023年12月5日 開店 - 終了日未定",
+    "applicationUrl": "https://r10.to/hkD5ah",
+    "notes": [
+      "公式キャンペーン一覧には掲載されていないため、個別の公式ページから補足したキャンペーンです。",
+      "同じキャンペーンコード2162で案内されるRakuten Turboの7,000ポイントは、このJSONの回線向けポイントとランキングには含めていません。",
+      "通常の紹介キャンペーン1784、初回申込特典2091・2142などは併用不可です。別コード3327が優先適用される場合があるため、申し込み前に公式ページで最新条件を確認してください。",
+      "2024年6月1日以降の申し込みは、1人最大5回線までが特典対象です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true,
+    "supplemental": true,
+    "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/"
+  },
+  "2178": {
+    "codeType": "campaign",
+    "title": "【Android対象製品限定】特価キャンペーン",
+    "editorial": {
+      "headline": "MNPと対象Android購入を組み合わせ、端末値引きを重視する人向け",
+      "paragraphs": [
+        "他社から楽天モバイルへ乗り換える際に対象Android製品を購入すると、端末価格から最大22,000円が値引きされます。ポイントではなく、購入時の端末価格に反映される特典です。",
+        "対象機種によってキャンペーン適用後の端末価格が異なるため、実質負担額は一律に算出できません。購入予定のAndroid製品と値引き額を公式サイトで確認してください。"
+      ],
+      "goodPoints": [
+        "対象Android製品を最大22,000円値引き",
+        "値引きが端末価格へ直接反映される"
+      ],
+      "concerns": [
+        "MNPと対象Android製品の購入が必要",
+        "対象機種ごとの実質負担額は一律に算出できない"
+      ]
+    },
+    "summary": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
+    "benefit": {
+      "type": "discount",
+      "amount": 22000,
+      "unit": "円",
+      "description": "対象Android製品を最大22,000円値引きします。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "MNPと同時に対象Android製品を購入する方",
+    "conditions": [
+      "MNP",
+      "対象Android製品購入"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "2024年2月16日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "2207": {
+    "codeType": "campaign",
+    "title": "楽天モバイルただいまキャンペーン",
+    "editorial": {
+      "headline": "楽天モバイルを以前使っていて、MNPで戻る人向けの再契約特典",
+      "paragraphs": [
+        "楽天モバイルを過去に利用したことがあり、他社からの乗り換えで再契約する人が最大2,162ポイントを受け取れるキャンペーンです。初回申込者向け特典を利用できない再契約者の候補になります。",
+        "新しい電話番号での申し込みは対象外で、Rakuten Linkの利用が必要です。過去の利用状況と今回の申し込み方法が条件に合うか確認してください。"
+      ],
+      "goodPoints": [
+        "楽天モバイルの過去利用者が再契約時に使える",
+        "MNPで最大2,162ポイントを受け取れる"
+      ],
+      "concerns": [
+        "MNPでの再契約に限られる",
+        "Rakuten Linkの利用条件がある"
+      ]
+    },
+    "summary": "楽天モバイルただいまキャンペーン 他社から電話番号そのまま乗り換えでポイントプレゼント ※キャンペーン開始時点で解約から2カ月以内の方は対象外、実質価格はRakuten最強プランお申し込みの場合",
+    "benefit": {
+      "type": "points",
+      "amount": 2162,
+      "unit": "ポイント",
+      "description": "最大2,162ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": 2162
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": [
+        "最大2,162ポイント"
+      ]
+    },
+    "target": "楽天モバイルを過去に利用し、MNPで再契約する方",
+    "conditions": [
+      "過去利用者",
+      "MNP",
+      "Rakuten Link利用"
+    ],
+    "channel": "公式ページ参照",
+    "category": "simOnly",
+    "audience": "applicant",
+    "period": "2026年3月2日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2215": {
+    "codeType": "campaign",
+    "title": "スマホ料金をチェックするだけで100ポイントプレゼント",
+    "summary": "3ステップで毎月どれだけおトクになるかわかる！",
+    "benefit": {
+      "type": "points",
+      "amount": 100,
+      "unit": "ポイント",
+      "description": "料金シミュレーション結果の確認で100ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル未契約で料金シミュレーションを利用する方",
+    "conditions": [
+      "楽天会員ログイン",
+      "シミュレーション結果を確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "memberBenefit",
+    "audience": "applicant",
+    "period": "2024年2月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "2331": {
+    "codeType": "campaign",
+    "title": "第2弾【ショップ限定】もう1回線お申し込みでポイント",
+    "editorial": {
+      "headline": "楽天モバイルショップで追加回線を申し込む人向け",
+      "paragraphs": [
+        "すでに楽天モバイルを利用していて、楽天モバイルショップでもう1回線を申し込む人が最大3,000ポイントを受け取れる特典です。追加回線を対面で契約したい人に向いています。",
+        "オンライン申し込みではなくショップ限定です。新しい回線が必要かを確認したうえで、店舗でキャンペーンの適用手順を確認してください。"
+      ],
+      "goodPoints": [
+        "追加回線の申し込みで最大3,000ポイント",
+        "ショップで相談しながら申し込める"
+      ],
+      "concerns": [
+        "楽天モバイルショップでの申し込みに限られる",
+        "もう1回線を追加することが条件"
+      ]
+    },
+    "summary": "ショップでもう1回線を2台目スマホやタブレットで契約すれば3,000ポイントプレゼント",
+    "benefit": {
+      "type": "points",
+      "amount": 3000,
+      "unit": "ポイント",
+      "description": "最大3,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 2000,
+      "mnp": 3000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大2,000ポイント"
+      ],
+      "mnp": [
+        "最大3,000ポイント"
+      ]
+    },
+    "target": "楽天モバイルショップでもう1回線申し込む方",
+    "conditions": [
+      "ショップ限定",
+      "追加回線"
+    ],
+    "channel": "楽天モバイルショップ",
+    "category": "simOnly",
+    "audience": "member",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2568": {
+    "codeType": "campaign",
+    "title": "他社から乗り換えでRakuten最強プランご契約とiPhone対象製品を一括払いまたは24回払いで購入するキャンペーン",
+    "editorial": {
+      "headline": "MNPと対象iPhone購入をまとめ、端末値引きを受けたい人向け",
+      "paragraphs": [
+        "楽天モバイルへの初めてのMNP申し込みと対象iPhoneの購入を組み合わせると、購入代金が最大20,000円値引きされます。端末価格へ直接反映される特典です。",
+        "一括払いまたは24回払いでの購入と事前エントリーが必要です。対象iPhoneによって販売価格が異なるため、実質負担額は公式サイトで機種ごとに確認してください。"
+      ],
+      "goodPoints": [
+        "対象iPhoneの購入代金を最大20,000円値引き",
+        "値引きが端末価格へ直接反映される"
+      ],
+      "concerns": [
+        "初めてのMNP申し込みと対象iPhone購入が必要",
+        "一括払いまたは24回払いと事前エントリーが条件"
+      ]
+    },
+    "summary": "iPhone 17などが対象！各種条件達成で最大36,000円相当おトク！",
+    "benefit": {
+      "type": "discount",
+      "amount": 20000,
+      "unit": "円",
+      "description": "対象iPhoneの購入代金を最大20,000円値引きします。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "MNPと同時に対象iPhoneを一括または24回払いで購入する方",
+    "conditions": [
+      "MNP",
+      "初めての申し込み",
+      "対象iPhone購入",
+      "要エントリー"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "2024年11月21日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "2602": {
+    "codeType": "campaign",
+    "title": "Apple Watch購入＆電話番号シェアサービス加入キャンペーン",
+    "editorial": {
+      "headline": "Apple Watchと電話番号シェアサービスをWebで同時に始める人向け",
+      "paragraphs": [
+        "Webで対象Apple Watchを購入し、電話番号シェアサービスへ加入すると最大25,000ポイントを受け取れます。対象者にとっては端末購入キャンペーンのなかでもポイント額が大きい特典です。",
+        "事前エントリー、Web購入、対象Apple Watch購入、電話番号シェアサービス加入が必要です。同サービスは月額550円で、ポイント全額獲得までに必要な利用月数が確定できないため実質負担額は算出不可です。"
+      ],
+      "goodPoints": [
+        "対象条件を満たすと最大25,000ポイント",
+        "WebからApple Watch購入とサービス加入を進められる"
+      ],
+      "concerns": [
+        "対象Apple Watch購入と電話番号シェアサービス加入が必要",
+        "月額550円の追加費用がかかり、必要月数は確認が必要"
+      ]
+    },
+    "summary": "Web限定！対象のApple Watch購入＋「電話番号シェアサービス」加入（550円/月）で最大25,000ポイントプレゼント！",
+    "benefit": {
+      "type": "points",
+      "amount": 25000,
+      "unit": "ポイント",
+      "description": "最大25,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 25000,
+      "mnp": 25000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大25,000ポイント"
+      ],
+      "mnp": [
+        "最大25,000ポイント"
+      ]
+    },
+    "target": "Webで対象Apple Watchを購入し、電話番号シェアサービスへ加入する方",
+    "conditions": [
+      "要エントリー",
+      "Web限定",
+      "対象Apple Watch購入",
+      "電話番号シェアサービス加入"
+    ],
+    "channel": "Web",
+    "category": "device",
+    "audience": "both",
+    "period": "2025年1月27日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "2619": {
+    "codeType": "campaign",
+    "title": "【楽天モバイルショップ限定】初めてのお申し込み＆楽天市場利用",
+    "editorial": {
+      "headline": "ショップ申し込み後に楽天市場で買い物をする予定がある人向け",
+      "paragraphs": [
+        "楽天モバイルショップで初めて回線を申し込み、楽天市場で条件を満たす買い物をすると最大1,000ポイントを受け取れます。対面で申し込みたい人向けの追加特典です。",
+        "楽天市場で1注文1,000円以上の購入が必要なため、ポイントと最低購入額だけで計算した実質お得額は0円です。もともと買い物の予定があるかを基準に検討してください。"
+      ],
+      "goodPoints": [
+        "ショップで初めて申し込む人が最大1,000ポイントを受け取れる",
+        "楽天市場で買い物予定がある人は条件をまとめて満たせる"
+      ],
+      "concerns": [
+        "ショップ限定で、楽天市場で1注文1,000円以上の購入が必要",
+        "最低購入額を差し引いた実質お得額は0円"
+      ]
+    },
+    "summary": "【楽天モバイルショップ限定】楽天モバイル初めてのお申し込み＋他社から電話番号そのまま乗り換え＋楽天市場でのお買い物で最大14,000ポイント",
+    "benefit": {
+      "type": "points",
+      "amount": 1000,
+      "unit": "ポイント",
+      "description": "最大1,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 1000,
+      "mnp": 1000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大1,000ポイント"
+      ],
+      "mnp": [
+        "最大1,000ポイント"
+      ]
+    },
+    "target": "ショップで初めて申し込み、楽天市場で条件を満たす買い物をする方",
+    "conditions": [
+      "ショップ限定",
+      "初めての申し込み",
+      "楽天市場で1注文1,000円以上"
+    ],
+    "channel": "楽天モバイルショップ",
+    "category": "service",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2660": {
+    "codeType": "campaign",
+    "title": "楽天銀行会員向け 楽天モバイル初めて申し込み特典",
+    "editorial": {
+      "headline": "楽天銀行会員が楽天モバイルへ初めて申し込むときの追加候補",
+      "paragraphs": [
+        "楽天銀行会員が楽天モバイルへ初めて申し込み、所定の条件を満たすと最大3,000ポイントを受け取れます。すでに楽天銀行を利用している初回申込者に向く特典です。",
+        "事前エントリーが必要です。公式一覧で示される最大13,000ポイントはMNP基本特典10,000ポイントとの併用時で、このキャンペーン単体の順位は3,000ポイントとして計算しています。"
+      ],
+      "goodPoints": [
+        "楽天銀行会員なら最大3,000ポイントを追加で狙える",
+        "端末購入は条件に含まれない"
+      ],
+      "concerns": [
+        "楽天銀行会員かつ楽天モバイルへの初回申込者に限られる",
+        "事前エントリーが必要で、13,000ポイントは別特典併用時の表記"
+      ]
+    },
+    "summary": "楽天銀行会員様へ 楽天モバイル初めてのお申し込みで最大13,000ポイント！",
+    "benefit": {
+      "type": "points",
+      "amount": 3000,
+      "unit": "ポイント",
+      "description": "最大3,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 3000,
+      "mnp": 3000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大3,000ポイント"
+      ],
+      "mnp": [
+        "最大3,000ポイント"
+      ]
+    },
+    "target": "楽天銀行会員で楽天モバイルへ初めて申し込む方",
+    "conditions": [
+      "楽天銀行会員",
+      "要エントリー",
+      "初めての申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "service",
+    "audience": "applicant",
+    "period": "常時開催",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。",
+      "公式一覧の最大13,000ポイント表記は、MNP基本特典10,000ポイントとの併用時です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2697": {
+    "codeType": "campaign",
+    "title": "楽天ひかりと楽天モバイルの最強おうちプログラム",
+    "editorial": {
+      "headline": "楽天ひかりと楽天モバイルを継続して併用する人向け",
+      "paragraphs": [
+        "楽天ひかりを初めて申し込み、楽天モバイルを利用している間、条件を満たした月ごとに1,000ポイントが還元されます。自宅回線とモバイル回線を楽天にまとめる人向けです。",
+        "終了日のない月次還元のため、固定ポイント総額には含めずランキングでは0ポイントとして掲載しています。楽天ひかりの利用料は契約内容で変わり、実質お得額の固定総額は算出できません。"
+      ],
+      "goodPoints": [
+        "条件を満たす間は毎月1,000ポイント還元",
+        "自宅回線とモバイル回線をまとめて利用できる"
+      ],
+      "concerns": [
+        "楽天ひかりの初回申し込みと継続利用が必要",
+        "楽天ひかりの利用料を含む固定の実質お得額は算出できない"
+      ]
+    },
+    "summary": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
+    "benefit": {
+      "type": "recurringPoints",
+      "amount": 1000,
+      "unit": "ポイント/月",
+      "description": "条件を満たす間、毎月1,000ポイントを還元します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天ひかりを初めて申し込み、楽天モバイルを利用する方",
+    "conditions": [
+      "楽天ひかり初回申し込み",
+      "楽天モバイル利用中"
+    ],
+    "channel": "公式ページ参照",
+    "category": "homeInternet",
+    "audience": "both",
+    "period": "2025年3月4日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2698": {
+    "codeType": "campaign",
+    "title": "Rakuten Turboと楽天モバイルの最強おうちプログラム",
+    "editorial": {
+      "headline": "Rakuten Turboと楽天モバイルを継続して併用する人向け",
+      "paragraphs": [
+        "Rakuten Turboを初めて申し込み、楽天モバイルを利用している間、条件を満たした月ごとに1,000ポイントが還元されます。ホームルーターとモバイル回線を楽天にまとめる人向けです。",
+        "終了日のない月次還元のため、固定ポイント総額には含めずランキングでは0ポイントとして掲載しています。Rakuten Turboの利用料は契約内容で変わり、実質お得額の固定総額は算出できません。"
+      ],
+      "goodPoints": [
+        "条件を満たす間は毎月1,000ポイント還元",
+        "ホームルーターとモバイル回線をまとめて利用できる"
+      ],
+      "concerns": [
+        "Rakuten Turboの初回申し込みと継続利用が必要",
+        "Rakuten Turboの利用料を含む固定の実質お得額は算出できない"
+      ]
+    },
+    "summary": "Rakuten Turbo初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
+    "benefit": {
+      "type": "recurringPoints",
+      "amount": 1000,
+      "unit": "ポイント/月",
+      "description": "条件を満たす間、毎月1,000ポイントを還元します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "Rakuten Turboを初めて申し込み、楽天モバイルを利用する方",
+    "conditions": [
+      "Rakuten Turbo初回申し込み",
+      "楽天モバイル利用中"
+    ],
+    "channel": "公式ページ参照",
+    "category": "homeInternet",
+    "audience": "both",
+    "period": "2025年3月4日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2808": {
+    "codeType": "campaign",
+    "title": "Rakutenオリジナル製品 特価キャンペーン",
+    "editorial": {
+      "headline": "Rakuten WiFi Pocket 5Gを回線と一緒に購入したい人向け",
+      "paragraphs": [
+        "楽天モバイルの申し込みと同時に対象オリジナル製品を購入すると、Rakuten WiFi Pocket 5Gは本体価格から13,810円値引きされます。値引きは端末価格へ直接反映されます。",
+        "対象製品の購入が必要で、申し込みは1人1点までです。対象製品によってキャンペーン適用後価格が異なるため、実質負担額は公式サイトで確認してください。"
+      ],
+      "goodPoints": [
+        "Rakuten WiFi Pocket 5Gを13,810円値引き",
+        "値引きが端末価格へ直接反映される"
+      ],
+      "concerns": [
+        "対象オリジナル製品の購入が必要",
+        "1人1点までで、対象製品ごとに実質負担額が異なる"
+      ]
+    },
+    "summary": "Rakuten WiFi Pocket 5Gが製品購入＋ 楽天モバイルお申し込みで2,990円！",
+    "benefit": {
+      "type": "discount",
+      "amount": 13810,
+      "unit": "円",
+      "description": "Rakuten WiFi Pocket 5Gは本体価格から13,810円値引きします。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル申し込みと同時に対象オリジナル製品を購入する方",
+    "conditions": [
+      "対象製品購入",
+      "1人1点まで"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "2025年5月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "2833": {
+    "codeType": "campaign",
+    "title": "あんしんコントロール 3カ月無料キャンペーン",
+    "editorial": {
+      "headline": "あんしんコントロールを初めて使う人が、3カ月試せる特典",
+      "paragraphs": [
+        "あんしんコントロールを初めて申し込むと、対象オプションを初回3カ月無料で利用できます。必要性を確かめてから継続を判断したい人に向いています。",
+        "申込者向け固定ポイントはなく、ランキングでは0ポイントです。無料特典の1,650円相当は実質お得額だけに反映しています。"
+      ],
+      "goodPoints": [
+        "対象オプションを初回3カ月無料で試せる",
+        "無料特典を1,650円相当として実質価値に反映"
+      ],
+      "concerns": [
+        "あんしんコントロールを初めて申し込む人に限られる",
+        "申込者向け固定ポイントはない"
+      ]
+    },
+    "summary": "お子さまのスマホもお出かけも見守る、あんしんオプションサービス あんしんコントロール 初回3カ月無料！ ※1回線につき1回限り、月額550円が3カ月無料となります。",
+    "benefit": {
+      "type": "free",
+      "amount": 3,
+      "unit": "カ月",
+      "description": "あんしんコントロールを初回3カ月無料で利用できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "あんしんコントロールを初めて申し込む方",
+    "conditions": [
+      "対象オプションを初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "option",
+    "audience": "both",
+    "period": "2025年9月25日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2834": {
+    "codeType": "campaign",
+    "title": "割込通話オプション 初回1カ月無料キャンペーン",
+    "editorial": {
+      "headline": "割込通話を初めて使う人が、最初の1カ月試せる",
+      "paragraphs": [
+        "割込通話オプションを初めて申し込むと、月額料金が初回1カ月無料になります。通話中に別の着信へ対応したい人が、追加オプションを試す際の候補です。",
+        "申込者向け固定ポイントはなく、無料期間は初回1カ月です。無料特典の220円相当は実質お得額だけに反映しています。"
+      ],
+      "goodPoints": [
+        "割込通話オプションを初回1カ月無料で試せる",
+        "無料特典を220円相当として実質価値に反映"
+      ],
+      "concerns": [
+        "割込通話を初めて申し込む人に限られる",
+        "申込者向け固定ポイントはない"
+      ]
+    },
+    "summary": "通話中の電話も保留にできる 割込通話 はじめてのお申し込みで初回1カ月無料※ 2025年6月19日（木）0:00～終了日未定 ※その他条件あり。",
+    "benefit": {
+      "type": "free",
+      "amount": 1,
+      "unit": "カ月",
+      "description": "割込通話オプションの月額料金が初回1カ月無料になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "割込通話オプションを初めて申し込む方",
+    "conditions": [
+      "割込通話を初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "option",
+    "audience": "both",
+    "period": "2025年6月19日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2835": {
+    "codeType": "campaign",
+    "title": "留守番電話オプション 初回1カ月無料キャンペーン",
+    "editorial": {
+      "headline": "留守番電話を初めて使う人が、最初の1カ月試せる",
+      "paragraphs": [
+        "留守番電話オプションを初めて申し込むと、月額料金が初回1カ月無料になります。不在時の伝言を受け取りたい人が、追加オプションを試す際の候補です。",
+        "申込者向け固定ポイントはなく、無料期間は初回1カ月です。無料特典の330円相当は実質お得額だけに反映しています。"
+      ],
+      "goodPoints": [
+        "留守番電話オプションを初回1カ月無料で試せる",
+        "無料特典を330円相当として実質価値に反映"
+      ],
+      "concerns": [
+        "留守番電話を初めて申し込む人に限られる",
+        "申込者向け固定ポイントはない"
+      ]
+    },
+    "summary": "電源OFF時や通信圏外時にも使える 留守番電話 はじめてのお申し込みで初回1カ月無料※ 2025年6月19日（木）0:00～終了日未定 ※その他条件あり。",
+    "benefit": {
+      "type": "free",
+      "amount": 1,
+      "unit": "カ月",
+      "description": "留守番電話オプションの月額料金が初回1カ月無料になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "留守番電話オプションを初めて申し込む方",
+    "conditions": [
+      "留守番電話を初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "option",
+    "audience": "both",
+    "period": "2025年6月19日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2855": {
+    "codeType": "campaign",
+    "title": "【OPEN記念キャンペーン】ハズレなし！大抽選会",
+    "summary": "ハズレなし！対象のショップでお見積もりいただくと抽選で最大2,000円相当の景品プレゼント",
+    "benefit": {
+      "type": "lottery",
+      "amount": 2000,
+      "unit": "円相当",
+      "description": "対象ショップでの見積もりにより最大2,000円相当の景品が当たります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "新規開店した対象ショップで見積もりをする方",
+    "conditions": [
+      "ショップ限定",
+      "対象店の開店から所定期間",
+      "見積もり"
+    ],
+    "channel": "対象の楽天モバイルショップ",
+    "category": "memberBenefit",
+    "audience": "both",
+    "period": "2025年6月13日 開店 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "2897": {
+    "codeType": "campaign",
+    "title": "敬老キャンペーン（初めて申し込みと最強シニアプログラム加入）",
+    "editorial": {
+      "headline": "65歳以上で最強シニアプログラムも利用する初回申込者向け",
+      "paragraphs": [
+        "65歳以上の人が楽天モバイルへ初めて申し込み、最強シニアプログラムへ加入すると最大11,748ポイントを受け取れます。対象年齢に当てはまる人にはポイント額の大きい候補です。",
+        "年齢、初回申し込み、最強シニアプログラム加入のすべてを満たす必要があります。回線申し込み以外の加入条件も確認してから選んでください。"
+      ],
+      "goodPoints": [
+        "対象条件を満たすと最大11,748ポイント",
+        "65歳以上の初回申込者に特化した特典"
+      ],
+      "concerns": [
+        "65歳以上かつ楽天モバイルへの初回申込者に限られる",
+        "最強シニアプログラムへの加入が必要"
+      ]
+    },
+    "summary": "65歳以上限定！「最強シニアプログラム」と合わせておトクなキャンペーン！ ※実質価格はRakuten最強プランお申し込みの場合",
+    "benefit": {
+      "type": "points",
+      "amount": 11748,
+      "unit": "ポイント",
+      "description": "最大11,748ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 11748,
+      "mnp": 11748
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大11,748ポイント"
+      ],
+      "mnp": [
+        "最大11,748ポイント"
+      ]
+    },
+    "target": "65歳以上で楽天モバイルへ初めて申し込む方",
+    "conditions": [
+      "65歳以上",
+      "初めての申し込み",
+      "最強シニアプログラム加入"
+    ],
+    "channel": "公式ページ参照",
+    "category": "service",
+    "audience": "applicant",
+    "period": "2025年6月17日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2938": {
+    "codeType": "campaign",
+    "title": "iPhone対象製品 特価キャンペーン",
+    "editorial": {
+      "headline": "楽天カード48回払いで対象iPhoneの月々の負担を抑えたい人向け",
+      "paragraphs": [
+        "MNPと同時に対象iPhoneを購入し、楽天カード48回払いを選ぶと月額1円から購入できる特価キャンペーンです。特典はポイントではなく端末価格と支払い条件に反映されます。",
+        "対象製品と支払回数によって支払総額が異なるため、実質負担額は一律に算出できません。MNP、対象iPhone購入、楽天カード48回払いの条件を確認してください。"
+      ],
+      "goodPoints": [
+        "対象iPhoneを楽天カード48回払いで月額1円から購入できる",
+        "特典が端末の支払い価格へ直接反映される"
+      ],
+      "concerns": [
+        "MNPと対象iPhone購入、楽天カード48回払いが必要",
+        "対象機種と支払回数により支払総額が異なる"
+      ]
+    },
+    "summary": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！",
+    "benefit": {
+      "type": "specialPrice",
+      "amount": 1,
+      "unit": "円/月〜",
+      "description": "対象iPhoneを楽天カード48回払いで月額1円から購入できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "MNPと同時に対象iPhoneを48回払いで購入する方",
+    "conditions": [
+      "MNP",
+      "対象iPhone購入",
+      "楽天カード48回払い"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "2025年9月8日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "2956": {
+    "codeType": "campaign",
+    "title": "最強保護 3カ月無料キャンペーン",
+    "editorial": {
+      "headline": "最強保護の対象サービスを、初回3カ月試したい人向け",
+      "paragraphs": [
+        "最強保護を初めて申し込むと、対象サービスを初回3カ月無料で利用できます。必要な保護サービスかを無料期間中に確かめたい人向けの特典です。",
+        "申込者向け固定ポイントはなく、ランキングでは0ポイントです。公式情報だけでは無料特典の金額を確定できないため、実質お得額は算出不可として表示します。"
+      ],
+      "goodPoints": [
+        "最強保護の対象サービスを初回3カ月無料で試せる",
+        "無料期間を使ってサービスの必要性を確認できる"
+      ],
+      "concerns": [
+        "最強保護を初めて申し込む人に限られる",
+        "固定ポイントと確定した金額換算値がない"
+      ]
+    },
+    "summary": "これで安心!オールインワンのスマホセキュリティサービス 最強保護 初回利用3カ月無料！ ※4キャリアにおいてノートン社の同等のセキュリティサービスと比較し、初回無料期間を考慮した1年目相当の価格が最安。2025年8月自社調べ。",
+    "benefit": {
+      "type": "free",
+      "amount": 3,
+      "unit": "カ月",
+      "description": "最強保護の対象サービスを初回3カ月無料で利用できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "最強保護を初めて申し込む方",
+    "conditions": [
+      "最強保護を初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "option",
+    "audience": "both",
+    "period": "2025年8月26日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "2981": {
+    "codeType": "initiative",
+    "title": "来店予約＆店頭でお見積もり＆アンケートに回答で1,000ポイント",
+    "summary": "ショップの来店予約＆お見積もり＆アンケート回答でもれなく1,000ポイントプレゼント！",
+    "benefit": {
+      "type": "points",
+      "amount": 1000,
+      "unit": "ポイント",
+      "description": "来店予約、店頭見積もり、アンケート回答で1,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイルショップへの来店を検討している方",
+    "conditions": [
+      "ショップ限定",
+      "来店予約",
+      "店頭見積もり",
+      "アンケート回答"
+    ],
+    "channel": "楽天モバイルショップ",
+    "category": "memberBenefit",
+    "audience": "both",
+    "period": "2025年9月1日 開店 - 終了日未定",
+    "notes": [
+      "公式ページでは「施策コード」として案内されています。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "2995": {
+    "codeType": "campaign",
+    "title": "【楽天モバイルショップ限定】初めてのお申し込みで3,000ポイント",
+    "editorial": {
+      "headline": "ショップで相談しながら楽天モバイルへ初めて申し込む人向け",
+      "paragraphs": [
+        "楽天モバイルショップで初めて回線を申し込むと、申込者本人が最大3,000ポイントを受け取れます。対面で手続きを進めたい初回申込者に向く特典です。",
+        "オンライン申し込みでは利用できず、楽天モバイルショップでの手続きが必要です。来店前に対象店舗とキャンペーンの適用手順を確認してください。"
+      ],
+      "goodPoints": [
+        "ショップでの初回申し込みで最大3,000ポイント",
+        "対面で相談しながら申し込める"
+      ],
+      "concerns": [
+        "楽天モバイルショップでの申し込みに限られる",
+        "楽天モバイルへの初めての申し込みが条件"
+      ]
+    },
+    "summary": "【楽天モバイルショップ限定】楽天モバイル初めてのお申し込み＋他社から電話番号そのまま乗り換え＋楽天市場でのお買い物で最大14,000ポイント",
+    "benefit": {
+      "type": "points",
+      "amount": 3000,
+      "unit": "ポイント",
+      "description": "最大3,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 3000,
+      "mnp": 3000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大3,000ポイント"
+      ],
+      "mnp": [
+        "最大3,000ポイント"
+      ]
+    },
+    "target": "楽天モバイルショップで初めて申し込む方",
+    "conditions": [
+      "ショップ限定",
+      "初めての申し込み"
+    ],
+    "channel": "楽天モバイルショップ",
+    "category": "simOnly",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "3141": {
+    "codeType": "campaign",
+    "title": "楽天モバイル月額料金への初回ポイント利用で還元率3倍",
+    "summary": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
+    "benefit": {
+      "type": "multiplier",
+      "amount": 3,
+      "unit": "倍",
+      "description": "月額料金への初めてのポイント利用分に対する還元率が3倍になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル月額料金に初めて楽天ポイントを利用する方",
+    "conditions": [
+      "要エントリー",
+      "月額料金に初めてポイント利用"
+    ],
+    "channel": "公式ページ参照",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "毎月開催",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "3186": {
+    "codeType": "campaign",
+    "title": "【ショップ限定】18歳までのスマホデビュー応援キャンペーン",
+    "editorial": {
+      "headline": "18歳までの新規契約で、対象スマホを1円で購入したい人向け",
+      "paragraphs": [
+        "18歳までの人が楽天モバイルショップで新しい電話番号を契約し、対象製品を購入すると、キャンペーン適用後の製品価格が1円になります。スマホデビュー時の端末負担を抑えたい人向けです。",
+        "ショップ限定で、年齢、新規契約、対象製品購入のすべてが条件です。固定ポイントはなく、特典は対象端末の販売価格へ反映されます。"
+      ],
+      "goodPoints": [
+        "対象製品のキャンペーン適用後価格が1円",
+        "18歳までのスマホデビューに特化した特典"
+      ],
+      "concerns": [
+        "18歳までの新規契約者に限られる",
+        "ショップで対象製品を購入する必要がある"
+      ]
+    },
+    "summary": "【楽天モバイルショップ限定】18歳までのお子さまのスマホデビュー応援！楽天モバイル新規申し込み＆対象製品購入で1円！",
+    "benefit": {
+      "type": "specialPrice",
+      "amount": 1,
+      "unit": "円",
+      "description": "新規申し込みと対象製品購入で製品価格が1円になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "18歳までで、ショップから新規契約と対象製品購入をする方",
+    "conditions": [
+      "ショップ限定",
+      "18歳まで",
+      "新規契約",
+      "対象製品購入"
+    ],
+    "channel": "楽天モバイルショップ",
+    "category": "device",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "3288": {
+    "codeType": "campaign",
+    "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン②",
+    "editorial": {
+      "headline": "Rakuten最強U-NEXT利用者がUber Oneを初めて使うときの候補",
+      "paragraphs": [
+        "Rakuten最強U-NEXT利用者がエントリーし、Uber Oneを初めて申し込むと初回1年間無料になります。無料特典は5,598円相当として実質価値に反映しています。",
+        "Rakuten最強U-NEXTの利用とUber Oneへの初回申し込みが必要です。通常の回線料金との差額を固定できないため、追加負担を含む実質お得額は算出不可です。"
+      ],
+      "goodPoints": [
+        "Uber Oneを初回1年間無料で利用できる",
+        "無料特典を5,598円相当として比較できる"
+      ],
+      "concerns": [
+        "Rakuten最強U-NEXT利用者でUber Oneを初めて申し込む人に限られる",
+        "Rakuten最強U-NEXTの追加負担を含む実質お得額は算出できない"
+      ]
+    },
+    "summary": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
+    "benefit": {
+      "type": "free",
+      "amount": 12,
+      "unit": "カ月",
+      "description": "Uber Oneを初回1年間無料で利用できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "Uber Oneを初めて申し込むRakuten最強U-NEXT利用者",
+    "conditions": [
+      "要エントリー",
+      "Uber Oneを初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "service",
+    "audience": "both",
+    "period": "2026年6月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "3293": {
+    "codeType": "campaign",
+    "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン①",
+    "editorial": {
+      "headline": "Rakuten最強U-NEXTを初めて利用し、ポイントを受け取りたい人向け",
+      "paragraphs": [
+        "エントリーしてRakuten最強U-NEXTを初めて利用すると、申込者本人が最大5,000ポイントを受け取れます。ポイントは条件達成後、3カ月に分けて進呈されます。",
+        "Rakuten最強U-NEXTの追加負担は利用状況によって変わるため、固定の実質お得額は算出できません。ポイント額だけでなく、利用条件と料金差も確認してください。"
+      ],
+      "goodPoints": [
+        "Rakuten最強U-NEXTの初回利用で最大5,000ポイント",
+        "端末購入は条件に含まれない"
+      ],
+      "concerns": [
+        "事前エントリーとRakuten最強U-NEXTの初回利用が必要",
+        "追加負担を含む実質お得額は算出できない"
+      ]
+    },
+    "summary": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
+    "benefit": {
+      "type": "points",
+      "amount": 5000,
+      "unit": "ポイント",
+      "description": "最大5,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 5000,
+      "mnp": 5000
+    },
+    "breakdown": {
+      "newNumber": [
+        "最大5,000ポイント"
+      ],
+      "mnp": [
+        "最大5,000ポイント"
+      ]
+    },
+    "target": "Rakuten最強U-NEXTを初めて利用する方",
+    "conditions": [
+      "要エントリー",
+      "Rakuten最強U-NEXTを初めて利用"
+    ],
+    "channel": "Webまたは楽天モバイルショップ",
+    "category": "service",
+    "audience": "both",
+    "period": "2026年6月1日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "3297": {
+    "codeType": "campaign",
+    "title": "Rakuten認定中古製品キャンペーン",
+    "editorial": {
+      "headline": "新品に限定せず、Rakuten認定中古スマートフォンを検討する人向け",
+      "paragraphs": [
+        "楽天モバイルでRakuten認定中古製品を購入する人向けのキャンペーンです。公式情報では、高品質なリユーススマートフォンをおトクに購入できる特典として案内されています。",
+        "固定ポイントや一律の値引き額は示されておらず、販売価格は対象製品によって異なります。購入する機種ごとに価格と状態を公式サイトで確認してください。"
+      ],
+      "goodPoints": [
+        "Rakuten認定中古スマートフォンを購入候補にできる",
+        "新品以外の端末選択肢を比較できる"
+      ],
+      "concerns": [
+        "固定ポイントや確定した値引き額はない",
+        "対象製品によって販売価格が異なり、実質負担額は算出できない"
+      ]
+    },
+    "summary": "高品質なリユーススマホが更におトクになるキャンペーン開催中！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "高品質なリユーススマホが更におトクになるキャンペーン開催中！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイルで認定中古スマートフォンを購入する方",
+    "conditions": [
+      "Rakuten認定中古製品購入"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "both",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "3303": {
+    "codeType": "campaign",
+    "title": "Galaxyメガ得祭限定！Samsung Galaxy S26シリーズ購入＋MNPでポイント還元",
+    "editorial": {
+      "headline": "MNPと同時にSamsung Galaxy S26シリーズを購入する人向け",
+      "paragraphs": [
+        "他社から楽天モバイルへ乗り換え、Samsung Galaxy S26シリーズを購入すると最大7,000ポイントを受け取れます。対象シリーズを購入予定の人に絞った端末キャンペーンです。",
+        "MNP、対象シリーズ購入、Rakuten Link利用の条件があります。Samsung Galaxy S26シリーズ以外の端末を購入する場合は対象になりません。"
+      ],
+      "goodPoints": [
+        "対象シリーズ購入とMNPで最大7,000ポイント",
+        "Samsung Galaxy S26シリーズ購入者に特化している"
+      ],
+      "concerns": [
+        "MNPとSamsung Galaxy S26シリーズ購入が必要",
+        "Rakuten Linkの利用条件がある"
+      ]
+    },
+    "summary": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
+    "benefit": {
+      "type": "points",
+      "amount": 7000,
+      "unit": "ポイント",
+      "description": "最大7,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": 7000
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": [
+        "最大7,000ポイント"
+      ]
+    },
+    "target": "MNPと同時にSamsung Galaxy S26シリーズを購入する方",
+    "conditions": [
+      "MNP",
+      "Samsung Galaxy S26シリーズ購入",
+      "Rakuten Link利用"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "applicant",
+    "period": "2026年6月10日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": true
+  },
+  "3304": {
+    "codeType": "campaign",
+    "title": "Galaxyメガ得祭限定！Samsung Galaxy S26シリーズへの機種変更でポイント還元",
+    "summary": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
+    "benefit": {
+      "type": "points",
+      "amount": 7000,
+      "unit": "ポイント",
+      "description": "対象製品への機種変更で7,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル利用中でSamsung Galaxy S26シリーズへ機種変更する方",
+    "conditions": [
+      "要エントリー",
+      "対象製品のみを購入",
+      "楽天モバイル利用中"
+    ],
+    "channel": "公式ページ参照",
+    "category": "device",
+    "audience": "member",
+    "period": "2026年6月10日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": false
+  },
+  "3327": {
+    "codeType": "campaign",
+    "title": "楽天モバイル初めてお申し込みで最大20,000ポイント進呈",
+    "editorial": {
+      "headline": "初回申込でポイント額を優先し、楽天市場でも買い物できる人向け",
+      "paragraphs": [
+        "楽天モバイルへ初めて申し込み、専用ページから対象プランを申し込む方が対象です。MNPなら最大20,000ポイント、新しい電話番号での申し込みなら最大12,000ポイントを受け取れます。",
+        "最大ポイントの獲得には、期限までにRakuten Linkで10秒以上通話し、楽天市場で1注文1,000円以上の買い物をする必要があります。Web申込では専用ページからクーポンコードが適用された状態で手続きを完了してください。"
+      ],
+      "goodPoints": [
+        "MNPなら最大20,000ポイントで現在のSIMのみランキング最上位",
+        "新しい電話番号での初回申し込みでも最大12,000ポイント"
+      ],
+      "concerns": [
+        "初回申込限定で、専用ページまたは指定クーポンコードからの申し込みが必要",
+        "最大額にはRakuten Link利用と楽天市場で1,000円以上の買い物が必要"
+      ]
+    },
+    "summary": "楽天モバイル初めてのお申し込みでMNPなら最大20,000ポイント、新規番号なら最大12,000ポイント",
+    "benefit": {
+      "type": "points",
+      "amount": 20000,
+      "unit": "ポイント",
+      "description": "MNPで最大20,000ポイント、新規番号で最大12,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": 12000,
+      "mnp": 20000
+    },
+    "breakdown": {
+      "newNumber": [
+        "初回申込・Rakuten Link利用：10,000ポイント",
+        "楽天市場で1,000円以上購入：2,000ポイント"
+      ],
+      "mnp": [
+        "初回申込・Rakuten Link利用：16,000ポイント",
+        "楽天市場で1,000円以上購入：4,000ポイント"
+      ]
+    },
+    "target": "楽天モバイルへ初めて申し込み、楽天市場で1,000円以上買い物する方",
+    "conditions": [
+      "初めての申し込み",
+      "専用ページまたは指定クーポンコードから申し込み",
+      "楽天市場で1,000円以上買い物",
+      "Rakuten Linkで10秒以上通話"
+    ],
+    "channel": "Web・楽天モバイルショップ",
+    "category": "service",
+    "audience": "applicant",
+    "period": "Web：2026年8月7日 9:00 - 2026年9月7日 8:59／ショップ：2026年8月7日 開店 - 2026年9月6日 閉店",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。",
+      "楽天市場での買い物条件を満たさない場合は、MNP16,000ポイント、新規番号10,000ポイントです。",
+      "公式一覧の最大30,000円相当には、条件を満たした楽天市場未利用者向けの10,000円分クーポンが含まれます。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "3329": {
+    "codeType": "campaign",
+    "title": "迷惑電話・SMS対策 by Whoscall 初回3カ月無料",
+    "editorial": {
+      "headline": "迷惑電話・SMS対策オプションを、初回3カ月試したい人向け",
+      "paragraphs": [
+        "迷惑電話・SMS対策 by Whoscallを初めて申し込むと、対象オプションを初回3カ月無料で利用できます。迷惑電話やSMSへの対策を試したい人向けの特典です。",
+        "申込者向け固定ポイントはなく、ランキングでは0ポイントです。無料特典の990円相当は実質お得額だけに反映しています。"
+      ],
+      "goodPoints": [
+        "対象オプションを初回3カ月無料で試せる",
+        "無料特典を990円相当として実質価値に反映"
+      ],
+      "concerns": [
+        "対象オプションを初めて申し込む人に限られる",
+        "申込者向け固定ポイントはない"
+      ]
+    },
+    "summary": "不審な電話・SMSを自動で即ブロック！詐欺被害を未然に防ぐ 迷惑電話・SMS対策 by Whoscall 初回3カ月無料！ ※おひとり様につき1回限り、月額330円が3カ月無料となります。",
+    "benefit": {
+      "type": "free",
+      "amount": 3,
+      "unit": "カ月",
+      "description": "対象オプションを初回3カ月無料で利用できます。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "迷惑電話・SMS対策 by Whoscallを初めて申し込む方",
+    "conditions": [
+      "対象オプションを初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "option",
+    "audience": "both",
+    "period": "2026年6月17日 0:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "3350": {
+    "codeType": "campaign",
+    "title": "楽天モバイル契約者限定 対象店舗で楽天ポイント20倍",
+    "summary": "楽天モバイルご契約で対象店舗でのお買い物が20倍！ ※期間限定ポイント。上限・条件あり。",
+    "benefit": {
+      "type": "multiplier",
+      "amount": 20,
+      "unit": "倍",
+      "description": "対象店舗での楽天ポイント還元が通常の20倍になります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル契約中で対象店舗を利用する方",
+    "conditions": [
+      "要エントリー",
+      "楽天モバイル契約中",
+      "対象店舗で買い物"
+    ],
+    "channel": "公式ページ参照",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "3351": {
+    "codeType": "campaign",
+    "title": "Rakuten最強U-NEXT「ヘイ！ダギー」キャンペーン",
+    "editorial": {
+      "headline": "Rakuten最強U-NEXTへ初めて申し込み、抽選特典に応募したい人向け",
+      "paragraphs": [
+        "Rakuten最強U-NEXTへ初めて申し込み、エントリーすると、グッズまたは楽天ポイント1,000ポイントが抽選で当たります。対象サービスを利用する予定がある人向けの抽選特典です。",
+        "特典は抽選のため、受け取れる金額を確定できません。Rakuten最強U-NEXTの追加負担も利用状況で変わるため、ランキングでは0ポイント、実質お得額は算出不可として扱います。"
+      ],
+      "goodPoints": [
+        "グッズまたは楽天ポイント1,000ポイントの抽選に応募できる",
+        "Rakuten最強U-NEXTの初回申込者が対象"
+      ],
+      "concerns": [
+        "抽選特典のため当選や金額は確定しない",
+        "事前エントリーとRakuten最強U-NEXTの初回申し込みが必要"
+      ]
+    },
+    "summary": "「Rakuten最強U-NEXT」初めてお申し込みで「ヘイ！ダギー」グッズや楽天ポイント1,000ポイントが当たる！",
+    "benefit": {
+      "type": "lottery",
+      "amount": 1000,
+      "unit": "ポイント",
+      "description": "グッズまたは楽天ポイント1,000ポイントが抽選で当たります。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "Rakuten最強U-NEXTへ初めて申し込む方",
+    "conditions": [
+      "要エントリー",
+      "Rakuten最強U-NEXTを初めて申し込み"
+    ],
+    "channel": "公式ページ参照",
+    "category": "service",
+    "audience": "applicant",
+    "period": "終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": true
+  },
+  "NO-CODE-EVENT-MOBILE-PRODUCT": {
+    "codeType": "generated",
+    "title": "【楽天市場】スマホSELECTION",
+    "summary": "AQUOS、OPPOなどのハイスペックSIMフリースマホが3万円台！ポイント還元でお買い得",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "AQUOS、OPPOなどのハイスペックSIMフリースマホが3万円台！ポイント還元でお買い得"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-CAMPAIGN-APPLEWATCH-INSURANCE": {
+    "codeType": "generated",
+    "title": "Apple Watchご購入でワークアウト保険が2年間無料！",
+    "summary": "楽天モバイルでApple Watchを購入するとワークアウト保険が2年間無料",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "楽天モバイルでApple Watchを購入するとワークアウト保険が2年間無料"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-CAMPAIGN-DIGITAL-CONTENTS": {
+    "codeType": "generated",
+    "title": "エンタメコンテンツが追加料金0円で楽しめる！",
+    "summary": "パ・リーグ、ミュージック、マガジンが追加料金0円で楽しめる！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "パ・リーグ、ミュージック、マガジンが追加料金0円で楽しめる！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-CAMPAIGN-SPU-PAYMENT": {
+    "codeType": "generated",
+    "title": "SPU（楽天モバイルキャリア決済）",
+    "summary": "楽天モバイルキャリア決済を当月合計2,000円以上ご利用で楽天市場でのお買い物がポイント＋2倍に！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "楽天モバイルキャリア決済を当月合計2,000円以上ご利用で楽天市場でのお買い物がポイント＋2倍に！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "要エントリー"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-FEE-BANK-BONUS-RATE": {
+    "codeType": "generated",
+    "title": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！",
+    "summary": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "要エントリー"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-GUIDE-APPLICATION-BANK-CAMPAIGN": {
+    "codeType": "generated",
+    "title": "【楽天モバイル×楽天銀行】同時申し込みで1,000ポイント",
+    "summary": "キャンペーンページより楽天銀行＆楽天モバイルお申し込み・ご利用で1,000ポイント！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "キャンペーンページより楽天銀行＆楽天モバイルお申し込み・ご利用で1,000ポイント！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-SERVICE-ENTERTAINMENT-SELECTION": {
+    "codeType": "generated",
+    "title": "トク得！エンタメセレクション 楽天モバイルからのお申し込みでエンタメコンテンツがおトクに楽しめる！ ずーっと月額利用料20%ポイント還元",
+    "summary": "Rakuten最強プランに申し込むとエンタメコンテンツがおトクに楽しめるオプションサービスが登場！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "Rakuten最強プランに申し込むとエンタメコンテンツがおトクに楽しめるオプションサービスが登場！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-R10-H5WXYR": {
+    "codeType": "generated",
+    "title": "楽天ペイ最強ドリームチャンス 楽天ポイント総額2,000,000ポイントが当たる",
+    "summary": "【楽天モバイル新規お申し込みも対象】楽天ペイの初決済で当選確率10倍！ ※毎月開催、その他条件あり",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "【楽天モバイル新規お申し込みも対象】楽天ペイの初決済で当選確率10倍！ ※毎月開催、その他条件あり"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "要エントリー"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-RAKUTEN-ACCESSORY-APPLE-CASE": {
+    "codeType": "generated",
+    "title": "【楽天モバイル公式 楽天市場店】スマートフォンアクセサリ全品送料無料！",
+    "summary": "フィルムやケースなど1点からのご注文も送料無料",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "フィルムやケースなど1点からのご注文も送料無料"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-RAKUTENEAGLES-LP-RAKUTENMOBILE": {
+    "codeType": "generated",
+    "title": "楽天イーグルスを応援するなら楽天モバイルがお得！",
+    "summary": "楽天モバイル最強パーク宮城で観戦するなら楽天モバイル一択！観戦招待やポイントバックなど特典が満載！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "楽天モバイル最強パーク宮城で観戦するなら楽天モバイル一択！観戦招待やポイントバックなど特典が満載！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-SAMSUNG-EXPLORE-EVENT-GALAXY-2026-2H-CP-RAKUTEN": {
+    "codeType": "generated",
+    "title": "Samsung Galaxy Z Fold8 Ultra、Galaxy Z Fold8、Galaxy Z Flip8予約購入キャンペーン。対象の新製品を予約、購入し Samsung Walletアプリから応募で相当楽天ポイント15,000円相当プレゼント!",
+    "summary": "Samsung Galaxy Z Fold8 Ultra、Galaxy Z Fold8、Galaxy Z Flip8予約購入キャンペーン ※本キャンペーンの主催はサムスン電子ジャパン株式会社です。",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "Samsung Galaxy Z Fold8 Ultra、Galaxy Z Fold8、Galaxy Z Flip8予約購入キャンペーン ※本キャンペーンの主催はサムスン電子ジャパン株式会社です。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-VISSEL-KOBE-LP-RAKUTENMOBILE2026": {
+    "codeType": "generated",
+    "title": "ヴィッセル神戸×楽天モバイル最強キャンペーン",
+    "summary": "楽天モバイルご利用者様ならヴィッセル神戸の観戦がもっとおトクになる！チケットやグッズの楽天ポイントバックなど特典が盛りだくさん！",
+    "benefit": {
+      "type": "other",
+      "amount": null,
+      "unit": null,
+      "description": "楽天モバイルご利用者様ならヴィッセル神戸の観戦がもっとおトクになる！チケットやグッズの楽天ポイントバックなど特典が盛りだくさん！"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "公式ページに記載された条件を満たす方",
+    "conditions": [
+      "公式ページで条件確認"
+    ],
+    "channel": "公式ページ参照",
+    "category": "other",
+    "audience": "both",
+    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  }
+}

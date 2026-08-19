@@ -1,33 +1,27 @@
 import {
   getCampaignApplicationUrl,
   getRankingPoints,
-  rankCampaigns,
   type ApplicationType,
   type Campaign,
   type CampaignEditorial,
 } from "@/data/campaigns";
+import { INITIAL_VISIBLE_CAMPAIGN_COUNT } from "@/app/site-config";
+import { formatJapaneseDate, formatPoints } from "@/app/lib/format";
 import {
   CampaignOfficialImage,
   requireOfficialImage,
 } from "./CampaignOfficialImage";
 import { getCampaignRecommendation } from "./campaignRecommendation";
+import {
+  getRankTone,
+  isEmployeeReferralCampaign,
+  splitRankedCampaigns,
+} from "./rankingDisplay";
 
 type CampaignDetailsProps = {
   applicationType: ApplicationType;
-  campaigns: readonly Campaign[];
+  rankedCampaigns: readonly Campaign[];
 };
-
-const initialVisibleCampaignCount = 10;
-const employeeReferralCampaignCode = "2162";
-
-function formatPoints(points: number) {
-  return points.toLocaleString("ja-JP");
-}
-
-function formatJapaneseDate(date: string) {
-  const [year, month, day] = date.split("-").map(Number);
-  return `${year}年${month}月${day}日`;
-}
 
 function requireEditorial(campaign: Campaign): CampaignEditorial {
   if (!campaign.editorial) {
@@ -41,16 +35,10 @@ function requireEditorial(campaign: Campaign): CampaignEditorial {
 
 export function CampaignDetails({
   applicationType,
-  campaigns,
+  rankedCampaigns,
 }: CampaignDetailsProps) {
-  const rankedCampaigns = rankCampaigns(campaigns, applicationType);
-  const initiallyVisibleCampaigns = rankedCampaigns.slice(
-    0,
-    initialVisibleCampaignCount,
-  );
-  const collapsedCampaigns = rankedCampaigns.slice(
-    initialVisibleCampaignCount,
-  );
+  const { initiallyVisibleCampaigns, collapsedCampaigns } =
+    splitRankedCampaigns(rankedCampaigns);
 
   function renderCampaignDetails(
     visibleCampaigns: readonly Campaign[],
@@ -58,15 +46,14 @@ export function CampaignDetails({
   ) {
     return visibleCampaigns.map((campaign, index) => {
       const rank = startIndex + index + 1;
-      const rankTone = rank <= 3 ? rank : "standard";
+      const rankTone = getRankTone(rank);
       const editorial = requireEditorial(campaign);
       const officialImage = requireOfficialImage(campaign);
       const points = getRankingPoints(campaign, applicationType);
       const recommendation = getCampaignRecommendation(campaign);
-      const isEmployeeReferralCampaign =
-        campaign.campaignCode === employeeReferralCampaignCode;
-      const articleTitleId = `campaign-title-${campaign.campaignCode}`;
-      const editorialTitleId = `campaign-editorial-${campaign.campaignCode}`;
+      const isEmployeeReferral = isEmployeeReferralCampaign(campaign);
+      const articleTitleId = `campaign-title-${applicationType}-${campaign.campaignCode}`;
+      const editorialTitleId = `campaign-editorial-${applicationType}-${campaign.campaignCode}`;
 
       return (
         <article
@@ -172,7 +159,7 @@ export function CampaignDetails({
               </section>
             </div>
 
-            {isEmployeeReferralCampaign ? (
+            {isEmployeeReferral ? (
               <div className="campaign-action-group">
                 <div className="campaign-action-buttons">
                   <a
@@ -229,7 +216,7 @@ export function CampaignDetails({
           <div className="ranking-overflow-content detail-overflow-content">
             {renderCampaignDetails(
               collapsedCampaigns,
-              initialVisibleCampaignCount,
+              INITIAL_VISIBLE_CAMPAIGN_COUNT,
             )}
           </div>
         </details>

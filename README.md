@@ -13,6 +13,25 @@ npm test
 
 `npm run build`は、Cloudflare Workers Static Assetsへそのまま配置できる静的ファイルを`out/`へ生成します。
 
+## Cloudflare Workers Builds
+
+CloudflareではWorkerスクリプトを使わず、`wrangler.jsonc`の`assets.directory`に指定した`out/`だけをWorkers Static Assetsとして配信します。
+
+Workers Buildsは次の設定を使用します。
+
+- Production branch: `main`
+- Root directory: リポジトリルート
+- Build command: `npm run build`
+- Production deploy command: `npx wrangler versions upload`
+- Non-production deploy command: `npx wrangler versions upload`
+- Non-production branch builds: 全ブランチで有効
+
+フェーズ6で一般公開するまでは、Productionを含むすべてのビルドをVersion previewとして保存し、Active Deploymentへ昇格させません。設定の事前検証は次のコマンドで実行できます。
+
+```sh
+npx wrangler versions upload --dry-run
+```
+
 ## データ更新
 
 同期は閲覧者のアクセス時には動きません。運用者が明示的に実行し、確認後にビルド・公開したときだけサイトへ反映されます。

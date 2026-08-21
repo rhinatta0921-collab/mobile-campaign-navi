@@ -1,9 +1,13 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
+import { extname, join, relative } from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 const siteUrl =
-  "https://rakuten-mobile-sim-campaign-ranking.hinatta0921.chatgpt.site";
+  "https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev";
+const employeeReferralApplicationUrl = "https://r10.to/hkD5ah";
+const outDirectory = fileURLToPath(new URL("../out/", import.meta.url));
 
 async function render(pathname) {
   const url = new URL(pathname, "http://localhost");
@@ -31,7 +35,29 @@ function jsonLd(html) {
   return JSON.parse(content);
 }
 
-test("aligns canonical, metadata, internal links, and structured data", async () => {
+async function exportedTextFiles(directory = outDirectory) {
+  const files = [];
+
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const pathname = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await exportedTextFiles(pathname)));
+      continue;
+    }
+
+    if (
+      [".css", ".html", ".js", ".json", ".map", ".txt", ".xml"].includes(
+        extname(entry.name),
+      ) || entry.name === "_headers"
+    ) {
+      files.push(pathname);
+    }
+  }
+
+  return files;
+}
+
+test("aligns canonical, metadata, and both structured rankings", async () => {
   for (const pathname of [
     "/",
     "/?application=mnp",
@@ -39,10 +65,7 @@ test("aligns canonical, metadata, internal links, and structured data", async ()
     "/?application=new-number&utm_source=test",
   ]) {
     const html = await (await render(pathname)).text();
-    assert.equal(
-      attribute(html, 'link rel="canonical"', "href"),
-      siteUrl,
-    );
+    assert.equal(attribute(html, 'link rel="canonical"', "href"), siteUrl);
     assert.match(
       html,
       /<title>楽天モバイルのMNPキャンペーン比較ランキング【2026年8月】<\/title>/,
@@ -54,16 +77,34 @@ test("aligns canonical, metadata, internal links, and structured data", async ()
     );
     assert.match(html, /data-application-ranking="mnp"/);
     assert.match(html, /data-application-ranking="new-number"/);
+
     const graph = jsonLd(html)["@graph"];
-    assert.equal(graph.find((item) => item["@type"] === "WebPage").url, `${siteUrl}/`);
-    assert.equal(
-      graph.find((item) => item["@type"] === "ItemList").numberOfItems,
-      22,
+    const webpage = graph.find((item) => item["@type"] === "WebPage");
+    const itemLists = graph.filter((item) => item["@type"] === "ItemList");
+    assert.equal(webpage.url, `${siteUrl}/`);
+    assert.deepEqual(
+      webpage.mainEntity.map((item) => item["@id"]),
+      [`${siteUrl}/#ranking-mnp`, `${siteUrl}/#ranking-newNumber`],
     );
+    assert.deepEqual(
+      itemLists.map(({ numberOfItems }) => numberOfItems),
+      [22, 21],
+    );
+    assert.match(itemLists[0].name, /MNP/);
+    assert.match(itemLists[1].name, /新規契約/);
+
+    for (const itemList of itemLists) {
+      assert.equal(itemList.itemListElement.length, itemList.numberOfItems);
+      itemList.itemListElement.forEach((listItem, index) => {
+        assert.equal(listItem.position, index + 1);
+        assert.match(listItem.item.url, /^https:\/\//);
+        assert.notEqual(listItem.item.url, employeeReferralApplicationUrl);
+      });
+    }
   }
 });
 
-test("publishes crawlable robots and a two-URL sitemap", async () => {
+test("publishes crawlable robots and a one-URL sitemap", async () => {
   const [robotsResponse, sitemapResponse] = await Promise.all([
     render("/robots.txt"),
     render("/sitemap.xml"),
@@ -77,11 +118,36 @@ test("publishes crawlable robots and a two-URL sitemap", async () => {
   assert.match(robots, /Allow: \/$/m);
   assert.match(robots, new RegExp(`Sitemap: ${siteUrl}/sitemap.xml`));
   assert.equal(sitemapResponse.status, 200);
-  assert.equal([...sitemap.matchAll(/<url>/g)].length, 2);
+  assert.equal([...sitemap.matchAll(/<url>/g)].length, 1);
   assert.match(sitemap, new RegExp(`<loc>${siteUrl}/</loc>`));
-  assert.match(
-    sitemap,
-    new RegExp(`<loc>${siteUrl}/\\?application=new-number</loc>`),
+  assert.doesNotMatch(sitemap, /application=/);
+});
+
+test("keeps previews noindex while exempting the production hostname", async () => {
+  const headers = await readFile(
+    new URL("../out/_headers", import.meta.url),
+    "utf8",
   );
-  assert.doesNotMatch(sitemap, /application=mnp/);
+  assert.match(
+    headers,
+    /https:\/\/:version\.:subdomain\.workers\.dev\/\*\n  X-Robots-Tag: noindex/,
+  );
+  assert.match(
+    headers,
+    new RegExp(`https://${siteUrl.slice("https://".length).replaceAll(".", "\\.")}\/\\*\\n  ! X-Robots-Tag`),
+  );
+});
+
+test("does not leave the private ChatGPT Sites hostname in exported text", async () => {
+  const textFiles = await exportedTextFiles();
+  assert.ok(textFiles.length > 0);
+
+  for (const pathname of textFiles) {
+    const contents = await readFile(pathname, "utf8");
+    assert.doesNotMatch(
+      contents,
+      /\.chatgpt\.site/i,
+      `${relative(outDirectory, pathname)} contains a ChatGPT Sites URL`,
+    );
+  }
 });

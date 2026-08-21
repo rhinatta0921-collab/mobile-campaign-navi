@@ -17,6 +17,8 @@ npm test
 
 CloudflareではWorkerスクリプトを使わず、`wrangler.jsonc`の`assets.directory`に指定した`out/`だけをWorkers Static Assetsとして配信します。
 
+本番URLは`https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev`です。ブランチ・バージョンのプレビューURLには`public/_headers`から`X-Robots-Tag: noindex`を付与し、本番URLだけを対象外にします。
+
 Workers Buildsは次の設定を使用します。
 
 - Production branch: `main`

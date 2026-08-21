@@ -93,7 +93,7 @@ export function CampaignDetails({
               画像：
               <a
                 href={campaign.officialUrl}
-                rel="sponsored noopener noreferrer"
+                rel="noopener noreferrer"
                 target="_blank"
                 aria-label={`${campaign.title}の画像出典：楽天モバイル公式ページ`}
               >
@@ -165,7 +165,7 @@ export function CampaignDetails({
                   <a
                     className="official-link campaign-official-link"
                     href={campaign.officialUrl}
-                    rel="sponsored noopener noreferrer"
+                    rel="noopener noreferrer"
                     target="_blank"
                   >
                     公式ページの情報を見る
@@ -187,7 +187,7 @@ export function CampaignDetails({
               <a
                 className="official-link campaign-official-link"
                 href={getCampaignApplicationUrl(campaign)}
-                rel="sponsored noopener noreferrer"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 公式ページの情報を見る

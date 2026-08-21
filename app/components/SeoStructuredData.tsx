@@ -1,24 +1,30 @@
-import { APPLICATION_PATHS, SITE_NAME, SITE_URL } from "@/app/site-config";
-import {
-  getCampaignApplicationUrl,
-  type ApplicationType,
-  type Campaign,
-} from "@/data/campaigns";
+import { SITE_NAME, SITE_URL } from "@/app/site-config";
+import type { ApplicationType, Campaign } from "@/data/campaigns";
+
+type StructuredRanking = {
+  applicationType: ApplicationType;
+  campaigns: readonly Campaign[];
+  name: string;
+};
 
 type SeoStructuredDataProps = {
-  applicationType: ApplicationType;
   description: string;
-  rankedCampaigns: readonly Campaign[];
+  rankings: readonly StructuredRanking[];
   title: string;
 };
 
 export function SeoStructuredData({
-  applicationType,
   description,
-  rankedCampaigns,
+  rankings,
   title,
 }: SeoStructuredDataProps) {
-  const pageUrl = new URL(APPLICATION_PATHS[applicationType], SITE_URL).href;
+  const pageUrl = new URL("/", SITE_URL).href;
+  const rankingIds = Object.fromEntries(
+    rankings.map(({ applicationType }) => [
+      applicationType,
+      `${pageUrl}#ranking-${applicationType}`,
+    ]),
+  ) as Record<ApplicationType, string>;
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -36,25 +42,27 @@ export function SeoStructuredData({
         name: title,
         description,
         isPartOf: { "@id": `${SITE_URL}/#website` },
-        mainEntity: { "@id": `${pageUrl}#ranking` },
+        mainEntity: rankings.map(({ applicationType }) => ({
+          "@id": rankingIds[applicationType],
+        })),
         inLanguage: "ja-JP",
       },
-      {
+      ...rankings.map(({ applicationType, campaigns, name }) => ({
         "@type": "ItemList",
-        "@id": `${pageUrl}#ranking`,
-        name: `${title}の順位一覧`,
-        numberOfItems: rankedCampaigns.length,
+        "@id": rankingIds[applicationType],
+        name,
+        numberOfItems: campaigns.length,
         itemListOrder: "https://schema.org/ItemListOrderDescending",
-        itemListElement: rankedCampaigns.map((campaign, index) => ({
+        itemListElement: campaigns.map((campaign, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {
             "@type": "Thing",
             name: campaign.title,
-            url: getCampaignApplicationUrl(campaign),
+            url: campaign.officialUrl,
           },
         })),
-      },
+      })),
     ],
   };
 

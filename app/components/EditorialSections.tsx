@@ -1,4 +1,5 @@
 import { formatJapaneseDate } from "@/app/lib/format";
+import { officialLinkAnalyticsAttributes } from "@/app/lib/analytics";
 import { getCampaignApplicationUrl, type Campaign } from "@/data/campaigns";
 import {
   CampaignOfficialImage,
@@ -34,6 +35,12 @@ export function ConclusionSection({
             rel="noopener noreferrer"
             target="_blank"
             aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
+            {...officialLinkAnalyticsAttributes({
+              applicationType: "general",
+              campaignCode: topCampaign.campaignCode,
+              linkType: "image_source",
+              placement: "conclusion_image",
+            })}
           >
             楽天モバイル公式ページ
           </a>
@@ -65,6 +72,12 @@ export function ConclusionSection({
             href={topCampaign.officialUrl}
             rel="noopener noreferrer"
             target="_blank"
+            {...officialLinkAnalyticsAttributes({
+              applicationType: "general",
+              campaignCode: topCampaign.campaignCode,
+              linkType: "official_information",
+              placement: "conclusion_primary",
+            })}
           >
             楽天市場キャンペーンの公式ページを見る
           </a>
@@ -75,6 +88,13 @@ export function ConclusionSection({
             href={getCampaignApplicationUrl(employeeReferralCampaign)}
             rel="sponsored noopener noreferrer"
             target="_blank"
+            {...officialLinkAnalyticsAttributes({
+              applicationType: "general",
+              campaignCode: employeeReferralCampaign.campaignCode,
+              linkType: "referral_application",
+              placement: "conclusion_primary",
+              trackEmployeeReferral: true,
+            })}
           >
             社員紹介キャンペーンの公式ページを見る
           </a>

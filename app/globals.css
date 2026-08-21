@@ -968,6 +968,29 @@ p {
   font-weight: 600;
 }
 
+.footer-privacy {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-privacy h2 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.footer-privacy a {
+  color: var(--green);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.footer-privacy a:hover {
+  text-decoration-thickness: 2px;
+}
+
 @media (max-width: 860px) {
   .shell {
     width: min(100% - 28px, 1080px);

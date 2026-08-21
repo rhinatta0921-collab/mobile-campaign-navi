@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/noto-sans-jp/wght.css";
+import { GoogleAnalytics } from "@/app/components/GoogleAnalytics";
 import { SITE_NAME, SITE_URL } from "@/app/site-config";
 import "./globals.css";
 
@@ -26,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        <GoogleAnalytics />
+        {children}
+      </body>
     </html>
   );
 }

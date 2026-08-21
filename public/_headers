@@ -1,0 +1,5 @@
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex
+
+https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev/*
+  ! X-Robots-Tag

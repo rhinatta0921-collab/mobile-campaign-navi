@@ -148,9 +148,19 @@ export default function Home() {
   return (
     <main>
       <SeoStructuredData
-        applicationType="mnp"
         description={defaultSeo.description}
-        rankedCampaigns={mnpRankedCampaigns}
+        rankings={[
+          {
+            applicationType: "mnp",
+            campaigns: mnpRankedCampaigns,
+            name: `${seoByApplication.mnp.title}の順位一覧`,
+          },
+          {
+            applicationType: "newNumber",
+            campaigns: newNumberRankedCampaigns,
+            name: `${seoByApplication.newNumber.title}の順位一覧`,
+          },
+        ]}
         title={defaultSeo.title}
       />
       <SiteHeader />

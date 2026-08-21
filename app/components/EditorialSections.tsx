@@ -31,7 +31,7 @@ export function ConclusionSection({
           画像：
           <a
             href={topCampaign.officialUrl}
-            rel="sponsored noopener noreferrer"
+            rel="noopener noreferrer"
             target="_blank"
             aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
           >
@@ -63,7 +63,7 @@ export function ConclusionSection({
           <a
             className="official-link conclusion-official-link"
             href={topCampaign.officialUrl}
-            rel="sponsored noopener noreferrer"
+            rel="noopener noreferrer"
             target="_blank"
           >
             楽天市場キャンペーンの公式ページを見る

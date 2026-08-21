@@ -11,7 +11,7 @@ async function readJson(pathname) {
 test("configures Cloudflare as an assets-only Worker", async () => {
   const config = await readJson("../wrangler.jsonc");
 
-  assert.equal(config.name, "mobile-campaign-navi");
+  assert.equal(config.name, "rakuten-mobile-campaign-navi");
   assert.equal(config.workers_dev, true);
   assert.equal(config.preview_urls, true);
   assert.equal(config.assets.directory, "./out");
@@ -21,6 +21,25 @@ test("configures Cloudflare as an assets-only Worker", async () => {
   assert.equal("main" in config, false);
   assert.equal("binding" in config.assets, false);
   assert.equal("site" in config, false);
+});
+
+test("marks Cloudflare previews as noindex without indexing-blocking production", async () => {
+  const headers = await readFile(
+    new URL("../public/_headers", import.meta.url),
+    "utf8",
+  );
+
+  assert.equal(
+    headers,
+    [
+      "https://:version.:subdomain.workers.dev/*",
+      "  X-Robots-Tag: noindex",
+      "",
+      "https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev/*",
+      "  ! X-Robots-Tag",
+      "",
+    ].join("\n"),
+  );
 });
 
 test("pins Workers Builds to Wrangler 4", async () => {

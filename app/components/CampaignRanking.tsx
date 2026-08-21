@@ -107,7 +107,11 @@ function RankingRange({
                     <a
                       className="table-link"
                       href={getCampaignApplicationUrl(campaign)}
-                      rel="sponsored noopener noreferrer"
+                      rel={
+                        isEmployeeReferralCampaign(campaign)
+                          ? "sponsored noopener noreferrer"
+                          : "noopener noreferrer"
+                      }
                       target="_blank"
                     >
                       公式ページ

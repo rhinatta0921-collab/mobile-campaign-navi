@@ -521,7 +521,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.equal(classCount(conclusionHtml, "conclusion-login-note"), 1);
   assert.match(
     conclusionHtml,
-    /class="official-link conclusion-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/" rel="sponsored noopener noreferrer" target="_blank">楽天市場キャンペーンの公式ページを見る<\/a>/,
+    /class="official-link conclusion-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/" rel="noopener noreferrer" target="_blank">楽天市場キャンペーンの公式ページを見る<\/a>/,
   );
   assert.match(
     conclusionHtml,
@@ -842,6 +842,45 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     /0ポイント \+ 1,100円相当 − 0円 = 1,100円/,
   );
   assert.match(detailText, /15分（標準）通話かけ放題 料金1カ月無料特典/);
+});
+
+test("marks only employee referral application links as sponsored", async () => {
+  const html = await (await render()).text();
+  const referralUrl = "https://r10.to/hkD5ah";
+  const anchors = [...html.matchAll(/<a\b([^>]*)>/g)].map((match) => {
+    const attributes = match[1];
+    return {
+      href: attributes.match(/\bhref="([^"]+)"/)?.[1],
+      rel: attributes.match(/\brel="([^"]+)"/)?.[1] ?? "",
+      target: attributes.match(/\btarget="([^"]+)"/)?.[1],
+    };
+  });
+  const externalAnchors = anchors.filter(({ target }) => target === "_blank");
+  const sponsoredAnchors = externalAnchors.filter(({ rel }) =>
+    rel.split(/\s+/).includes("sponsored"),
+  );
+  const referralAnchors = externalAnchors.filter(
+    ({ href }) => href === referralUrl,
+  );
+
+  assert.equal(sponsoredAnchors.length, 5);
+  assert.equal(referralAnchors.length, 5);
+  assert.equal(
+    sponsoredAnchors.every(({ href }) => href === referralUrl),
+    true,
+  );
+  assert.equal(
+    referralAnchors.every(({ rel }) => rel.split(/\s+/).includes("sponsored")),
+    true,
+  );
+  assert.equal(
+    externalAnchors.every(({ rel }) =>
+      ["noopener", "noreferrer"].every((token) =>
+        rel.split(/\s+/).includes(token),
+      ),
+    ),
+    true,
+  );
 });
 
 test("includes new-number points without mixing MNP-only campaigns", async () => {

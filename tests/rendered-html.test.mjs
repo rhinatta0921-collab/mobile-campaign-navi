@@ -521,11 +521,11 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.equal(classCount(conclusionHtml, "conclusion-login-note"), 1);
   assert.match(
     conclusionHtml,
-    /class="official-link conclusion-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/" rel="noopener noreferrer" target="_blank">楽天市場キャンペーンの公式ページを見る<\/a>/,
+    /class="official-link conclusion-official-link" href="https:\/\/network\.mobile\.rakuten\.co\.jp\/campaign\/ichiba-debut\/" rel="noopener noreferrer" target="_blank"[^>]*>楽天市場キャンペーンの公式ページを見る<\/a>/,
   );
   assert.match(
     conclusionHtml,
-    /class="official-link conclusion-official-link" href="https:\/\/r10\.to\/hkD5ah" rel="sponsored noopener noreferrer" target="_blank">社員紹介キャンペーンの公式ページを見る<\/a><p class="conclusion-login-note">※公式ページの確認には、楽天アカウントでのログインが必要です。<\/p>/,
+    /class="official-link conclusion-official-link" href="https:\/\/r10\.to\/hkD5ah" rel="sponsored noopener noreferrer" target="_blank"[^>]*>社員紹介キャンペーンの公式ページを見る<\/a><p class="conclusion-login-note">※公式ページの確認には、楽天アカウントでのログインが必要です。<\/p>/,
   );
   assert.match(
     conclusionHtml,

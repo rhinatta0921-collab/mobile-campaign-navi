@@ -354,6 +354,34 @@ export default function Home() {
           <p>
             最終的な適用可否、進呈時期、有効期限、併用可否は必ず各公式ページのキャンペーンルールで確認してください。
           </p>
+          <section
+            className="footer-privacy"
+            aria-labelledby="footer-privacy-title"
+          >
+            <h2 id="footer-privacy-title">アクセス解析とプライバシー</h2>
+            <p>
+              当サイトは、閲覧状況の把握、内容の改善、公式ページへのリンク利用状況の確認のため、Google
+              LLCのGoogle Analyticsを使用しています。Google
+              AnalyticsはCookieを使用し、閲覧ページ、利用端末・ブラウザ、概算地域、リンクのクリック等の情報を収集します。当サイトから氏名、メールアドレス等をGoogle
+              Analyticsへ送信することはありません。収集情報の取扱いは
+              <a
+                href="https://policies.google.com/privacy?hl=ja"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Googleのプライバシーポリシー
+              </a>
+              をご確認ください。計測を希望しない場合は
+              <a
+                href="https://tools.google.com/dlpage/gaoptout?hl=ja"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Google Analytics オプトアウト アドオン
+              </a>
+              を利用できます。
+            </p>
+          </section>
         </div>
       </footer>
     </main>

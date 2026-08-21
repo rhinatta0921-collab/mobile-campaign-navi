@@ -34,6 +34,12 @@ Workers Buildsは次の設定を使用します。
 npx wrangler versions upload --dry-run
 ```
 
+## アクセス解析
+
+Google Analytics 4は本番workers.devホストと完全一致する場合だけ読み込みます。Cloudflareのブランチ・バージョンプレビューとローカル環境からは計測データを送信しません。
+
+全キャンペーン公式リンクを`official_link_click`として記録し、社員紹介の申込リンクは追加で`employee_referral_click`として記録します。公開前のプレビューではテスト用の受信関数を使い、Googleへ送信せずイベント内容を確認します。
+
 ## データ更新
 
 同期は閲覧者のアクセス時には動きません。運用者が明示的に実行し、確認後にビルド・公開したときだけサイトへ反映されます。

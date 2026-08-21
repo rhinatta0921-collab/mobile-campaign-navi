@@ -6,6 +6,7 @@ import {
 } from "@/data/campaigns";
 import { INITIAL_VISIBLE_CAMPAIGN_COUNT } from "@/app/site-config";
 import { formatPoints } from "@/app/lib/format";
+import { officialLinkAnalyticsAttributes } from "@/app/lib/analytics";
 import { CampaignOfficialImage } from "./CampaignOfficialImage";
 import { getCampaignRecommendation } from "./campaignRecommendation";
 import {
@@ -113,6 +114,16 @@ function RankingRange({
                           : "noopener noreferrer"
                       }
                       target="_blank"
+                      {...officialLinkAnalyticsAttributes({
+                        applicationType,
+                        campaignCode: campaign.campaignCode,
+                        linkType: isEmployeeReferralCampaign(campaign)
+                          ? "referral_application"
+                          : "official_information",
+                        placement: "ranking",
+                        trackEmployeeReferral:
+                          isEmployeeReferralCampaign(campaign),
+                      })}
                     >
                       公式ページ
                     </a>

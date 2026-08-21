@@ -6,6 +6,7 @@ import {
   type CampaignEditorial,
 } from "@/data/campaigns";
 import { INITIAL_VISIBLE_CAMPAIGN_COUNT } from "@/app/site-config";
+import { officialLinkAnalyticsAttributes } from "@/app/lib/analytics";
 import { formatJapaneseDate, formatPoints } from "@/app/lib/format";
 import {
   CampaignOfficialImage,
@@ -96,6 +97,12 @@ export function CampaignDetails({
                 rel="noopener noreferrer"
                 target="_blank"
                 aria-label={`${campaign.title}の画像出典：楽天モバイル公式ページ`}
+                {...officialLinkAnalyticsAttributes({
+                  applicationType,
+                  campaignCode: campaign.campaignCode,
+                  linkType: "image_source",
+                  placement: "details_image",
+                })}
               >
                 楽天モバイル公式ページ
               </a>
@@ -167,6 +174,12 @@ export function CampaignDetails({
                     href={campaign.officialUrl}
                     rel="noopener noreferrer"
                     target="_blank"
+                    {...officialLinkAnalyticsAttributes({
+                      applicationType,
+                      campaignCode: campaign.campaignCode,
+                      linkType: "official_information",
+                      placement: "details_primary",
+                    })}
                   >
                     公式ページの情報を見る
                   </a>
@@ -175,6 +188,13 @@ export function CampaignDetails({
                     href={getCampaignApplicationUrl(campaign)}
                     rel="sponsored noopener noreferrer"
                     target="_blank"
+                    {...officialLinkAnalyticsAttributes({
+                      applicationType,
+                      campaignCode: campaign.campaignCode,
+                      linkType: "referral_application",
+                      placement: "details_referral_application",
+                      trackEmployeeReferral: true,
+                    })}
                   >
                     キャンペーンにエントリーする
                   </a>
@@ -189,6 +209,12 @@ export function CampaignDetails({
                 href={getCampaignApplicationUrl(campaign)}
                 rel="noopener noreferrer"
                 target="_blank"
+                {...officialLinkAnalyticsAttributes({
+                  applicationType,
+                  campaignCode: campaign.campaignCode,
+                  linkType: "official_information",
+                  placement: "details_primary",
+                })}
               >
                 公式ページの情報を見る
               </a>

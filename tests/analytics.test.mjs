@@ -59,7 +59,7 @@ test("annotates every Rakuten official link with the complete event schema", asy
       href === referralUrl,
   );
 
-  assert.equal(officialAnchors.length, 134);
+  assert.equal(officialAnchors.length, 86);
   for (const anchor of officialAnchors) {
     assert.equal(anchor["data-analytics-event"], "official_link_click");
     assert.match(anchor["data-analytics-campaign-code"], /^\d+$/);

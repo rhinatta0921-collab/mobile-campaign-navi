@@ -2,21 +2,6 @@
   "campaignCode": "3297",
   "codeType": "campaign",
   "title": "Rakuten認定中古製品キャンペーン",
-  "editorial": {
-    "headline": "新品に限定せず、Rakuten認定中古スマートフォンを検討する人向け",
-    "paragraphs": [
-      "楽天モバイルでRakuten認定中古製品を購入する人向けのキャンペーンです。公式情報では、高品質なリユーススマートフォンをおトクに購入できる特典として案内されています。",
-      "固定ポイントや一律の値引き額は示されておらず、販売価格は対象製品によって異なります。購入する機種ごとに価格と状態を公式サイトで確認してください。"
-    ],
-    "goodPoints": [
-      "Rakuten認定中古スマートフォンを購入候補にできる",
-      "新品以外の端末選択肢を比較できる"
-    ],
-    "concerns": [
-      "固定ポイントや確定した値引き額はない",
-      "対象製品によって販売価格が異なり、実質負担額は算出できない"
-    ]
-  },
   "summary": "高品質なリユーススマホが更におトクになるキャンペーン開催中！",
   "benefit": {
     "type": "other",
@@ -42,7 +27,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/rakuten-certified/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -50,10 +35,25 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 26,
+      "listingIndex": 29,
       "title": "【Rakuten 認定中古】楽天モバイルが厳選！高品質でお手頃なリユーススマホ。",
       "description": "高品質なリユーススマホが更におトクになるキャンペーン開催中！",
       "url": "https://network.mobile.rakuten.co.jp/product/rakuten-certified/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "新品に限定せず、Rakuten認定中古スマートフォンを検討する人向け",
+    "paragraphs": [
+      "楽天モバイルでRakuten認定中古製品を購入する人向けのキャンペーンです。公式情報では、高品質なリユーススマートフォンをおトクに購入できる特典として案内されています。",
+      "固定ポイントや一律の値引き額は示されておらず、販売価格は対象製品によって異なります。購入する機種ごとに価格と状態を公式サイトで確認してください。"
+    ],
+    "goodPoints": [
+      "Rakuten認定中古スマートフォンを購入候補にできる",
+      "新品以外の端末選択肢を比較できる"
+    ],
+    "concerns": [
+      "固定ポイントや確定した値引き額はない",
+      "対象製品によって販売価格が異なり、実質負担額は算出できない"
+    ]
+  }
 }

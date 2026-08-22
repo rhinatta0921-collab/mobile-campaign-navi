@@ -2,21 +2,6 @@
   "campaignCode": "2142",
   "codeType": "campaign",
   "title": "【Rakuten最強プランはじめてお申し込み特典】新規ご契約でポイントプレゼント",
-  "editorial": {
-    "headline": "新しい電話番号で楽天モバイルを初めて契約する人の基本候補",
-    "paragraphs": [
-      "楽天モバイルへ初めて新しい電話番号で申し込む人が、最大7,000ポイントを受け取れるキャンペーンです。端末購入なしの回線申し込みでも利用できます。",
-      "申し込み前のエントリーとRakuten Linkの利用が必要です。他社から電話番号を引き継ぐMNPではなく、新規契約を選ぶ人向けの特典です。"
-    ],
-    "goodPoints": [
-      "端末を購入せず新規契約だけで最大7,000ポイント",
-      "新しい電話番号を取得したい初回申込者が対象"
-    ],
-    "concerns": [
-      "MNP申し込みには適用されない",
-      "事前エントリーとRakuten Link利用が必要"
-    ]
-  },
   "summary": "電話番号そのまま他社から乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント",
   "benefit": {
     "type": "points",
@@ -47,7 +32,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/mnp/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -55,10 +40,25 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 1,
+      "listingIndex": 3,
       "title": "【要エントリー】楽天モバイル初めてお申し込みキャンペーンでお乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント!",
       "description": "電話番号そのまま他社から乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント",
       "url": "https://network.mobile.rakuten.co.jp/campaign/mnp/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "新しい電話番号で楽天モバイルを初めて契約する人の基本候補",
+    "paragraphs": [
+      "楽天モバイルへ初めて新しい電話番号で申し込む人が、最大7,000ポイントを受け取れるキャンペーンです。端末購入なしの回線申し込みでも利用できます。",
+      "申し込み前のエントリーとRakuten Linkの利用が必要です。他社から電話番号を引き継ぐMNPではなく、新規契約を選ぶ人向けの特典です。"
+    ],
+    "goodPoints": [
+      "端末を購入せず新規契約だけで最大7,000ポイント",
+      "新しい電話番号を取得したい初回申込者が対象"
+    ],
+    "concerns": [
+      "MNP申し込みには適用されない",
+      "事前エントリーとRakuten Link利用が必要"
+    ]
+  }
 }

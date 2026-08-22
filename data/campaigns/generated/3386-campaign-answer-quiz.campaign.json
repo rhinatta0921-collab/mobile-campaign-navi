@@ -1,0 +1,47 @@
+{
+  "campaignCode": "3386",
+  "codeType": "campaign",
+  "title": "クイズに答えて100ポイントキャンペーン",
+  "summary": "楽天IDでログインし、楽天モバイルのクイズに回答すると100ポイントを受け取れる楽天会員向けキャンペーンです。",
+  "benefit": {
+    "type": "points",
+    "amount": 100,
+    "unit": "ポイント",
+    "description": "クイズ回答完了で100ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天IDでログインしてクイズに回答する楽天会員",
+  "conditions": [
+    "楽天IDでログイン",
+    "クイズに回答完了",
+    "おひとり様1回限り"
+  ],
+  "channel": "公式キャンペーンページ",
+  "category": "memberBenefit",
+  "audience": "member",
+  "period": "2026年8月7日 9:00 - 終了日未定",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/answer-quiz/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-08-22",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。",
+    "楽天モバイル回線の申し込みは特典の直接条件ではないため、ランキング対象外です。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 11,
+      "title": "最短1分～！楽天モバイルクイズに回答するだけで100ポイント！！",
+      "description": "最短1分～！楽天モバイルクイズに回答するだけで100ポイント！！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/answer-quiz/"
+    }
+  ]
+}

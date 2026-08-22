@@ -2,21 +2,6 @@
   "campaignCode": "2568",
   "codeType": "campaign",
   "title": "他社から乗り換えでRakuten最強プランご契約とiPhone対象製品を一括払いまたは24回払いで購入するキャンペーン",
-  "editorial": {
-    "headline": "MNPと対象iPhone購入をまとめ、端末値引きを受けたい人向け",
-    "paragraphs": [
-      "楽天モバイルへの初めてのMNP申し込みと対象iPhoneの購入を組み合わせると、購入代金が最大20,000円値引きされます。端末価格へ直接反映される特典です。",
-      "一括払いまたは24回払いでの購入と事前エントリーが必要です。対象iPhoneによって販売価格が異なるため、実質負担額は公式サイトで機種ごとに確認してください。"
-    ],
-    "goodPoints": [
-      "対象iPhoneの購入代金を最大20,000円値引き",
-      "値引きが端末価格へ直接反映される"
-    ],
-    "concerns": [
-      "初めてのMNP申し込みと対象iPhone購入が必要",
-      "一括払いまたは24回払いと事前エントリーが条件"
-    ]
-  },
   "summary": "iPhone 17などが対象！各種条件達成で最大36,000円相当おトク！",
   "benefit": {
     "type": "discount",
@@ -45,7 +30,7 @@
   "period": "2024年11月21日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-17/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -53,16 +38,31 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 5,
+      "listingIndex": 7,
       "title": "【要エントリー】iPhone 17などが対象！一括または24回払いで対象iPhoneを購入＆楽天モバイルへ初めて申し込み＆他社から電話番号そのまま乗り換えで最大36,000円相当おトク！",
       "description": "iPhone 17などが対象！各種条件達成で最大36,000円相当おトク！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-17/"
     },
     {
-      "listingIndex": 13,
-      "title": "【要エントリー】iPhone 16やiPhone 16 Proが対象！一括または24回払いで対象iPhoneを購入＆楽天モバイルへ初めて申し込み＆他社から電話番号そのまま乗り換えで最大36,000円相当おトク！",
-      "description": "iPhone 16やiPhone 16 Proなどが対象！各種条件達成で最大36,000円相当おトク！",
+      "listingIndex": 15,
+      "title": "iPhone 16がおトク！各種条件達成で40,000円値引き！",
+      "description": "iPhone 16がおトク！各種条件達成で40,000円値引き！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-pointback/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "MNPと対象iPhone購入をまとめ、端末値引きを受けたい人向け",
+    "paragraphs": [
+      "楽天モバイルへの初めてのMNP申し込みと対象iPhoneの購入を組み合わせると、購入代金が最大20,000円値引きされます。端末価格へ直接反映される特典です。",
+      "一括払いまたは24回払いでの購入と事前エントリーが必要です。対象iPhoneによって販売価格が異なるため、実質負担額は公式サイトで機種ごとに確認してください。"
+    ],
+    "goodPoints": [
+      "対象iPhoneの購入代金を最大20,000円値引き",
+      "値引きが端末価格へ直接反映される"
+    ],
+    "concerns": [
+      "初めてのMNP申し込みと対象iPhone購入が必要",
+      "一括払いまたは24回払いと事前エントリーが条件"
+    ]
+  }
 }

@@ -2,21 +2,6 @@
   "campaignCode": "1977",
   "codeType": "campaign",
   "title": "15分（標準）通話かけ放題 料金1カ月無料特典",
-  "editorial": {
-    "headline": "標準電話アプリの通話オプションを、最初の1カ月試したい人向け",
-    "paragraphs": [
-      "15分（標準）通話かけ放題を初めて申し込むと、対象オプションの月額料金が初回1カ月無料になります。OS標準アプリからの国内通話や国内SMSを利用したい人に向く特典です。",
-      "固定ポイントはなく、無料になるのは初回1カ月です。ランキングでは0ポイントとして掲載し、無料特典の1,100円相当は実質お得額だけに反映しています。"
-    ],
-    "goodPoints": [
-      "対象オプションを初回1カ月無料で試せる",
-      "無料特典を1,100円相当として実質価値に反映"
-    ],
-    "concerns": [
-      "15分（標準）通話かけ放題を初めて申し込む人に限られる",
-      "申込者向け固定ポイントはない"
-    ]
-  },
   "summary": "OS標準アプリでの1回15分の国内通話かけ放題＆国内SMSが使い放題になるサービスが、1カ月無料",
   "benefit": {
     "type": "free",
@@ -42,18 +27,33 @@
   "period": "2023年9月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/standard-free-call/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
   "requiresDevicePurchase": false,
-  "rankingEligible": true,
+  "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 44,
+      "listingIndex": 48,
       "title": "【15分（標準）通話かけ放題】料金1カ月無料特典",
       "description": "OS標準アプリでの1回15分の国内通話かけ放題＆国内SMSが使い放題になるサービスが、1カ月無料",
       "url": "https://network.mobile.rakuten.co.jp/service/standard-free-call/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "標準電話アプリの通話オプションを、最初の1カ月試したい人向け",
+    "paragraphs": [
+      "15分（標準）通話かけ放題を初めて申し込むと、対象オプションの月額料金が初回1カ月無料になります。OS標準アプリからの国内通話や国内SMSを利用したい人に向く特典です。",
+      "固定ポイントはなく、無料になるのは初回1カ月です。ランキングでは0ポイントとして掲載し、無料特典の1,100円相当は実質お得額だけに反映しています。"
+    ],
+    "goodPoints": [
+      "対象オプションを初回1カ月無料で試せる",
+      "無料特典を1,100円相当として実質価値に反映"
+    ],
+    "concerns": [
+      "15分（標準）通話かけ放題を初めて申し込む人に限られる",
+      "申込者向け固定ポイントはない"
+    ]
+  }
 }

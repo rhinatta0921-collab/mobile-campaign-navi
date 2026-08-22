@@ -46,6 +46,13 @@ if (shouldWrite && campaignCodeFilter) {
 
 const explicitImagePairs = new Map([
   [
+    "/guide/application/card-campaign/",
+    {
+      desktop: "/assets/img/guide/application/card-bank/img-mobile-card3000-pc_241029.png",
+      mobile: "/assets/img/guide/application/card-bank/img-mobile-card3000-sp_241029.png",
+    },
+  ],
+  [
     "/campaign/tadaima/",
     {
       desktop: "/assets/img/campaign/tadaima/img-heading-pc_260310.png",
@@ -55,6 +62,7 @@ const explicitImagePairs = new Map([
 ]);
 
 const forceListingImagePaths = new Set([
+  "/campaign/heyduggee/",
   "/product/internet/rakuten-wifi-pocket-5g/",
   "/product/rakuten-certified/",
   "/service/anshin-control/",
@@ -65,7 +73,6 @@ const forceListingImagePaths = new Set([
 
 const preferListingForDetailPaths = new Set([
   "/campaign/iphone-discount/",
-  "/guide/application/card-campaign/",
 ]);
 
 function decodeHtml(value) {

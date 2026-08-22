@@ -2,21 +2,6 @@
   "campaignCode": "3303",
   "codeType": "campaign",
   "title": "Galaxyメガ得祭限定！Samsung Galaxy S26シリーズ購入＋MNPでポイント還元",
-  "editorial": {
-    "headline": "MNPと同時にSamsung Galaxy S26シリーズを購入する人向け",
-    "paragraphs": [
-      "他社から楽天モバイルへ乗り換え、Samsung Galaxy S26シリーズを購入すると最大7,000ポイントを受け取れます。対象シリーズを購入予定の人に絞った端末キャンペーンです。",
-      "MNP、対象シリーズ購入、Rakuten Link利用の条件があります。Samsung Galaxy S26シリーズ以外の端末を購入する場合は対象になりません。"
-    ],
-    "goodPoints": [
-      "対象シリーズ購入とMNPで最大7,000ポイント",
-      "Samsung Galaxy S26シリーズ購入者に特化している"
-    ],
-    "concerns": [
-      "MNPとSamsung Galaxy S26シリーズ購入が必要",
-      "Rakuten Linkの利用条件がある"
-    ]
-  },
   "summary": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
   "benefit": {
     "type": "points",
@@ -46,7 +31,7 @@
   "period": "2026年6月10日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/galaxy/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -54,10 +39,25 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 7,
+      "listingIndex": 9,
       "title": "【要エントリー】 Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
       "description": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/galaxy/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "MNPと同時にSamsung Galaxy S26シリーズを購入する人向け",
+    "paragraphs": [
+      "他社から楽天モバイルへ乗り換え、Samsung Galaxy S26シリーズを購入すると最大7,000ポイントを受け取れます。対象シリーズを購入予定の人に絞った端末キャンペーンです。",
+      "MNP、対象シリーズ購入、Rakuten Link利用の条件があります。Samsung Galaxy S26シリーズ以外の端末を購入する場合は対象になりません。"
+    ],
+    "goodPoints": [
+      "対象シリーズ購入とMNPで最大7,000ポイント",
+      "Samsung Galaxy S26シリーズ購入者に特化している"
+    ],
+    "concerns": [
+      "MNPとSamsung Galaxy S26シリーズ購入が必要",
+      "Rakuten Linkの利用条件がある"
+    ]
+  }
 }

@@ -2,21 +2,6 @@
   "campaignCode": "2006",
   "codeType": "campaign",
   "title": "「Rakuten最強プラン」＋対象Android製品購入でポイント還元",
-  "editorial": {
-    "headline": "対象Android端末を回線と一緒に購入し、ポイント還元を受けたい人向け",
-    "paragraphs": [
-      "楽天モバイルの申し込みと同時に対象Android製品を購入すると、申込者本人が最大13,000ポイントを受け取れます。回線とAndroid端末をまとめて用意する人に向くキャンペーンです。",
-      "対象製品によって進呈ポイント数が異なり、表示している13,000ポイントは最大値です。対象端末の購入とRakuten Linkの利用条件を確認してください。"
-    ],
-    "goodPoints": [
-      "対象Android製品の購入で最大13,000ポイント",
-      "回線とAndroid端末を同時に申し込める"
-    ],
-    "concerns": [
-      "端末によって受け取れるポイント数が異なる",
-      "対象製品購入とRakuten Link利用が必要"
-    ]
-  },
   "summary": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
   "benefit": {
     "type": "points",
@@ -47,7 +32,7 @@
   "period": "2023年8月31日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/start-point/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "対象製品によって進呈ポイント数が異なります。表示額は最大値です。"
@@ -56,10 +41,25 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 24,
+      "listingIndex": 27,
       "title": "【要エントリー】楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
       "description": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
       "url": "https://network.mobile.rakuten.co.jp/campaign/start-point/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "対象Android端末を回線と一緒に購入し、ポイント還元を受けたい人向け",
+    "paragraphs": [
+      "楽天モバイルの申し込みと同時に対象Android製品を購入すると、申込者本人が最大13,000ポイントを受け取れます。回線とAndroid端末をまとめて用意する人に向くキャンペーンです。",
+      "対象製品によって進呈ポイント数が異なり、表示している13,000ポイントは最大値です。対象端末の購入とRakuten Linkの利用条件を確認してください。"
+    ],
+    "goodPoints": [
+      "対象Android製品の購入で最大13,000ポイント",
+      "回線とAndroid端末を同時に申し込める"
+    ],
+    "concerns": [
+      "端末によって受け取れるポイント数が異なる",
+      "対象製品購入とRakuten Link利用が必要"
+    ]
+  }
 }

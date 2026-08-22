@@ -43,6 +43,7 @@ const cardCodes = new Map(
     "/campaign/start-point/": ["1819", "2006"],
     "/product/rakuten-certified/": ["3297"],
     "/campaign/heyduggee/": ["3351"],
+    "/campaign/ichiba-debut/": ["3327"],
     "/campaign/shop-point/": ["3350"],
     "/internet/turbo/campaign/home-internet/": ["2698"],
     "/hikari/campaign/home-internet/": ["2697"],
@@ -58,6 +59,8 @@ const cardCodes = new Map(
     "/service/whoscall/": ["3329"],
     "/service/anshin-control/": ["2833"],
     "/campaign/apple-watch-number-share/": ["2602"],
+    "/campaign/answer-quiz/": ["3386"],
+    "/campaign/referral-one-million/": ["3390"],
   }),
 );
 

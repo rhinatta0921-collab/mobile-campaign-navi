@@ -2,21 +2,6 @@
   "campaignCode": "2697",
   "codeType": "campaign",
   "title": "楽天ひかりと楽天モバイルの最強おうちプログラム",
-  "editorial": {
-    "headline": "楽天ひかりと楽天モバイルを継続して併用する人向け",
-    "paragraphs": [
-      "楽天ひかりを初めて申し込み、楽天モバイルを利用している間、条件を満たした月ごとに1,000ポイントが還元されます。自宅回線とモバイル回線を楽天にまとめる人向けです。",
-      "終了日のない月次還元のため、固定ポイント総額には含めずランキングでは0ポイントとして掲載しています。楽天ひかりの利用料は契約内容で変わり、実質お得額の固定総額は算出できません。"
-    ],
-    "goodPoints": [
-      "条件を満たす間は毎月1,000ポイント還元",
-      "自宅回線とモバイル回線をまとめて利用できる"
-    ],
-    "concerns": [
-      "楽天ひかりの初回申し込みと継続利用が必要",
-      "楽天ひかりの利用料を含む固定の実質お得額は算出できない"
-    ]
-  },
   "summary": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
   "benefit": {
     "type": "recurringPoints",
@@ -43,18 +28,33 @@
   "period": "2025年3月4日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/hikari/campaign/home-internet/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
   "requiresDevicePurchase": false,
-  "rankingEligible": true,
+  "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 30,
+      "listingIndex": 33,
       "title": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元 ※期間限定ポイント。条件あり",
       "description": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
       "url": "https://network.mobile.rakuten.co.jp/hikari/campaign/home-internet/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "楽天ひかりと楽天モバイルを継続して併用する人向け",
+    "paragraphs": [
+      "楽天ひかりを初めて申し込み、楽天モバイルを利用している間、条件を満たした月ごとに1,000ポイントが還元されます。自宅回線とモバイル回線を楽天にまとめる人向けです。",
+      "終了日のない月次還元のため、固定ポイント総額には含めずランキングでは0ポイントとして掲載しています。楽天ひかりの利用料は契約内容で変わり、実質お得額の固定総額は算出できません。"
+    ],
+    "goodPoints": [
+      "条件を満たす間は毎月1,000ポイント還元",
+      "自宅回線とモバイル回線をまとめて利用できる"
+    ],
+    "concerns": [
+      "楽天ひかりの初回申し込みと継続利用が必要",
+      "楽天ひかりの利用料を含む固定の実質お得額は算出できない"
+    ]
+  }
 }

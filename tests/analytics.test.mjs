@@ -59,7 +59,7 @@ test("annotates every Rakuten official link with the complete event schema", asy
       href === referralUrl,
   );
 
-  assert.equal(officialAnchors.length, 134);
+  assert.equal(officialAnchors.length, 86);
   for (const anchor of officialAnchors) {
     assert.equal(anchor["data-analytics-event"], "official_link_click");
     assert.match(anchor["data-analytics-campaign-code"], /^\d+$/);
@@ -149,12 +149,26 @@ test("loads GA4 only after the exact production hostname check", async () => {
   assert.match(joinedJavascript, /employee_referral_click/);
 });
 
-test("exports the exact Search Console verification file at the root", async () => {
+test("exports the exact Search Console verification meta tag", async () => {
+  const [html, configSource] = await Promise.all([
+    readFile(new URL("../out/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../app/site-config.ts", import.meta.url), "utf8"),
+  ]);
+  const verificationToken = configSource.match(
+    /GOOGLE_SITE_VERIFICATION =\s*\n?\s*"([^"]+)"/,
+  )?.[1];
+  assert.ok(verificationToken, "Search Console verification token");
+
+  const verificationTags = [
+    ...html.matchAll(
+      /<meta(?=[^>]*\bname="google-site-verification")(?=[^>]*\bcontent="([^"]+)")[^>]*>/g,
+    ),
+  ];
+  assert.equal(verificationTags.length, 1);
+  assert.equal(verificationTags[0][1], verificationToken);
+
   const verificationFiles = (await readdir(outDirectory)).filter((filename) =>
     /^google[\w-]+\.html$/.test(filename),
   );
-  assert.equal(verificationFiles.length, 1);
-  const filename = verificationFiles[0];
-  const contents = await readFile(`${outDirectory}/${filename}`, "utf8");
-  assert.equal(contents.trim(), `google-site-verification: ${filename}`);
+  assert.deepEqual(verificationFiles, []);
 });

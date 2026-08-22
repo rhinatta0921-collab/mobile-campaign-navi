@@ -1,0 +1,48 @@
+{
+  "campaignCode": "3390",
+  "codeType": "campaign",
+  "title": "紹介者100万人突破記念キャンペーン",
+  "summary": "くじ参加、紹介URLの送信、紹介された方の楽天IDログインを満たした紹介者向けの抽選キャンペーンです。",
+  "benefit": {
+    "type": "lottery",
+    "amount": 100000,
+    "unit": "ポイント",
+    "description": "抽選で最大100,000ポイントを進呈します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "楽天モバイルを紹介する楽天会員",
+  "conditions": [
+    "キャンペーンページからくじに参加",
+    "紹介キャンペーン経由で紹介URLを送信",
+    "紹介された方が紹介URLから楽天IDでログイン"
+  ],
+  "channel": "公式キャンペーンページ",
+  "category": "memberBenefit",
+  "audience": "member",
+  "period": "2026年8月4日 10:00 - 2026年8月30日 23:59",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral-one-million/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-08-22",
+  "notes": [
+    "公式ページに掲載されたキャンペーンコードです。",
+    "紹介された方の回線契約ではなく、紹介者向け抽選の条件だけを記録しています。",
+    "楽天モバイル回線の申し込みは本コードの直接条件ではないため、ランキング対象外です。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 16,
+      "title": "紹介者100万人突破記念！楽天モバイルの紹介＆くじ参加で最大10万ポイントキャンペーン！",
+      "description": "ラッキーくじ参加＆楽天モバイル紹介で、最大10万ポイントをプレゼント！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/referral-one-million/"
+    }
+  ]
+}

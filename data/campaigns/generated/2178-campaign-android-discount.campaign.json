@@ -2,21 +2,6 @@
   "campaignCode": "2178",
   "codeType": "campaign",
   "title": "【Android対象製品限定】特価キャンペーン",
-  "editorial": {
-    "headline": "MNPと対象Android購入を組み合わせ、端末値引きを重視する人向け",
-    "paragraphs": [
-      "他社から楽天モバイルへ乗り換える際に対象Android製品を購入すると、端末価格から最大22,000円が値引きされます。ポイントではなく、購入時の端末価格に反映される特典です。",
-      "対象機種によってキャンペーン適用後の端末価格が異なるため、実質負担額は一律に算出できません。購入予定のAndroid製品と値引き額を公式サイトで確認してください。"
-    ],
-    "goodPoints": [
-      "対象Android製品を最大22,000円値引き",
-      "値引きが端末価格へ直接反映される"
-    ],
-    "concerns": [
-      "MNPと対象Android製品の購入が必要",
-      "対象機種ごとの実質負担額は一律に算出できない"
-    ]
-  },
   "summary": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
   "benefit": {
     "type": "discount",
@@ -43,7 +28,7 @@
   "period": "2024年2月16日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/android-discount/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -51,16 +36,31 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 4,
+      "listingIndex": 6,
       "title": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
       "description": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で1円！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/android-discount/"
     },
     {
-      "listingIndex": 22,
-      "title": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で22,000円値引き！",
-      "description": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で22,000円値引き！",
+      "listingIndex": 25,
+      "title": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で最大40,000円値引き！",
+      "description": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で最大40,000円値引き！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/android-sale/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "MNPと対象Android購入を組み合わせ、端末値引きを重視する人向け",
+    "paragraphs": [
+      "他社から楽天モバイルへ乗り換える際に対象Android製品を購入すると、端末価格から最大22,000円が値引きされます。ポイントではなく、購入時の端末価格に反映される特典です。",
+      "対象機種によってキャンペーン適用後の端末価格が異なるため、実質負担額は一律に算出できません。購入予定のAndroid製品と値引き額を公式サイトで確認してください。"
+    ],
+    "goodPoints": [
+      "対象Android製品を最大22,000円値引き",
+      "値引きが端末価格へ直接反映される"
+    ],
+    "concerns": [
+      "MNPと対象Android製品の購入が必要",
+      "対象機種ごとの実質負担額は一律に算出できない"
+    ]
+  }
 }

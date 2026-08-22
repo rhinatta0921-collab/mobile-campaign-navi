@@ -88,7 +88,7 @@ test("aligns canonical, metadata, and both structured rankings", async () => {
     );
     assert.deepEqual(
       itemLists.map(({ numberOfItems }) => numberOfItems),
-      [22, 21],
+      [14, 13],
     );
     assert.match(itemLists[0].name, /MNP/);
     assert.match(itemLists[1].name, /新規契約/);

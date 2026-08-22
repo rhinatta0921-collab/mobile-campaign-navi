@@ -1,0 +1,47 @@
+{
+  "campaignCode": "NO-CODE-ARROWS-ALPHA2-CP-TOP",
+  "codeType": "generated",
+  "title": "arrows Alpha2 発売記念キャンペーン",
+  "summary": "arrows Alpha2の購入と応募を条件に、ギフトカードまたは楽天ポイントと急速充電器を進呈するFCNT主催キャンペーンです。",
+  "benefit": {
+    "type": "gift",
+    "amount": 5000,
+    "unit": "円分相当",
+    "description": "5,000円分のギフトまたは楽天ポイントと90W急速充電器を進呈します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "arrows Alpha2を購入して応募する方",
+  "conditions": [
+    "arrows Alpha2を購入",
+    "指定期間内に応募",
+    "先着上限あり"
+  ],
+  "channel": "FCNT公式キャンペーンページ",
+  "category": "device",
+  "audience": "both",
+  "period": "購入・応募：2026年8月27日 10:00 - 2026年11月30日 23:59",
+  "officialUrl": "https://arrows-alpha2-cp.com/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-08-22",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+    "arrows Alpha2の購入が必須のため、ランキング対象外です。"
+  ],
+  "requiresDevicePurchase": true,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 28,
+      "title": "arrows Alpha2 発売記念キャンペーン 楽天ポイント最大10,000円分相当＋90W急速充電器（8,000円分相当）プレゼント！※事前エントリー＆購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
+      "description": "arrows Alpha2 発売記念キャンペーン開催！ ※事前エントリー＆購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
+      "url": "https://arrows-alpha2-cp.com/"
+    }
+  ]
+}

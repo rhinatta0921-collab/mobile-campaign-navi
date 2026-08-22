@@ -2,21 +2,6 @@
   "campaignCode": "3329",
   "codeType": "campaign",
   "title": "迷惑電話・SMS対策 by Whoscall 初回3カ月無料",
-  "editorial": {
-    "headline": "迷惑電話・SMS対策オプションを、初回3カ月試したい人向け",
-    "paragraphs": [
-      "迷惑電話・SMS対策 by Whoscallを初めて申し込むと、対象オプションを初回3カ月無料で利用できます。迷惑電話やSMSへの対策を試したい人向けの特典です。",
-      "申込者向け固定ポイントはなく、ランキングでは0ポイントです。無料特典の990円相当は実質お得額だけに反映しています。"
-    ],
-    "goodPoints": [
-      "対象オプションを初回3カ月無料で試せる",
-      "無料特典を990円相当として実質価値に反映"
-    ],
-    "concerns": [
-      "対象オプションを初めて申し込む人に限られる",
-      "申込者向け固定ポイントはない"
-    ]
-  },
   "summary": "不審な電話・SMSを自動で即ブロック！詐欺被害を未然に防ぐ 迷惑電話・SMS対策 by Whoscall 初回3カ月無料！ ※おひとり様につき1回限り、月額330円が3カ月無料となります。",
   "benefit": {
     "type": "free",
@@ -42,18 +27,33 @@
   "period": "2026年6月17日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/whoscall/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
   "requiresDevicePurchase": false,
-  "rankingEligible": true,
+  "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 48,
+      "listingIndex": 51,
       "title": "【迷惑電話・SMS対策 by Whoscall】不審な電話・SMSを自動で即ブロック！詐欺被害を未然に防ぐ迷惑電話・SMS対策サービス 初回3カ月無料！",
       "description": "不審な電話・SMSを自動で即ブロック！詐欺被害を未然に防ぐ 迷惑電話・SMS対策 by Whoscall 初回3カ月無料！ ※おひとり様につき1回限り、月額330円が3カ月無料となります。",
       "url": "https://network.mobile.rakuten.co.jp/service/whoscall/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "迷惑電話・SMS対策オプションを、初回3カ月試したい人向け",
+    "paragraphs": [
+      "迷惑電話・SMS対策 by Whoscallを初めて申し込むと、対象オプションを初回3カ月無料で利用できます。迷惑電話やSMSへの対策を試したい人向けの特典です。",
+      "申込者向け固定ポイントはなく、ランキングでは0ポイントです。無料特典の990円相当は実質お得額だけに反映しています。"
+    ],
+    "goodPoints": [
+      "対象オプションを初回3カ月無料で試せる",
+      "無料特典を990円相当として実質価値に反映"
+    ],
+    "concerns": [
+      "対象オプションを初めて申し込む人に限られる",
+      "申込者向け固定ポイントはない"
+    ]
+  }
 }

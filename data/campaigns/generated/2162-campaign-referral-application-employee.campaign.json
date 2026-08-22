@@ -50,10 +50,7 @@
   "category": "simOnly",
   "audience": "both",
   "period": "Web：2023年12月5日 9:00 - 終了日未定／ショップ：2023年12月5日 開店 - 終了日未定",
-  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/",
   "applicationUrl": "https://r10.to/hkD5ah",
-  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-11",
   "notes": [
     "公式キャンペーン一覧には掲載されていないため、個別の公式ページから補足したキャンペーンです。",
     "同じキャンペーンコード2162で案内されるRakuten Turboの7,000ポイントは、このJSONの回線向けポイントとランキングには含めていません。",
@@ -62,11 +59,14 @@
   ],
   "requiresDevicePurchase": false,
   "rankingEligible": true,
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-08-22",
   "sourceCards": [
     {
       "listingIndex": null,
-      "title": "【楽天従業員から紹介された方限定】楽天モバイル紹介キャンペーン！回線お申し込みごとにポイントプレゼント",
-      "description": "楽天従業員から紹介された方限定で、対象回線のお申し込みごとにポイントを進呈",
+      "title": "【楽天従業員から紹介された方限定】Rakuten最強プラン紹介キャンペーン",
+      "description": "楽天従業員から紹介された方限定で、MNPなら14,000ポイント、新規・移行なら11,000ポイントを進呈",
       "url": "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/"
     }
   ]

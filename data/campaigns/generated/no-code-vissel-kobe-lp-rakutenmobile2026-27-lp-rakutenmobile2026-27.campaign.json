@@ -1,0 +1,46 @@
+{
+  "campaignCode": "NO-CODE-VISSEL-KOBE-LP-RAKUTENMOBILE2026-27",
+  "codeType": "generated",
+  "title": "ヴィッセル神戸×楽天モバイル 2026/27シーズンキャンペーン",
+  "summary": "楽天モバイル利用者向けに、ヴィッセル神戸のチケット・グッズ購入時のポイント還元や抽選招待を案内するキャンペーンです。",
+  "benefit": {
+    "type": "other",
+    "amount": null,
+    "unit": null,
+    "description": "対象試合・商品ごとのポイント還元や抽選招待を提供します。"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "対象月に楽天モバイルを利用するヴィッセル神戸の観戦・購入者",
+  "conditions": [
+    "対象月に楽天モバイルの対象プランを利用",
+    "対象チケットまたはグッズを購入、または抽選へ応募"
+  ],
+  "channel": "ヴィッセル神戸公式キャンペーンページ",
+  "category": "memberBenefit",
+  "audience": "member",
+  "period": "2026/27シーズン（特典ごとの期間は公式ページ参照）",
+  "officialUrl": "https://www.vissel-kobe.co.jp/lp/rakutenmobile2026-27/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-08-22",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+    "既存契約者向けの観戦・物販特典で、モバイル回線申し込みは直接条件ではないためランキング対象外です。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 43,
+      "title": "ヴィッセル神戸×楽天モバイル最強キャンペーン",
+      "description": "楽天モバイルご利用者様ならヴィッセル神戸の観戦がもっとおトクになる！チケットやグッズの楽天ポイントバックなど特典が盛りだくさん！",
+      "url": "https://www.vissel-kobe.co.jp/lp/rakutenmobile2026-27/"
+    }
+  ]
+}

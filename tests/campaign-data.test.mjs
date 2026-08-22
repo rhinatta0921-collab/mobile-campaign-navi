@@ -41,10 +41,10 @@ test("stores validated generated campaigns separately from curated fields", asyn
   ]);
 
   assert.equal(index.listingUrl, "https://network.mobile.rakuten.co.jp/campaign/");
-  assert.equal(index.listingCardCount, 52);
-  assert.equal(index.campaignCount, 55);
+  assert.equal(index.listingCardCount, 56);
+  assert.equal(index.campaignCount, 59);
   assert.deepEqual(filenames, [...index.items].sort());
-  assert.equal(Object.keys(overrides).length, 55);
+  assert.equal(Object.keys(overrides).length, 59);
 
   const campaignCodes = new Set();
   const coveredListingIndexes = new Set();
@@ -137,12 +137,12 @@ test("stores validated generated campaigns separately from curated fields", asyn
     }
   }
 
-  assert.equal(campaignCodes.size, 55);
-  assert.equal(generatedCodeCount, 12);
-  assert.equal(rankingCampaignCount, 34);
+  assert.equal(campaignCodes.size, 59);
+  assert.equal(generatedCodeCount, 14);
+  assert.equal(rankingCampaignCount, 26);
   assert.deepEqual(
     [...coveredListingIndexes].sort((left, right) => left - right),
-    Array.from({ length: 52 }, (_, indexNumber) => indexNumber + 1),
+    Array.from({ length: 56 }, (_, indexNumber) => indexNumber + 1),
   );
 });
 
@@ -157,6 +157,77 @@ test("keeps current ranking corrections and dedicated application URL", async ()
   assert.deepEqual(employee.points, { newNumber: 11_000, mnp: 14_000 });
   assert.equal(employee.applicationUrl, "https://r10.to/hkD5ah");
   assert.deepEqual(ichiba.points, { newNumber: 12_000, mnp: 20_000 });
+});
+
+test("classifies every campaign and excludes purchases and indirect offers", async () => {
+  const filenames = (await readdir(campaignDirectory)).filter((filename) =>
+    filename.endsWith(".campaign.json"),
+  );
+  const campaigns = await Promise.all(filenames.map(readCampaign));
+  const campaignsByCode = new Map(
+    campaigns.map((campaign) => [campaign.campaignCode, campaign]),
+  );
+  const displayedCodes = campaigns
+    .filter(
+      (campaign) =>
+        campaign.rankingEligible &&
+        !campaign.requiresDevicePurchase &&
+        applicationTypes(campaign).length > 0,
+    )
+    .map(({ campaignCode }) => campaignCode)
+    .sort();
+
+  assert.deepEqual(displayedCodes, [
+    "1238",
+    "1784",
+    "2091",
+    "2142",
+    "2162",
+    "2207",
+    "2331",
+    "2619",
+    "2660",
+    "2897",
+    "2995",
+    "3288",
+    "3293",
+    "3327",
+    "3351",
+  ]);
+
+  const newExcludedCodes = [
+    "3386",
+    "3390",
+    "NO-CODE-ARROWS-ALPHA2-CP-TOP",
+    "NO-CODE-ENERGY-CAMPAIGN-LP-MOBILELINK",
+    "NO-CODE-NETWORK-SERVICE-ENTERTAINMENT-SELECTION-HULU",
+    "NO-CODE-VISSEL-KOBE-LP-RAKUTENMOBILE2026-27",
+  ];
+  for (const campaignCode of newExcludedCodes) {
+    assert.equal(
+      campaignsByCode.get(campaignCode)?.rankingEligible,
+      false,
+      `${campaignCode}: rankingEligible`,
+    );
+  }
+
+  const turbo = campaignsByCode.get("2698");
+  assert.ok(turbo);
+  assert.equal(turbo.requiresDevicePurchase, true);
+  assert.equal(turbo.rankingEligible, false);
+  assert.equal(
+    campaigns.some(
+      (campaign) => campaign.requiresDevicePurchase && campaign.rankingEligible,
+    ),
+    true,
+    "端末購入キャンペーンは分類データとして保持する",
+  );
+  assert.equal(
+    campaigns
+      .filter((campaign) => campaign.requiresDevicePurchase)
+      .some((campaign) => displayedCodes.includes(campaign.campaignCode)),
+    false,
+  );
 });
 
 test("publishes exactly the images required by both ranking variants", async () => {
@@ -178,7 +249,7 @@ test("publishes exactly the images required by both ranking variants", async () 
     await readFile(new URL("images.json", dataDirectory), "utf8"),
   );
   assert.deepEqual(new Set(Object.keys(manifest.campaigns)), displayedCodes);
-  assert.equal(displayedCodes.size, 23);
+  assert.equal(displayedCodes.size, 15);
 
   const requiredFiles = new Set();
   for (const [campaignCode, image] of Object.entries(manifest.campaigns)) {
@@ -213,7 +284,7 @@ test("publishes exactly the images required by both ranking variants", async () 
   );
   const publishedFiles = new Set(await readdir(officialDirectory));
   assert.deepEqual(publishedFiles, requiredFiles);
-  assert.equal(requiredFiles.size, 21);
+  assert.equal(requiredFiles.size, 13);
   await access(new URL("../public/og-v2.png", import.meta.url));
 });
 

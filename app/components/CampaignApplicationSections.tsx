@@ -105,12 +105,12 @@ export function CampaignApplicationSections({
       >
         <div className="section-heading">
           <p className="section-label">
-            端末購入不要・申込キャンペーン
+            端末購入不要・回線申込キャンペーン
             {rankingCampaignCount}種比較
           </p>
           <h2 id="ranking-title">{rankingTitle}</h2>
           <p>
-            楽天モバイル申し込みキャンペーンの獲得可能ポイントランキングは以下の通りです。順位は申込者本人が受け取る固定ポイントだけで決定します。
+            端末・ルーターの購入が不要で、楽天モバイル回線または対象モバイルプランの申し込み・利用開始が特典の直接条件となるキャンペーンを比較しています。順位は申込者本人が受け取る固定ポイントだけで決定します。
           </p>
           <p className="ranking-method-note">
             現在使用している電話番号をそのままで乗り換える(MNP)か楽天モバイルで新しい電話番号を取得するかで獲得可能ポイント額が変動するため、タブで分けてランキングを算出しています。

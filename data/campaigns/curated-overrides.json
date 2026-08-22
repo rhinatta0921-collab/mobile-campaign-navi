@@ -74,7 +74,8 @@
     "conditions": [
       "楽天カード新規入会",
       "楽天モバイル初めての申し込み",
-      "同一楽天ID"
+      "同一楽天ID",
+      "Rakuten Linkで10秒以上通話"
     ],
     "channel": "公式ページ参照",
     "category": "service",
@@ -352,7 +353,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "2006": {
     "codeType": "campaign",
@@ -732,12 +733,12 @@
       "description": "最大3,000ポイントを進呈します。"
     },
     "points": {
-      "newNumber": 2000,
+      "newNumber": 3000,
       "mnp": 3000
     },
     "breakdown": {
       "newNumber": [
-        "最大2,000ポイント"
+        "最大3,000ポイント"
       ],
       "mnp": [
         "最大3,000ポイント"
@@ -746,12 +747,14 @@
     "target": "楽天モバイルショップでもう1回線申し込む方",
     "conditions": [
       "ショップ限定",
-      "追加回線"
+      "2回線目以降の追加回線",
+      "指定クーポンコード",
+      "Rakuten Linkで10秒以上通話"
     ],
     "channel": "楽天モバイルショップ",
     "category": "simOnly",
     "audience": "member",
-    "period": "終了日未定",
+    "period": "ショップ申込：2024年6月3日 開店 - 終了日未定",
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。"
     ],
@@ -901,14 +904,16 @@
     },
     "target": "ショップで初めて申し込み、楽天市場で条件を満たす買い物をする方",
     "conditions": [
+      "要エントリー",
       "ショップ限定",
       "初めての申し込み",
+      "Rakuten Link利用",
       "楽天市場で1注文1,000円以上"
     ],
     "channel": "楽天モバイルショップ",
     "category": "service",
     "audience": "applicant",
-    "period": "終了日未定",
+    "period": "エントリー：2025年9月1日 0:00 - 終了日未定／ショップ申込：2025年1月14日 開店 - 終了日未定",
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。"
     ],
@@ -955,13 +960,15 @@
     "target": "楽天銀行会員で楽天モバイルへ初めて申し込む方",
     "conditions": [
       "楽天銀行会員",
-      "要エントリー",
-      "初めての申し込み"
+      "指定ページ・クーポンコードから申し込み",
+      "初めての申し込み",
+      "Rakuten Linkで10秒以上通話",
+      "楽天銀行ハッピープログラムへエントリー"
     ],
     "channel": "公式ページ参照",
     "category": "service",
     "audience": "applicant",
-    "period": "常時開催",
+    "period": "Web申込：2025年2月3日 10:00 - 終了日未定",
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。",
       "公式一覧の最大13,000ポイント表記は、MNP基本特典10,000ポイントとの併用時です。"
@@ -1015,7 +1022,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "2698": {
     "codeType": "campaign",
@@ -1062,8 +1069,8 @@
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。"
     ],
-    "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "requiresDevicePurchase": true,
+    "rankingEligible": false
   },
   "2808": {
     "codeType": "campaign",
@@ -1158,7 +1165,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "2834": {
     "codeType": "campaign",
@@ -1205,7 +1212,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "2835": {
     "codeType": "campaign",
@@ -1252,7 +1259,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "2855": {
     "codeType": "campaign",
@@ -1328,7 +1335,8 @@
     "target": "65歳以上で楽天モバイルへ初めて申し込む方",
     "conditions": [
       "65歳以上",
-      "初めての申し込み",
+      "指定ページ・クーポンコードから初めて申し込み",
+      "Rakuten Link利用",
       "最強シニアプログラム加入"
     ],
     "channel": "公式ページ参照",
@@ -1435,7 +1443,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "2981": {
     "codeType": "initiative",
@@ -1512,12 +1520,14 @@
     "target": "楽天モバイルショップで初めて申し込む方",
     "conditions": [
       "ショップ限定",
-      "初めての申し込み"
+      "初めての申し込み",
+      "指定クーポンコード",
+      "Rakuten Link利用"
     ],
     "channel": "楽天モバイルショップ",
     "category": "simOnly",
     "audience": "applicant",
-    "period": "終了日未定",
+    "period": "ショップ申込：2025年9月1日 開店 - 終了日未定",
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。"
     ],
@@ -1611,17 +1621,17 @@
     "codeType": "campaign",
     "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン②",
     "editorial": {
-      "headline": "Rakuten最強U-NEXT利用者がUber Oneを初めて使うときの候補",
+      "headline": "Rakuten最強U-NEXTとUber Oneをどちらも初めて申し込む人向け",
       "paragraphs": [
-        "Rakuten最強U-NEXT利用者がエントリーし、Uber Oneを初めて申し込むと初回1年間無料になります。無料特典は5,598円相当として実質価値に反映しています。",
-        "Rakuten最強U-NEXTの利用とUber Oneへの初回申し込みが必要です。通常の回線料金との差額を固定できないため、追加負担を含む実質お得額は算出不可です。"
+        "Rakuten最強U-NEXTへ初めて申し込み、エントリーと利用開始を済ませたうえでUber Oneを初めて申し込むと、Uber Oneを初回1年間無料で利用できます。無料特典は5,598円相当です。",
+        "Rakuten最強U-NEXTとUber Oneの両方に初回条件があります。通常の回線料金との差額を固定できないため、追加負担を含む実質お得額は算出不可です。"
       ],
       "goodPoints": [
         "Uber Oneを初回1年間無料で利用できる",
-        "無料特典を5,598円相当として比較できる"
+        "端末購入をせず対象モバイルプランの申し込みで利用できる"
       ],
       "concerns": [
-        "Rakuten最強U-NEXT利用者でUber Oneを初めて申し込む人に限られる",
+        "Rakuten最強U-NEXTとUber Oneの両方を初めて申し込む必要がある",
         "Rakuten最強U-NEXTの追加負担を含む実質お得額は算出できない"
       ]
     },
@@ -1640,15 +1650,16 @@
       "newNumber": null,
       "mnp": null
     },
-    "target": "Uber Oneを初めて申し込むRakuten最強U-NEXT利用者",
+    "target": "Rakuten最強U-NEXTとUber Oneをどちらも初めて申し込む方",
     "conditions": [
       "要エントリー",
+      "Rakuten最強U-NEXTを初めて申し込み・利用開始",
       "Uber Oneを初めて申し込み"
     ],
     "channel": "公式ページ参照",
     "category": "service",
     "audience": "both",
-    "period": "2026年6月1日 0:00 - 終了日未定",
+    "period": "エントリー・Web申込：2026年6月1日 0:00 - 2026年8月31日 23:59／ショップ申込：2026年6月1日 開店 - 2026年8月31日 閉店",
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。"
     ],
@@ -1659,9 +1670,9 @@
     "codeType": "campaign",
     "title": "Rakuten最強U-NEXT＋Uber コラボキャンペーン①",
     "editorial": {
-      "headline": "Rakuten最強U-NEXTを初めて利用し、ポイントを受け取りたい人向け",
+      "headline": "Rakuten最強U-NEXTを初めて申し込み、ポイントを受け取りたい人向け",
       "paragraphs": [
-        "エントリーしてRakuten最強U-NEXTを初めて利用すると、申込者本人が最大5,000ポイントを受け取れます。ポイントは条件達成後、3カ月に分けて進呈されます。",
+        "エントリーしてRakuten最強U-NEXTを初めて申し込み、利用開始すると、申込者本人が最大5,000ポイントを受け取れます。ポイントは条件達成後、3カ月に分けて進呈されます。",
         "Rakuten最強U-NEXTの追加負担は利用状況によって変わるため、固定の実質お得額は算出できません。ポイント額だけでなく、利用条件と料金差も確認してください。"
       ],
       "goodPoints": [
@@ -1669,7 +1680,7 @@
         "端末購入は条件に含まれない"
       ],
       "concerns": [
-        "事前エントリーとRakuten最強U-NEXTの初回利用が必要",
+        "事前エントリーとRakuten最強U-NEXTの初回申し込み・利用開始が必要",
         "追加負担を含む実質お得額は算出できない"
       ]
     },
@@ -1692,10 +1703,10 @@
         "最大5,000ポイント"
       ]
     },
-    "target": "Rakuten最強U-NEXTを初めて利用する方",
+    "target": "Rakuten最強U-NEXTを初めて申し込む方",
     "conditions": [
       "要エントリー",
-      "Rakuten最強U-NEXTを初めて利用"
+      "Rakuten最強U-NEXTを初めて申し込み・利用開始"
     ],
     "channel": "Webまたは楽天モバイルショップ",
     "category": "service",
@@ -1942,7 +1953,7 @@
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
-    "rankingEligible": true
+    "rankingEligible": false
   },
   "3350": {
     "codeType": "campaign",
@@ -2014,17 +2025,159 @@
     "target": "Rakuten最強U-NEXTへ初めて申し込む方",
     "conditions": [
       "要エントリー",
-      "Rakuten最強U-NEXTを初めて申し込み"
+      "Rakuten最強U-NEXTを初めて申し込み・利用開始"
     ],
     "channel": "公式ページ参照",
     "category": "service",
     "audience": "applicant",
-    "period": "終了日未定",
+    "period": "エントリー・Web申込：2026年7月17日 9:00 - 2026年8月31日 23:59／ショップ申込：2026年7月17日 開店 - 2026年8月31日 閉店",
     "notes": [
       "公式ページに掲載されたキャンペーンコードです。"
     ],
     "requiresDevicePurchase": false,
     "rankingEligible": true
+  },
+  "3386": {
+    "codeType": "campaign",
+    "title": "クイズに答えて100ポイントキャンペーン",
+    "summary": "楽天IDでログインし、楽天モバイルのクイズに回答すると100ポイントを受け取れる楽天会員向けキャンペーンです。",
+    "benefit": {
+      "type": "points",
+      "amount": 100,
+      "unit": "ポイント",
+      "description": "クイズ回答完了で100ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天IDでログインしてクイズに回答する楽天会員",
+    "conditions": [
+      "楽天IDでログイン",
+      "クイズに回答完了",
+      "おひとり様1回限り"
+    ],
+    "channel": "公式キャンペーンページ",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "2026年8月7日 9:00 - 終了日未定",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。",
+      "楽天モバイル回線の申し込みは特典の直接条件ではないため、ランキング対象外です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "3390": {
+    "codeType": "campaign",
+    "title": "紹介者100万人突破記念キャンペーン",
+    "summary": "くじ参加、紹介URLの送信、紹介された方の楽天IDログインを満たした紹介者向けの抽選キャンペーンです。",
+    "benefit": {
+      "type": "lottery",
+      "amount": 100000,
+      "unit": "ポイント",
+      "description": "抽選で最大100,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイルを紹介する楽天会員",
+    "conditions": [
+      "キャンペーンページからくじに参加",
+      "紹介キャンペーン経由で紹介URLを送信",
+      "紹介された方が紹介URLから楽天IDでログイン"
+    ],
+    "channel": "公式キャンペーンページ",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "2026年8月4日 10:00 - 2026年8月30日 23:59",
+    "notes": [
+      "公式ページに掲載されたキャンペーンコードです。",
+      "紹介された方の回線契約ではなく、紹介者向け抽選の条件だけを記録しています。",
+      "楽天モバイル回線の申し込みは本コードの直接条件ではないため、ランキング対象外です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-ARROWS-ALPHA2-CP-TOP": {
+    "codeType": "generated",
+    "title": "arrows Alpha2 発売記念キャンペーン",
+    "summary": "arrows Alpha2の購入と応募を条件に、ギフトカードまたは楽天ポイントと急速充電器を進呈するFCNT主催キャンペーンです。",
+    "benefit": {
+      "type": "gift",
+      "amount": 5000,
+      "unit": "円分相当",
+      "description": "5,000円分のギフトまたは楽天ポイントと90W急速充電器を進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "arrows Alpha2を購入して応募する方",
+    "conditions": [
+      "arrows Alpha2を購入",
+      "指定期間内に応募",
+      "先着上限あり"
+    ],
+    "channel": "FCNT公式キャンペーンページ",
+    "category": "device",
+    "audience": "both",
+    "period": "購入・応募：2026年8月27日 10:00 - 2026年11月30日 23:59",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+      "arrows Alpha2の購入が必須のため、ランキング対象外です。"
+    ],
+    "requiresDevicePurchase": true,
+    "rankingEligible": false
+  },
+  "NO-CODE-ENERGY-CAMPAIGN-LP-MOBILELINK": {
+    "codeType": "generated",
+    "title": "楽天モバイル利用者限定 楽天でんきキャンペーン",
+    "summary": "楽天モバイル利用者が楽天でんきへ新規申し込みし、利用開始・利用継続などの条件を満たすとポイントを受け取れるキャンペーンです。",
+    "benefit": {
+      "type": "points",
+      "amount": 8000,
+      "unit": "ポイント",
+      "description": "楽天でんきの条件達成で8,000ポイントを進呈します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイルを利用中で楽天でんきへ新規申し込みする方",
+    "conditions": [
+      "要エントリー",
+      "楽天でんきへ新規申し込み",
+      "4カ月以内に利用開始",
+      "利用開始月と翌月の電気料金合計6,000円以上"
+    ],
+    "channel": "楽天でんき公式キャンペーンページ",
+    "category": "service",
+    "audience": "member",
+    "period": "楽天でんき：2026年8月2日 10:00 - 2026年9月2日 9:59（毎月開催）",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+      "楽天でんきの新規申し込みが特典の直接条件で、モバイル回線申し込みではないためランキング対象外です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
   },
   "NO-CODE-EVENT-MOBILE-PRODUCT": {
     "codeType": "generated",
@@ -2250,6 +2403,41 @@
     "requiresDevicePurchase": false,
     "rankingEligible": false
   },
+  "NO-CODE-NETWORK-SERVICE-ENTERTAINMENT-SELECTION-HULU": {
+    "codeType": "generated",
+    "title": "楽天モバイルからHulu申し込み特典",
+    "summary": "楽天モバイル経由で有料オプションのHuluへ申し込むと、初月無料と月額利用料のポイント還元を受けられる特典です。",
+    "benefit": {
+      "type": "pointsRebate",
+      "amount": 50,
+      "unit": "%",
+      "description": "初月無料と、月額利用料を最大3カ月間50%ポイント還元します。"
+    },
+    "points": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "breakdown": {
+      "newNumber": null,
+      "mnp": null
+    },
+    "target": "楽天モバイル経由でHuluへ申し込む方",
+    "conditions": [
+      "楽天モバイルを契約中",
+      "楽天モバイル経由でHuluへ申し込み",
+      "月額利用料が発生"
+    ],
+    "channel": "楽天モバイル公式オプションページ",
+    "category": "option",
+    "audience": "both",
+    "period": "ポイント還元率アップ：2026年10月31日までの申し込み",
+    "notes": [
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+      "有料オプションの申し込み特典で、モバイル回線申し込みそのものの特典ではないためランキング対象外です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
   "NO-CODE-R10-H5WXYR": {
     "codeType": "generated",
     "title": "楽天ペイ最強ドリームチャンス 楽天ポイント総額2,000,000ポイントが当たる",
@@ -2346,15 +2534,15 @@
     "requiresDevicePurchase": false,
     "rankingEligible": false
   },
-  "NO-CODE-SAMSUNG-EXPLORE-EVENT-GALAXY-2026-2H-CP-RAKUTEN": {
+  "NO-CODE-VISSEL-KOBE-LP-RAKUTENMOBILE2026-27": {
     "codeType": "generated",
-    "title": "Samsung Galaxy Z Fold8 Ultra、Galaxy Z Fold8、Galaxy Z Flip8予約購入キャンペーン。対象の新製品を予約、購入し Samsung Walletアプリから応募で相当楽天ポイント15,000円相当プレゼント!",
-    "summary": "Samsung Galaxy Z Fold8 Ultra、Galaxy Z Fold8、Galaxy Z Flip8予約購入キャンペーン ※本キャンペーンの主催はサムスン電子ジャパン株式会社です。",
+    "title": "ヴィッセル神戸×楽天モバイル 2026/27シーズンキャンペーン",
+    "summary": "楽天モバイル利用者向けに、ヴィッセル神戸のチケット・グッズ購入時のポイント還元や抽選招待を案内するキャンペーンです。",
     "benefit": {
       "type": "other",
       "amount": null,
       "unit": null,
-      "description": "Samsung Galaxy Z Fold8 Ultra、Galaxy Z Fold8、Galaxy Z Flip8予約購入キャンペーン ※本キャンペーンの主催はサムスン電子ジャパン株式会社です。"
+      "description": "対象試合・商品ごとのポイント還元や抽選招待を提供します。"
     },
     "points": {
       "newNumber": null,
@@ -2364,48 +2552,18 @@
       "newNumber": null,
       "mnp": null
     },
-    "target": "公式ページに記載された条件を満たす方",
+    "target": "対象月に楽天モバイルを利用するヴィッセル神戸の観戦・購入者",
     "conditions": [
-      "公式ページで条件確認"
+      "対象月に楽天モバイルの対象プランを利用",
+      "対象チケットまたはグッズを購入、または抽選へ応募"
     ],
-    "channel": "公式ページ参照",
-    "category": "other",
-    "audience": "both",
-    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+    "channel": "ヴィッセル神戸公式キャンペーンページ",
+    "category": "memberBenefit",
+    "audience": "member",
+    "period": "2026/27シーズン（特典ごとの期間は公式ページ参照）",
     "notes": [
-      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
-    ],
-    "requiresDevicePurchase": false,
-    "rankingEligible": false
-  },
-  "NO-CODE-VISSEL-KOBE-LP-RAKUTENMOBILE2026": {
-    "codeType": "generated",
-    "title": "ヴィッセル神戸×楽天モバイル最強キャンペーン",
-    "summary": "楽天モバイルご利用者様ならヴィッセル神戸の観戦がもっとおトクになる！チケットやグッズの楽天ポイントバックなど特典が盛りだくさん！",
-    "benefit": {
-      "type": "other",
-      "amount": null,
-      "unit": null,
-      "description": "楽天モバイルご利用者様ならヴィッセル神戸の観戦がもっとおトクになる！チケットやグッズの楽天ポイントバックなど特典が盛りだくさん！"
-    },
-    "points": {
-      "newNumber": null,
-      "mnp": null
-    },
-    "breakdown": {
-      "newNumber": null,
-      "mnp": null
-    },
-    "target": "公式ページに記載された条件を満たす方",
-    "conditions": [
-      "公式ページで条件確認"
-    ],
-    "channel": "公式ページ参照",
-    "category": "other",
-    "audience": "both",
-    "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
-    "notes": [
-      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
+      "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+      "既存契約者向けの観戦・物販特典で、モバイル回線申し込みは直接条件ではないためランキング対象外です。"
     ],
     "requiresDevicePurchase": false,
     "rankingEligible": false

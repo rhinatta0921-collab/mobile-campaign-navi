@@ -234,7 +234,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   const text = plainText(html);
   assert.match(
     text,
-    /楽天モバイル 申し込みキャンペーン比較ランキング【2026年8月16日最終確認】/,
+    /楽天モバイル 申し込みキャンペーン比較ランキング【2026年8月22日最終確認】/,
   );
   assert.doesNotMatch(text, /2026年8月最新/);
   assert.match(text, /楽天モバイルキャンペーン比較ナビ/);
@@ -394,7 +394,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.deepEqual(deviceGuideParagraphs, [
     "端末購入ありのキャンペーンは、基本的に1機種につき1つのキャンペーンが設定されています。",
     "そのため、気になる端末のキャンペーン条件を確認し、他店での購入と比べてどちらがお得かをチェックするだけでOKです。",
-    "SIMのみのキャンペーンとは選び方が根本的に異なるため、このページでは端末購入なしのキャンペーンのみを掲載しています。",
+    "SIMのみのキャンペーンとは選び方が根本的に異なるため、このページでは端末・ルーターの購入が不要で、回線または対象モバイルプランの申し込み・利用開始が特典の直接条件となるキャンペーンだけを掲載しています。",
   ]);
   assert.doesNotMatch(deviceGuideHtml, /device-guide-highlight/);
   assert.doesNotMatch(deviceGuideHtml, /device-guide-flow/);
@@ -498,7 +498,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assertInOrder(conclusionText, [
     "【結論】初回申込は楽天市場キャンペーン、追加回線・再契約は社員紹介キャンペーンを確認！",
-    "画像：楽天モバイル公式ページ（2026年8月16日確認）",
+    "画像：楽天モバイル公式ページ（2026年8月22日確認）",
     "初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます。ただし、専用ページからの申し込み、Rakuten Linkで10秒以上の通話、楽天市場で1,000円以上の買い物が必要です。",
     "一方、初回申込ではない方や複数回線を申し込む方は、社員紹介キャンペーンが有力です。MNPなら最大14,000ポイント、新規・追加回線・再契約でも条件を満たせば最大11,000ポイントを受け取れ、1人最大5回線まで対象になります。",
     "しかし各キャンペーン特典のポイント額は期間限定で増量することもあるので、申し込む時点での情報は必ず公式ページでも確認してください。",
@@ -542,7 +542,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.ok(rankingHeadingHtml);
   assert.match(
     rankingHeadingHtml,
-    /<p>楽天モバイル申し込みキャンペーンの獲得可能ポイントランキングは以下の通りです。順位は申込者本人が受け取る固定ポイントだけで決定します。<\/p><p class="ranking-method-note">現在使用している電話番号をそのままで乗り換える\(MNP\)か楽天モバイルで新しい電話番号を取得するかで獲得可能ポイント額が変動するため、タブで分けてランキングを算出しています。<\/p>/,
+    /<p>端末・ルーターの購入が不要で、楽天モバイル回線または対象モバイルプランの申し込み・利用開始が特典の直接条件となるキャンペーンを比較しています。順位は申込者本人が受け取る固定ポイントだけで決定します。<\/p><p class="ranking-method-note">現在使用している電話番号をそのままで乗り換える\(MNP\)か楽天モバイルで新しい電話番号を取得するかで獲得可能ポイント額が変動するため、タブで分けてランキングを算出しています。<\/p>/,
   );
   const rankingTableText = tableBodyText(rankingHtml);
   const primaryRankingTable = rankingTableHtml(
@@ -571,15 +571,15 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assert.match(plainText(rankingSectionHtml), /新しい電話番号で契約/);
   assert.equal(tableRowCount(primaryRankingTable), 10);
-  assert.equal(tableRowCount(overflowRankingTable), 12);
+  assert.equal(tableRowCount(overflowRankingTable), 4);
   assert.equal([...primaryRankingTable.matchAll(/<th\b/g)].length, 7);
   assert.equal(classCount(primaryRankingTable, "ranking-campaign-picture"), 10);
-  assert.equal(classCount(overflowRankingTable, "ranking-campaign-picture"), 12);
+  assert.equal(classCount(overflowRankingTable, "ranking-campaign-picture"), 4);
   assert.equal(classCount(rankingHtml, "mobile-ranking-picture"), 0);
   const rankingLinkLabels = [
     ...rankingHtml.matchAll(/<a class="table-link"[^>]*>([\s\S]*?)<\/a>/g),
   ].map((match) => plainText(match[1]));
-  assert.equal(rankingLinkLabels.length, 22);
+  assert.equal(rankingLinkLabels.length, 14);
   assert.equal(rankingLinkLabels.every((label) => label === "公式ページ"), true);
   assert.deepEqual(
     tableHeadCells(primaryRankingTable),
@@ -647,8 +647,8 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     employeeRankingRow,
     /楽天従業員の専用URLから紹介ログインし、対象プランを申し込む方/,
   );
-  assert.equal(classCount(rankingHtml, "ranking-recommendation-cell"), 22);
-  assert.equal(classCount(rankingHtml, "ranking-bullet-list"), 22);
+  assert.equal(classCount(rankingHtml, "ranking-recommendation-cell"), 14);
+  assert.equal(classCount(rankingHtml, "ranking-bullet-list"), 14);
   assert.doesNotMatch(
     rankingHtml,
     /<td class="ranking-recommendation-cell">\s*<ul/,
@@ -660,9 +660,9 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.match(plainText(primaryRankingTable), /10位/);
   assert.doesNotMatch(plainText(primaryRankingTable), /11位/);
   assert.match(plainText(overflowRankingTable), /11位/);
-  assert.match(plainText(overflowRankingTable), /22位/);
+  assert.match(plainText(overflowRankingTable), /14位/);
   assert.match(rankingHtml, /<details class="ranking-overflow">/);
-  assert.match(rankingText, /11位以降を表示（残り12件）/);
+  assert.match(rankingText, /11位以降を表示（残り4件）/);
   assert.match(rankingText, /11位以降を閉じる/);
   assert.match(rankingText, /獲得ポイント/);
   assert.doesNotMatch(rankingHtml, /ranking-mode-note/);
@@ -683,21 +683,21 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.equal(mnpPoints.findIndex((points) => points === 0) > 0, true);
   assert.equal(mnpPoints.slice(mnpPoints.indexOf(0)).every((points) => points === 0), true);
   assertInOrder(rankingTableText, [
+    "楽天カード＋楽天モバイル同時申し込み特典",
     "【楽天モバイルショップ限定】初めてのお申し込みで3,000ポイント",
     "第2弾【ショップ限定】もう1回線お申し込みでポイント",
-    "楽天カード＋楽天モバイル同時申し込み特典",
     "楽天銀行会員向け 楽天モバイル初めて申し込み特典",
   ]);
   assert.doesNotMatch(rankingText, /iPhone対象製品 特価キャンペーン/);
 
   const detailHtml = applicationDetailsHtml(html, "mnp");
   const detailText = plainText(detailHtml);
-  assert.equal(detailArticleCount(detailHtml), 22);
-  assert.equal(classCount(detailHtml, "campaign-official-figure"), 22);
-  assert.equal(classCount(detailHtml, "campaign-detail-picture"), 22);
-  assert.equal(classCount(detailHtml, "campaign-point-summary"), 22);
-  assert.equal(classCount(detailHtml, "campaign-official-link"), 22);
-  assertDetailStructure(detailHtml, 22);
+  assert.equal(detailArticleCount(detailHtml), 14);
+  assert.equal(classCount(detailHtml, "campaign-official-figure"), 14);
+  assert.equal(classCount(detailHtml, "campaign-detail-picture"), 14);
+  assert.equal(classCount(detailHtml, "campaign-point-summary"), 14);
+  assert.equal(classCount(detailHtml, "campaign-official-link"), 14);
+  assertDetailStructure(detailHtml, 14);
   const detailOverflow = detailOverflowHtml(detailHtml);
   assert.ok(detailOverflow);
   assert.match(
@@ -705,17 +705,17 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     /^<details class="ranking-overflow detail-overflow">/,
   );
   assert.equal(detailArticleCount(initiallyVisibleDetailHtml(detailHtml)), 10);
-  assert.equal(detailArticleCount(detailOverflow), 12);
+  assert.equal(detailArticleCount(detailOverflow), 4);
   assert.deepEqual(
     detailRanks(detailHtml),
-    Array.from({ length: 22 }, (_, index) => index + 1),
+    Array.from({ length: 14 }, (_, index) => index + 1),
   );
   assert.equal(classCount(detailHtml, "campaign-rank-badge--1"), 1);
   assert.equal(classCount(detailHtml, "campaign-rank-badge--2"), 1);
   assert.equal(classCount(detailHtml, "campaign-rank-badge--3"), 1);
-  assert.equal(classCount(detailHtml, "campaign-rank-badge--standard"), 19);
+  assert.equal(classCount(detailHtml, "campaign-rank-badge--standard"), 11);
   const detailOverflowText = plainText(detailOverflow);
-  assert.match(detailOverflowText, /11位以降を表示（残り12件）/);
+  assert.match(detailOverflowText, /11位以降を表示（残り4件）/);
   assert.match(detailOverflowText, /11位以降を閉じる/);
   assert.doesNotMatch(
     detailHtml,
@@ -739,11 +739,11 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assert.match(
     detailText,
-    /画像：楽天モバイル公式ページ（2026年8月6日確認）/,
+    /画像：楽天モバイル公式ページ（2026年8月22日確認）/,
   );
   assert.match(
     detailText,
-    /画像：楽天モバイル公式ページ（2026年8月16日確認）/,
+    /画像：楽天モバイル公式ページ（2026年8月22日確認）/,
   );
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.doesNotMatch(detailHtml, /<summary class="offer-heading"/);
@@ -841,7 +841,25 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     detailText,
     /0ポイント \+ 1,100円相当 − 0円 = 1,100円/,
   );
-  assert.match(detailText, /15分（標準）通話かけ放題 料金1カ月無料特典/);
+  assert.doesNotMatch(detailText, /15分（標準）通話かけ放題 料金1カ月無料特典/);
+  for (const excludedCode of [
+    "1977",
+    "2697",
+    "2698",
+    "2833",
+    "2834",
+    "2835",
+    "2956",
+    "3329",
+    "3386",
+    "3390",
+    "NO-CODE-ARROWS-ALPHA2-CP-TOP",
+    "NO-CODE-ENERGY-CAMPAIGN-LP-MOBILELINK",
+    "NO-CODE-NETWORK-SERVICE-ENTERTAINMENT-SELECTION-HULU",
+    "NO-CODE-VISSEL-KOBE-LP-RAKUTENMOBILE2026-27",
+  ]) {
+    assert.doesNotMatch(html, new RegExp(`data-campaign-code="${excludedCode}"`));
+  }
 });
 
 test("marks only employee referral application links as sponsored", async () => {
@@ -903,11 +921,11 @@ test("includes new-number points without mixing MNP-only campaigns", async () =>
     /<button(?=[^>]*id="sim-only-ranking-tab-new-number")(?=[^>]*aria-selected="false")[^>]*>/,
   );
   assert.equal(tableRowCount(primaryRankingTable), 10);
-  assert.equal(tableRowCount(overflowRankingTable), 11);
+  assert.equal(tableRowCount(overflowRankingTable), 3);
   assert.match(plainText(primaryRankingTable), /10位/);
   assert.match(plainText(overflowRankingTable), /11位/);
-  assert.match(plainText(overflowRankingTable), /21位/);
-  assert.match(rankingText, /11位以降を表示（残り11件）/);
+  assert.match(plainText(overflowRankingTable), /13位/);
+  assert.match(rankingText, /11位以降を表示（残り3件）/);
   assertInOrder(rankingTableText, [
     "12,000",
     "11,748",
@@ -939,10 +957,10 @@ test("includes new-number points without mixing MNP-only campaigns", async () =>
 
   const detailHtml = applicationDetailsHtml(html, "newNumber");
   const detailText = plainText(detailHtml);
-  assert.equal(detailArticleCount(detailHtml), 21);
-  assert.equal(classCount(detailHtml, "campaign-official-figure"), 21);
-  assert.equal(classCount(detailHtml, "campaign-point-summary"), 21);
-  assertDetailStructure(detailHtml, 21);
+  assert.equal(detailArticleCount(detailHtml), 13);
+  assert.equal(classCount(detailHtml, "campaign-official-figure"), 13);
+  assert.equal(classCount(detailHtml, "campaign-point-summary"), 13);
+  assertDetailStructure(detailHtml, 13);
   const detailOverflow = detailOverflowHtml(detailHtml);
   assert.ok(detailOverflow);
   assert.match(
@@ -950,13 +968,13 @@ test("includes new-number points without mixing MNP-only campaigns", async () =>
     /^<details class="ranking-overflow detail-overflow">/,
   );
   assert.equal(detailArticleCount(initiallyVisibleDetailHtml(detailHtml)), 10);
-  assert.equal(detailArticleCount(detailOverflow), 11);
+  assert.equal(detailArticleCount(detailOverflow), 3);
   assert.deepEqual(
     detailRanks(detailHtml),
-    Array.from({ length: 21 }, (_, index) => index + 1),
+    Array.from({ length: 13 }, (_, index) => index + 1),
   );
   const detailOverflowText = plainText(detailOverflow);
-  assert.match(detailOverflowText, /11位以降を表示（残り11件）/);
+  assert.match(detailOverflowText, /11位以降を表示（残り3件）/);
   assert.match(detailOverflowText, /11位以降を閉じる/);
   assert.deepEqual(
     detailRecommendations(detailHtml),

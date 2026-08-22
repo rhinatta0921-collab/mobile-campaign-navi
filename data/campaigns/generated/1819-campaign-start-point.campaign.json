@@ -2,21 +2,6 @@
   "campaignCode": "1819",
   "codeType": "campaign",
   "title": "iPhone 対象端末ポイントバックキャンペーン",
-  "editorial": {
-    "headline": "楽天モバイルの申し込みと対象iPhone購入をまとめたい人向け",
-    "paragraphs": [
-      "楽天モバイルの回線申し込みと同時に対象iPhoneを購入することで、最大6,000ポイントを受け取れるキャンペーンです。回線と端末を同じ窓口でそろえたい人に向いています。",
-      "対象iPhoneの購入とRakuten Linkの利用が必要です。購入予定の機種が対象に含まれるか、公式サイトで確認してから申し込んでください。"
-    ],
-    "goodPoints": [
-      "対象iPhone購入で最大6,000ポイントを受け取れる",
-      "回線と端末の申し込みをまとめられる"
-    ],
-    "concerns": [
-      "対象iPhoneの購入が必須",
-      "Rakuten Linkの利用条件がある"
-    ]
-  },
   "summary": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
   "benefit": {
     "type": "points",
@@ -47,7 +32,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/start-point/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-07-31",
+  "checkedAt": "2026-08-22",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -55,10 +40,25 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 24,
+      "listingIndex": 27,
       "title": "【要エントリー】楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
       "description": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
       "url": "https://network.mobile.rakuten.co.jp/campaign/start-point/"
     }
-  ]
+  ],
+  "editorial": {
+    "headline": "楽天モバイルの申し込みと対象iPhone購入をまとめたい人向け",
+    "paragraphs": [
+      "楽天モバイルの回線申し込みと同時に対象iPhoneを購入することで、最大6,000ポイントを受け取れるキャンペーンです。回線と端末を同じ窓口でそろえたい人に向いています。",
+      "対象iPhoneの購入とRakuten Linkの利用が必要です。購入予定の機種が対象に含まれるか、公式サイトで確認してから申し込んでください。"
+    ],
+    "goodPoints": [
+      "対象iPhone購入で最大6,000ポイントを受け取れる",
+      "回線と端末の申し込みをまとめられる"
+    ],
+    "concerns": [
+      "対象iPhoneの購入が必須",
+      "Rakuten Linkの利用条件がある"
+    ]
+  }
 }

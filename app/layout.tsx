@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/noto-sans-jp/wght.css";
 import { GoogleAnalytics } from "@/app/components/GoogleAnalytics";
-import { SITE_NAME, SITE_URL } from "@/app/site-config";
+import {
+  GOOGLE_SITE_VERIFICATION,
+  SITE_NAME,
+  SITE_URL,
+} from "@/app/site-config";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_NAME,
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION,
+  },
   icons: {
     icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     shortcut: "/favicon.svg",

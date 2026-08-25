@@ -1,13 +1,22 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "rakuten-mobile-campaign-navi",
-  "compatibility_date": "2026-08-19",
+  "main": "./worker/index.mjs",
+  "compatibility_date": "2026-08-25",
+  "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
   "preview_urls": true,
+  "routes": [
+    {
+      "pattern": "rmobile.kuraberaku.com",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./out",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
-    "run_worker_first": false
+    "run_worker_first": true
   }
 }

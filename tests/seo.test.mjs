@@ -4,8 +4,11 @@ import { extname, join, relative } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-const siteUrl =
-  "https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev";
+const siteUrl = "https://rmobile.kuraberaku.com";
+const legacyHostnames = [
+  "rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev",
+  "rakuten-mobile-campaign-navi.pages.dev",
+];
 const employeeReferralApplicationUrl = "https://r10.to/hkD5ah";
 const outDirectory = fileURLToPath(new URL("../out/", import.meta.url));
 
@@ -73,15 +76,27 @@ test("aligns canonical, metadata, and both structured rankings", async () => {
     assert.match(html, new RegExp(`<meta property="og:url" content="${siteUrl}"`));
     assert.match(
       html,
+      new RegExp(`<meta property="og:image" content="${siteUrl}/og-v2\\.png"`),
+    );
+    assert.match(
+      html,
+      new RegExp(`<meta name="twitter:image" content="${siteUrl}/og-v2\\.png"`),
+    );
+    assert.match(
+      html,
       /<button(?=[^>]*id="sim-only-ranking-tab-mnp")(?=[^>]*aria-selected="true")[^>]*>/,
     );
     assert.match(html, /data-application-ranking="mnp"/);
     assert.match(html, /data-application-ranking="new-number"/);
 
     const graph = jsonLd(html)["@graph"];
+    const website = graph.find((item) => item["@type"] === "WebSite");
     const webpage = graph.find((item) => item["@type"] === "WebPage");
     const itemLists = graph.filter((item) => item["@type"] === "ItemList");
+    assert.equal(website.url, `${siteUrl}/`);
+    assert.equal(website["@id"], `${siteUrl}/#website`);
     assert.equal(webpage.url, `${siteUrl}/`);
+    assert.equal(webpage.isPartOf["@id"], `${siteUrl}/#website`);
     assert.deepEqual(
       webpage.mainEntity.map((item) => item["@id"]),
       [`${siteUrl}/#ranking-mnp`, `${siteUrl}/#ranking-newNumber`],
@@ -123,7 +138,7 @@ test("publishes crawlable robots and a one-URL sitemap", async () => {
   assert.doesNotMatch(sitemap, /application=/);
 });
 
-test("keeps previews noindex while exempting the production hostname", async () => {
+test("keeps Workers and Pages previews noindex", async () => {
   const headers = await readFile(
     new URL("../out/_headers", import.meta.url),
     "utf8",
@@ -132,10 +147,28 @@ test("keeps previews noindex while exempting the production hostname", async () 
     headers,
     /https:\/\/:version\.:subdomain\.workers\.dev\/\*\n  X-Robots-Tag: noindex/,
   );
+  assert.match(headers, /https:\/\/:project\.pages\.dev\/\*\n  X-Robots-Tag: noindex/);
   assert.match(
     headers,
-    new RegExp(`https://${siteUrl.slice("https://".length).replaceAll(".", "\\.")}\/\\*\\n  ! X-Robots-Tag`),
+    /https:\/\/:version\.:project\.pages\.dev\/\*\n  X-Robots-Tag: noindex/,
   );
+  assert.doesNotMatch(headers, /! X-Robots-Tag/);
+});
+
+test("exports SEO references only to the official origin", async () => {
+  const textFiles = await exportedTextFiles();
+  assert.ok(textFiles.length > 0);
+
+  for (const pathname of textFiles) {
+    const contents = await readFile(pathname, "utf8");
+    for (const legacyHostname of legacyHostnames) {
+      assert.doesNotMatch(
+        contents,
+        new RegExp(legacyHostname.replaceAll(".", "\\."), "i"),
+        `${relative(outDirectory, pathname)} contains ${legacyHostname}`,
+      );
+    }
+  }
 });
 
 test("does not leave the private ChatGPT Sites hostname in exported text", async () => {

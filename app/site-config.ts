@@ -1,5 +1,4 @@
-export const SITE_URL =
-  "https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev";
+export const SITE_URL = "https://rmobile.kuraberaku.com";
 
 export const GA_MEASUREMENT_ID = "G-K0E6HY1B6M";
 

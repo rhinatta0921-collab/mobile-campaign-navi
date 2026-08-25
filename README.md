@@ -15,11 +15,11 @@ npm test
 
 ## Cloudflare Workers Builds
 
-正式URLは`https://rmobile.kuraberaku.com`です。`wrangler.jsonc`ではこのホストを既存WorkerのCustom Domainとして宣言し、`workers_dev`とVersion Preview URLsは有効なまま維持します。
+正式URLは`https://rmobile.kuraberaku.com`です。`wrangler.jsonc`ではこのホストを既存WorkerのCustom Domainとして宣言します。旧Workers本番URLを301転送するため`workers_dev`は維持し、外部公開が不要なVersion Preview URLsは無効にします。
 
-旧Workers本番URL`https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev`は、パスとクエリを保持して正式URLへ301転送します。Workerのバージョンプレビューにはエントリーポイントから`X-Robots-Tag: noindex`を付与します。Pagesの通常URL`https://rakuten-mobile-campaign-navi.pages.dev`はCloudflare Bulk Redirectsで正式URLへ301転送し、`Include subdomains`を無効にしてハッシュ・ブランチプレビューを転送対象から外します。
+旧Workers本番URL`https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev`は、パスとクエリを保持して正式URLへ301転送します。Pagesの通常URL`https://rakuten-mobile-campaign-navi.pages.dev`はCloudflare Bulk Redirectsで正式URLへ301転送し、`Include subdomains`を有効にしてハッシュ・ブランチプレビューも転送対象に含めます。いずれもサブパスとクエリを保持します。
 
-WorkersのVersion Preview URLsとPagesのPreview DeploymentsだけをCloudflare Accessで保護します。正式カスタムドメインと通常の旧Workers本番ホストにはWorker全体のAccessを適用しません。プレビューはAccessに加えて`noindex`も維持します。既存のWorkerバージョン、Pagesプロジェクト、Pagesデプロイは削除しません。
+Cloudflare Zero Trust / Accessは有効化しません。WorkersプレビューはURL自体を無効化し、Pagesプレビューは正式URLへ転送することで、別内容を一般公開しない構成にします。将来プレビューを再び有効にした場合の防御として、Workerエントリーポイントと`public/_headers`の`X-Robots-Tag: noindex`は維持します。既存のWorkerバージョン、Pagesプロジェクト、Pagesデプロイは削除しません。
 
 Workers Buildsは次の設定を使用します。
 
@@ -30,7 +30,7 @@ Workers Buildsは次の設定を使用します。
 - Non-production deploy command: `npx wrangler versions upload`
 - Non-production branch builds: 全ブランチで有効
 
-Productionを含むすべてのビルドはまずVersion previewとして保存し、確認後に対象バージョンをActive Deploymentへ昇格します。設定の事前検証は次のコマンドで実行できます。
+Productionを含むすべてのビルドはまずWorkerバージョンとして保存し、確認後に対象バージョンをActive Deploymentへ昇格します。バージョン固有の公開プレビューURLは生成しません。設定の事前検証は次のコマンドで実行できます。
 
 ```sh
 npx wrangler versions upload --dry-run

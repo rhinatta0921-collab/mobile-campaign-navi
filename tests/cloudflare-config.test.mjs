@@ -15,7 +15,7 @@ test("configures the official custom domain with a Worker-first asset binding", 
   assert.equal(config.main, "./worker/index.mjs");
   assert.deepEqual(config.compatibility_flags, ["nodejs_compat"]);
   assert.equal(config.workers_dev, true);
-  assert.equal(config.preview_urls, true);
+  assert.equal(config.preview_urls, false);
   assert.deepEqual(config.routes, [
     {
       pattern: "rmobile.kuraberaku.com",

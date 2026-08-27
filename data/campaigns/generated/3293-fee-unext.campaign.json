@@ -60,5 +60,21 @@
       "事前エントリーとRakuten最強U-NEXTの初回申し込み・利用開始が必要",
       "追加負担を含む実質お得額は算出できない"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "8d7efa30cadf357a1b8f0ec69cd7c480dddfcdadaabb5943384d479c63ac0143",
+    "listingHash": "8d7efa30cadf357a1b8f0ec69cd7c480dddfcdadaabb5943384d479c63ac0143",
+    "model": null,
+    "promptVersion": null
   }
 }

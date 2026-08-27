@@ -62,5 +62,21 @@
       "楽天モバイルショップでの申し込みに限られる",
       "楽天モバイルへの初めての申し込みが条件"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "e4ad845559c9e435eb0bbb701aeccac089a660c5b844f612feec4f82ffd7ad6d",
+    "listingHash": "e4ad845559c9e435eb0bbb701aeccac089a660c5b844f612feec4f82ffd7ad6d",
+    "model": null,
+    "promptVersion": null
   }
 }

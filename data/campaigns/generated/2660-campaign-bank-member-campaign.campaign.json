@@ -64,5 +64,21 @@
       "楽天銀行会員かつ楽天モバイルへの初回申込者に限られる",
       "事前エントリーが必要で、13,000ポイントは別特典併用時の表記"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "92dadfe70dc4d2f9ca57b5f20fd233765ad8b2271f8b0c0abc82281415a2e658",
+    "listingHash": "92dadfe70dc4d2f9ca57b5f20fd233765ad8b2271f8b0c0abc82281415a2e658",
+    "model": null,
+    "promptVersion": null
   }
 }

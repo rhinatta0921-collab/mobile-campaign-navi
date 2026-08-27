@@ -59,5 +59,21 @@
       "MNPでの再契約に限られる",
       "Rakuten Linkの利用条件がある"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": false,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "77ddf1baff578186276f7c0fb75a8e21e62852013d08d6e2c1a5551dc308b447",
+    "listingHash": "77ddf1baff578186276f7c0fb75a8e21e62852013d08d6e2c1a5551dc308b447",
+    "model": null,
+    "promptVersion": null
   }
 }

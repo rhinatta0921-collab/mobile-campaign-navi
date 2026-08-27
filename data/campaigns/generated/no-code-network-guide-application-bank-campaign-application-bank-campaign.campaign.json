@@ -40,5 +40,21 @@
       "description": "キャンペーンページより楽天銀行＆楽天モバイルお申し込み・ご利用で1,000ポイント！",
       "url": "https://network.mobile.rakuten.co.jp/guide/application/bank-campaign/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "86ba38543c205cf8d63b6e1f528534b7c4c699ab27a2366c2ea457f1b98cbf71",
+    "listingHash": "86ba38543c205cf8d63b6e1f528534b7c4c699ab27a2366c2ea457f1b98cbf71",
+    "model": null,
+    "promptVersion": null
+  }
 }

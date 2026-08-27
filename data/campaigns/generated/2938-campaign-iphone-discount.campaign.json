@@ -63,5 +63,21 @@
       "MNPと対象iPhone購入、楽天カード48回払いが必要",
       "対象機種と支払回数により支払総額が異なる"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "330fb7eaf2fd47b7f144b409990eae8020fc4a1c43d10a732c58027e4ca54d53",
+    "listingHash": "330fb7eaf2fd47b7f144b409990eae8020fc4a1c43d10a732c58027e4ca54d53",
+    "model": null,
+    "promptVersion": null
   }
 }

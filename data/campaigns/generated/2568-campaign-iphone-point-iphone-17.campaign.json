@@ -64,5 +64,21 @@
       "初めてのMNP申し込みと対象iPhone購入が必要",
       "一括払いまたは24回払いと事前エントリーが条件"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "f264a80e6da48765de95c042ee5bca556efec85ca973108dcce0706cb10bc245",
+    "listingHash": "f264a80e6da48765de95c042ee5bca556efec85ca973108dcce0706cb10bc245",
+    "model": null,
+    "promptVersion": null
   }
 }

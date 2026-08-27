@@ -41,5 +41,21 @@
       "description": "3カ月無料！広告なしのYouTubeを、バックグラウンド再生やオフライン環境で楽しめる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/youtubepremium/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "b5d4f04b6102d7b2c0fbf071e392bf12130fe1faba416897e0e8e047c23cdce1",
+    "listingHash": "b5d4f04b6102d7b2c0fbf071e392bf12130fe1faba416897e0e8e047c23cdce1",
+    "model": null,
+    "promptVersion": null
+  }
 }

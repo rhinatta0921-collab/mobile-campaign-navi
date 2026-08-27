@@ -62,5 +62,21 @@
       "楽天カードへの新規入会が必要",
       "楽天モバイルへの初めての申し込みに限られる"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "8cb93ca94cd5896a4d0f2406b399dd08e4dcfd38722bf1babf870a25f1c2c8a5",
+    "listingHash": "8cb93ca94cd5896a4d0f2406b399dd08e4dcfd38722bf1babf870a25f1c2c8a5",
+    "model": null,
+    "promptVersion": null
   }
 }

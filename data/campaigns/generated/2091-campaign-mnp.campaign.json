@@ -60,5 +60,21 @@
       "楽天モバイルへの初めての申し込みに限られる",
       "事前エントリーとRakuten Link利用が必要"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "2085906f81abd0d8c678fb4a3148d17bd9363b0dd2d1fa5bf5dda090ea75615c",
+    "listingHash": "2085906f81abd0d8c678fb4a3148d17bd9363b0dd2d1fa5bf5dda090ea75615c",
+    "model": null,
+    "promptVersion": null
   }
 }

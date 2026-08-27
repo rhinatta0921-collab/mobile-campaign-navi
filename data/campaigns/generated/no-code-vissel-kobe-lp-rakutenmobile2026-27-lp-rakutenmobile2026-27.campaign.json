@@ -42,5 +42,21 @@
       "description": "楽天モバイルご利用者様ならヴィッセル神戸の観戦がもっとおトクになる！チケットやグッズの楽天ポイントバックなど特典が盛りだくさん！",
       "url": "https://www.vissel-kobe.co.jp/lp/rakutenmobile2026-27/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "1ba0f4705466730660c970b6459c28966eccbc59c06eb3e4141e4a7135b09f90",
+    "listingHash": "1ba0f4705466730660c970b6459c28966eccbc59c06eb3e4141e4a7135b09f90",
+    "model": null,
+    "promptVersion": null
+  }
 }

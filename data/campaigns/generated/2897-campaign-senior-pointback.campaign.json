@@ -62,5 +62,21 @@
       "65歳以上かつ楽天モバイルへの初回申込者に限られる",
       "最強シニアプログラムへの加入が必要"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "ca24cf0152fa2d5137a7422c99eb6e26256f0cac82d392d9191015063c0e9e3d",
+    "listingHash": "ca24cf0152fa2d5137a7422c99eb6e26256f0cac82d392d9191015063c0e9e3d",
+    "model": null,
+    "promptVersion": null
   }
 }

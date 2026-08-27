@@ -58,5 +58,21 @@
       "18歳までの新規契約者に限られる",
       "ショップで対象製品を購入する必要がある"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "697453c7a4820e36fac26818608d1798f9c4c21bc13de1850cf1a97853c08ad5",
+    "listingHash": "697453c7a4820e36fac26818608d1798f9c4c21bc13de1850cf1a97853c08ad5",
+    "model": null,
+    "promptVersion": null
   }
 }

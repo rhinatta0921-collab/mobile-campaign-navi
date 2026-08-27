@@ -56,5 +56,21 @@
       "Rakuten Turboの初回申し込みと継続利用が必要",
       "Rakuten Turboの利用料を含む固定の実質お得額は算出できない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "f079f77df30f375bbff6581257a752fd5c8282c34ec12f0e43272a4e3bff899e",
+    "listingHash": "f079f77df30f375bbff6581257a752fd5c8282c34ec12f0e43272a4e3bff899e",
+    "model": null,
+    "promptVersion": null
   }
 }

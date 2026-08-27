@@ -40,5 +40,21 @@
       "description": "パ・リーグ、ミュージック、マガジンが追加料金0円で楽しめる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/digital-contents/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "e46e67d6f9f3087145ffedc7860c3ad198afe543d495bf6c5ddbac7f61f06aba",
+    "listingHash": "e46e67d6f9f3087145ffedc7860c3ad198afe543d495bf6c5ddbac7f61f06aba",
+    "model": null,
+    "promptVersion": null
+  }
 }

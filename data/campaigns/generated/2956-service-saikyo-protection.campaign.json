@@ -55,5 +55,21 @@
       "最強保護を初めて申し込む人に限られる",
       "固定ポイントと確定した金額換算値がない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "5f24df243ef9e4e83f39c24c8dfdd027861c51f04729dc62307801c481ec36b5",
+    "listingHash": "5f24df243ef9e4e83f39c24c8dfdd027861c51f04729dc62307801c481ec36b5",
+    "model": null,
+    "promptVersion": null
   }
 }

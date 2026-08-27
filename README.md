@@ -24,15 +24,14 @@ Workers Buildsは次の設定を使用します。
 - Production branch: `main`
 - Root directory: リポジトリルート
 - Build command: `npm run build`
-- Production deploy command: `npx wrangler versions upload`
+- Production deploy command: `npx wrangler deploy`
 - Non-production deploy command: `npx wrangler versions upload`
 - Non-production branch builds: 全ブランチで有効
 
-Productionを含むすべてのビルドはまずWorkerバージョンとして保存し、確認後に対象バージョンをActive Deploymentへ昇格します。バージョン固有の公開プレビューURLは生成しません。バージョン昇格後はトリガー設定を反映します。設定の事前検証は次のコマンドで実行できます。
+`main`のビルドだけをActive Deploymentへ反映し、非本番ブランチはWorkerバージョンの保存までに留めます。バージョン固有の公開プレビューURLは生成しません。設定の事前検証は次のコマンドで実行できます。
 
 ```sh
-npx wrangler versions upload --dry-run
-npx wrangler triggers deploy --dry-run
+npx wrangler deploy --dry-run
 ```
 
 ## アクセス解析
@@ -47,9 +46,10 @@ Google Analytics 4は正式ホスト`r-mobile.kuraberaku.com`と完全一致す�
 
 ## データ更新
 
-同期は閲覧者のアクセス時には動きません。運用者が明示的に実行し、確認後にビルド・公開したときだけサイトへ反映されます。
+同期は閲覧者のアクセス時には動きません。`.github/workflows/campaign-sync.yml`が毎日`0 21 * * *`（6:00 JST）に`main`をチェックアウトし、同時実行を禁止して候補を検証します。手動実行では`report`または`publish`を選択できます。
 
 ```sh
+npm run sync:campaigns:auto -- --checked-at=YYYY-MM-DD --write
 npm run sync:campaigns -- --checked-at=YYYY-MM-DD --check
 npm run sync:campaigns -- --checked-at=YYYY-MM-DD --write
 npm run sync:campaign-images -- --checked-at=YYYY-MM-DD --check
@@ -58,4 +58,16 @@ npm run optimize:png -- --write
 npm run check:assets
 ```
 
-`--write`がない同期はファイルを変更しません。キャンペーン同期は一時ディレクトリで全件を生成・検証した後に切り替え、記事、申込URL、手動補正は`data/campaigns/curated-overrides.json`から再結合します。
+自動同期は公式一覧と詳細ページを正規化・ハッシュ化し、新規、内容変更、終了、一覧からの消失を判定します。内容が変わらない個別JSONは維持し、正常比較できた日も`lastSuccessfulCheckAt`だけを進めます。1回だけの一覧消失は掲載を維持し、2回連続の消失、終了表記、3回確認後の404/410、過去キャンペーンページへの移動で`archive/`へ移します。前日比が10件超かつ20%超、一覧解析不能、URL由来コード衝突の場合は全体を反映しません。
+
+新規・変更ページはルール抽出後にOpenAI Responses APIの厳格なJSON Schemaで構造化します。既定モデルは`gpt-5.6-terra`、保存は`store: false`です。ポイントは公式本文の根拠と内訳を検証してコードで再計算し、不足があれば`pending`として非掲載にします。編集記事、固定記事、専用申込URL、広告属性、手動補正は`data/campaigns/curated-overrides.json`を常に優先します。
+
+GitHub Actionsには次を設定します。
+
+- Secrets: `OPENAI_API_KEY`、`RESEND_API_KEY`、`ALERT_EMAIL_FROM`、`ALERT_EMAIL_TO`
+- Variables: `CAMPAIGN_AUTOMATION_MODE`（未設定時は`report`）、任意で`OPENAI_CAMPAIGN_MODEL`
+- Resend: `ALERT_EMAIL_FROM`に使う送信ドメインを事前に検証
+
+導入後3日間は`CAMPAIGN_AUTOMATION_MODE`を未設定または`report`のままにし、Actionsの`campaign-sync-YYYY-MM-DD`成果物と現在の手動結果を照合します。3日連続で一致したらCloudflare Workers BuildsのProduction deploy commandを`npx wrangler deploy`に設定し、`CAMPAIGN_AUTOMATION_MODE=publish`へ変更します。`publish`では画像、スキーマ、lint、build、全テスト、安全判定を通過した生成物だけを日付付きコミットとして`main`へpushし、本番HTMLのカタログバージョンと最終確認日まで照合します。
+
+保留、異常差分、取得、AI、画像、検証、公開の失敗時だけResendで通知します。正常終了と変更なしでは通知しません。

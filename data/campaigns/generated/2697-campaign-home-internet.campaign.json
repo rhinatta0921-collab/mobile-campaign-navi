@@ -56,5 +56,21 @@
       "楽天ひかりの初回申し込みと継続利用が必要",
       "楽天ひかりの利用料を含む固定の実質お得額は算出できない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "01d7fba1bd38cfd522475c05fd71a20842fb3dac4b257c503a983ac0bd5ca93b",
+    "listingHash": "01d7fba1bd38cfd522475c05fd71a20842fb3dac4b257c503a983ac0bd5ca93b",
+    "model": null,
+    "promptVersion": null
   }
 }

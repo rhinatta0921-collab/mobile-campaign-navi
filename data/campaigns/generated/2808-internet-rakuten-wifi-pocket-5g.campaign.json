@@ -56,5 +56,21 @@
       "対象オリジナル製品の購入が必要",
       "1人1点までで、対象製品ごとに実質負担額が異なる"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "3a122d034d4d6f6be30e91f23eb33d1a09f2c06fc0e3b7ae94dca8c73a8e5dde",
+    "listingHash": "3a122d034d4d6f6be30e91f23eb33d1a09f2c06fc0e3b7ae94dca8c73a8e5dde",
+    "model": null,
+    "promptVersion": null
   }
 }

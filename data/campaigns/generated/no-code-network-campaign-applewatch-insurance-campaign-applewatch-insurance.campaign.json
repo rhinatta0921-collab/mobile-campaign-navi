@@ -40,5 +40,21 @@
       "description": "楽天モバイルでApple Watchを購入するとワークアウト保険が2年間無料",
       "url": "https://network.mobile.rakuten.co.jp/campaign/applewatch-insurance/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "f8e6dc89b8978971f3238dec0f73209f53d666ed3f4da021aa6cbe19ca635271",
+    "listingHash": "f8e6dc89b8978971f3238dec0f73209f53d666ed3f4da021aa6cbe19ca635271",
+    "model": null,
+    "promptVersion": null
+  }
 }

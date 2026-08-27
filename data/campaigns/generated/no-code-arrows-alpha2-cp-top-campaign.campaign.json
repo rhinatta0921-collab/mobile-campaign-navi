@@ -43,5 +43,21 @@
       "description": "arrows Alpha2 発売記念キャンペーン開催！ ※事前エントリー＆購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
       "url": "https://arrows-alpha2-cp.com/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "c5df68a860679278df9642aeab1bf184653f67f89d16af4428a014c1f525fa19",
+    "listingHash": "c5df68a860679278df9642aeab1bf184653f67f89d16af4428a014c1f525fa19",
+    "model": null,
+    "promptVersion": null
+  }
 }

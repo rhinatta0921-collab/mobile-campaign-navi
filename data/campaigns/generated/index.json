@@ -63,5 +63,15 @@
     "no-code-rakuten-accessory-apple-case-apple-case.campaign.json",
     "no-code-rakuteneagles-lp-rakutenmobile-lp-rakutenmobile.campaign.json",
     "no-code-vissel-kobe-lp-rakutenmobile2026-27-lp-rakutenmobile2026-27.campaign.json"
-  ]
+  ],
+  "lastSuccessfulCheckAt": "2026-08-22",
+  "lastContentChangeAt": "2026-08-22",
+  "catalogVersion": "400c1e232b38657e",
+  "statusCounts": {
+    "published": 15,
+    "excluded": 44,
+    "pending": 0,
+    "ended": 0
+  },
+  "missingFromListing": {}
 }

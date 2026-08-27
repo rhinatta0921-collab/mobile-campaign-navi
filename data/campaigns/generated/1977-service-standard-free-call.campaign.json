@@ -55,5 +55,21 @@
       "15分（標準）通話かけ放題を初めて申し込む人に限られる",
       "申込者向け固定ポイントはない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "5595b900fa9c14e1f48122595a951b26b0ea5c424591e9a45c7657d7fb9f0f62",
+    "listingHash": "5595b900fa9c14e1f48122595a951b26b0ea5c424591e9a45c7657d7fb9f0f62",
+    "model": null,
+    "promptVersion": null
   }
 }

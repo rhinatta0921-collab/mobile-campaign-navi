@@ -41,5 +41,21 @@
       "description": "3ステップで毎月どれだけおトクになるかわかる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/fee-simulation/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "b11100289669e8ea09f747aac0d316e53f333a1dc2b3a0a9c07c531bd028fbdb",
+    "listingHash": "b11100289669e8ea09f747aac0d316e53f333a1dc2b3a0a9c07c531bd028fbdb",
+    "model": null,
+    "promptVersion": null
+  }
 }

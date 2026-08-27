@@ -62,5 +62,21 @@
       "対象Apple Watch購入と電話番号シェアサービス加入が必要",
       "月額550円の追加費用がかかり、必要月数は確認が必要"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "96e5684574f13c1904594af2d5ea53985213e7a4127b6487e6c244225e8849f7",
+    "listingHash": "96e5684574f13c1904594af2d5ea53985213e7a4127b6487e6c244225e8849f7",
+    "model": null,
+    "promptVersion": null
   }
 }

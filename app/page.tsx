@@ -12,37 +12,20 @@ import { SiteHeader } from "@/app/components/SiteHeader";
 import { SeoStructuredData } from "@/app/components/SeoStructuredData";
 import { formatJapaneseDate } from "@/app/lib/format";
 import {
-  CAMPAIGN_CODES,
-  HOMEPAGE_DATA_CHECKED_AT,
   SITE_NAME,
   SITE_URL,
 } from "@/app/site-config";
 import {
-  campaigns,
+  campaignCatalog,
+  conclusionSegments,
+  getConclusionTitle,
+  getExclusionSummaries,
   getRankedCampaigns,
   rankingCampaigns,
   type ApplicationType,
 } from "@/data/campaigns";
 
-const employeeReferralCampaign = campaigns.find(
-  (campaign) => campaign.campaignCode === CAMPAIGN_CODES.employeeReferral,
-);
-
-if (!employeeReferralCampaign) {
-  throw new Error("キャンペーン2162のデータがありません。");
-}
-
-const mnpTopCampaign = getRankedCampaigns("mnp")[0];
-
-if (!mnpTopCampaign) {
-  throw new Error("MNPランキング対象のキャンペーンがありません。");
-}
-
-const excludedExamples = [
-  "対象iPhone・Android・Apple Watch・Wi-Fiルーターなど、本体購入が必須の特典",
-  "キャンペーン終了済みの楽天マジ得フェスティバルなど、申込期限を過ぎた特典",
-  "回線申込や同時申込に直接関係しない、契約者向けの一般特典・情報ページ",
-];
+const excludedExamples = getExclusionSummaries();
 
 const comparisonPoints = [
   {
@@ -74,14 +57,17 @@ const comparisonPoints = [
 ];
 
 const sectionTitles = {
-  conclusion:
-    "【結論】初回申込は楽天市場キャンペーン、追加回線・再契約は社員紹介キャンペーンを確認！",
+  conclusion: getConclusionTitle(),
   howToChoose: "キャンペーンの選び方",
   deviceCampaignGuide: "スマホ本体も一緒に購入する方へ",
   ranking: "獲得可能ポイントランキング",
   details: "ランキング掲載キャンペーンの詳細",
   exclusions: "ランキングから外したもの",
 } as const;
+
+const [checkedYear, checkedMonth] = campaignCatalog.lastSuccessfulCheckAt
+  .split("-")
+  .map(Number);
 
 const tocItems = [
   { href: "#conclusion", title: sectionTitles.conclusion },
@@ -100,12 +86,12 @@ const seoByApplication: Record<
   { title: string; description: string }
 > = {
   mnp: {
-    title: "楽天モバイルのMNPキャンペーン比較ランキング【2026年8月】",
+    title: `楽天モバイルのMNPキャンペーン比較ランキング【${checkedYear}年${checkedMonth}月】`,
     description:
       "楽天モバイルへMNPで乗り換える際のキャンペーンを、申込者本人が受け取れるポイント順に比較。開催期間、適用条件、公式申込先を確認できます。",
   },
   newNumber: {
-    title: "楽天モバイル新規契約キャンペーン比較ランキング【2026年8月】",
+    title: `楽天モバイル新規契約キャンペーン比較ランキング【${checkedYear}年${checkedMonth}月】`,
     description:
       "楽天モバイルで新しい電話番号を契約する際のキャンペーンを、申込者本人が受け取れるポイント順に比較。開催期間、適用条件、公式申込先を確認できます。",
   },
@@ -139,6 +125,9 @@ export const metadata: Metadata = {
     description: defaultSeo.description,
     images: [new URL("/og-v2.png", SITE_URL).href],
   },
+  other: {
+    "campaign-catalog-version": campaignCatalog.catalogVersion,
+  },
 };
 
 export default function Home() {
@@ -148,6 +137,7 @@ export default function Home() {
   return (
     <main>
       <SeoStructuredData
+        dateModified={campaignCatalog.lastSuccessfulCheckAt}
         description={defaultSeo.description}
         rankings={[
           {
@@ -191,14 +181,17 @@ export default function Home() {
             <div className="hero-copy">
               <h1 id="page-title">
                 楽天モバイル 申し込みキャンペーン比較ランキング【
-                {formatJapaneseDate(HOMEPAGE_DATA_CHECKED_AT)}最終確認】
+                {formatJapaneseDate(campaignCatalog.lastSuccessfulCheckAt)}
+                最終確認】
               </h1>
               <div className="lead">
                 <p className="lead-question">
                   「楽天モバイルに申し込みたいけど、どのキャンペーンが一番お得なの？」
                 </p>
                 <p>
-                  そう思って調べ始めると、公式サイトだけでも10種類以上のキャンペーンが並んでいて、条件や特典の違いを一つひとつ確認するのは大変です。
+                  そう思って調べ始めると、公式サイトだけでも
+                  {campaignCatalog.listingCardCount}
+                  件のキャンペーンが並んでいて、条件や特典の違いを一つひとつ確認するのは大変です。
                 </p>
                 <p>
                   このページでは、現在開催中の楽天モバイル申し込みキャンペーンを、
@@ -292,9 +285,8 @@ export default function Home() {
           <MobileSectionNav />
 
           <ConclusionSection
-            employeeReferralCampaign={employeeReferralCampaign!}
+            segments={conclusionSegments}
             title={sectionTitles.conclusion}
-            topCampaign={mnpTopCampaign}
           />
 
           <CampaignChoiceSection title={sectionTitles.howToChoose} />

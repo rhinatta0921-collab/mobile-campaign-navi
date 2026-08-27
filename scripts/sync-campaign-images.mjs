@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import {
+  access,
+  copyFile,
   mkdtemp,
   readFile,
   readdir,
@@ -16,7 +18,6 @@ const LISTING_URL = `https://${OFFICIAL_HOST}/campaign/`;
 const CAMPAIGN_DIRECTORY = path.resolve("data/campaigns/generated");
 const MANIFEST_PATH = path.resolve("data/campaigns/images.json");
 const IMAGE_DIRECTORY = path.resolve("public/assets/campaigns/official");
-const CONCLUSION_CAMPAIGN_CODE = "3327";
 const CONCURRENCY = 6;
 
 function option(name) {
@@ -30,6 +31,15 @@ const shouldWrite = process.argv.includes("--write");
 const shouldCheck = process.argv.includes("--check");
 const checkedAtArgument = option("checked-at");
 const campaignCodeFilter = option("campaign-code");
+
+async function pathExists(targetPath) {
+  try {
+    await access(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 if (shouldWrite && shouldCheck) {
   throw new Error("--write と --check は同時に指定できません。");
@@ -326,10 +336,9 @@ async function choosePageImage([officialUrl, records], listingImages) {
 }
 
 async function main() {
-  const [filenames, previousManifest, listingHtml] = await Promise.all([
+  const [filenames, previousManifest] = await Promise.all([
     readdir(CAMPAIGN_DIRECTORY),
     readFile(MANIFEST_PATH, "utf8").then(JSON.parse),
-    fetchWithRetry(LISTING_URL, "text"),
   ]);
   const checkedAt =
     checkedAtArgument ??
@@ -345,17 +354,57 @@ async function main() {
   );
   const displayedCampaigns = campaigns.filter(
     (campaign) =>
+      campaign.publicationStatus === "published" &&
       campaign.rankingEligible &&
       !campaign.requiresDevicePurchase &&
-      applicationTypes(campaign).length > 0 &&
-      (!campaignCodeFilter || campaign.campaignCode === campaignCodeFilter),
+      applicationTypes(campaign).length > 0,
   );
-  if (campaignCodeFilter && displayedCampaigns.length === 0) {
+  if (
+    campaignCodeFilter &&
+    !displayedCampaigns.some(
+      (campaign) => campaign.campaignCode === campaignCodeFilter,
+    )
+  ) {
     throw new Error(`表示対象キャンペーン ${campaignCodeFilter} が見つかりません。`);
   }
+  const conclusionCampaignCode = [...displayedCampaigns]
+    .filter(
+      (campaign) =>
+        campaign.eligibility?.firstApplication !== false &&
+        applicationTypes(campaign).includes("mnp"),
+    )
+    .sort(
+      (left, right) =>
+        (right.points.mnp ?? 0) - (left.points.mnp ?? 0) ||
+        left.conditions.length - right.conditions.length ||
+        Number(!right.channel.includes("楽天モバイルショップ")) -
+          Number(!left.channel.includes("楽天モバイルショップ")) ||
+        (right.audience === "both" ? 3 : right.audience === "applicant" ? 2 : 1) -
+          (left.audience === "both" ? 3 : left.audience === "applicant" ? 2 : 1) ||
+        left.campaignCode.localeCompare(right.campaignCode, "en"),
+    )[0]?.campaignCode;
+  if (!conclusionCampaignCode) {
+    throw new Error("結論に使えるMNPランキング対象がありません。");
+  }
+
+  const campaignsToRefresh = displayedCampaigns.filter((campaign) => {
+    if (campaignCodeFilter) {
+      return campaign.campaignCode === campaignCodeFilter;
+    }
+    const previous = previousManifest.campaigns[campaign.campaignCode];
+    return (
+      !previous?.detail ||
+      campaign.lastChangedAt === checkedAt ||
+      (campaign.campaignCode === conclusionCampaignCode &&
+        (!previous.responsive?.desktop || !previous.responsive?.mobile))
+    );
+  });
+  const refreshedCodes = new Set(
+    campaignsToRefresh.map(({ campaignCode }) => campaignCode),
+  );
 
   const groupedByPage = new Map();
-  for (const campaign of displayedCampaigns) {
+  for (const campaign of campaignsToRefresh) {
     const records = groupedByPage.get(campaign.officialUrl) ?? [];
     records.push(campaign);
     groupedByPage.set(campaign.officialUrl, records);
@@ -363,7 +412,9 @@ async function main() {
   const pageEntries = [...groupedByPage].sort(([left], [right]) =>
     left.localeCompare(right, "en"),
   );
-  const listingImages = extractListingImages(listingHtml);
+  const listingImages = pageEntries.length
+    ? extractListingImages(await fetchWithRetry(LISTING_URL, "text"))
+    : new Map();
   const selections = await mapLimit(pageEntries, CONCURRENCY, (entry) =>
     choosePageImage(entry, listingImages),
   );
@@ -372,7 +423,7 @@ async function main() {
   for (const { records, selected } of selections) {
     const codes = records.map(({ campaignCode }) => campaignCode).sort();
     requests.push({ codes, role: "detail", sourceUrl: selected.detail });
-    if (codes.includes(CONCLUSION_CAMPAIGN_CODE)) {
+    if (codes.includes(conclusionCampaignCode)) {
       requests.push({ codes, role: "desktop", sourceUrl: selected.desktop });
       if (selected.mobile) {
         requests.push({ codes, role: "mobile", sourceUrl: selected.mobile });
@@ -400,15 +451,26 @@ async function main() {
   const localizedBySource = new Map();
   try {
     const downloaded = await mapLimit(uniqueRequests, CONCURRENCY, async (request) => {
+      const canonicalCode = request.codes.sort()[0];
+      const preferred = request.codes
+        .flatMap((code) => request.roles.map((role) => previousVariant(previousManifest, code, role)))
+        .find((variant) => variant?.sourceUrl === request.sourceUrl);
+      const preferredLocalPath = preferred
+        ? path.resolve(`public${preferred.path}`)
+        : null;
+      if (preferred && preferredLocalPath && (await pathExists(preferredLocalPath))) {
+        const filename = path.basename(preferred.path);
+        await copyFile(preferredLocalPath, path.join(stagingDirectory, filename));
+        return {
+          sourceUrl: request.sourceUrl,
+          localized: preferred,
+        };
+      }
       const { response, buffer } = await fetchWithRetry(request.sourceUrl, "buffer");
       const metadata = await sharp(buffer).metadata();
       if (!metadata.width || !metadata.height) {
         throw new Error(`${request.sourceUrl}: 画像サイズを取得できません。`);
       }
-      const canonicalCode = request.codes.sort()[0];
-      const preferred = request.codes
-        .flatMap((code) => request.roles.map((role) => previousVariant(previousManifest, code, role)))
-        .find((variant) => variant?.sourceUrl === request.sourceUrl);
       const filename = preferred
         ? path.basename(preferred.path)
         : `${canonicalCode}-${request.role}${extensionFor(response, request.sourceUrl)}`;
@@ -428,12 +490,28 @@ async function main() {
     }
 
     const nextManifest = { campaigns: {} };
+    for (const campaign of displayedCampaigns) {
+      if (refreshedCodes.has(campaign.campaignCode)) continue;
+      const previousImage = previousManifest.campaigns[campaign.campaignCode];
+      if (!previousImage?.detail) {
+        throw new Error(
+          `${campaign.campaignCode}: 既存の公式画像がありません。`,
+        );
+      }
+      nextManifest.campaigns[campaign.campaignCode] =
+        campaign.campaignCode === conclusionCampaignCode
+          ? previousImage
+          : {
+              detail: previousImage.detail,
+              checkedAt: previousImage.checkedAt,
+            };
+    }
     for (const { records, selected } of selections) {
       const detail = localizedBySource.get(selected.detail);
       for (const campaign of records) {
-        nextManifest.campaigns[campaign.campaignCode] = {
+        const nextImage = {
           detail,
-          ...(campaign.campaignCode === CONCLUSION_CAMPAIGN_CODE
+          ...(campaign.campaignCode === conclusionCampaignCode
             ? {
                 responsive: {
                   desktop: localizedBySource.get(selected.desktop),
@@ -443,9 +521,36 @@ async function main() {
                 },
               }
             : {}),
-          checkedAt,
+        };
+        const previousImage = previousManifest.campaigns[campaign.campaignCode];
+        const imageChanged =
+          !previousImage ||
+          JSON.stringify({
+            detail: previousImage.detail,
+            responsive: previousImage.responsive,
+          }) !== JSON.stringify(nextImage);
+        nextManifest.campaigns[campaign.campaignCode] = {
+          ...nextImage,
+          checkedAt: imageChanged ? checkedAt : previousImage.checkedAt,
         };
       }
+    }
+
+    const retainedVariants = Object.values(nextManifest.campaigns).flatMap(
+      (image) => [
+        image.detail,
+        image.responsive?.desktop,
+        image.responsive?.mobile,
+      ].filter(Boolean),
+    );
+    for (const variant of retainedVariants) {
+      const destination = path.join(stagingDirectory, path.basename(variant.path));
+      if (await pathExists(destination)) continue;
+      const source = path.resolve(`public${variant.path}`);
+      if (!(await pathExists(source))) {
+        throw new Error(`${variant.path}: 既存の公式画像ファイルがありません。`);
+      }
+      await copyFile(source, destination);
     }
 
     if (shouldCheck) {
@@ -483,7 +588,7 @@ async function main() {
     }
 
     console.log(
-      `${shouldWrite ? "保存" : shouldCheck ? "確認" : "プレビュー"}: ${displayedCampaigns.length}キャンペーン、${uniqueRequests.length}画像`,
+      `${shouldWrite ? "保存" : shouldCheck ? "確認" : "プレビュー"}: ${displayedCampaigns.length}キャンペーン、再取得${campaignsToRefresh.length}件・${uniqueRequests.length}画像`,
     );
   } finally {
     await rm(stagingDirectory, { recursive: true, force: true });

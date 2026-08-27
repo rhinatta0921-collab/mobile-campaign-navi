@@ -59,5 +59,21 @@
       "MNPとSamsung Galaxy S26シリーズ購入が必要",
       "Rakuten Linkの利用条件がある"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "a9358a90c0ed032112d7005c8e35a3aafec1834e2cb1d3cbb6da1e724ff2941a",
+    "listingHash": "a9358a90c0ed032112d7005c8e35a3aafec1834e2cb1d3cbb6da1e724ff2941a",
+    "model": null,
+    "promptVersion": null
   }
 }

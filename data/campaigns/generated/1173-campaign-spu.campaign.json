@@ -42,5 +42,21 @@
       "description": "楽天市場のお買い物が毎日全員ポイント5倍に！さらに楽天のサービスを使えば使うほどポイントUP",
       "url": "https://network.mobile.rakuten.co.jp/campaign/spu/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "8393cfe3440fbf0cefe9b6b2ec3378f1452dd9dfa70301cad14e379de03d671e",
+    "listingHash": "8393cfe3440fbf0cefe9b6b2ec3378f1452dd9dfa70301cad14e379de03d671e",
+    "model": null,
+    "promptVersion": null
+  }
 }

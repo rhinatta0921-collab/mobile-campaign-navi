@@ -42,5 +42,21 @@
       "description": "楽天モバイルご契約で対象店舗でのお買い物が20倍！ ※期間限定ポイント。上限・条件あり。",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-point/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "d53d9f2136c0ad202222bc8205d8920bc0419883ba49620b2ca0d8040d267808",
+    "listingHash": "d53d9f2136c0ad202222bc8205d8920bc0419883ba49620b2ca0d8040d267808",
+    "model": null,
+    "promptVersion": null
+  }
 }

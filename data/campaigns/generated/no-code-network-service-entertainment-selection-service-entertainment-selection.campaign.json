@@ -40,5 +40,21 @@
       "description": "Rakuten最強プランに申し込むとエンタメコンテンツがおトクに楽しめるオプションサービスが登場！",
       "url": "https://network.mobile.rakuten.co.jp/service/entertainment-selection/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "33430e0aee17b17fd50e5059f17c6d354fd3249b6923f59c94cb07089bababba",
+    "listingHash": "33430e0aee17b17fd50e5059f17c6d354fd3249b6923f59c94cb07089bababba",
+    "model": null,
+    "promptVersion": null
+  }
 }

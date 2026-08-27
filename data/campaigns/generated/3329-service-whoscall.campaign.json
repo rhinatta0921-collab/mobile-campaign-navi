@@ -55,5 +55,21 @@
       "対象オプションを初めて申し込む人に限られる",
       "申込者向け固定ポイントはない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "6c447e921c8b6953834174b2c3a988139e68419045f2a0e19158e86e7a7f2326",
+    "listingHash": "6c447e921c8b6953834174b2c3a988139e68419045f2a0e19158e86e7a7f2326",
+    "model": null,
+    "promptVersion": null
   }
 }

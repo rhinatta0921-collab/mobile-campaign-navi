@@ -40,5 +40,21 @@
       "description": "AQUOS、OPPOなどのハイスペックSIMフリースマホが3万円台！ポイント還元でお買い得",
       "url": "https://event.rakuten.co.jp/mobile/product/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "d4e68ecf9f2d2cf7e10ec50e0de26300379a419ae72871d798bfcee82264656d",
+    "listingHash": "d4e68ecf9f2d2cf7e10ec50e0de26300379a419ae72871d798bfcee82264656d",
+    "model": null,
+    "promptVersion": null
+  }
 }

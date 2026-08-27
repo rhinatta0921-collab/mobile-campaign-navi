@@ -42,5 +42,21 @@
       "description": "ハズレなし！対象のショップでお見積もりいただくと抽選で最大2,000円相当の景品プレゼント",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-opening-commemoration/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "1bf7861ce76283efc631acd45b228a815e85d7001b674f8633fe436c98563834",
+    "listingHash": "1bf7861ce76283efc631acd45b228a815e85d7001b674f8633fe436c98563834",
+    "model": null,
+    "promptVersion": null
+  }
 }

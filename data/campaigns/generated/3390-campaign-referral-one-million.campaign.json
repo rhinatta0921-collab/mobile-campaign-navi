@@ -44,5 +44,21 @@
       "description": "ラッキーくじ参加＆楽天モバイル紹介で、最大10万ポイントをプレゼント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/referral-one-million/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "6605468743d4a3faedbb8f1156f46ef25982414b630e5af128ab6b9eb085cb59",
+    "listingHash": "6605468743d4a3faedbb8f1156f46ef25982414b630e5af128ab6b9eb085cb59",
+    "model": null,
+    "promptVersion": null
+  }
 }

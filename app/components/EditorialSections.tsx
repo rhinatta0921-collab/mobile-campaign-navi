@@ -1,21 +1,41 @@
-import { formatJapaneseDate } from "@/app/lib/format";
+import { formatJapaneseDate, formatPoints } from "@/app/lib/format";
 import { officialLinkAnalyticsAttributes } from "@/app/lib/analytics";
-import { getCampaignApplicationUrl, type Campaign } from "@/data/campaigns";
+import {
+  getCampaignApplicationUrl,
+  type ConclusionSegment,
+} from "@/data/campaigns";
 import {
   CampaignOfficialImage,
   requireOfficialImage,
 } from "./CampaignOfficialImage";
 
 export function ConclusionSection({
-  employeeReferralCampaign,
+  segments,
   title,
-  topCampaign,
 }: {
-  employeeReferralCampaign: Campaign;
+  segments: readonly ConclusionSegment[];
   title: string;
-  topCampaign: Campaign;
 }) {
-  const officialImage = requireOfficialImage(topCampaign);
+  const primarySegment = segments[0];
+  if (!primarySegment) {
+    throw new Error("結論に使えるランキング対象キャンペーンがありません。");
+  }
+  const primaryCampaign = primarySegment.campaign;
+  const officialImage = requireOfficialImage(primaryCampaign);
+  const actionCampaigns = segments.reduce<
+    Array<{
+      campaign: ConclusionSegment["campaign"];
+      labels: string[];
+    }>
+  >((groups, segment) => {
+    const existing = groups.find(
+      ({ campaign }) =>
+        campaign.campaignCode === segment.campaign.campaignCode,
+    );
+    if (existing) existing.labels.push(segment.label);
+    else groups.push({ campaign: segment.campaign, labels: [segment.label] });
+    return groups;
+  }, []);
   return (
     <section
       className="conclusion"
@@ -25,19 +45,19 @@ export function ConclusionSection({
       <h2 id="conclusion-title">{title}</h2>
       <figure className="conclusion-campaign-figure">
         <CampaignOfficialImage
-          campaign={topCampaign}
+          campaign={primaryCampaign}
           className="conclusion-campaign-picture"
         />
         <figcaption>
           画像：
           <a
-            href={topCampaign.officialUrl}
+            href={primaryCampaign.officialUrl}
             rel="noopener noreferrer"
             target="_blank"
-            aria-label={`${topCampaign.title}の画像出典：楽天モバイル公式ページ`}
+            aria-label={`${primaryCampaign.title}の画像出典：楽天モバイル公式ページ`}
             {...officialLinkAnalyticsAttributes({
               applicationType: "general",
-              campaignCode: topCampaign.campaignCode,
+              campaignCode: primaryCampaign.campaignCode,
               linkType: "image_source",
               placement: "conclusion_image",
             })}
@@ -48,60 +68,64 @@ export function ConclusionSection({
         </figcaption>
       </figure>
       <div className="conclusion-lead">
+        {segments.map((segment) => (
+          <p key={segment.key}>
+            <strong className="conclusion-highlight">
+              {segment.label}でポイント額を優先する場合は「
+              {segment.campaign.title}」が最上位で、申込者本人が最大
+              {formatPoints(segment.points)}ポイントを受け取れます。
+            </strong>
+            {segment.campaign.conditions.length > 0
+              ? ` 主な条件は${segment.campaign.conditions
+                  .slice(0, 3)
+                  .join("、")}です。`
+              : null}
+          </p>
+        ))}
         <p>
-          <strong className="conclusion-highlight">
-            {"初めて楽天モバイルへ申し込む方がポイント額を優先するなら、楽天モバイル×楽天市場キャンペーンが最上位です。" +
-              "他社からの乗り換え（MNP）で最大20,000ポイント、新しい電話番号での申し込みでも最大12,000ポイントを受け取れます"}
-          </strong>
-          。
-        </p>
-        <p>
-          ただし、専用ページからの申し込み、Rakuten Linkで10秒以上の通話、楽天市場で1,000円以上の買い物が必要です。
-        </p>
-        <p>
-          一方、初回申込ではない方や複数回線を申し込む方は、社員紹介キャンペーンが有力です。MNPなら最大14,000ポイント、新規・追加回線・再契約でも条件を満たせば最大11,000ポイントを受け取れ、1人最大5回線まで対象になります。
-        </p>
-        <p>
-          しかし各キャンペーン特典のポイント額は期間限定で増量することもあるので、申し込む時点での情報は必ず公式ページでも確認してください。
+          各キャンペーンの内容やポイント額は変更されることがあるため、申し込む時点での情報は必ず公式ページでも確認してください。
         </p>
       </div>
       <div className="conclusion-action-group">
-        <div className="conclusion-action-item">
-          <a
-            className="official-link conclusion-official-link"
-            href={topCampaign.officialUrl}
-            rel="noopener noreferrer"
-            target="_blank"
-            {...officialLinkAnalyticsAttributes({
-              applicationType: "general",
-              campaignCode: topCampaign.campaignCode,
-              linkType: "official_information",
-              placement: "conclusion_primary",
-            })}
-          >
-            楽天市場キャンペーンの公式ページを見る
-          </a>
-        </div>
-        <div className="conclusion-action-item">
-          <a
-            className="official-link conclusion-official-link"
-            href={getCampaignApplicationUrl(employeeReferralCampaign)}
-            rel="sponsored noopener noreferrer"
-            target="_blank"
-            {...officialLinkAnalyticsAttributes({
-              applicationType: "general",
-              campaignCode: employeeReferralCampaign.campaignCode,
-              linkType: "referral_application",
-              placement: "conclusion_primary",
-              trackEmployeeReferral: true,
-            })}
-          >
-            社員紹介キャンペーンの公式ページを見る
-          </a>
-          <p className="conclusion-login-note">
-            ※公式ページの確認には、楽天アカウントでのログインが必要です。
-          </p>
-        </div>
+        {actionCampaigns.map(({ campaign, labels }) => {
+          const hasDedicatedApplicationUrl = Boolean(
+            campaign.applicationUrl &&
+              campaign.applicationUrl !== campaign.officialUrl,
+          );
+          return (
+            <div
+              className="conclusion-action-item"
+              key={campaign.campaignCode}
+            >
+              <a
+                className="official-link conclusion-official-link"
+                href={getCampaignApplicationUrl(campaign)}
+                rel={
+                  hasDedicatedApplicationUrl
+                    ? "sponsored noopener noreferrer"
+                    : "noopener noreferrer"
+                }
+                target="_blank"
+                {...officialLinkAnalyticsAttributes({
+                  applicationType: "general",
+                  campaignCode: campaign.campaignCode,
+                  linkType: hasDedicatedApplicationUrl
+                    ? "referral_application"
+                    : "official_information",
+                  placement: "conclusion_primary",
+                  trackEmployeeReferral: hasDedicatedApplicationUrl,
+                })}
+              >
+                {labels.join("・")}の公式ページを見る
+              </a>
+              {hasDedicatedApplicationUrl ? (
+                <p className="conclusion-login-note">
+                  ※専用ページでは楽天アカウントへのログインが必要な場合があります。
+                </p>
+              ) : null}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

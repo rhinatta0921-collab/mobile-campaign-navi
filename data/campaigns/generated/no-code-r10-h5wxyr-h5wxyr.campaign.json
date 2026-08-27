@@ -40,5 +40,21 @@
       "description": "【楽天モバイル新規お申し込みも対象】楽天ペイの初決済で当選確率10倍！ ※毎月開催、その他条件あり",
       "url": "https://r10.to/h5wXYR"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "2fe481352e227d062f9ad8cdba526f12a667c6bc3cd4a081c91b8ab6f9d4f4a9",
+    "listingHash": "2fe481352e227d062f9ad8cdba526f12a667c6bc3cd4a081c91b8ab6f9d4f4a9",
+    "model": null,
+    "promptVersion": null
+  }
 }

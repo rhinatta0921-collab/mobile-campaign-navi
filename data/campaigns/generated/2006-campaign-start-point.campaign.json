@@ -61,5 +61,21 @@
       "端末によって受け取れるポイント数が異なる",
       "対象製品購入とRakuten Link利用が必要"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "f250457d9db2e8de86f006d0f0d8ffa652a2c57ccf009aca88d822c5dd3d1c98",
+    "listingHash": "f250457d9db2e8de86f006d0f0d8ffa652a2c57ccf009aca88d822c5dd3d1c98",
+    "model": null,
+    "promptVersion": null
   }
 }

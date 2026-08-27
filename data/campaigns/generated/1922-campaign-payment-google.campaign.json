@@ -42,5 +42,21 @@
       "description": "「楽天モバイルキャリア決済」ならAndroidでのアプリ購入、アプリ内課金が最大2％分ポイント還元 ※楽天カードご利用通常ポイント1%＋キャリア決済ご利用1%ポイント還元。",
       "url": "https://network.mobile.rakuten.co.jp/campaign/payment-google/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "ee0edd6a5f84371ab1e154e8ec54ab482c551a37ba7880f294921d1e135b77d9",
+    "listingHash": "ee0edd6a5f84371ab1e154e8ec54ab482c551a37ba7880f294921d1e135b77d9",
+    "model": null,
+    "promptVersion": null
+  }
 }

@@ -8,12 +8,14 @@ type StructuredRanking = {
 };
 
 type SeoStructuredDataProps = {
+  dateModified: string;
   description: string;
   rankings: readonly StructuredRanking[];
   title: string;
 };
 
 export function SeoStructuredData({
+  dateModified,
   description,
   rankings,
   title,
@@ -41,6 +43,7 @@ export function SeoStructuredData({
         url: pageUrl,
         name: title,
         description,
+        dateModified,
         isPartOf: { "@id": `${SITE_URL}/#website` },
         mainEntity: rankings.map(({ applicationType }) => ({
           "@id": rankingIds[applicationType],

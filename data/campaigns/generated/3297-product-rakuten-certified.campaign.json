@@ -55,5 +55,21 @@
       "固定ポイントや確定した値引き額はない",
       "対象製品によって販売価格が異なり、実質負担額は算出できない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "453fe98dccc82e5018aa8e7c32816611878743697c64897fc8765953ec8e67d6",
+    "listingHash": "453fe98dccc82e5018aa8e7c32816611878743697c64897fc8765953ec8e67d6",
+    "model": null,
+    "promptVersion": null
   }
 }

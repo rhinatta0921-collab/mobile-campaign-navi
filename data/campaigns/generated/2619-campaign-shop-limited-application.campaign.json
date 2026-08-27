@@ -63,5 +63,21 @@
       "ショップ限定で、楽天市場で1注文1,000円以上の購入が必要",
       "最低購入額を差し引いた実質お得額は0円"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "beda5c2b29f23443a0142eed96d1740c49c6efc722d1336c2392a9eb6ad661e6",
+    "listingHash": "beda5c2b29f23443a0142eed96d1740c49c6efc722d1336c2392a9eb6ad661e6",
+    "model": null,
+    "promptVersion": null
   }
 }

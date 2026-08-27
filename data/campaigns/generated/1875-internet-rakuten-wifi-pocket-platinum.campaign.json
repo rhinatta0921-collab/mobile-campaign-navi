@@ -56,5 +56,21 @@
       "対象モバイルルーターの購入が必須",
       "固定ポイントはなく、ランキング上は0ポイントとして扱われる"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": false,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "d900241f6280053fb1a5adfaf4286947347649ed24904f314d0a73e6151e4e9a",
+    "listingHash": "d900241f6280053fb1a5adfaf4286947347649ed24904f314d0a73e6151e4e9a",
+    "model": null,
+    "promptVersion": null
   }
 }

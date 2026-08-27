@@ -55,5 +55,21 @@
       "留守番電話を初めて申し込む人に限られる",
       "申込者向け固定ポイントはない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "bddf406e7d705d5962b329dc9a30c663ec4ac93a8086d70c1316aefb92aa73a5",
+    "listingHash": "bddf406e7d705d5962b329dc9a30c663ec4ac93a8086d70c1316aefb92aa73a5",
+    "model": null,
+    "promptVersion": null
   }
 }

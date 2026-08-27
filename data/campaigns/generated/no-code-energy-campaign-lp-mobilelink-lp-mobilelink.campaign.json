@@ -44,5 +44,21 @@
       "description": "楽天モバイル利用者様限定。楽天でんき新規申し込み＆ご利用継続で、条件達成した方全員に8,000ポイント進呈。抽選キャンペーン実施中。 ※条件あり",
       "url": "https://energy.rakuten.co.jp/campaign/lp/mobilelink/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "4170cd53475d23151aaca6dbd7aeeea34c9bfdf9570108568d231ec1a4df51a5",
+    "listingHash": "4170cd53475d23151aaca6dbd7aeeea34c9bfdf9570108568d231ec1a4df51a5",
+    "model": null,
+    "promptVersion": null
+  }
 }

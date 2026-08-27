@@ -1,0 +1,164 @@
+name: Daily campaign catalog sync
+
+on:
+  schedule:
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "reportは検証のみ、publishはmainへ反映"
+        required: true
+        default: report
+        type: choice
+        options:
+          - report
+          - publish
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-campaign-catalog-sync
+  cancel-in-progress: false
+
+env:
+  REPORT_PATH: .campaign-sync/report.json
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+          cache: npm
+
+      - name: Resolve execution settings
+        id: settings
+        env:
+          REQUESTED_MODE: ${{ github.event.inputs.mode || vars.CAMPAIGN_AUTOMATION_MODE || 'report' }}
+        run: |
+          echo "checked_at=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_OUTPUT"
+          echo "mode=$REQUESTED_MODE" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build candidate campaign catalog
+        id: catalog
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_CAMPAIGN_MODEL: ${{ vars.OPENAI_CAMPAIGN_MODEL || 'gpt-5.6-terra' }}
+        run: >-
+          npm run sync:campaigns:auto --
+          --checked-at=${{ steps.settings.outputs.checked_at }}
+          --report-path=${{ env.REPORT_PATH }}
+          --write
+
+      - name: Ensure failure report exists
+        if: always() && hashFiles(env.REPORT_PATH) == ''
+        env:
+          CHECKED_AT: ${{ steps.settings.outputs.checked_at }}
+        run: >-
+          mkdir -p .campaign-sync &&
+          node -e 'const fs=require("node:fs"); const checkedAt=process.env.CHECKED_AT || new Date().toISOString().slice(0,10); fs.writeFileSync(".campaign-sync/report.json", JSON.stringify({checkedAt,safeToPublish:false,requiresAttention:true,additions:[],changes:[],ended:[],pending:[],warnings:[],errors:["候補生成前または候補生成中にワークフローが失敗しました。"]},null,2)+"\n")'
+
+      - name: Read safety report
+        id: report
+        if: always() && hashFiles(env.REPORT_PATH) != ''
+        run: |
+          node -e 'const r=require("./.campaign-sync/report.json"); console.log(`safe_to_publish=${r.safeToPublish}`); console.log(`requires_attention=${r.requiresAttention}`)' >> "$GITHUB_OUTPUT"
+
+      - name: Synchronize required official images
+        id: images
+        if: steps.catalog.outcome == 'success' && steps.report.outputs.safe_to_publish == 'true'
+        continue-on-error: true
+        run: >-
+          npm run sync:campaign-images --
+          --checked-at=${{ steps.settings.outputs.checked_at }}
+          --write
+
+      - name: Validate generated site
+        id: validation
+        if: steps.images.outcome == 'success'
+        continue-on-error: true
+        run: |
+          npm run check:assets
+          npm run lint
+          npm test
+
+      - name: Save report artifact
+        if: always() && hashFiles(env.REPORT_PATH) != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: campaign-sync-${{ steps.settings.outputs.checked_at }}
+          path: |
+            ${{ env.REPORT_PATH }}
+            data/campaigns/generated
+            data/campaigns/archive
+            data/campaigns/images.json
+          retention-days: 30
+
+      - name: Commit validated catalog to main
+        id: commit
+        if: >-
+          steps.settings.outputs.mode == 'publish' &&
+          steps.catalog.outcome == 'success' &&
+          steps.images.outcome == 'success' &&
+          steps.validation.outcome == 'success' &&
+          steps.report.outputs.safe_to_publish == 'true'
+        run: |
+          git config user.name "campaign-catalog-bot"
+          git config user.email "campaign-catalog-bot@users.noreply.github.com"
+          git add data/campaigns/generated data/campaigns/archive data/campaigns/images.json public/assets/campaigns/official
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "chore(campaigns): daily sync ${{ steps.settings.outputs.checked_at }}"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Verify production deployment
+        id: production
+        if: steps.commit.outputs.changed == 'true'
+        continue-on-error: true
+        run: npm run verify:campaign-production
+
+      - name: Send attention email
+        if: >-
+          always() &&
+          hashFiles(env.REPORT_PATH) != '' &&
+          (steps.report.outputs.requires_attention == 'true' ||
+           steps.catalog.outcome == 'failure' ||
+           steps.images.outcome == 'failure' ||
+           steps.validation.outcome == 'failure' ||
+           steps.production.outcome == 'failure')
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          CAMPAIGN_FAILURE_CONTEXT: >-
+            catalog=${{ steps.catalog.outcome }},
+            images=${{ steps.images.outcome }},
+            validation=${{ steps.validation.outcome }},
+            production=${{ steps.production.outcome }}
+        run: npm run notify:campaign-sync -- --force
+
+      - name: Fail unsafe run
+        if: >-
+          always() &&
+          (steps.catalog.outcome == 'failure' ||
+           steps.images.outcome == 'failure' ||
+           steps.validation.outcome == 'failure' ||
+           steps.production.outcome == 'failure')
+        run: exit 1

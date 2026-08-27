@@ -55,5 +55,21 @@
       "割込通話を初めて申し込む人に限られる",
       "申込者向け固定ポイントはない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "8e6ad9fa94dab228f6897193409b7ce36adc04b9c19c2b4eb8a0228eca5ca17a",
+    "listingHash": "8e6ad9fa94dab228f6897193409b7ce36adc04b9c19c2b4eb8a0228eca5ca17a",
+    "model": null,
+    "promptVersion": null
   }
 }

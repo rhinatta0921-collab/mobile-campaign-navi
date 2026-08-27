@@ -62,5 +62,21 @@
       "MNPと対象Android製品の購入が必要",
       "対象機種ごとの実質負担額は一律に算出できない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "2d3d0ba1afad6a2259e87d627a12598b7cba95ecd72318ecfa7edaf5ce2c1d09",
+    "listingHash": "2d3d0ba1afad6a2259e87d627a12598b7cba95ecd72318ecfa7edaf5ce2c1d09",
+    "model": null,
+    "promptVersion": null
   }
 }

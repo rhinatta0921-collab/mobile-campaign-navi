@@ -62,5 +62,21 @@
       "楽天モバイルショップでの申し込みに限られる",
       "もう1回線を追加することが条件"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": false,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "be149e8da93c39b927db3fb50d961074d466d3c3206041b05ee6851f073a99ea",
+    "listingHash": "be149e8da93c39b927db3fb50d961074d466d3c3206041b05ee6851f073a99ea",
+    "model": null,
+    "promptVersion": null
   }
 }

@@ -40,5 +40,21 @@
       "description": "楽天モバイル最強パーク宮城で観戦するなら楽天モバイル一択！観戦招待やポイントバックなど特典が満載！",
       "url": "https://www.rakuteneagles.jp/lp/rakutenmobile/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "f29e331e9b0158c6b2d0ebf302eeb6114e884e4b45f882b99f77b1871c836dc7",
+    "listingHash": "f29e331e9b0158c6b2d0ebf302eeb6114e884e4b45f882b99f77b1871c836dc7",
+    "model": null,
+    "promptVersion": null
+  }
 }

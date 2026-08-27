@@ -56,5 +56,21 @@
       "抽選特典のため当選や金額は確定しない",
       "事前エントリーとRakuten最強U-NEXTの初回申し込みが必要"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "1cc147f011a3ff424a4c11d445b871effbbc29a9ac074f8708d26b86ad6c5881",
+    "listingHash": "1cc147f011a3ff424a4c11d445b871effbbc29a9ac074f8708d26b86ad6c5881",
+    "model": null,
+    "promptVersion": null
   }
 }

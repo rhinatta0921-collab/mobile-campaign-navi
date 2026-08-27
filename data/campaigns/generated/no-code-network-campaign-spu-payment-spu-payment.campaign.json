@@ -40,5 +40,21 @@
       "description": "楽天モバイルキャリア決済を当月合計2,000円以上ご利用で楽天市場でのお買い物がポイント＋2倍に！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/spu/payment/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "b9cac81d55fcf4a552e30e21f5716a1e38f5476a0acb56a5c463349704252f52",
+    "listingHash": "b9cac81d55fcf4a552e30e21f5716a1e38f5476a0acb56a5c463349704252f52",
+    "model": null,
+    "promptVersion": null
+  }
 }

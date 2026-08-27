@@ -62,5 +62,21 @@
       "申し込み前に紹介URLまたはQRを用意する必要がある",
       "紹介ログインとRakuten Link利用の条件がある"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "1353510884ec25dc2287482bb07a29029fc3acd8bf76805da69e6d60a1261801",
+    "listingHash": "1353510884ec25dc2287482bb07a29029fc3acd8bf76805da69e6d60a1261801",
+    "model": null,
+    "promptVersion": null
   }
 }

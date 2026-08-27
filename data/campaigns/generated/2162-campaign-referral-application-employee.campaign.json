@@ -69,5 +69,21 @@
       "description": "楽天従業員から紹介された方限定で、MNPなら14,000ポイント、新規・移行なら11,000ポイントを進呈",
       "url": "https://network.mobile.rakuten.co.jp/campaign/referral-application-employee/"
     }
-  ]
+  ],
+  "publicationStatus": "published",
+  "listingPresence": "supplemental",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "17830ef85c2950b6508b5b27f3fecea74cd5a6dc44974e4a0a07648570b2aa80",
+    "listingHash": "17830ef85c2950b6508b5b27f3fecea74cd5a6dc44974e4a0a07648570b2aa80",
+    "model": null,
+    "promptVersion": null
+  }
 }

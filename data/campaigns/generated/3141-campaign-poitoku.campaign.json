@@ -41,5 +41,21 @@
       "description": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
       "url": "https://network.mobile.rakuten.co.jp/campaign/poitoku/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "4e19b3f5d2123eade76e09d7d0d76d1c3aae2b10ac241c5156af45933b9a4d06",
+    "listingHash": "4e19b3f5d2123eade76e09d7d0d76d1c3aae2b10ac241c5156af45933b9a4d06",
+    "model": null,
+    "promptVersion": null
+  }
 }

@@ -43,5 +43,21 @@
       "description": "ショップの来店予約＆お見積もり＆アンケート回答でもれなく1,000ポイントプレゼント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-weekday-reservation/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "1c68048c24a79f9ab1fcf12461b601fd53d75c37e388906006106f4878ff1ef4",
+    "listingHash": "1c68048c24a79f9ab1fcf12461b601fd53d75c37e388906006106f4878ff1ef4",
+    "model": null,
+    "promptVersion": null
+  }
 }

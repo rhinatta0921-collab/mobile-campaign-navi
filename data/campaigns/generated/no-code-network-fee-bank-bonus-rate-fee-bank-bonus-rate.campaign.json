@@ -40,5 +40,21 @@
       "description": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり",
       "url": "https://network.mobile.rakuten.co.jp/fee/bank-bonus-rate/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "275da8a0b318fd5a3b4efcc2154007142d43f8e4925a1befa3423b7672c6ab7a",
+    "listingHash": "275da8a0b318fd5a3b4efcc2154007142d43f8e4925a1befa3423b7672c6ab7a",
+    "model": null,
+    "promptVersion": null
+  }
 }

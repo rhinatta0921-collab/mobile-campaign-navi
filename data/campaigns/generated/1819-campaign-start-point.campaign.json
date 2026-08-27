@@ -60,5 +60,21 @@
       "対象iPhoneの購入が必須",
       "Rakuten Linkの利用条件がある"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "f859dd5f8cc0ee17ae7aeb3d221695b10cec248e1cb851f44a76de24296355dc",
+    "listingHash": "f859dd5f8cc0ee17ae7aeb3d221695b10cec248e1cb851f44a76de24296355dc",
+    "model": null,
+    "promptVersion": null
   }
 }

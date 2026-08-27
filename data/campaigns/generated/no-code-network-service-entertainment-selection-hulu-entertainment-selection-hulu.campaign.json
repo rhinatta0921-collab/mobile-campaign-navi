@@ -43,5 +43,21 @@
       "description": "楽天モバイルからHuluお申し込みで、初月無料トライアル＋月額利用料最大3カ月間50％ポイント還元！",
       "url": "https://network.mobile.rakuten.co.jp/service/entertainment-selection/hulu/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "30ac1c70d07b3a7d3b79561a1d0e776178eb7c21e489dadcb6e0905989078624",
+    "listingHash": "30ac1c70d07b3a7d3b79561a1d0e776178eb7c21e489dadcb6e0905989078624",
+    "model": null,
+    "promptVersion": null
+  }
 }

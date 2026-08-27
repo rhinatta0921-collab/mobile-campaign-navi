@@ -43,5 +43,21 @@
       "description": "最短1分～！楽天モバイルクイズに回答するだけで100ポイント！！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/answer-quiz/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-22",
+  "provenance": {
+    "contentHash": "096a1e108c2d127282e59715e2b23d6eddccd1283a98a52f4a1bee108b85df34",
+    "listingHash": "096a1e108c2d127282e59715e2b23d6eddccd1283a98a52f4a1bee108b85df34",
+    "model": null,
+    "promptVersion": null
+  }
 }

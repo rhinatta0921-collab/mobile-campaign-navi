@@ -4,8 +4,9 @@ import { extname, join, relative } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-const siteUrl = "https://rmobile.kuraberaku.com";
+const siteUrl = "https://r-mobile.kuraberaku.com";
 const legacyHostnames = [
+  "rmobile.kuraberaku.com",
   "rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev",
   "rakuten-mobile-campaign-navi.pages.dev",
 ];

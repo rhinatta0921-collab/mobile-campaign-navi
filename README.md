@@ -15,7 +15,7 @@ npm test
 
 ## Cloudflare Workers Builds
 
-正式URLは`https://rmobile.kuraberaku.com`です。`wrangler.jsonc`ではこのホストを既存WorkerのCustom Domainとして宣言します。旧Workers本番URLを301転送するため`workers_dev`は維持し、外部公開が不要なVersion Preview URLsは無効にします。
+正式URLは`https://r-mobile.kuraberaku.com`です。`wrangler.jsonc`ではこのホストを既存WorkerのCustom Domainとして宣言します。以前の正式URL`https://rmobile.kuraberaku.com`は停止し、転送しません。旧Workers本番URLを301転送するため`workers_dev`は維持し、外部公開が不要なVersion Preview URLsは無効にします。
 
 旧Workers本番URL`https://rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev`は、パスとクエリを保持して正式URLへ301転送します。Pagesの通常URL`https://rakuten-mobile-campaign-navi.pages.dev`はCloudflare Bulk Redirectsで正式URLへ301転送し、`Include subdomains`を有効にしてハッシュ・ブランチプレビューも転送対象に含めます。いずれもサブパスとクエリを保持します。
 
@@ -38,7 +38,7 @@ npx wrangler versions upload --dry-run
 
 ## アクセス解析
 
-Google Analytics 4は正式ホスト`rmobile.kuraberaku.com`と完全一致する場合だけ読み込みます。Cloudflareのブランチ・バージョンプレビュー、旧ホスト、ローカル環境からは計測データを送信しません。
+Google Analytics 4は正式ホスト`r-mobile.kuraberaku.com`と完全一致する場合だけ読み込みます。Cloudflareのブランチ・バージョンプレビュー、旧ホスト、ローカル環境からは計測データを送信しません。
 
 全キャンペーン公式リンクを`official_link_click`として記録し、社員紹介の申込リンクは追加で`employee_referral_click`として記録します。公開前のプレビューではテスト用の受信関数を使い、Googleへ送信せずイベント内容を確認します。
 

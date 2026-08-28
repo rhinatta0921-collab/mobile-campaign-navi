@@ -18,7 +18,7 @@ test("configures the official custom domain with a Worker-first asset binding", 
   assert.equal(config.preview_urls, false);
   assert.deepEqual(config.routes, [
     {
-      pattern: "rmobile.kuraberaku.com",
+      pattern: "r-mobile.kuraberaku.com",
       custom_domain: true,
     },
   ]);

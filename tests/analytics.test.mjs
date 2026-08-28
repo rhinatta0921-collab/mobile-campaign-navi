@@ -116,7 +116,10 @@ test("loads GA4 only after the exact production hostname check", async () => {
   )?.[1];
   assert.ok(measurementId, "real GA4 measurement ID");
   assert.doesNotMatch(measurementId, /REPLACED|PENDING|EXAMPLE/);
-  assert.match(configSource, /SITE_URL = "https:\/\/rmobile\.kuraberaku\.com"/);
+  assert.match(
+    configSource,
+    /SITE_URL = "https:\/\/r-mobile\.kuraberaku\.com"/,
+  );
   assert.match(
     analyticsSource,
     /window\.location\.hostname === productionHostname/,
@@ -146,7 +149,8 @@ test("loads GA4 only after the exact production hostname check", async () => {
   );
   const joinedJavascript = compiledJavascript.join("\n");
   assert.match(joinedJavascript, new RegExp(measurementId));
-  assert.match(joinedJavascript, /rmobile\.kuraberaku\.com/);
+  assert.match(joinedJavascript, /r-mobile\.kuraberaku\.com/);
+  assert.doesNotMatch(joinedJavascript, /https:\/\/rmobile\.kuraberaku\.com/);
   assert.doesNotMatch(
     joinedJavascript,
     /rakuten-mobile-campaign-navi\.r-hinatta0921\.workers\.dev/,

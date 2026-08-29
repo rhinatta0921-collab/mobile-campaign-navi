@@ -1,4 +1,4 @@
-export const OFFICIAL_ORIGIN = "https://rmobile.kuraberaku.com";
+export const OFFICIAL_ORIGIN = "https://r-mobile.kuraberaku.com";
 export const LEGACY_WORKERS_HOSTNAME =
   "rakuten-mobile-campaign-navi.r-hinatta0921.workers.dev";
 

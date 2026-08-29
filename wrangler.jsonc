@@ -8,7 +8,7 @@
   "preview_urls": false,
   "routes": [
     {
-      "pattern": "rmobile.kuraberaku.com",
+      "pattern": "r-mobile.kuraberaku.com",
       "custom_domain": true
     }
   ],

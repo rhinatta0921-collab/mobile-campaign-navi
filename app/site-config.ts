@@ -1,4 +1,4 @@
-export const SITE_URL = "https://rmobile.kuraberaku.com";
+export const SITE_URL = "https://r-mobile.kuraberaku.com";
 
 export const GA_MEASUREMENT_ID = "G-K0E6HY1B6M";
 

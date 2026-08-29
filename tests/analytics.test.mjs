@@ -159,23 +159,29 @@ test("loads GA4 only after the exact production hostname check", async () => {
   assert.match(joinedJavascript, /employee_referral_click/);
 });
 
-test("exports the exact Search Console verification meta tag", async () => {
+test("exports the Search Console verification meta tags", async () => {
   const [html, configSource] = await Promise.all([
     readFile(new URL("../out/index.html", import.meta.url), "utf8"),
     readFile(new URL("../app/site-config.ts", import.meta.url), "utf8"),
   ]);
-  const verificationToken = configSource.match(
-    /GOOGLE_SITE_VERIFICATION =\s*\n?\s*"([^"]+)"/,
+  const verificationConfig = configSource.match(
+    /GOOGLE_SITE_VERIFICATIONS = \[([\s\S]*?)\]\s+as const/,
   )?.[1];
-  assert.ok(verificationToken, "Search Console verification token");
+  assert.ok(verificationConfig, "Search Console verification tokens");
+  const verificationTokens = [
+    ...verificationConfig.matchAll(/"([^"]+)"/g),
+  ].map((match) => match[1]);
+  assert.equal(verificationTokens.length, 2);
 
   const verificationTags = [
     ...html.matchAll(
       /<meta(?=[^>]*\bname="google-site-verification")(?=[^>]*\bcontent="([^"]+)")[^>]*>/g,
     ),
   ];
-  assert.equal(verificationTags.length, 1);
-  assert.equal(verificationTags[0][1], verificationToken);
+  assert.deepEqual(
+    verificationTags.map((match) => match[1]),
+    verificationTokens,
+  );
 
   const verificationFiles = (await readdir(outDirectory)).filter((filename) =>
     /^google[\w-]+\.html$/.test(filename),

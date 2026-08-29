@@ -1,8 +1,0 @@
-https://:version.:subdomain.workers.dev/*
-  X-Robots-Tag: noindex
-
-https://:project.pages.dev/*
-  X-Robots-Tag: noindex
-
-https://:version.:project.pages.dev/*
-  X-Robots-Tag: noindex

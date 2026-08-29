@@ -139,23 +139,6 @@ test("publishes crawlable robots and a one-URL sitemap", async () => {
   assert.doesNotMatch(sitemap, /application=/);
 });
 
-test("keeps Workers and Pages previews noindex", async () => {
-  const headers = await readFile(
-    new URL("../out/_headers", import.meta.url),
-    "utf8",
-  );
-  assert.match(
-    headers,
-    /https:\/\/:version\.:subdomain\.workers\.dev\/\*\n  X-Robots-Tag: noindex/,
-  );
-  assert.match(headers, /https:\/\/:project\.pages\.dev\/\*\n  X-Robots-Tag: noindex/);
-  assert.match(
-    headers,
-    /https:\/\/:version\.:project\.pages\.dev\/\*\n  X-Robots-Tag: noindex/,
-  );
-  assert.doesNotMatch(headers, /! X-Robots-Tag/);
-});
-
 test("exports SEO references only to the official origin", async () => {
   const textFiles = await exportedTextFiles();
   assert.ok(textFiles.length > 0);

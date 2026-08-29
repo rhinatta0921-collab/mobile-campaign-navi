@@ -8,13 +8,13 @@ async function readJson(pathname) {
   );
 }
 
-test("configures the official custom domain with a Worker-first asset binding", async () => {
+test("configures the official custom domain for direct static asset delivery", async () => {
   const config = await readJson("../wrangler.jsonc");
 
   assert.equal(config.name, "rakuten-mobile-campaign-navi");
-  assert.equal(config.main, "./worker/index.mjs");
-  assert.deepEqual(config.compatibility_flags, ["nodejs_compat"]);
-  assert.equal(config.workers_dev, true);
+  assert.equal("main" in config, false);
+  assert.equal("compatibility_flags" in config, false);
+  assert.equal(config.workers_dev, false);
   assert.equal(config.preview_urls, false);
   assert.deepEqual(config.routes, [
     {
@@ -23,33 +23,24 @@ test("configures the official custom domain with a Worker-first asset binding", 
     },
   ]);
   assert.equal(config.assets.directory, "./out");
-  assert.equal(config.assets.binding, "ASSETS");
   assert.equal(config.assets.not_found_handling, "404-page");
   assert.equal(config.assets.html_handling, "auto-trailing-slash");
-  assert.equal(config.assets.run_worker_first, true);
+  assert.equal("binding" in config.assets, false);
+  assert.equal("run_worker_first" in config.assets, false);
   assert.equal("site" in config, false);
 });
 
-test("marks Cloudflare Workers and Pages previews as noindex", async () => {
-  const headers = await readFile(
-    new URL("../public/_headers", import.meta.url),
-    "utf8",
-  );
-
-  assert.equal(
-    headers,
-    [
-      "https://:version.:subdomain.workers.dev/*",
-      "  X-Robots-Tag: noindex",
-      "",
-      "https://:project.pages.dev/*",
-      "  X-Robots-Tag: noindex",
-      "",
-      "https://:version.:project.pages.dev/*",
-      "  X-Robots-Tag: noindex",
-      "",
-    ].join("\n"),
-  );
+test("removes files used only by retired delivery paths", async () => {
+  for (const pathname of [
+    "../worker/index.mjs",
+    "../public/_headers",
+    "../.openai/hosting.json",
+  ]) {
+    await assert.rejects(
+      readFile(new URL(pathname, import.meta.url), "utf8"),
+      (error) => error.code === "ENOENT",
+    );
+  }
 });
 
 test("pins Workers Builds to Wrangler 4", async () => {

@@ -46,7 +46,7 @@ Google Analytics 4は正式ホスト`r-mobile.kuraberaku.com`と完全一致す�
 
 ## データ更新
 
-同期は閲覧者のアクセス時には動きません。`.github/workflows/campaign-sync.yml`が毎日`0 21 * * *`（6:00 JST）に`main`をチェックアウトし、同時実行を禁止して候補を検証します。手動実行では`report`または`publish`を選択できます。
+同期は閲覧者のアクセス時には動きません。`.github/workflows/campaign-sync.yml`が毎日6:07 JSTに`main`をチェックアウトし、同時実行を禁止して候補を検証します。手動実行では`report`または`apply`を選択できます。
 
 ```sh
 npm run sync:campaigns:auto -- --checked-at=YYYY-MM-DD --write
@@ -64,10 +64,9 @@ npm run check:assets
 
 GitHub Actionsには次を設定します。
 
-- Secrets: `OPENAI_API_KEY`、`RESEND_API_KEY`、`ALERT_EMAIL_FROM`、`ALERT_EMAIL_TO`
+- Secrets: `OPENAI_API_KEY`、`SLACK_WEBHOOK_URL`
 - Variables: `CAMPAIGN_AUTOMATION_MODE`（未設定時は`report`）、任意で`OPENAI_CAMPAIGN_MODEL`
-- Resend: `ALERT_EMAIL_FROM`に使う送信ドメインを事前に検証
 
-導入後3日間は`CAMPAIGN_AUTOMATION_MODE`を未設定または`report`のままにし、Actionsの`campaign-sync-YYYY-MM-DD`成果物と現在の手動結果を照合します。3日連続で一致したらCloudflare Workers BuildsのProduction deploy commandを`npx wrangler deploy`に設定し、`CAMPAIGN_AUTOMATION_MODE=publish`へ変更します。`publish`では画像、スキーマ、lint、build、全テスト、安全判定を通過した生成物だけを日付付きコミットとして`main`へpushし、本番HTMLのカタログバージョンと最終確認日まで照合します。
+導入後3日間は`CAMPAIGN_AUTOMATION_MODE=report`のままにし、Actionsの`campaign-sync-YYYY-MM-DD`成果物と現在の手動結果を照合します。3日連続で一致したらCloudflare Workers BuildsのProduction deploy commandを`npx wrangler deploy`に設定し、`CAMPAIGN_AUTOMATION_MODE=apply`へ変更します。`apply`では画像、スキーマ、lint、build、全テスト、安全判定を通過した生成物だけを日付付きコミットとして`main`へpushし、本番HTMLのカタログバージョンと最終確認日まで照合します。
 
-保留、異常差分、取得、AI、画像、検証、公開の失敗時だけResendで通知します。正常終了と変更なしでは通知しません。
+試運転中は変更なしを含む実行結果を毎日Slackへ通知します。`apply`移行後は、安全な内容変更、保留、異常差分、取得、AI、画像、検証、公開の失敗、障害からの復旧を通知し、正常終了かつ変更なしでは通知しません。通知本文には対象URLとGitHub Actionsの実行URLを含め、詳細レポートは30日間の成果物として保存します。

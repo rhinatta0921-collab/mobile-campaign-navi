@@ -32,7 +32,7 @@
   "period": "2026年6月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -70,9 +70,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "8d7efa30cadf357a1b8f0ec69cd7c480dddfcdadaabb5943384d479c63ac0143",
+    "contentHash": "3f46f175169b71265aca9224da32f1e89ffee909c6d9393d307e6e88399a12e6",
     "listingHash": "8d7efa30cadf357a1b8f0ec69cd7c480dddfcdadaabb5943384d479c63ac0143",
     "model": null,
     "promptVersion": null

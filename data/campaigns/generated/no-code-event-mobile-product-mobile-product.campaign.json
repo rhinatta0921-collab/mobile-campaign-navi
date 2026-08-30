@@ -27,7 +27,7 @@
   "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://event.rakuten.co.jp/mobile/product/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 56,
+      "listingIndex": 59,
       "title": "【楽天市場】スマホSELECTION",
       "description": "AQUOS、OPPOなどのハイスペックSIMフリースマホが3万円台！ポイント還元でお買い得",
       "url": "https://event.rakuten.co.jp/mobile/product/"
@@ -50,9 +50,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "d4e68ecf9f2d2cf7e10ec50e0de26300379a419ae72871d798bfcee82264656d",
+    "contentHash": "c4171c4ca5c7134114f2c8b151aec3a123fd113a34c62e6c567ed722bc1245d2",
     "listingHash": "d4e68ecf9f2d2cf7e10ec50e0de26300379a419ae72871d798bfcee82264656d",
     "model": null,
     "promptVersion": null

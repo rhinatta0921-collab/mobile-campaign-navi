@@ -29,7 +29,7 @@
   "period": "2025年9月8日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -38,14 +38,20 @@
   "sourceCards": [
     {
       "listingIndex": 5,
-      "title": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！（1～24回目まで、25回目以降4,549円/月）",
+      "title": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！（1～24回目まで、25回目以降4,882円/月～）",
       "description": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！さらに、大容量512GBもプラン申し込み+楽天カード48回払いで1,390円/月！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/"
     },
     {
-      "listingIndex": 8,
-      "title": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月～！（1～24回目まで、25回目以降4,365円/月～）",
-      "description": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月～！",
+      "listingIndex": 9,
+      "title": "iPhone 16（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで500円/月！（1～24回目まで、25回目以降5,404円/月～）",
+      "description": "iPhone 16（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで500円/月！",
+      "url": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-16/"
+    },
+    {
+      "listingIndex": 12,
+      "title": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！（1～24回目まで、25回目以降4,365円/月～）",
+      "description": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-16e/"
     }
   ],
@@ -73,10 +79,10 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "330fb7eaf2fd47b7f144b409990eae8020fc4a1c43d10a732c58027e4ca54d53",
-    "listingHash": "330fb7eaf2fd47b7f144b409990eae8020fc4a1c43d10a732c58027e4ca54d53",
+    "contentHash": "8f0fcfa900b4c9173727173c3eeb3f9bfbabc66ce49530c20efc81d275033d61",
+    "listingHash": "a04a9f4f166490d9f4530fdb6d1ff14520fee4bf80b4c6cc6111ad4cd52424dc",
     "model": null,
     "promptVersion": null
   }

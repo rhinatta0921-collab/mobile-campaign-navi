@@ -32,7 +32,7 @@
   "period": "2024年11月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/mnp/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -70,9 +70,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "2085906f81abd0d8c678fb4a3148d17bd9363b0dd2d1fa5bf5dda090ea75615c",
+    "contentHash": "810fab2e021c594afe6bc89dc5f07c754b620f699a2606e0fb22fa5cf47cb17f",
     "listingHash": "2085906f81abd0d8c678fb4a3148d17bd9363b0dd2d1fa5bf5dda090ea75615c",
     "model": null,
     "promptVersion": null

@@ -29,7 +29,7 @@
   "period": "購入・応募：2026年8月27日 10:00 - 2026年11月30日 23:59",
   "officialUrl": "https://arrows-alpha2-cp.com/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
     "arrows Alpha2の購入が必須のため、ランキング対象外です。"
@@ -38,9 +38,9 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 28,
-      "title": "arrows Alpha2 発売記念キャンペーン 楽天ポイント最大10,000円分相当＋90W急速充電器（8,000円分相当）プレゼント！※事前エントリー＆購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
-      "description": "arrows Alpha2 発売記念キャンペーン開催！ ※事前エントリー＆購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
+      "listingIndex": 30,
+      "title": "arrows Alpha2 発売記念キャンペーン 先着20,000名様限定！楽天ポイント5,000円相当＋90W急速充電器（8,800円相当）プレゼント！※購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
+      "description": "arrows Alpha2 発売記念キャンペーン開催！ ※購入が条件となります。本キャンペーンの主催はFCNT合同会社です。",
       "url": "https://arrows-alpha2-cp.com/"
     }
   ],
@@ -53,10 +53,10 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "c5df68a860679278df9642aeab1bf184653f67f89d16af4428a014c1f525fa19",
-    "listingHash": "c5df68a860679278df9642aeab1bf184653f67f89d16af4428a014c1f525fa19",
+    "contentHash": "698af3cd91d799f9a9f04d949c3f24092fbb6de2239d23e6dbd0a3117be9e4ab",
+    "listingHash": "f654d76dd2780c59bae8eb31f04eae634bde5a75ccedf98035bdedabde2c68a1",
     "model": null,
     "promptVersion": null
   }

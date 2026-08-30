@@ -27,7 +27,7 @@
   "period": "2025年6月19日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/voice-mail/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 49,
+      "listingIndex": 52,
       "title": "【留守番電話】月額330円が初回1カ月無料",
       "description": "電源OFF時や通信圏外時にも使える 留守番電話 はじめてのお申し込みで初回1カ月無料※ 2025年6月19日（木）0:00～終了日未定 ※その他条件あり。",
       "url": "https://network.mobile.rakuten.co.jp/service/voice-mail/"
@@ -65,9 +65,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "bddf406e7d705d5962b329dc9a30c663ec4ac93a8086d70c1316aefb92aa73a5",
+    "contentHash": "75761cd866707d548cbddfbf96e969bfe1d63f17974bb6d95c8eed3107d4a417",
     "listingHash": "bddf406e7d705d5962b329dc9a30c663ec4ac93a8086d70c1316aefb92aa73a5",
     "model": null,
     "promptVersion": null

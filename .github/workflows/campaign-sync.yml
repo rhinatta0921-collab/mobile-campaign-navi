@@ -2,19 +2,21 @@ name: Daily campaign catalog sync
 
 on:
   schedule:
-    - cron: "0 21 * * *"
+    - cron: "7 6 * * *"
+      timezone: "Asia/Tokyo"
   workflow_dispatch:
     inputs:
       mode:
-        description: "reportは検証のみ、publishはmainへ反映"
+        description: "reportは検証のみ、applyは検証済みデータをmainへ反映"
         required: true
         default: report
         type: choice
         options:
           - report
-          - publish
+          - apply
 
 permissions:
+  actions: read
   contents: write
 
 concurrency:
@@ -23,6 +25,7 @@ concurrency:
 
 env:
   REPORT_PATH: .campaign-sync/report.json
+  SLACK_PAYLOAD_PATH: .campaign-sync/slack-payload.json
 
 jobs:
   sync:
@@ -46,10 +49,37 @@ jobs:
         env:
           REQUESTED_MODE: ${{ github.event.inputs.mode || vars.CAMPAIGN_AUTOMATION_MODE || 'report' }}
         run: |
+          case "$REQUESTED_MODE" in
+            report|apply) ;;
+            *)
+              echo "Unsupported CAMPAIGN_AUTOMATION_MODE: $REQUESTED_MODE" >&2
+              exit 1
+              ;;
+          esac
           echo "checked_at=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_OUTPUT"
           echo "mode=$REQUESTED_MODE" >> "$GITHUB_OUTPUT"
 
+      - name: Read previous workflow conclusion
+        id: previous_run
+        if: always()
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const response = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "campaign-sync.yml",
+              per_page: 10,
+            });
+            const previous = response.data.workflow_runs.find(
+              (run) => run.id !== Number(context.runId) && run.status === "completed",
+            );
+            core.setOutput("conclusion", previous?.conclusion ?? "");
+
       - name: Install dependencies
+        id: dependencies
         run: npm ci
 
       - name: Build candidate campaign catalog
@@ -68,15 +98,15 @@ jobs:
         if: always() && hashFiles(env.REPORT_PATH) == ''
         env:
           CHECKED_AT: ${{ steps.settings.outputs.checked_at }}
-        run: >-
-          mkdir -p .campaign-sync &&
+        run: |
+          mkdir -p .campaign-sync
           node -e 'const fs=require("node:fs"); const checkedAt=process.env.CHECKED_AT || new Date().toISOString().slice(0,10); fs.writeFileSync(".campaign-sync/report.json", JSON.stringify({checkedAt,safeToPublish:false,requiresAttention:true,additions:[],changes:[],ended:[],pending:[],warnings:[],errors:["候補生成前または候補生成中にワークフローが失敗しました。"]},null,2)+"\n")'
 
       - name: Read safety report
         id: report
         if: always() && hashFiles(env.REPORT_PATH) != ''
         run: |
-          node -e 'const r=require("./.campaign-sync/report.json"); console.log(`safe_to_publish=${r.safeToPublish}`); console.log(`requires_attention=${r.requiresAttention}`)' >> "$GITHUB_OUTPUT"
+          node -e 'const r=require("./.campaign-sync/report.json"); console.log(`safe_to_publish=${r.safeToPublish}`); console.log(`requires_attention=${r.requiresAttention}`); console.log(`content_changed=${Boolean(r.contentChanged)}`)' >> "$GITHUB_OUTPUT"
 
       - name: Synchronize required official images
         id: images
@@ -100,7 +130,7 @@ jobs:
         if: always() && hashFiles(env.REPORT_PATH) != ''
         uses: actions/upload-artifact@v4
         with:
-          name: campaign-sync-${{ steps.settings.outputs.checked_at }}
+          name: campaign-sync-${{ steps.settings.outputs.checked_at || github.run_id }}
           path: |
             ${{ env.REPORT_PATH }}
             data/campaigns/generated
@@ -111,7 +141,7 @@ jobs:
       - name: Commit validated catalog to main
         id: commit
         if: >-
-          steps.settings.outputs.mode == 'publish' &&
+          steps.settings.outputs.mode == 'apply' &&
           steps.catalog.outcome == 'success' &&
           steps.images.outcome == 'success' &&
           steps.validation.outcome == 'success' &&
@@ -134,31 +164,48 @@ jobs:
         continue-on-error: true
         run: npm run verify:campaign-production
 
-      - name: Send attention email
-        if: >-
-          always() &&
-          hashFiles(env.REPORT_PATH) != '' &&
-          (steps.report.outputs.requires_attention == 'true' ||
-           steps.catalog.outcome == 'failure' ||
-           steps.images.outcome == 'failure' ||
-           steps.validation.outcome == 'failure' ||
-           steps.production.outcome == 'failure')
+      - name: Prepare Slack notification
+        id: notification
+        if: always() && hashFiles(env.REPORT_PATH) != ''
         env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          ALERT_EMAIL_FROM: ${{ secrets.ALERT_EMAIL_FROM }}
-          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          CAMPAIGN_AUTOMATION_MODE: ${{ steps.settings.outputs.mode || vars.CAMPAIGN_AUTOMATION_MODE || 'report' }}
+          CAMPAIGN_PIPELINE_FAILED: ${{ steps.catalog.outcome == 'failure' || steps.images.outcome == 'failure' || steps.validation.outcome == 'failure' || steps.commit.outcome == 'failure' || steps.production.outcome == 'failure' }}
+          CAMPAIGN_PREVIOUS_CONCLUSION: ${{ steps.previous_run.outputs.conclusion }}
           CAMPAIGN_FAILURE_CONTEXT: >-
+            dependencies=${{ steps.dependencies.outcome }},
             catalog=${{ steps.catalog.outcome }},
             images=${{ steps.images.outcome }},
             validation=${{ steps.validation.outcome }},
+            commit=${{ steps.commit.outcome }},
             production=${{ steps.production.outcome }}
-        run: npm run notify:campaign-sync -- --force
+        run: >-
+          npm run notify:campaign-sync --
+          --report-path=${{ env.REPORT_PATH }}
+          --payload-path=${{ env.SLACK_PAYLOAD_PATH }}
+          --mode=${{ steps.settings.outputs.mode || vars.CAMPAIGN_AUTOMATION_MODE || 'report' }}
+
+      - name: Send Slack notification
+        id: slack
+        if: always() && steps.notification.outputs.notify == 'true'
+        continue-on-error: true
+        uses: slackapi/slack-github-action@v4.0.0
+        with:
+          payload-file-path: ${{ env.SLACK_PAYLOAD_PATH }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
 
       - name: Fail unsafe run
         if: >-
           always() &&
-          (steps.catalog.outcome == 'failure' ||
+          (steps.settings.outcome == 'failure' ||
+           steps.dependencies.outcome == 'failure' ||
+           steps.catalog.outcome == 'failure' ||
+           steps.report.outcome == 'failure' ||
+           steps.report.outputs.safe_to_publish != 'true' ||
            steps.images.outcome == 'failure' ||
            steps.validation.outcome == 'failure' ||
-           steps.production.outcome == 'failure')
+           steps.commit.outcome == 'failure' ||
+           steps.production.outcome == 'failure' ||
+           steps.notification.outcome == 'failure' ||
+           steps.slack.outcome == 'failure')
         run: exit 1

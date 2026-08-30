@@ -30,7 +30,7 @@
   "period": "楽天でんき：2026年8月2日 10:00 - 2026年9月2日 9:59（毎月開催）",
   "officialUrl": "https://energy.rakuten.co.jp/campaign/lp/mobilelink/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
     "楽天でんきの新規申し込みが特典の直接条件で、モバイル回線申し込みではないためランキング対象外です。"
@@ -39,7 +39,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 34,
+      "listingIndex": 37,
       "title": "楽天モバイル利用者様限定。楽天でんき新規申し込み＆ご利用継続で、条件達成した方全員に8,000ポイント進呈。抽選キャンペーン実施中。",
       "description": "楽天モバイル利用者様限定。楽天でんき新規申し込み＆ご利用継続で、条件達成した方全員に8,000ポイント進呈。抽選キャンペーン実施中。 ※条件あり",
       "url": "https://energy.rakuten.co.jp/campaign/lp/mobilelink/"
@@ -54,9 +54,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "4170cd53475d23151aaca6dbd7aeeea34c9bfdf9570108568d231ec1a4df51a5",
+    "contentHash": "eb65ebe779f9844e2ae66ea008569644e30fe8859411b7baa85b4d6ef12a5ed5",
     "listingHash": "4170cd53475d23151aaca6dbd7aeeea34c9bfdf9570108568d231ec1a4df51a5",
     "model": null,
     "promptVersion": null

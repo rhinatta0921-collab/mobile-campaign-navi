@@ -28,7 +28,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-platinum/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 14,
+      "listingIndex": 16,
       "title": "Rakuten WiFi Pocket 1円キャンペーン",
       "description": "楽天モバイルへお申し込み（2回線目以降でも対象）でモバイルルーターを1円で購入できる！",
       "url": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-platinum/"
@@ -66,9 +66,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "d900241f6280053fb1a5adfaf4286947347649ed24904f314d0a73e6151e4e9a",
+    "contentHash": "8bf5304755fd5a6fd49b67ea0673adcb96f223fee14e54223d6443ebce7fd967",
     "listingHash": "d900241f6280053fb1a5adfaf4286947347649ed24904f314d0a73e6151e4e9a",
     "model": null,
     "promptVersion": null

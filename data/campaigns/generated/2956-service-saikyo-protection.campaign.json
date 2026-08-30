@@ -27,7 +27,7 @@
   "period": "2025年8月26日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/saikyo-protection/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 47,
+      "listingIndex": 50,
       "title": "【最強保護】オールインワンのスマホセキュリティサービス 初回利用3カ月無料！",
       "description": "これで安心!オールインワンのスマホセキュリティサービス 最強保護 初回利用3カ月無料！ ※4キャリアにおいてノートン社の同等のセキュリティサービスと比較し、初回無料期間を考慮した1年目相当の価格が最安。2025年8月自社調べ。",
       "url": "https://network.mobile.rakuten.co.jp/service/saikyo-protection/"
@@ -65,9 +65,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "5f24df243ef9e4e83f39c24c8dfdd027861c51f04729dc62307801c481ec36b5",
+    "contentHash": "65ebcfb30086f81cd33dc74bb29c112eea6a0683650ca4131f7d2483a06bd6f3",
     "listingHash": "5f24df243ef9e4e83f39c24c8dfdd027861c51f04729dc62307801c481ec36b5",
     "model": null,
     "promptVersion": null

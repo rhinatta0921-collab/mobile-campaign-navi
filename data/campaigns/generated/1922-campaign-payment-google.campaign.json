@@ -29,7 +29,7 @@
   "period": "2023年7月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/payment-google/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -37,7 +37,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 36,
+      "listingIndex": 39,
       "title": "Google Play ストア・楽天モバイルキャリア決済ご利用キャンペーン",
       "description": "「楽天モバイルキャリア決済」ならAndroidでのアプリ購入、アプリ内課金が最大2％分ポイント還元 ※楽天カードご利用通常ポイント1%＋キャリア決済ご利用1%ポイント還元。",
       "url": "https://network.mobile.rakuten.co.jp/campaign/payment-google/"
@@ -52,9 +52,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "ee0edd6a5f84371ab1e154e8ec54ab482c551a37ba7880f294921d1e135b77d9",
+    "contentHash": "ff524f19c3ba1904d1278f1967a7395c73f5ee9aa86f863f137454832784d91b",
     "listingHash": "ee0edd6a5f84371ab1e154e8ec54ab482c551a37ba7880f294921d1e135b77d9",
     "model": null,
     "promptVersion": null

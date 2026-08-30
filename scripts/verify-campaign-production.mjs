@@ -35,7 +35,7 @@ async function main() {
   const indexPath = path.resolve(
     option("index-path") ?? "data/campaigns/generated/index.json",
   );
-  const url = option("url") ?? "https://rmobile.kuraberaku.com/";
+  const url = option("url") ?? "https://r-mobile.kuraberaku.com/";
   const attempts = Number(option("attempts") ?? 60);
   const intervalMs = Number(option("interval-ms") ?? 10_000);
   const index = JSON.parse(await readFile(indexPath, "utf8"));

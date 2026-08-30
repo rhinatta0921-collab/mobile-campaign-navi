@@ -27,7 +27,7 @@
   "period": "2025年6月19日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/call-waiting/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 50,
+      "listingIndex": 53,
       "title": "【割込通話】月額220円が初回1カ月無料",
       "description": "通話中の電話も保留にできる 割込通話 はじめてのお申し込みで初回1カ月無料※ 2025年6月19日（木）0:00～終了日未定 ※その他条件あり。",
       "url": "https://network.mobile.rakuten.co.jp/service/call-waiting/"
@@ -65,9 +65,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "8e6ad9fa94dab228f6897193409b7ce36adc04b9c19c2b4eb8a0228eca5ca17a",
+    "contentHash": "b6f54aadeb114d9ea6d67d5e338615bc23407f0508180cb78b69bef588899cf0",
     "listingHash": "8e6ad9fa94dab228f6897193409b7ce36adc04b9c19c2b4eb8a0228eca5ca17a",
     "model": null,
     "promptVersion": null

@@ -28,7 +28,7 @@
   "period": "2024年2月16日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/android-discount/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -42,7 +42,7 @@
       "url": "https://network.mobile.rakuten.co.jp/campaign/android-discount/"
     },
     {
-      "listingIndex": 25,
+      "listingIndex": 27,
       "title": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で最大40,000円値引き！",
       "description": "楽天モバイル申し込み＋他社から電話番号そのまま乗り換え＋対象製品購入で最大40,000円値引き！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/android-sale/"
@@ -72,9 +72,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "2d3d0ba1afad6a2259e87d627a12598b7cba95ecd72318ecfa7edaf5ce2c1d09",
+    "contentHash": "7505d900a342aeba2c94e61cda0b994d29732dc7534e95c5738fc86b159bc372",
     "listingHash": "2d3d0ba1afad6a2259e87d627a12598b7cba95ecd72318ecfa7edaf5ce2c1d09",
     "model": null,
     "promptVersion": null

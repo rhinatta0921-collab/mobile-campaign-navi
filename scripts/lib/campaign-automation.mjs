@@ -263,14 +263,36 @@ export function isAbnormalListingDelta(previousCount, currentCount) {
   return difference > 10 && difference / previousCount > 0.2;
 }
 
-export function isExplicitlyEnded(status, sourceText, finalUrl = "") {
+function primaryOfficialText(sourceText) {
+  const main = sourceText.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
+  return normalizeOfficialText(main ?? sourceText);
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function isExplicitlyEnded(
+  status,
+  sourceText,
+  finalUrl = "",
+  campaignCode = null,
+) {
   if (status === 404 || status === 410) return true;
   if (/\/campaign\/(?:past|archive|ended?)(?:\/|$)/i.test(finalUrl)) {
     return true;
   }
-  return /(?:本|当)?キャンペーン(?:・特典)?は終了(?:しました|いたしました)|キャンペーン終了|受付を終了/.test(
-    normalizeOfficialText(sourceText),
+  const text = primaryOfficialText(sourceText);
+  const explicitPageEnd =
+    /(?:^|[。！？\s])(?:本|当)キャンペーン(?:・特典)?(?:の(?:申込|申し込み|応募|受付|エントリー))?は(?:すでに)?終了(?:しました|いたしました|しております)(?:[。！？\s]|$)/;
+  if (explicitPageEnd.test(text.slice(0, 2_000))) return true;
+
+  if (!campaignCode || campaignCode.startsWith("NO-CODE-")) return false;
+  const escapedCode = escapeRegExp(campaignCode);
+  const codeSpecificEnd = new RegExp(
+    `(?:キャンペーン|施策)コード\\s*[:：]?\\s*${escapedCode}[）)]?\\s*(?:は|を)?終了(?:しました|いたしました|しております)`,
   );
+  return codeSpecificEnd.test(text);
 }
 
 export function extractRuleFacts(sourceText) {

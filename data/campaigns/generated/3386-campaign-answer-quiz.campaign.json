@@ -29,7 +29,7 @@
   "period": "2026年8月7日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/answer-quiz/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "楽天モバイル回線の申し込みは特典の直接条件ではないため、ランキング対象外です。"
@@ -38,7 +38,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 11,
+      "listingIndex": 13,
       "title": "最短1分～！楽天モバイルクイズに回答するだけで100ポイント！！",
       "description": "最短1分～！楽天モバイルクイズに回答するだけで100ポイント！！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/answer-quiz/"
@@ -53,9 +53,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "096a1e108c2d127282e59715e2b23d6eddccd1283a98a52f4a1bee108b85df34",
+    "contentHash": "cb223f048056469b59fb97bf3464d2ae8d75fbbf70403d12475aa35cb01d2cbb",
     "listingHash": "096a1e108c2d127282e59715e2b23d6eddccd1283a98a52f4a1bee108b85df34",
     "model": null,
     "promptVersion": null

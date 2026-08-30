@@ -29,7 +29,7 @@
   "period": "エントリー・Web申込：2026年6月1日 0:00 - 2026年8月31日 23:59／ショップ申込：2026年6月1日 開店 - 2026年8月31日 閉店",
   "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -67,9 +67,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "783d948a995fa51564856f3f7c47a2c4ceb89d314288182f5503807f1c50faa4",
+    "contentHash": "3f46f175169b71265aca9224da32f1e89ffee909c6d9393d307e6e88399a12e6",
     "listingHash": "783d948a995fa51564856f3f7c47a2c4ceb89d314288182f5503807f1c50faa4",
     "model": null,
     "promptVersion": null

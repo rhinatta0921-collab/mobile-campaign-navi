@@ -27,7 +27,7 @@
   "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/fee/bank-bonus-rate/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 17,
+      "listingIndex": 19,
       "title": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！",
       "description": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！ ※適用条件あり",
       "url": "https://network.mobile.rakuten.co.jp/fee/bank-bonus-rate/"
@@ -50,9 +50,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "275da8a0b318fd5a3b4efcc2154007142d43f8e4925a1befa3423b7672c6ab7a",
+    "contentHash": "57b690567e8e2867e20d0c7a938a77046bb4471331680aabeb8dab7e274c9dc8",
     "listingHash": "275da8a0b318fd5a3b4efcc2154007142d43f8e4925a1befa3423b7672c6ab7a",
     "model": null,
     "promptVersion": null

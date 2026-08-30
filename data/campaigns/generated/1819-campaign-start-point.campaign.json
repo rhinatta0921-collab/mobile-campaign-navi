@@ -32,7 +32,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/start-point/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -40,7 +40,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 27,
+      "listingIndex": 29,
       "title": "【要エントリー】楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
       "description": "楽天モバイル初めてお申し込み＋他社から電話番号そのまま乗り換え＋対象製品ご購入で最大23,000ポイント還元！他社から乗り換え以外の方でも最大13,000ポイント還元中",
       "url": "https://network.mobile.rakuten.co.jp/campaign/start-point/"
@@ -70,9 +70,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "f859dd5f8cc0ee17ae7aeb3d221695b10cec248e1cb851f44a76de24296355dc",
+    "contentHash": "0c30c84b670bb0c4b8f6445353aab706ada380adb56dc4c76ee42524a48d3765",
     "listingHash": "f859dd5f8cc0ee17ae7aeb3d221695b10cec248e1cb851f44a76de24296355dc",
     "model": null,
     "promptVersion": null

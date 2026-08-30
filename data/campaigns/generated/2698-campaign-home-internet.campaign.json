@@ -28,7 +28,7 @@
   "period": "2025年3月4日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/internet/turbo/campaign/home-internet/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 32,
+      "listingIndex": 35,
       "title": "Rakuten Turbo初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元 ※期間限定ポイント。条件あり",
       "description": "Rakuten Turbo初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
       "url": "https://network.mobile.rakuten.co.jp/internet/turbo/campaign/home-internet/"
@@ -66,9 +66,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "f079f77df30f375bbff6581257a752fd5c8282c34ec12f0e43272a4e3bff899e",
+    "contentHash": "992d6de3d93b0603d243a8246fbac570da15e704f630f08b778ac9d8a9a201e5",
     "listingHash": "f079f77df30f375bbff6581257a752fd5c8282c34ec12f0e43272a4e3bff899e",
     "model": null,
     "promptVersion": null

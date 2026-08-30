@@ -29,7 +29,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-point/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -37,7 +37,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 31,
+      "listingIndex": 33,
       "title": "【楽天モバイルご契約者様限定】対象店舗でのお買い物で楽天ポイント20倍キャンペーン",
       "description": "楽天モバイルご契約で対象店舗でのお買い物が20倍！ ※期間限定ポイント。上限・条件あり。",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-point/"
@@ -52,9 +52,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "d53d9f2136c0ad202222bc8205d8920bc0419883ba49620b2ca0d8040d267808",
+    "contentHash": "5e2ca8b81c5fd3f3fffabc9343630b3a5c7477e539af80efcd4ef468b0ec44e1",
     "listingHash": "d53d9f2136c0ad202222bc8205d8920bc0419883ba49620b2ca0d8040d267808",
     "model": null,
     "promptVersion": null

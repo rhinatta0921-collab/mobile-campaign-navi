@@ -36,7 +36,7 @@
   "period": "Web：2026年8月7日 9:00 - 2026年9月7日 8:59／ショップ：2026年8月7日 開店 - 2026年9月6日 閉店",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/ichiba-debut/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "楽天市場での買い物条件を満たさない場合は、MNP16,000ポイント、新規番号10,000ポイントです。",
@@ -76,9 +76,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "f48a2df6055e79095b03b79ac0d3ed2e910cd415cb3a508130a4c6dea0cce331",
+    "contentHash": "9efa24458c0390220fb3730844bdcf6a43a5bc4fae03b44e4b77f2d7465d5528",
     "listingHash": "f48a2df6055e79095b03b79ac0d3ed2e910cd415cb3a508130a4c6dea0cce331",
     "model": null,
     "promptVersion": null

@@ -24,8 +24,8 @@ import {
   withCatalogMetadata,
 } from "../scripts/lib/campaign-automation.mjs";
 import {
-  buildNotification,
-  sendNotification,
+  buildSlackPayload,
+  notificationDecision,
 } from "../scripts/notify-campaign-sync.mjs";
 import { verifyProductionHtml } from "../scripts/verify-campaign-production.mjs";
 
@@ -191,6 +191,33 @@ test("guards large listing deltas and validates rule-extracted point evidence", 
       200,
       "通常の案内",
       "https://network.mobile.rakuten.co.jp/campaign/archive/example/",
+    ),
+    true,
+  );
+  assert.equal(
+    isExplicitlyEnded(
+      200,
+      "本キャンペーン終了後、条件を変更して実施する場合があります。",
+      "https://network.mobile.rakuten.co.jp/campaign/example/",
+      "1234",
+    ),
+    false,
+  );
+  assert.equal(
+    isExplicitlyEnded(
+      200,
+      "2026年6月18日にキャンペーン終了日を未定から変更しました。",
+      "https://network.mobile.rakuten.co.jp/campaign/example/",
+      "1234",
+    ),
+    false,
+  );
+  assert.equal(
+    isExplicitlyEnded(
+      200,
+      "2026年8月31日に上記（キャンペーンコード：1234）は終了しました。",
+      "https://network.mobile.rakuten.co.jp/campaign/example/",
+      "1234",
     ),
     true,
   );
@@ -363,7 +390,7 @@ test("stores an unverified new campaign as pending and keeps it out of publicati
   assert.equal(campaign.rankingEligible, false);
 });
 
-test("builds actionable Resend mail with a stable run idempotency key", async () => {
+test("builds an actionable Slack payload and applies the notification policy", () => {
   const report = {
     checkedAt: "2026-08-27",
     safeToPublish: true,
@@ -386,22 +413,47 @@ test("builds actionable Resend mail with a stable run idempotency key", async ()
     GITHUB_RUN_ID: "123",
     GITHUB_RUN_ATTEMPT: "2",
   };
-  assert.match(buildNotification(report, environment).text, /根拠不足/);
-  let request;
-  await sendNotification({
+  const warning = notificationDecision(report, { mode: "apply" });
+  assert.equal(warning.notify, true);
+  assert.equal(warning.severity, "warning");
+  const payload = buildSlackPayload(
     report,
-    apiKey: "resend-key",
-    from: "alerts@example.com",
-    to: "one@example.com,two@example.com",
-    environment,
-    fetchImpl: async (url, options) => {
-      request = { url, options, body: JSON.parse(options.body) };
-      return new Response(JSON.stringify({ id: "email-id" }), { status: 200 });
-    },
-  });
-  assert.equal(request.url, "https://api.resend.com/emails");
-  assert.equal(request.options.headers["idempotency-key"], "owner/repo:123:2");
-  assert.deepEqual(request.body.to, ["one@example.com", "two@example.com"]);
+    { ...environment, CAMPAIGN_AUTOMATION_MODE: "apply" },
+    warning,
+  );
+  assert.match(payload.text, /要確認/);
+  assert.match(JSON.stringify(payload.blocks), /根拠不足/);
+  assert.match(JSON.stringify(payload.blocks), /actions\/runs\/123/);
+
+  const noChange = {
+    ...report,
+    pending: [],
+    requiresAttention: false,
+    contentChanged: false,
+  };
+  assert.equal(
+    notificationDecision(noChange, { mode: "apply" }).notify,
+    false,
+  );
+  assert.equal(
+    notificationDecision(noChange, { mode: "report" }).notify,
+    true,
+  );
+});
+
+test("schedules report/apply automation with Slack-only notifications", async () => {
+  const workflow = await readFile(
+    fileURLToPath(
+      new URL("../.github/workflows/campaign-sync.yml", import.meta.url),
+    ),
+    "utf8",
+  );
+  assert.match(workflow, /cron: "7 6 \* \* \*"/);
+  assert.match(workflow, /timezone: "Asia\/Tokyo"/);
+  assert.match(workflow, /- report\s+- apply/);
+  assert.match(workflow, /secrets\.SLACK_WEBHOOK_URL/);
+  assert.match(workflow, /slackapi\/slack-github-action@v4\.0\.0/);
+  assert.doesNotMatch(workflow, /RESEND|ALERT_EMAIL/);
 });
 
 test("verifies the deployed catalog version and successful check date", () => {

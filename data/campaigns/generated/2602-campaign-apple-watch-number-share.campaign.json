@@ -34,7 +34,7 @@
   "period": "2025年1月27日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/apple-watch-number-share/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -42,7 +42,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 53,
+      "listingIndex": 56,
       "title": "Web限定！対象のApple Watch購入＋「電話番号シェアサービス」加入（550円/月）で3,300ポイントプレゼント！",
       "description": "Web限定！対象のApple Watch購入＋「電話番号シェアサービス」加入（550円/月）で3,300ポイントプレゼント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/apple-watch-number-share/"
@@ -72,9 +72,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
   "provenance": {
-    "contentHash": "96e5684574f13c1904594af2d5ea53985213e7a4127b6487e6c244225e8849f7",
+    "contentHash": "ab8360409c5b94ed4c94a065895bcfc5d5ac1307b116ee17b7f05af69695c553",
     "listingHash": "96e5684574f13c1904594af2d5ea53985213e7a4127b6487e6c244225e8849f7",
     "model": null,
     "promptVersion": null

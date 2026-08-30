@@ -373,6 +373,7 @@ async function run() {
         detail.status,
         detail.text,
         detail.finalUrl,
+        oldCampaign.campaignCode,
       );
       if (explicitEnd || missingCount >= 2) {
         const reason = explicitEnd
@@ -449,9 +450,19 @@ async function run() {
         !oldCampaign ||
         previousListingHash !== currentListingHash ||
         previousContentHash !== currentContentHash;
+      const pendingCanRetry =
+        oldCampaign?.publicationStatus === "pending" &&
+        !override &&
+        Boolean(process.env.OPENAI_API_KEY) &&
+        Boolean(detail.text);
 
       if (
-        isExplicitlyEnded(detail.status, detail.text, detail.finalUrl)
+        isExplicitlyEnded(
+          detail.status,
+          detail.text,
+          detail.finalUrl,
+          generatedCampaign.campaignCode,
+        )
       ) {
         const reason =
           detail.status === 404 || detail.status === 410
@@ -478,6 +489,7 @@ async function run() {
       if (
         oldCampaign &&
         !sourceChanged &&
+        !pendingCanRetry &&
         oldCampaign.publicationStatus &&
         oldCampaign.listingPresence === listingPresence
       ) {
@@ -494,14 +506,16 @@ async function run() {
       let sourceHash = currentContentHash;
       let explicitStatus = override?.publicationStatus;
 
-      if (!override && sourceChanged) {
+      if (!override && (sourceChanged || pendingCanRetry)) {
         const sourceText = detail.text;
         if (!process.env.OPENAI_API_KEY) {
           const reason = "OPENAI_API_KEY未設定のため新規・変更内容を構造化できません。";
           campaign = pendingCampaign(generatedCampaign, reason, {
             checkedAt,
             firstSeenAt: oldCampaign?.firstSeenAt,
-            lastChangedAt: checkedAt,
+            lastChangedAt: sourceChanged
+              ? checkedAt
+              : oldCampaign?.lastChangedAt ?? checkedAt,
             listingPresence,
             sourceHash: currentContentHash,
             listingHash: currentListingHash,
@@ -523,7 +537,9 @@ async function run() {
           campaign = pendingCampaign(generatedCampaign, reason, {
             checkedAt,
             firstSeenAt: oldCampaign?.firstSeenAt,
-            lastChangedAt: checkedAt,
+            lastChangedAt: sourceChanged
+              ? checkedAt
+              : oldCampaign?.lastChangedAt ?? checkedAt,
             listingPresence,
             sourceHash: currentContentHash,
             listingHash: currentListingHash,
@@ -580,11 +596,15 @@ async function run() {
         }
       }
 
+      const publicationChanged =
+        Boolean(oldCampaign) &&
+        oldCampaign.publicationStatus !==
+          derivePublicationStatus(campaign, explicitStatus);
       campaign = withCatalogMetadata(campaign, {
         checkedAt,
         explicitStatus,
         firstSeenAt: oldCampaign?.firstSeenAt,
-        lastChangedAt: sourceChanged
+        lastChangedAt: sourceChanged || publicationChanged
           ? checkedAt
           : oldCampaign?.lastChangedAt ?? checkedAt,
         listingPresence,
@@ -593,7 +613,7 @@ async function run() {
         sourceHash,
         listingHash: currentListingHash,
       });
-      campaign.checkedAt = sourceChanged
+      campaign.checkedAt = sourceChanged || publicationChanged
         ? checkedAt
         : oldCampaign?.checkedAt ?? checkedAt;
 
@@ -601,14 +621,18 @@ async function run() {
         filename: oldRecord?.filename ?? generatedRecord.filename,
         campaign,
       });
-      if (!oldCampaign) {
+      if (
+        !oldCampaign ||
+        (oldCampaign.publicationStatus === "pending" &&
+          campaign.publicationStatus === "published")
+      ) {
         report.additions.push({
           campaignCode: campaign.campaignCode,
           title: campaign.title,
           officialUrl: campaign.officialUrl,
           status: campaign.publicationStatus,
         });
-      } else if (sourceChanged) {
+      } else if (sourceChanged || publicationChanged) {
         report.changes.push({
           campaignCode: campaign.campaignCode,
           title: campaign.title,
@@ -625,6 +649,18 @@ async function run() {
       ),
     );
     assertCandidateIntegrity(finalRecords);
+    report.pending = finalRecords
+      .filter(({ campaign }) => campaign.publicationStatus === "pending")
+      .map(({ campaign }) => ({
+        campaignCode: campaign.campaignCode,
+        title: campaign.title,
+        officialUrl: campaign.officialUrl,
+        reason:
+          [...(campaign.notes ?? [])]
+            .reverse()
+            .find((note) => note.startsWith("自動掲載保留:"))
+            ?.replace(/^自動掲載保留:\s*/, "") ?? "公式情報を確認中",
+      }));
     report.requiresAttention =
       report.pending.length > 0 || report.warnings.length > 0;
 

@@ -576,9 +576,15 @@ export async function extractCampaignWithOpenAI({
   const outputText = responseOutputText(payload);
   if (!outputText) throw new Error("OpenAI APIの構造化出力がありません。");
   const extracted = JSON.parse(outputText);
+  const usage = {
+    inputTokens: payload.usage?.input_tokens ?? 0,
+    outputTokens: payload.usage?.output_tokens ?? 0,
+  };
   const evidenceErrors = validateExtractionEvidence(extracted, sourceText);
   if (evidenceErrors.length > 0) {
-    throw new Error(evidenceErrors.join(" "));
+    const error = new Error(evidenceErrors.join(" "));
+    error.aiUsage = usage;
+    throw error;
   }
   return {
     extracted,
@@ -588,10 +594,7 @@ export async function extractCampaignWithOpenAI({
       promptVersion: PROMPT_VERSION,
       sourceHash: officialSourceHash(sourceText, officialUrl),
     },
-    usage: {
-      inputTokens: payload.usage?.input_tokens ?? 0,
-      outputTokens: payload.usage?.output_tokens ?? 0,
-    },
+    usage,
   };
 }
 

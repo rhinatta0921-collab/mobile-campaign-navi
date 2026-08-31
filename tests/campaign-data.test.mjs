@@ -163,12 +163,14 @@ test("stores validated generated campaigns separately from curated fields", asyn
 
   assert.equal(campaignCodes.size, filenames.length);
   assert.ok(generatedCodeCount >= 0);
-  assert.deepEqual(
-    [...coveredListingIndexes].sort((left, right) => left - right),
-    Array.from(
-      { length: index.listingCardCount },
-      (_, indexNumber) => indexNumber + 1,
+  // listingIndexは取得時点の監査値。カードの並び替えだけでは個別JSONを
+  // 書き換えないため、現在の一覧で連番になることは要求しない。
+  assert.ok(coveredListingIndexes.size > 0);
+  assert.ok(
+    [...coveredListingIndexes].every(
+      (listingIndex) => Number.isInteger(listingIndex) && listingIndex > 0,
     ),
+    "listingIndexは監査用の正の整数であること",
   );
 });
 

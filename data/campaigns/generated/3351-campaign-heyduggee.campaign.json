@@ -28,7 +28,7 @@
   "period": "エントリー・Web申込：2026年7月17日 9:00 - 2026年8月31日 23:59／ショップ申込：2026年7月17日 開店 - 2026年8月31日 閉店",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/heyduggee/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 30,
+      "listingIndex": 32,
       "title": "「Rakuten最強U-NEXT」初めてお申し込みで「ヘイ！ダギー」グッズや楽天ポイント1,000ポイントが当たる！",
       "description": "「Rakuten最強U-NEXT」初めてお申し込みで「ヘイ！ダギー」グッズや楽天ポイント1,000ポイントが当たる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/heyduggee/"
@@ -56,5 +56,21 @@
       "抽選特典のため当選や金額は確定しない",
       "事前エントリーとRakuten最強U-NEXTの初回申し込みが必要"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "ad51edef7dc5a2c36d5ee9f6591cd64c76288961162e22f0409bcfd8a8ed8d2c",
+    "listingHash": "1cc147f011a3ff424a4c11d445b871effbbc29a9ac074f8708d26b86ad6c5881",
+    "model": null,
+    "promptVersion": null
   }
 }

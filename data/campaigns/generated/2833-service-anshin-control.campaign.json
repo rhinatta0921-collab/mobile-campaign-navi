@@ -27,7 +27,7 @@
   "period": "2025年9月25日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/anshin-control/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 52,
+      "listingIndex": 55,
       "title": "【あんしんコントロール】お子さまのスマホもお出かけも見守る、あんしんオプションサービス 初回3カ月無料！",
       "description": "お子さまのスマホもお出かけも見守る、あんしんオプションサービス あんしんコントロール 初回3カ月無料！ ※1回線につき1回限り、月額550円が3カ月無料となります。",
       "url": "https://network.mobile.rakuten.co.jp/service/anshin-control/"
@@ -55,5 +55,21 @@
       "あんしんコントロールを初めて申し込む人に限られる",
       "申込者向け固定ポイントはない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "b384f5a96b24af9922a21409901ea8b4f39ee85e6055f02f60095c1e1ff5d42d",
+    "listingHash": "e0c4dfb82b0fd4db20c350df6e642e6d05150b88a9cee7dc3d618ac46e3156f5",
+    "model": null,
+    "promptVersion": null
   }
 }

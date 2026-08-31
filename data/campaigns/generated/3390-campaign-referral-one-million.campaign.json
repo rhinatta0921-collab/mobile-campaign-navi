@@ -29,7 +29,7 @@
   "period": "2026年8月4日 10:00 - 2026年8月30日 23:59",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral-one-million/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "紹介された方の回線契約ではなく、紹介者向け抽選の条件だけを記録しています。",
@@ -39,10 +39,26 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 16,
+      "listingIndex": 18,
       "title": "紹介者100万人突破記念！楽天モバイルの紹介＆くじ参加で最大10万ポイントキャンペーン！",
       "description": "ラッキーくじ参加＆楽天モバイル紹介で、最大10万ポイントをプレゼント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/referral-one-million/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "43083b437746ea43a3dfb439cfa7015c638d1d0d78ae5911a5ec3bf1e840ac9a",
+    "listingHash": "6605468743d4a3faedbb8f1156f46ef25982414b630e5af128ab6b9eb085cb59",
+    "model": null,
+    "promptVersion": null
+  }
 }

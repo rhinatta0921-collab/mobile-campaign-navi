@@ -28,7 +28,7 @@
   "period": "2023年5月16日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/youtubepremium/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,10 +36,26 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 35,
+      "listingIndex": 38,
       "title": "YouTube Premium 3カ月無料キャンペーン",
       "description": "3カ月無料！広告なしのYouTubeを、バックグラウンド再生やオフライン環境で楽しめる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/youtubepremium/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "2b6be86fa5540b38272904832b3cbc9cf62784b80b4d5b35d23e9ec527fe3694",
+    "listingHash": "b5d4f04b6102d7b2c0fbf071e392bf12130fe1faba416897e0e8e047c23cdce1",
+    "model": null,
+    "promptVersion": null
+  }
 }

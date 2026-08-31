@@ -34,7 +34,7 @@
   "period": "常時開催",
   "officialUrl": "https://network.mobile.rakuten.co.jp/guide/application/card-campaign/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -42,7 +42,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 21,
+      "listingIndex": 23,
       "title": "【楽天モバイル×楽天カード】同時申し込みで最大8,000ポイント！",
       "description": "キャンペーンページより楽天カード＆はじめて楽天モバイルお申し込み・ご利用で最大8,000ポイント！ ※楽天モバイルと楽天カードにご登録の楽天IDが同一でない場合対象外になります。 8,000ポイントの内訳:①楽天カード新規入会＆3回利用で5,000ポイント②楽天カード＋楽天モバイル同時申し込みで3,000ポイント。",
       "url": "https://network.mobile.rakuten.co.jp/guide/application/card-campaign/"
@@ -62,5 +62,21 @@
       "楽天カードへの新規入会が必要",
       "楽天モバイルへの初めての申し込みに限られる"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "72091a9ca2a209e49a7dc1a4787d497a1268a79284808f0d60fa554cc17e3831",
+    "listingHash": "8cb93ca94cd5896a4d0f2406b399dd08e4dcfd38722bf1babf870a25f1c2c8a5",
+    "model": null,
+    "promptVersion": null
   }
 }

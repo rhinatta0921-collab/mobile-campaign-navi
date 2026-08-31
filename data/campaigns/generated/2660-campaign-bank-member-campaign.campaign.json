@@ -35,7 +35,7 @@
   "period": "Web申込：2025年2月3日 10:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/bank-member-campaign/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "公式一覧の最大13,000ポイント表記は、MNP基本特典10,000ポイントとの併用時です。"
@@ -44,7 +44,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 37,
+      "listingIndex": 40,
       "title": "楽天銀行会員様なら楽天モバイル初めてのお申し込みで最大13,000ポイント！",
       "description": "楽天銀行会員様へ 楽天モバイル初めてのお申し込みで最大13,000ポイント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/bank-member-campaign/"
@@ -64,5 +64,21 @@
       "楽天銀行会員かつ楽天モバイルへの初回申込者に限られる",
       "事前エントリーが必要で、13,000ポイントは別特典併用時の表記"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "d8daa515e49f11e1b1c03920aa434431f3915acba7f64b9d85ef28750d38cac7",
+    "listingHash": "92dadfe70dc4d2f9ca57b5f20fd233765ad8b2271f8b0c0abc82281415a2e658",
+    "model": null,
+    "promptVersion": null
   }
 }

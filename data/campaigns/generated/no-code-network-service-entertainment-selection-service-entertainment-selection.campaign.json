@@ -27,7 +27,7 @@
   "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/entertainment-selection/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
   ],
@@ -35,10 +35,26 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 41,
+      "listingIndex": 44,
       "title": "トク得！エンタメセレクション 楽天モバイルからのお申し込みでエンタメコンテンツがおトクに楽しめる！ ずーっと月額利用料20%ポイント還元",
       "description": "Rakuten最強プランに申し込むとエンタメコンテンツがおトクに楽しめるオプションサービスが登場！",
       "url": "https://network.mobile.rakuten.co.jp/service/entertainment-selection/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "d223a22f99290afe968082356a0bbb959e3a656f5a0e54374644bd6a4fa5f5ff",
+    "listingHash": "33430e0aee17b17fd50e5059f17c6d354fd3249b6923f59c94cb07089bababba",
+    "model": null,
+    "promptVersion": null
+  }
 }

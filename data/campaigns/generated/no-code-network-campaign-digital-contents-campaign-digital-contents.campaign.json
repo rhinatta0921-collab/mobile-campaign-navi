@@ -27,7 +27,7 @@
   "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/digital-contents/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
   ],
@@ -35,10 +35,26 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 42,
+      "listingIndex": 45,
       "title": "エンタメコンテンツが追加料金0円で楽しめる！",
       "description": "パ・リーグ、ミュージック、マガジンが追加料金0円で楽しめる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/digital-contents/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "dcd8d4fb53bbfb00d2abc7ee947aac32f9123ab53b7f5716bc9e097567efd719",
+    "listingHash": "e46e67d6f9f3087145ffedc7860c3ad198afe543d495bf6c5ddbac7f61f06aba",
+    "model": null,
+    "promptVersion": null
+  }
 }

@@ -27,7 +27,7 @@
   "period": "2026年6月17日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/whoscall/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 51,
+      "listingIndex": 54,
       "title": "【迷惑電話・SMS対策 by Whoscall】不審な電話・SMSを自動で即ブロック！詐欺被害を未然に防ぐ迷惑電話・SMS対策サービス 初回3カ月無料！",
       "description": "不審な電話・SMSを自動で即ブロック！詐欺被害を未然に防ぐ 迷惑電話・SMS対策 by Whoscall 初回3カ月無料！ ※おひとり様につき1回限り、月額330円が3カ月無料となります。",
       "url": "https://network.mobile.rakuten.co.jp/service/whoscall/"
@@ -55,5 +55,21 @@
       "対象オプションを初めて申し込む人に限られる",
       "申込者向け固定ポイントはない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "e3d8968dddc8a2cf420abad59831d9d863426e37e28f9f7cf87fbdc36bf5d987",
+    "listingHash": "6c447e921c8b6953834174b2c3a988139e68419045f2a0e19158e86e7a7f2326",
+    "model": null,
+    "promptVersion": null
   }
 }

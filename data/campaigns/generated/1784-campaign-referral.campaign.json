@@ -33,7 +33,7 @@
   "period": "2023年2月15日 7:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "ランキングと実質お得額には申込者本人が受け取るMNP 13,000ポイントまたは新規10,000ポイントだけを使用し、紹介者の7,000ポイントは除外しています。"
@@ -42,7 +42,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 13,
+      "listingIndex": 15,
       "title": "楽天モバイル紹介キャンペーン！2人で楽天モバイルを紹介し合って申し込むとそれぞれ最大20,000ポイント！",
       "description": "楽天モバイルをこれからお申し込みの方も、ご家族やお友達に紹介可能！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/referral/"
@@ -62,5 +62,21 @@
       "申し込み前に紹介URLまたはQRを用意する必要がある",
       "紹介ログインとRakuten Link利用の条件がある"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "95c6de998fd472cff6defb9485a37986f505b84c6ce36a19ce58d180f1f93f75",
+    "listingHash": "1353510884ec25dc2287482bb07a29029fc3acd8bf76805da69e6d60a1261801",
+    "model": null,
+    "promptVersion": null
   }
 }

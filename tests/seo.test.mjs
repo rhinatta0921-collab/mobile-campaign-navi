@@ -62,6 +62,13 @@ async function exportedTextFiles(directory = outDirectory) {
 }
 
 test("aligns canonical, metadata, and both structured rankings", async () => {
+  const catalog = JSON.parse(
+    await readFile(
+      new URL("../data/campaigns/generated/index.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const [year, month] = catalog.lastSuccessfulCheckAt.split("-").map(Number);
   for (const pathname of [
     "/",
     "/?application=mnp",
@@ -72,7 +79,15 @@ test("aligns canonical, metadata, and both structured rankings", async () => {
     assert.equal(attribute(html, 'link rel="canonical"', "href"), siteUrl);
     assert.match(
       html,
-      /<title>楽天モバイルのMNPキャンペーン比較ランキング【2026年8月】<\/title>/,
+      new RegExp(
+        `<title>楽天モバイルのMNPキャンペーン比較ランキング【${year}年${month}月】<\\/title>`,
+      ),
+    );
+    assert.match(
+      html,
+      new RegExp(
+        `<meta name="campaign-catalog-version" content="${catalog.catalogVersion}"`,
+      ),
     );
     assert.match(html, new RegExp(`<meta property="og:url" content="${siteUrl}"`));
     assert.match(
@@ -98,14 +113,25 @@ test("aligns canonical, metadata, and both structured rankings", async () => {
     assert.equal(website["@id"], `${siteUrl}/#website`);
     assert.equal(webpage.url, `${siteUrl}/`);
     assert.equal(webpage.isPartOf["@id"], `${siteUrl}/#website`);
+    assert.equal(webpage.dateModified, catalog.lastSuccessfulCheckAt);
     assert.deepEqual(
       webpage.mainEntity.map((item) => item["@id"]),
       [`${siteUrl}/#ranking-mnp`, `${siteUrl}/#ranking-newNumber`],
     );
-    assert.deepEqual(
-      itemLists.map(({ numberOfItems }) => numberOfItems),
-      [14, 13],
+    const mnpRanking = html.slice(
+      html.indexOf('data-application-ranking="mnp"'),
+      html.indexOf('data-application-ranking="new-number"'),
     );
+    const newNumberRanking = html.slice(
+      html.indexOf('data-application-ranking="new-number"'),
+      html.indexOf('<section class="detail-section"'),
+    );
+    assert.deepEqual(itemLists.map(({ numberOfItems }) => numberOfItems), [
+      [...mnpRanking.matchAll(/class="[^\"]*ranking-campaign-picture/g)]
+        .length,
+      [...newNumberRanking.matchAll(/class="[^\"]*ranking-campaign-picture/g)]
+        .length,
+    ]);
     assert.match(itemLists[0].name, /MNP/);
     assert.match(itemLists[1].name, /新規契約/);
 
@@ -136,6 +162,13 @@ test("publishes crawlable robots and a one-URL sitemap", async () => {
   assert.equal(sitemapResponse.status, 200);
   assert.equal([...sitemap.matchAll(/<url>/g)].length, 1);
   assert.match(sitemap, new RegExp(`<loc>${siteUrl}/</loc>`));
+  const catalog = JSON.parse(
+    await readFile(
+      new URL("../data/campaigns/generated/index.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.match(sitemap, new RegExp(`<lastmod>${catalog.lastSuccessfulCheckAt}`));
   assert.doesNotMatch(sitemap, /application=/);
 });
 

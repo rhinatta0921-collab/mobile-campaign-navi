@@ -32,7 +32,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/mnp/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -60,5 +60,21 @@
       "MNP申し込みには適用されない",
       "事前エントリーとRakuten Link利用が必要"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "810fab2e021c594afe6bc89dc5f07c754b620f699a2606e0fb22fa5cf47cb17f",
+    "listingHash": "1f01868551ecc69cd9713b55311916309b64ca2b3ef4f4c919a55f5cfbff41c0",
+    "model": null,
+    "promptVersion": null
   }
 }

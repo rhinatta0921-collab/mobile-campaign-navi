@@ -30,7 +30,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-limited-android/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -38,7 +38,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 26,
+      "listingIndex": 28,
       "title": "18歳までのお子さまのスマホデビュー応援！楽天モバイル新規申し込み＆対象製品購入で1円！",
       "description": "【楽天モバイルショップ限定】18歳までのお子さまのスマホデビュー応援！楽天モバイル新規申し込み＆対象製品購入で1円！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-limited-android/"
@@ -58,5 +58,21 @@
       "18歳までの新規契約者に限られる",
       "ショップで対象製品を購入する必要がある"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "ee20dd1d40bd758d36565ead1170762d217c7f2c86273fab763a133d633c1e2f",
+    "listingHash": "697453c7a4820e36fac26818608d1798f9c4c21bc13de1850cf1a97853c08ad5",
+    "model": null,
+    "promptVersion": null
   }
 }

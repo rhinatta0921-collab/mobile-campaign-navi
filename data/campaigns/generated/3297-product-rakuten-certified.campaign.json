@@ -27,7 +27,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/rakuten-certified/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 29,
+      "listingIndex": 31,
       "title": "【Rakuten 認定中古】楽天モバイルが厳選！高品質でお手頃なリユーススマホ。",
       "description": "高品質なリユーススマホが更におトクになるキャンペーン開催中！",
       "url": "https://network.mobile.rakuten.co.jp/product/rakuten-certified/"
@@ -55,5 +55,21 @@
       "固定ポイントや確定した値引き額はない",
       "対象製品によって販売価格が異なり、実質負担額は算出できない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "72a54b42e47f62e8338337e0195790e287ebc77ff115ced9057a8eb5ef997228",
+    "listingHash": "453fe98dccc82e5018aa8e7c32816611878743697c64897fc8765953ec8e67d6",
+    "model": null,
+    "promptVersion": null
   }
 }

@@ -31,7 +31,7 @@
   "period": "2026年3月2日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/tadaima/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -39,7 +39,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 22,
+      "listingIndex": 24,
       "title": "ただいまキャンペーン",
       "description": "楽天モバイルただいまキャンペーン 他社から電話番号そのまま乗り換えでポイントプレゼント ※キャンペーン開始時点で解約から2カ月以内の方は対象外、実質価格はRakuten最強プランお申し込みの場合",
       "url": "https://network.mobile.rakuten.co.jp/campaign/tadaima/"
@@ -59,5 +59,21 @@
       "MNPでの再契約に限られる",
       "Rakuten Linkの利用条件がある"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": false,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "2f6565b159f747d0f721d9334a972bb43b3eeeac82d9e38a4367816684b162bb",
+    "listingHash": "77ddf1baff578186276f7c0fb75a8e21e62852013d08d6e2c1a5551dc308b447",
+    "model": null,
+    "promptVersion": null
   }
 }

@@ -1,0 +1,61 @@
+{
+  "campaignCode": "NO-CODE-NETWORK-PRODUCT-IPHONE-IPHONE-17",
+  "codeType": "generated",
+  "title": "iPhone 17（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで999円/月！（1～24回目まで、25回目以降5,659円/月～）",
+  "summary": "iPhone 17（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで999円/月！",
+  "benefit": {
+    "type": "other",
+    "amount": null,
+    "unit": null,
+    "description": "iPhone 17（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで999円/月！"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "公式ページに記載された条件を満たす方",
+  "conditions": [
+    "公式ページで条件確認"
+  ],
+  "channel": "公式ページ参照",
+  "category": "other",
+  "audience": "both",
+  "period": "2026年8月30日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-17/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-08-30",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+    "自動掲載保留: OPENAI_API_KEY未設定のため新規・変更内容を構造化できません。"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 7,
+      "title": "iPhone 17（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで999円/月！（1～24回目まで、25回目以降5,659円/月～）",
+      "description": "iPhone 17（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで999円/月！",
+      "url": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-17/"
+    }
+  ],
+  "publicationStatus": "pending",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": true,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-30",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "06a9665f8feaf65a438fb3dfe0182a5ab2ca479d7dadc0cb309479be5140d7cb",
+    "listingHash": "99a719e47f025a32133a55f4066e452057308aff1d50381f06665f1e68124724",
+    "model": null,
+    "promptVersion": null
+  }
+}

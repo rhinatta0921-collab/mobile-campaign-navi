@@ -1,11 +1,17 @@
 import type { Campaign } from "@/data/campaigns";
 
-const recommendationOverrides: Record<string, string> = {
-  "1784": "友人や家族に楽天モバイルユーザーがいる方",
-  "2162": "2回線目以降・再契約でも高ポイントを狙いたい人",
-  "3327": "初回申込でポイント額を最優先する人",
-};
-
 export function getCampaignRecommendation(campaign: Campaign) {
-  return recommendationOverrides[campaign.campaignCode] ?? campaign.target;
+  if (
+    campaign.eligibility.repeatApplication &&
+    !campaign.eligibility.firstApplication
+  ) {
+    return "追加回線・再契約で条件を満たす方";
+  }
+  if (
+    campaign.eligibility.firstApplication &&
+    !campaign.eligibility.repeatApplication
+  ) {
+    return `初回申込で${campaign.target.replace(/方$/, "")}方`;
+  }
+  return campaign.target;
 }

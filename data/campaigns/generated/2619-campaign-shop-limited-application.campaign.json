@@ -35,7 +35,7 @@
   "period": "エントリー：2025年9月1日 0:00 - 終了日未定／ショップ申込：2025年1月14日 開店 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-limited-application",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -63,5 +63,21 @@
       "ショップ限定で、楽天市場で1注文1,000円以上の購入が必要",
       "最低購入額を差し引いた実質お得額は0円"
     ]
+  },
+  "publicationStatus": "published",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": true,
+    "newNumber": true
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "96d9d83d8c19f240ec53f594ceadca221287edbf8f69722a76d3b22f0f1f9dfb",
+    "listingHash": "beda5c2b29f23443a0142eed96d1740c49c6efc722d1336c2392a9eb6ad661e6",
+    "model": null,
+    "promptVersion": null
   }
 }

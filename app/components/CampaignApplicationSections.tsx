@@ -102,6 +102,7 @@ export function CampaignApplicationSections({
         className="ranking-section"
         id="ranking"
         aria-labelledby="ranking-title"
+        data-campaign-derived="ranking"
       >
         <div className="section-heading">
           <p className="section-label">
@@ -168,6 +169,7 @@ export function CampaignApplicationSections({
         className="detail-section"
         id="details"
         aria-labelledby="details-title"
+        data-campaign-derived="details"
       >
         <div className="section-heading">
           <p className="section-label">詳細</p>

@@ -29,7 +29,7 @@
   "period": "2025年6月13日 開店 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-opening-commemoration/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -37,10 +37,26 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 24,
+      "listingIndex": 26,
       "title": "楽天モバイルショップOPEN記念 最大2,000円相当当たる！豪華景品抽選会！",
       "description": "ハズレなし！対象のショップでお見積もりいただくと抽選で最大2,000円相当の景品プレゼント",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-opening-commemoration/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "37cc6e98678c7c320adbc16558fafaff5520e124cf877a874896dadc25d437ea",
+    "listingHash": "1bf7861ce76283efc631acd45b228a815e85d7001b674f8633fe436c98563834",
+    "model": null,
+    "promptVersion": null
+  }
 }

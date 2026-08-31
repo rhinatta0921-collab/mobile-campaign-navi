@@ -28,7 +28,7 @@
   "period": "2025年3月4日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/hikari/campaign/home-internet/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 33,
+      "listingIndex": 36,
       "title": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元 ※期間限定ポイント。条件あり",
       "description": "楽天ひかり初めてお申し込み＆楽天モバイルご利用で永年毎月1,000ポイント還元",
       "url": "https://network.mobile.rakuten.co.jp/hikari/campaign/home-internet/"
@@ -56,5 +56,21 @@
       "楽天ひかりの初回申し込みと継続利用が必要",
       "楽天ひかりの利用料を含む固定の実質お得額は算出できない"
     ]
+  },
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": false,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "92bf17f0f5e191ea5cd80f9b33c77cc57c5a8a0b7ea7b3f254c141a1f3dd6559",
+    "listingHash": "01d7fba1bd38cfd522475c05fd71a20842fb3dac4b257c503a983ac0bd5ca93b",
+    "model": null,
+    "promptVersion": null
   }
 }

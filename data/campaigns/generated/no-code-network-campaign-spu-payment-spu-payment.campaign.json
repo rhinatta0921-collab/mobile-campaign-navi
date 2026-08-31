@@ -27,7 +27,7 @@
   "period": "2026年7月31日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/spu/payment/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-22",
+  "checkedAt": "2026-08-30",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
   ],
@@ -35,10 +35,26 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 45,
+      "listingIndex": 48,
       "title": "SPU（楽天モバイルキャリア決済）",
       "description": "楽天モバイルキャリア決済を当月合計2,000円以上ご利用で楽天市場でのお買い物がポイント＋2倍に！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/spu/payment/"
     }
-  ]
+  ],
+  "publicationStatus": "excluded",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-08-22",
+  "lastChangedAt": "2026-08-30",
+  "provenance": {
+    "contentHash": "da937e3459dc6f34f66b54222768b7984a45f982b06c9c118663fd4a05a686c5",
+    "listingHash": "b9cac81d55fcf4a552e30e21f5716a1e38f5476a0acb56a5c463349704252f52",
+    "model": null,
+    "promptVersion": null
+  }
 }

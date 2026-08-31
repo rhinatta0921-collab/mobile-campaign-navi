@@ -91,8 +91,16 @@ export async function extractCampaignWithAnthropic({
   const outputText = anthropicOutputText(payload);
   if (!outputText) throw new Error("Anthropic APIの構造化出力がありません。");
   const extracted = JSON.parse(outputText);
+  const usage = {
+    inputTokens: payload.usage?.input_tokens ?? 0,
+    outputTokens: payload.usage?.output_tokens ?? 0,
+  };
   const evidenceErrors = validateExtractionEvidence(extracted, sourceText);
-  if (evidenceErrors.length > 0) throw new Error(evidenceErrors.join(" "));
+  if (evidenceErrors.length > 0) {
+    const error = new Error(evidenceErrors.join(" "));
+    error.aiUsage = usage;
+    throw error;
+  }
   return {
     extracted,
     audit: {
@@ -101,10 +109,7 @@ export async function extractCampaignWithAnthropic({
       promptVersion: PROMPT_VERSION,
       sourceHash: officialSourceHash(sourceText, officialUrl),
     },
-    usage: {
-      inputTokens: payload.usage?.input_tokens ?? 0,
-      outputTokens: payload.usage?.output_tokens ?? 0,
-    },
+    usage,
   };
 }
 
@@ -235,15 +240,28 @@ export function createCampaignAiRuntime({
         );
       }
       usage.calls += 1;
-      const result = await provider.extract({
-        apiKey: provider.apiKey,
-        model: provider.model,
-        officialUrl,
-        sourceText,
-        maxInputChars: limits.maxInputChars,
-        maxOutputTokens: limits.maxOutputTokens,
-        fetchImpl,
-      });
+      let result;
+      try {
+        result = await provider.extract({
+          apiKey: provider.apiKey,
+          model: provider.model,
+          officialUrl,
+          sourceText,
+          maxInputChars: limits.maxInputChars,
+          maxOutputTokens: limits.maxOutputTokens,
+          fetchImpl,
+        });
+      } catch (error) {
+        usage.inputTokens += error?.aiUsage?.inputTokens ?? 0;
+        usage.outputTokens += error?.aiUsage?.outputTokens ?? 0;
+        if (estimatedCost(usage, price) > limits.maxBudgetUsd) {
+          throw new Error(
+            `AI APIの実績費用が予算上限（$${limits.maxBudgetUsd}）を超えました。`,
+            { cause: error },
+          );
+        }
+        throw error;
+      }
       usage.inputTokens += result.usage?.inputTokens ?? 0;
       usage.outputTokens += result.usage?.outputTokens ?? 0;
       if (estimatedCost(usage, price) > limits.maxBudgetUsd) {

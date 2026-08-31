@@ -406,6 +406,62 @@ test("deduplicates AI calls and enforces the per-run cost budget", async () => {
   await assert.rejects(() => blocked.extract(request), /予算上限/);
 });
 
+test("counts AI usage when evidence validation rejects the response", async () => {
+  const extracted = validAiExtraction();
+  extracted.evidence = [
+    { field: "参加方法", quote: "公式本文には存在しない根拠引用" },
+  ];
+  const runtime = createCampaignAiRuntime({
+    environment: {
+      CAMPAIGN_AI_PROVIDER: "openai",
+      OPENAI_API_KEY: "test-key",
+      OPENAI_CAMPAIGN_MODEL: "gpt-5.6-terra",
+    },
+    fetchImpl: async () =>
+      new Response(
+        JSON.stringify({
+          status: "completed",
+          output: [
+            {
+              content: [
+                { type: "output_text", text: JSON.stringify(extracted) },
+              ],
+            },
+          ],
+          usage: { input_tokens: 500, output_tokens: 250 },
+        }),
+        { status: 200 },
+      ),
+  });
+
+  await assert.rejects(
+    () =>
+      runtime.extract({
+        officialUrl: "https://network.mobile.rakuten.co.jp/campaign/test/",
+        sourceText:
+          "楽天モバイルへMNPまたは新規でお申し込み。6,000ポイントと7,000ポイントを進呈。",
+      }),
+    /根拠引用を公式本文で確認できません/,
+  );
+  assert.deepEqual(runtime.summary(), {
+    provider: "openai",
+    model: "gpt-5.6-terra",
+    configured: true,
+    calls: 1,
+    cacheHits: 0,
+    inputTokens: 500,
+    outputTokens: 250,
+    estimatedCostUsd: 0.004,
+    limits: {
+      maxInputChars: 80_000,
+      maxOutputTokens: 4_000,
+      maxCalls: 10,
+      maxBudgetUsd: 2,
+    },
+    priceUsdPerMillionTokens: { input: 2, output: 12 },
+  });
+});
+
 test("keeps unchanged campaign JSON and advances only the successful check", async (t) => {
   const fixture = await setupCatalog(t);
   const filename = path.join(

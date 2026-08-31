@@ -52,6 +52,7 @@ export type CampaignEligibility = {
 export type CampaignProvenance = {
   contentHash: string;
   listingHash: string;
+  provider?: string | null;
   model: string | null;
   promptVersion: string | null;
 };
@@ -206,8 +207,9 @@ function assertCampaign(value: unknown, filename: string): asserts value is Camp
       throw new Error(`${filename}: provenance.${key} が不正です。`);
     }
   }
-  for (const key of ["model", "promptVersion"]) {
+  for (const key of ["provider", "model", "promptVersion"]) {
     if (
+      value.provenance[key] !== undefined &&
       value.provenance[key] !== null &&
       typeof value.provenance[key] !== "string"
     ) {

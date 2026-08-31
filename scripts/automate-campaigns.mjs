@@ -16,12 +16,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import {
-  DEFAULT_OPENAI_MODEL,
   campaignFromExtraction,
   catalogVersion,
   codesForCard,
   derivePublicationStatus,
-  extractCampaignWithOpenAI,
   isAbnormalListingDelta,
   isExplicitlyEnded,
   listingSourceHash,
@@ -30,6 +28,7 @@ import {
   statusCounts,
   withCatalogMetadata,
 } from "./lib/campaign-automation.mjs";
+import { createCampaignAiRuntime } from "./lib/campaign-ai.mjs";
 
 const execFileAsync = promisify(execFile);
 const SCRIPT_DIRECTORY = path.dirname(fileURLToPath(import.meta.url));
@@ -53,9 +52,6 @@ const reportPath = path.resolve(
   option("report-path") ?? ".campaign-sync/report.json",
 );
 const checkedAt = option("checked-at");
-const openAiModel =
-  process.env.OPENAI_CAMPAIGN_MODEL ?? DEFAULT_OPENAI_MODEL;
-
 if (!checkedAt || !/^\d{4}-\d{2}-\d{2}$/.test(checkedAt)) {
   throw new Error("--checked-at=YYYY-MM-DD が必要です。");
 }
@@ -293,9 +289,13 @@ async function run() {
     pending: [],
     warnings: [],
     errors: [],
+    ai: null,
   };
+  let aiRuntime;
 
   try {
+    aiRuntime = createCampaignAiRuntime();
+    report.ai = aiRuntime.summary();
     const [listingHtml, overrides, currentCatalog] = await Promise.all([
       readListingHtml(),
       readFile(overridesPath, "utf8").then(JSON.parse),
@@ -453,7 +453,7 @@ async function run() {
       const pendingCanRetry =
         oldCampaign?.publicationStatus === "pending" &&
         !override &&
-        Boolean(process.env.OPENAI_API_KEY) &&
+        aiRuntime.configured &&
         Boolean(detail.text);
 
       if (
@@ -501,6 +501,7 @@ async function run() {
       }
 
       let campaign = generatedCampaign;
+      let provider = null;
       let model = null;
       let promptVersion = null;
       let sourceHash = currentContentHash;
@@ -508,8 +509,8 @@ async function run() {
 
       if (!override && (sourceChanged || pendingCanRetry)) {
         const sourceText = detail.text;
-        if (!process.env.OPENAI_API_KEY) {
-          const reason = "OPENAI_API_KEY未設定のため新規・変更内容を構造化できません。";
+        if (!aiRuntime.configured) {
+          const reason = `${aiRuntime.id}用APIキー未設定のため新規・変更内容を構造化できません。`;
           campaign = pendingCampaign(generatedCampaign, reason, {
             checkedAt,
             firstSeenAt: oldCampaign?.firstSeenAt,
@@ -557,9 +558,7 @@ async function run() {
           continue;
         }
         try {
-          const result = await extractCampaignWithOpenAI({
-            apiKey: process.env.OPENAI_API_KEY,
-            model: openAiModel,
+          const result = await aiRuntime.extract({
             officialUrl: generatedCampaign.officialUrl,
             sourceText,
           });
@@ -568,6 +567,7 @@ async function run() {
             result.extracted,
             sourceText,
           );
+          provider = result.audit.provider;
           model = result.audit.model;
           promptVersion = result.audit.promptVersion;
           sourceHash = result.audit.sourceHash;
@@ -608,6 +608,7 @@ async function run() {
           ? checkedAt
           : oldCampaign?.lastChangedAt ?? checkedAt,
         listingPresence,
+        provider,
         model,
         promptVersion,
         sourceHash,
@@ -699,6 +700,7 @@ async function run() {
     report.catalogVersion = nextVersion;
     report.contentChanged = contentChanged;
     report.statusCounts = index.statusCounts;
+    report.ai = aiRuntime.summary();
     if (shouldWrite) {
       await swapDirectories([
         { current: generatedDirectory, candidate: candidateGenerated },
@@ -709,6 +711,7 @@ async function run() {
   } catch (error) {
     report.errors.push(String(error));
     report.requiresAttention = true;
+    if (aiRuntime) report.ai = aiRuntime.summary();
     return report;
   } finally {
     await rm(workRoot, { recursive: true, force: true });

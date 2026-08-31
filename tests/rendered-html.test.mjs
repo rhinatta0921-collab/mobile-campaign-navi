@@ -99,6 +99,31 @@ function rankingTableHtml(html, tableClassName) {
   return table;
 }
 
+test("marks only campaign-driven page areas for automated updates", async () => {
+  const response = await render();
+  const html = await response.text();
+  for (const marker of [
+    "metadata",
+    "listing-count",
+    "conclusion",
+    "ranking",
+    "details",
+    "exclusions",
+  ]) {
+    assert.match(html, new RegExp(`data-campaign-derived="${marker}"`));
+  }
+  const fixedChoiceOpeningTag = html.match(
+    /<section class="campaign-choice"[^>]*>/,
+  )?.[0];
+  assert.ok(fixedChoiceOpeningTag);
+  assert.doesNotMatch(fixedChoiceOpeningTag, /data-campaign-derived/);
+  const fixedComparisonOpeningTag = html.match(
+    /<section class="comparison-points"[^>]*>/,
+  )?.[0];
+  assert.ok(fixedComparisonOpeningTag);
+  assert.doesNotMatch(fixedComparisonOpeningTag, /data-campaign-derived/);
+});
+
 function tableRowCount(tableHtml) {
   const tableBody = tableHtml.match(/<tbody>[\s\S]*?<\/tbody>/)?.[0];
   assert.ok(tableBody, "missing ranking table body");

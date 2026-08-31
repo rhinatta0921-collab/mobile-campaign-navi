@@ -2,8 +2,8 @@ name: Daily campaign catalog sync
 
 on:
   schedule:
-    - cron: "7 6 * * *"
-      timezone: "Asia/Tokyo"
+    # 21:00 UTC = 06:00 JST（翌日）
+    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -86,8 +86,17 @@ jobs:
         id: catalog
         continue-on-error: true
         env:
+          CAMPAIGN_AI_PROVIDER: ${{ vars.CAMPAIGN_AI_PROVIDER || 'openai' }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_CAMPAIGN_MODEL: ${{ vars.OPENAI_CAMPAIGN_MODEL || 'gpt-5.6-terra' }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_CAMPAIGN_MODEL: ${{ vars.ANTHROPIC_CAMPAIGN_MODEL || 'claude-sonnet-5' }}
+          CAMPAIGN_AI_MAX_INPUT_CHARS: ${{ vars.CAMPAIGN_AI_MAX_INPUT_CHARS || '80000' }}
+          CAMPAIGN_AI_MAX_OUTPUT_TOKENS: ${{ vars.CAMPAIGN_AI_MAX_OUTPUT_TOKENS || '4000' }}
+          CAMPAIGN_AI_MAX_CALLS: ${{ vars.CAMPAIGN_AI_MAX_CALLS || '10' }}
+          CAMPAIGN_AI_MAX_BUDGET_USD: ${{ vars.CAMPAIGN_AI_MAX_BUDGET_USD || '2' }}
+          CAMPAIGN_AI_INPUT_USD_PER_MILLION: ${{ vars.CAMPAIGN_AI_INPUT_USD_PER_MILLION }}
+          CAMPAIGN_AI_OUTPUT_USD_PER_MILLION: ${{ vars.CAMPAIGN_AI_OUTPUT_USD_PER_MILLION }}
         run: >-
           npm run sync:campaigns:auto --
           --checked-at=${{ steps.settings.outputs.checked_at }}

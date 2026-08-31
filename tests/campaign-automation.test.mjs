@@ -20,9 +20,14 @@ import {
   extractRuleFacts,
   isAbnormalListingDelta,
   isExplicitlyEnded,
+  officialSourceHash,
   validateExtractionEvidence,
   withCatalogMetadata,
 } from "../scripts/lib/campaign-automation.mjs";
+import {
+  createCampaignAiRuntime,
+  extractCampaignWithAnthropic,
+} from "../scripts/lib/campaign-ai.mjs";
 import {
   buildSlackPayload,
   notificationDecision,
@@ -66,6 +71,37 @@ function curatedCampaign(overrides = {}) {
     requiresDevicePurchase: false,
     rankingEligible: true,
     ...overrides,
+  };
+}
+
+function validAiExtraction() {
+  return {
+    title: "MNP特典",
+    summary: "MNP申込者へポイントを進呈",
+    benefit: {
+      type: "points",
+      amount: 13_000,
+      unit: "ポイント",
+      description: "内訳合計13,000ポイント",
+    },
+    points: { mnp: 13_000, newNumber: 6_000 },
+    pointComponents: { mnp: [6_000, 7_000], newNumber: [6_000] },
+    target: "楽天モバイルへ申し込む方",
+    conditions: ["Rakuten Link利用"],
+    channel: "Web",
+    category: "simOnly",
+    audience: "applicant",
+    period: "終了日未定",
+    editorial: {
+      headline: "MNP特典",
+      paragraphs: ["公式条件を確認してください。"],
+      goodPoints: ["高ポイント"],
+      concerns: ["利用条件あり"],
+    },
+    evidence: [
+      { field: "points.mnp", quote: "6,000ポイント" },
+      { field: "points.mnp", quote: "7,000ポイント" },
+    ],
   };
 }
 
@@ -187,6 +223,14 @@ test("guards large listing deltas and validates rule-extracted point evidence", 
   assert.equal(isAbnormalListingDelta(50, 60), false);
   assert.equal(isExplicitlyEnded(404, ""), true);
   assert.equal(
+    officialSourceHash(
+      "<header>更新前</header><main><a href='/campaign/test/'>本文</a></main>",
+    ),
+    officialSourceHash(
+      "<header>更新後</header><main><a href='/campaign/test/'>本文</a></main>",
+    ),
+  );
+  assert.equal(
     isExplicitlyEnded(
       200,
       "通常の案内",
@@ -242,34 +286,7 @@ test("guards large listing deltas and validates rule-extracted point evidence", 
 });
 
 test("uses strict Responses output with store disabled and recalculates totals", async () => {
-  const extracted = {
-    title: "MNP特典",
-    summary: "MNP申込者へポイントを進呈",
-    benefit: {
-      type: "points",
-      amount: 13_000,
-      unit: "ポイント",
-      description: "内訳合計13,000ポイント",
-    },
-    points: { mnp: 13_000, newNumber: 6_000 },
-    pointComponents: { mnp: [6_000, 7_000], newNumber: [6_000] },
-    target: "楽天モバイルへ申し込む方",
-    conditions: ["Rakuten Link利用"],
-    channel: "Web",
-    category: "simOnly",
-    audience: "applicant",
-    period: "終了日未定",
-    editorial: {
-      headline: "MNP特典",
-      paragraphs: ["公式条件を確認してください。"],
-      goodPoints: ["高ポイント"],
-      concerns: ["利用条件あり"],
-    },
-    evidence: [
-      { field: "points.mnp", quote: "6,000ポイント" },
-      { field: "points.mnp", quote: "7,000ポイント" },
-    ],
-  };
+  const extracted = validAiExtraction();
   let request;
   const result = await extractCampaignWithOpenAI({
     apiKey: "test-key",
@@ -295,6 +312,7 @@ test("uses strict Responses output with store disabled and recalculates totals",
   });
   assert.equal(request.url, "https://api.openai.com/v1/responses");
   assert.equal(request.body.store, false);
+  assert.equal(request.body.max_output_tokens, 4_000);
   assert.equal(request.body.text.format.strict, true);
   assert.equal(request.body.model, "gpt-5.6-terra");
   const campaign = campaignFromExtraction(
@@ -306,6 +324,86 @@ test("uses strict Responses output with store disabled and recalculates totals",
     "楽天モバイルへMNPまたは新規でお申し込み。6,000ポイントと7,000ポイントを進呈。",
   );
   assert.deepEqual(campaign.points, { mnp: 13_000, newNumber: 6_000 });
+});
+
+test("uses Anthropic structured output through the same evidence checks", async () => {
+  let request;
+  const result = await extractCampaignWithAnthropic({
+    apiKey: "test-key",
+    officialUrl: "https://network.mobile.rakuten.co.jp/campaign/test/",
+    sourceText:
+      "<header>無関係</header><main>楽天モバイルへMNPまたは新規でお申し込み。6,000ポイントと7,000ポイントを進呈。</main>",
+    fetchImpl: async (url, options) => {
+      request = { url, options, body: JSON.parse(options.body) };
+      return new Response(
+        JSON.stringify({
+          stop_reason: "end_turn",
+          content: [{ type: "text", text: JSON.stringify(validAiExtraction()) }],
+          usage: { input_tokens: 321, output_tokens: 123 },
+        }),
+        { status: 200 },
+      );
+    },
+  });
+  assert.equal(request.url, "https://api.anthropic.com/v1/messages");
+  assert.equal(request.options.headers["x-api-key"], "test-key");
+  assert.equal(request.body.max_tokens, 4_000);
+  assert.equal(request.body.output_config.format.type, "json_schema");
+  assert.doesNotMatch(request.body.messages[0].content, /無関係/);
+  assert.equal(result.audit.provider, "anthropic");
+  assert.deepEqual(result.usage, { inputTokens: 321, outputTokens: 123 });
+});
+
+test("deduplicates AI calls and enforces the per-run cost budget", async () => {
+  let calls = 0;
+  const runtime = createCampaignAiRuntime({
+    environment: {
+      CAMPAIGN_AI_PROVIDER: "openai",
+      OPENAI_API_KEY: "test-key",
+      OPENAI_CAMPAIGN_MODEL: "gpt-5.6-terra",
+    },
+    fetchImpl: async () => {
+      calls += 1;
+      return new Response(
+        JSON.stringify({
+          status: "completed",
+          output: [
+            {
+              content: [
+                { type: "output_text", text: JSON.stringify(validAiExtraction()) },
+              ],
+            },
+          ],
+          usage: { input_tokens: 500, output_tokens: 250 },
+        }),
+        { status: 200 },
+      );
+    },
+  });
+  const request = {
+    officialUrl: "https://network.mobile.rakuten.co.jp/campaign/test/",
+    sourceText:
+      "楽天モバイルへMNPまたは新規でお申し込み。6,000ポイントと7,000ポイントを進呈。",
+  };
+  await runtime.extract(request);
+  await runtime.extract(request);
+  assert.equal(calls, 1);
+  assert.equal(runtime.summary().calls, 1);
+  assert.equal(runtime.summary().cacheHits, 1);
+  assert.equal(runtime.summary().estimatedCostUsd, 0.004);
+
+  const blocked = createCampaignAiRuntime({
+    environment: {
+      CAMPAIGN_AI_PROVIDER: "openai",
+      OPENAI_API_KEY: "test-key",
+      OPENAI_CAMPAIGN_MODEL: "gpt-5.6-terra",
+      CAMPAIGN_AI_MAX_BUDGET_USD: "0.000001",
+    },
+    fetchImpl: async () => {
+      throw new Error("予算判定後は呼ばれない");
+    },
+  });
+  await assert.rejects(() => blocked.extract(request), /予算上限/);
 });
 
 test("keeps unchanged campaign JSON and advances only the successful check", async (t) => {
@@ -406,6 +504,14 @@ test("builds an actionable Slack payload and applies the notification policy", (
     ],
     warnings: [],
     errors: [],
+    ai: {
+      provider: "openai",
+      model: "gpt-5.6-terra",
+      calls: 2,
+      cacheHits: 1,
+      estimatedCostUsd: 0.03,
+      limits: { maxBudgetUsd: 2 },
+    },
   };
   const environment = {
     GITHUB_SERVER_URL: "https://github.com",
@@ -424,6 +530,8 @@ test("builds an actionable Slack payload and applies the notification policy", (
   assert.match(payload.text, /要確認/);
   assert.match(JSON.stringify(payload.blocks), /根拠不足/);
   assert.match(JSON.stringify(payload.blocks), /actions\/runs\/123/);
+  assert.match(JSON.stringify(payload.blocks), /gpt-5\.6-terra/);
+  assert.match(payload.text, /推定\$0\.0300/);
 
   const noChange = {
     ...report,
@@ -448,11 +556,18 @@ test("schedules report/apply automation with Slack-only notifications", async ()
     ),
     "utf8",
   );
-  assert.match(workflow, /cron: "7 6 \* \* \*"/);
-  assert.match(workflow, /timezone: "Asia\/Tokyo"/);
+  assert.match(workflow, /cron: "0 21 \* \* \*"/);
   assert.match(workflow, /- report\s+- apply/);
   assert.match(workflow, /secrets\.SLACK_WEBHOOK_URL/);
+  assert.match(workflow, /vars\.CAMPAIGN_AI_PROVIDER/);
+  assert.match(workflow, /secrets\.ANTHROPIC_API_KEY/);
+  assert.match(workflow, /CAMPAIGN_AI_MAX_BUDGET_USD/);
   assert.match(workflow, /slackapi\/slack-github-action@v4\.0\.0/);
+  assert.match(
+    workflow,
+    /git add data\/campaigns\/generated data\/campaigns\/archive data\/campaigns\/images\.json public\/assets\/campaigns\/official/,
+  );
+  assert.doesNotMatch(workflow, /git add (?:app|scripts|README)/);
   assert.doesNotMatch(workflow, /RESEND|ALERT_EMAIL/);
 });
 

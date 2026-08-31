@@ -41,6 +41,7 @@ export function ConclusionSection({
       className="conclusion"
       id="conclusion"
       aria-labelledby="conclusion-title"
+      data-campaign-derived="conclusion"
     >
       <h2 id="conclusion-title">{title}</h2>
       <figure className="conclusion-campaign-figure">

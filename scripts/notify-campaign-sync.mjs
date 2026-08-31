@@ -129,6 +129,7 @@ export function buildSlackPayload(
   const title = titleForSeverity(decision.severity);
   const mode = environment.CAMPAIGN_AUTOMATION_MODE ?? report.mode ?? "report";
   const listing = report.listing ?? {};
+  const ai = report.ai ?? {};
   const details = itemLines(report);
   if (environment.CAMPAIGN_FAILURE_CONTEXT) {
     details.push(
@@ -141,6 +142,7 @@ export function buildSlackPayload(
     `モード: ${mode}`,
     `公式一覧: ${listing.currentCount ?? "不明"}件`,
     `追加${report.additions?.length ?? 0}・変更${report.changes?.length ?? 0}・終了${report.ended?.length ?? 0}・保留${report.pending?.length ?? 0}`,
+    `AI: ${ai.provider ?? "未設定"}/${ai.model ?? "未設定"} ${ai.calls ?? 0}回・推定$${Number(ai.estimatedCostUsd ?? 0).toFixed(4)}`,
   ].join("\n");
   const blocks = [
     {
@@ -162,6 +164,14 @@ export function buildSlackPayload(
         {
           type: "mrkdwn",
           text: `*差分*\n追加 ${report.additions?.length ?? 0} / 変更 ${report.changes?.length ?? 0} / 終了 ${report.ended?.length ?? 0} / 保留 ${report.pending?.length ?? 0}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*AI利用*\n${slackText(ai.provider ?? "未設定")}/${slackText(ai.model ?? "未設定")} ${ai.calls ?? 0}回（cache ${ai.cacheHits ?? 0}）`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*AI推定費用*\n$${Number(ai.estimatedCostUsd ?? 0).toFixed(4)} / 上限 $${Number(ai.limits?.maxBudgetUsd ?? 0).toFixed(2)}`,
         },
       ],
     },

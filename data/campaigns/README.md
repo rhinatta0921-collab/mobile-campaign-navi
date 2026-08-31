@@ -16,7 +16,7 @@
 - `pending`: 新規・変更内容の根拠不足、AI拒否などで確認待ちの非掲載
 - `ended`: 終了判定後に`archive/`で保持
 
-`listingPresence`は公式一覧上の`listed`、既知の一覧外URLを監視する`supplemental`、1回だけ一覧から消えた`missing`を表します。`eligibility`で初回、追加回線・再契約、MNP、新規番号を管理し、`provenance`へ公式本文・一覧カードのハッシュ、使用モデル、固定プロンプト版を記録します。
+`listingPresence`は公式一覧上の`listed`、既知の一覧外URLを監視する`supplemental`、1回だけ一覧から消えた`missing`を表します。`eligibility`で初回、追加回線・再契約、MNP、新規番号を管理し、`provenance`へ公式本文・一覧カードのハッシュ、AIプロバイダー、使用モデル、固定プロンプト版を記録します。
 
 公式一覧には掲載されていないものの個別の公式ページが存在するキャンペーンは、補足キャンペーンとしてJSONと`index.json`へ追加します。この場合、`sourceCards[].listingIndex`は`null`とし、一覧カード由来ではないことを明示します。
 
@@ -42,6 +42,8 @@ npm run sync:campaign-images -- --checked-at=YYYY-MM-DD --check
 npm run sync:campaign-images -- --checked-at=YYYY-MM-DD --write
 ```
 
-自動同期は公式一覧と詳細本文を比較し、変更ページだけをAI構造化します。非掲載案件は公式内容が変わった時だけ再判定します。`curated-overrides.json`は再生成しないため、`editorial`、`applicationUrl`、手動補正値が同期で消えることはありません。画像同期は新規・変更対象だけを取得し、候補領域へ必要な掲載画像だけを集めるため、終了案件の孤立画像を残しません。
+自動同期は公式一覧と詳細本文を比較し、変更ページだけをAI構造化します。AIは`CAMPAIGN_AI_PROVIDER=openai|anthropic`で切り替え、同じ公式URL・本文ハッシュの重複呼び出しを行いません。非掲載案件は公式内容が変わった時だけ再判定します。`curated-overrides.json`は再生成しないため、`editorial`、`applicationUrl`、手動補正値が同期で消えることはありません。画像同期は新規・変更対象だけを取得し、候補領域へ必要な掲載画像だけを集めるため、終了案件の孤立画像を残しません。
+
+AIは掲載可否、終了判定、順位を決定しません。終了と分類はコードで判定し、数値は公式本文の根拠確認後にコードで合計します。根拠不足、API拒否、呼び出し回数または費用上限超過は`pending`として非掲載にします。
 
 `generated/index.json`の`lastSuccessfulCheckAt`は正常比較日、`lastContentChangeAt`は実内容の最終変更日、`catalogVersion`は本番照合用の決定的なバージョンです。ページのH1、SEO年月、JSON-LDの`dateModified`、サイトマップ日付は`lastSuccessfulCheckAt`から生成します。

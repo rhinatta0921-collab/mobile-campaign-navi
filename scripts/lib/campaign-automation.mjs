@@ -3,6 +3,13 @@ import { createHash } from "node:crypto";
 export const LISTING_URL = "https://network.mobile.rakuten.co.jp/campaign/";
 export const DEFAULT_OPENAI_MODEL = "gpt-5.6-terra";
 export const PROMPT_VERSION = "campaign-editorial-v1";
+export const CAMPAIGN_EXTRACTION_INSTRUCTIONS = [
+  "楽天モバイルの公式キャンペーンページだけを根拠に情報を抽出してください。",
+  "申込者本人が受け取る固定ポイントだけをmnp/newNumberへ入れてください。",
+  "紹介者分、抽選、値引き、無料期間は固定ポイントへ加算しないでください。",
+  "mnp/newNumberごとの固定ポイント内訳をpointComponentsへ列挙し、pointsにはその合計を入れてください。内訳がない場合は空配列とnullにしてください。",
+  "推測せず、不明な数値はnullにしてください。重要な判断には本文そのままの短い根拠引用を付けてください。",
+].join("\n");
 export const PUBLICATION_STATUSES = [
   "published",
   "excluded",
@@ -86,8 +93,10 @@ export function normalizeOfficialText(value) {
 }
 
 export function officialSourceHash(sourceHtml, officialUrl = LISTING_URL) {
+  const primaryHtml =
+    sourceHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? sourceHtml;
   const resourceUrls = [
-    ...sourceHtml.matchAll(/\b(?:href|src|srcset)=["']([^"']+)["']/gi),
+    ...primaryHtml.matchAll(/\b(?:href|src|srcset)=["']([^"']+)["']/gi),
   ]
     .flatMap((match) => match[1].split(","))
     .map((candidate) => candidate.trim().split(/\s+/)[0])
@@ -106,7 +115,7 @@ export function officialSourceHash(sourceHtml, officialUrl = LISTING_URL) {
     .sort((left, right) => left.localeCompare(right, "en"));
   return sha256(
     JSON.stringify({
-      text: normalizeOfficialText(sourceHtml),
+      text: normalizeOfficialText(primaryHtml),
       resourceUrls: [...new Set(resourceUrls)],
     }),
   );
@@ -210,6 +219,7 @@ export function withCatalogMetadata(
     firstSeenAt,
     lastChangedAt,
     listingPresence,
+    provider = null,
     model = null,
     promptVersion = null,
     sourceHash = listingSourceHash(campaign),
@@ -226,6 +236,7 @@ export function withCatalogMetadata(
     provenance: {
       contentHash: sourceHash,
       listingHash,
+      provider,
       model,
       promptVersion,
     },
@@ -263,7 +274,7 @@ export function isAbnormalListingDelta(previousCount, currentCount) {
   return difference > 10 && difference / previousCount > 0.2;
 }
 
-function primaryOfficialText(sourceText) {
+export function primaryOfficialText(sourceText) {
   const main = sourceText.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
   return normalizeOfficialText(main ?? sourceText);
 }
@@ -296,7 +307,7 @@ export function isExplicitlyEnded(
 }
 
 export function extractRuleFacts(sourceText) {
-  const text = normalizeOfficialText(sourceText);
+  const text = primaryOfficialText(sourceText);
   const pointAmounts = [
     ...text.matchAll(/([0-9０-９][0-9０-９,，]*)\s*ポイント/g),
   ]
@@ -325,6 +336,18 @@ export function extractRuleFacts(sourceText) {
       /(?:対象(?:製品|端末)|iPhone|Android|Apple Watch|Wi-?Fiルーター).{0,40}(?:購入|ご購入)|(?:製品|端末)購入/.test(
         text,
       ),
+  };
+}
+
+export function campaignExtractionInput({
+  officialUrl,
+  sourceText,
+  maxInputChars = 80_000,
+}) {
+  const officialText = primaryOfficialText(sourceText).slice(0, maxInputChars);
+  return {
+    officialText,
+    text: `公式URL: ${officialUrl}\nルール抽出結果: ${JSON.stringify(extractRuleFacts(officialText))}\n公式ページ本文:\n${officialText}`,
   };
 }
 
@@ -498,10 +521,16 @@ export async function extractCampaignWithOpenAI({
   model = DEFAULT_OPENAI_MODEL,
   officialUrl,
   sourceText,
+  maxInputChars = 80_000,
+  maxOutputTokens = 4_000,
   fetchImpl = fetch,
 }) {
   if (!apiKey) throw new Error("OPENAI_API_KEY が設定されていません。");
-  const ruleFacts = extractRuleFacts(sourceText);
+  const input = campaignExtractionInput({
+    officialUrl,
+    sourceText,
+    maxInputChars,
+  });
   const response = await fetchImpl("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
@@ -511,21 +540,16 @@ export async function extractCampaignWithOpenAI({
     body: JSON.stringify({
       model,
       store: false,
+      max_output_tokens: maxOutputTokens,
       reasoning: { effort: "low" },
-      instructions: [
-        "楽天モバイルの公式キャンペーンページだけを根拠に情報を抽出してください。",
-        "申込者本人が受け取る固定ポイントだけをmnp/newNumberへ入れてください。",
-        "紹介者分、抽選、値引き、無料期間は固定ポイントへ加算しないでください。",
-        "mnp/newNumberごとの固定ポイント内訳をpointComponentsへ列挙し、pointsにはその合計を入れてください。内訳がない場合は空配列とnullにしてください。",
-        "推測せず、不明な数値はnullにしてください。重要な判断には本文そのままの短い根拠引用を付けてください。",
-      ].join("\n"),
+      instructions: CAMPAIGN_EXTRACTION_INSTRUCTIONS,
       input: [
         {
           role: "user",
           content: [
             {
               type: "input_text",
-              text: `公式URL: ${officialUrl}\nルール抽出結果: ${JSON.stringify(ruleFacts)}\n公式ページ本文:\n${normalizeOfficialText(sourceText).slice(0, 80_000)}`,
+              text: input.text,
             },
           ],
         },
@@ -559,9 +583,14 @@ export async function extractCampaignWithOpenAI({
   return {
     extracted,
     audit: {
+      provider: "openai",
       model,
       promptVersion: PROMPT_VERSION,
       sourceHash: officialSourceHash(sourceText, officialUrl),
+    },
+    usage: {
+      inputTokens: payload.usage?.input_tokens ?? 0,
+      outputTokens: payload.usage?.output_tokens ?? 0,
     },
   };
 }

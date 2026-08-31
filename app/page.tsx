@@ -179,7 +179,7 @@ export default function Home() {
               </picture>
             </div>
             <div className="hero-copy">
-              <h1 id="page-title">
+              <h1 id="page-title" data-campaign-derived="metadata">
                 楽天モバイル 申し込みキャンペーン比較ランキング【
                 {formatJapaneseDate(campaignCatalog.lastSuccessfulCheckAt)}
                 最終確認】
@@ -190,7 +190,9 @@ export default function Home() {
                 </p>
                 <p>
                   そう思って調べ始めると、公式サイトだけでも
-                  {campaignCatalog.listingCardCount}
+                  <span data-campaign-derived="listing-count">
+                    {campaignCatalog.listingCardCount}
+                  </span>
                   件のキャンペーンが並んでいて、条件や特典の違いを一つひとつ確認するのは大変です。
                 </p>
                 <p>
@@ -326,6 +328,7 @@ export default function Home() {
           <section
             className="exclusions-band"
             aria-labelledby="excluded-title"
+            data-campaign-derived="exclusions"
           >
             <p className="section-label">対象外</p>
             <h2 id="excluded-title">{sectionTitles.exclusions}</h2>

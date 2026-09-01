@@ -46,6 +46,8 @@ Google Analytics 4は正式ホスト`r-mobile.kuraberaku.com`と完全一致す�
 
 ## データ更新
 
+Codexを使わずに日常確認、`pending`判定、台帳編集、手動実行、障害対応を行う場合は、[キャンペーン自動運用 操作者向け完全マニュアル](docs/campaign-automation-operator-manual.md)を参照してください。
+
 同期は閲覧者のアクセス時には動きません。`.github/workflows/campaign-sync.yml`が毎日6:17 JSTに`main`をチェックアウトし、同時実行を禁止して候補を検証します。手動実行では`report`または`apply`を選択できます。
 
 ```sh

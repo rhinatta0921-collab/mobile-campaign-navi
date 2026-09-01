@@ -2,8 +2,8 @@ name: Daily campaign catalog sync
 
 on:
   schedule:
-    # 21:00 UTC = 06:00 JST（翌日）
-    - cron: "0 21 * * *"
+    # 21:17 UTC = 06:17 JST（翌日）
+    - cron: "17 21 * * *"
   workflow_dispatch:
     inputs:
       mode:

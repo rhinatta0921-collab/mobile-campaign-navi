@@ -46,7 +46,7 @@ Google Analytics 4は正式ホスト`r-mobile.kuraberaku.com`と完全一致す�
 
 ## データ更新
 
-同期は閲覧者のアクセス時には動きません。`.github/workflows/campaign-sync.yml`が毎日6:00 JSTに`main`をチェックアウトし、同時実行を禁止して候補を検証します。手動実行では`report`または`apply`を選択できます。
+同期は閲覧者のアクセス時には動きません。`.github/workflows/campaign-sync.yml`が毎日6:17 JSTに`main`をチェックアウトし、同時実行を禁止して候補を検証します。手動実行では`report`または`apply`を選択できます。
 
 ```sh
 npm run sync:campaigns:auto -- --checked-at=YYYY-MM-DD --write

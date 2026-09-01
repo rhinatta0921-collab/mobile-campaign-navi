@@ -612,7 +612,7 @@ test("schedules report/apply automation with Slack-only notifications", async ()
     ),
     "utf8",
   );
-  assert.match(workflow, /cron: "0 21 \* \* \*"/);
+  assert.match(workflow, /cron: "17 21 \* \* \*"/);
   assert.match(workflow, /- report\s+- apply/);
   assert.match(workflow, /secrets\.SLACK_WEBHOOK_URL/);
   assert.match(workflow, /vars\.CAMPAIGN_AI_PROVIDER/);

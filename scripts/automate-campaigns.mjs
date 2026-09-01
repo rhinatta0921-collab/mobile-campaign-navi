@@ -25,6 +25,8 @@ import {
   listingSourceHash,
   officialSourceHash,
   parseListingCards,
+  publicationStatusAfterExtraction,
+  shouldRunAiExtraction,
   statusCounts,
   withCatalogMetadata,
 } from "./lib/campaign-automation.mjs";
@@ -446,15 +448,21 @@ async function run() {
         oldCampaign?.provenance?.listingHash ??
         oldCampaign?.provenance?.contentHash;
       const previousContentHash = oldCampaign?.provenance?.contentHash;
+      const contentChanged =
+        !oldCampaign || previousContentHash !== currentContentHash;
       const sourceChanged =
         !oldCampaign ||
         previousListingHash !== currentListingHash ||
-        previousContentHash !== currentContentHash;
-      const pendingCanRetry =
+        contentChanged;
+      const shouldRunAi = shouldRunAiExtraction({
+        hasOverride: Boolean(override),
+        previousPublicationStatus: oldCampaign?.publicationStatus,
+        sourceChanged,
+        contentChanged,
+      });
+      const resolvesPendingByOverride =
         oldCampaign?.publicationStatus === "pending" &&
-        !override &&
-        aiRuntime.configured &&
-        Boolean(detail.text);
+        ["published", "excluded"].includes(override?.publicationStatus);
 
       if (
         isExplicitlyEnded(
@@ -488,8 +496,11 @@ async function run() {
 
       if (
         oldCampaign &&
-        !sourceChanged &&
-        !pendingCanRetry &&
+        !resolvesPendingByOverride &&
+        (!sourceChanged ||
+          (oldCampaign.publicationStatus === "pending" &&
+            !override &&
+            !shouldRunAi)) &&
         oldCampaign.publicationStatus &&
         oldCampaign.listingPresence === listingPresence
       ) {
@@ -507,7 +518,7 @@ async function run() {
       let sourceHash = currentContentHash;
       let explicitStatus = override?.publicationStatus;
 
-      if (!override && (sourceChanged || pendingCanRetry)) {
+      if (shouldRunAi) {
         const sourceText = detail.text;
         if (!aiRuntime.configured) {
           const reason = `${aiRuntime.id}用APIキー未設定のため新規・変更内容を構造化できません。`;
@@ -571,7 +582,21 @@ async function run() {
           model = result.audit.model;
           promptVersion = result.audit.promptVersion;
           sourceHash = result.audit.sourceHash;
-          explicitStatus = derivePublicationStatus(campaign);
+          explicitStatus = publicationStatusAfterExtraction({
+            hasOverride: Boolean(override),
+            previousPublicationStatus: oldCampaign?.publicationStatus,
+            derivedPublicationStatus: derivePublicationStatus(campaign),
+          });
+          if (explicitStatus === "pending") {
+            campaign = {
+              ...campaign,
+              rankingEligible: false,
+              notes: [
+                ...(campaign.notes ?? []),
+                "自動掲載保留: AI再解析済み・人の公開判断待ちです。",
+              ],
+            };
+          }
         } catch (error) {
           const reason = `AI構造化または根拠検証に失敗: ${error}`;
           campaign = pendingCampaign(generatedCampaign, reason, {

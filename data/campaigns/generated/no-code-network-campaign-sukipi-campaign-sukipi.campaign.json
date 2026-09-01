@@ -29,8 +29,7 @@
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-08-30",
   "notes": [
-    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
-    "自動掲載保留: OPENAI_API_KEY未設定のため新規・変更内容を構造化できません。"
+    "SNS参加型の抽選企画で、モバイル回線申し込みの直接特典ではないため編集判断で非掲載です。"
   ],
   "requiresDevicePurchase": false,
   "rankingEligible": false,
@@ -42,7 +41,7 @@
       "url": "https://network.mobile.rakuten.co.jp/campaign/sukipi/"
     }
   ],
-  "publicationStatus": "pending",
+  "publicationStatus": "excluded",
   "listingPresence": "listed",
   "eligibility": {
     "firstApplication": true,
@@ -51,7 +50,7 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-30",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-01",
   "provenance": {
     "contentHash": "0868dbdbbfe81bf30949e203e6258f153e6207d6d535bdc07a234a28ae14fc0c",
     "listingHash": "2db2484f9d8e3554f5d3cae94c67d3dc59f617cff59127e1b3204a4d41a33b1c",

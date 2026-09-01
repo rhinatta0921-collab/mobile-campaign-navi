@@ -21,6 +21,8 @@ import {
   isAbnormalListingDelta,
   isExplicitlyEnded,
   officialSourceHash,
+  publicationStatusAfterExtraction,
+  shouldRunAiExtraction,
   validateExtractionEvidence,
   withCatalogMetadata,
 } from "../scripts/lib/campaign-automation.mjs";
@@ -285,6 +287,52 @@ test("guards large listing deltas and validates rule-extracted point evidence", 
   );
 });
 
+test("does not retry unchanged pending campaigns with AI", () => {
+  assert.equal(
+    shouldRunAiExtraction({
+      hasOverride: false,
+      previousPublicationStatus: "pending",
+      sourceChanged: true,
+      contentChanged: false,
+    }),
+    false,
+  );
+  assert.equal(
+    shouldRunAiExtraction({
+      hasOverride: false,
+      previousPublicationStatus: "pending",
+      sourceChanged: true,
+      contentChanged: true,
+    }),
+    true,
+  );
+  assert.equal(
+    shouldRunAiExtraction({
+      hasOverride: true,
+      previousPublicationStatus: "pending",
+      sourceChanged: true,
+      contentChanged: true,
+    }),
+    false,
+  );
+  assert.equal(
+    publicationStatusAfterExtraction({
+      hasOverride: false,
+      previousPublicationStatus: "pending",
+      derivedPublicationStatus: "published",
+    }),
+    "pending",
+  );
+  assert.equal(
+    publicationStatusAfterExtraction({
+      hasOverride: true,
+      previousPublicationStatus: "pending",
+      derivedPublicationStatus: "published",
+    }),
+    "published",
+  );
+});
+
 test("uses strict Responses output with store disabled and recalculates totals", async () => {
   const extracted = validAiExtraction();
   let request;
@@ -542,6 +590,50 @@ test("stores an unverified new campaign as pending and keeps it out of publicati
   );
   assert.equal(campaign.publicationStatus, "pending");
   assert.equal(campaign.rankingEligible, false);
+});
+
+test("applies a human excluded decision to an unchanged pending campaign", async (t) => {
+  const fixture = await setupCatalog(t, { empty: true });
+  const sourceHtml = listing([
+    '<a href="/campaign/new-offer/"><img alt="新しい特典"><p>詳細確認中</p></a>',
+  ]);
+  await runAutomation({
+    ...fixture,
+    checkedAt: "2026-08-27",
+    sourceHtml,
+  });
+  await writeFile(
+    path.join(fixture.dataDirectory, "curated-overrides.json"),
+    `${JSON.stringify(
+      {
+        "NO-CODE-NETWORK-CAMPAIGN-NEW-OFFER": {
+          publicationStatus: "excluded",
+          category: "other",
+          notes: ["編集判断で非掲載"],
+          requiresDevicePurchase: false,
+          rankingEligible: false,
+        },
+      },
+      null,
+      2,
+    )}\n`,
+  );
+
+  const report = await runAutomation({
+    ...fixture,
+    checkedAt: "2026-08-28",
+    sourceHtml,
+  });
+  assert.equal(report.pending.length, 0);
+  assert.equal(report.changes.length, 1);
+  assert.equal(report.changes[0].status, "excluded");
+  const filename = (await readdir(fixture.generatedDirectory)).find((name) =>
+    name.endsWith(".campaign.json"),
+  );
+  const campaign = JSON.parse(
+    await readFile(path.join(fixture.generatedDirectory, filename), "utf8"),
+  );
+  assert.equal(campaign.publicationStatus, "excluded");
 });
 
 test("builds an actionable Slack payload and applies the notification policy", () => {

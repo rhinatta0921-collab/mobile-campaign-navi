@@ -60,7 +60,7 @@ npm run check:assets
 
 自動同期は公式一覧と詳細ページを正規化・ハッシュ化し、新規、内容変更、終了、一覧からの消失を判定します。内容が変わらない個別JSONは維持し、正常比較できた日も`lastSuccessfulCheckAt`だけを進めます。1回だけの一覧消失は掲載を維持し、2回連続の消失、終了表記、3回確認後の404/410、過去キャンペーンページへの移動で`archive/`へ移します。前日比が10件超かつ20%超、一覧解析不能、URL由来コード衝突の場合は全体を反映しません。
 
-新規・変更ページはルール抽出後に、選択したAI APIの厳格なJSON Schemaで構造化します。`CAMPAIGN_AI_PROVIDER`を`openai`または`anthropic`へ変更するだけで切り替えられ、自動フォールバックはしません。既定はOpenAI Responses APIの`gpt-5.6-terra`で、`store: false`です。AnthropicではMessages APIの`claude-sonnet-5`を使用します。ポイントは公式本文の根拠と内訳を検証してコードで再計算し、不足があれば`pending`として非掲載にします。編集記事、固定記事、専用申込URL、広告属性、手動補正は`data/campaigns/curated-overrides.json`を常に優先します。
+新規・変更ページはルール抽出後に、選択したAI APIの厳格なJSON Schemaで構造化します。`CAMPAIGN_AI_PROVIDER`を`openai`または`anthropic`へ変更するだけで切り替えられ、自動フォールバックはしません。既定はOpenAI Responses APIの`gpt-5.6-terra`で、`store: false`です。AnthropicではMessages APIの`claude-sonnet-5`を使用します。ポイントは公式本文の根拠と内訳を検証してコードで再計算し、不足があれば`pending`として非掲載にします。内容が変わっていない`pending`は定時実行でAIへ再送せず、人が`published`または`excluded`を`data/campaigns/curated-overrides.json`へ登録するまで非掲載で保持します。編集記事、固定記事、専用申込URL、広告属性、手動補正は同ファイルを常に優先します。
 
 AIへ渡すのは公式詳細ページの`main`本文だけで、1ページ80,000文字、出力4,000トークン、1実行10回、推定費用2 USDを既定上限とします。同じ公式URL・本文ハッシュは1回だけ処理し、利用トークンと推定費用をレポートおよびSlackへ記録します。既定単価はOpenAI `gpt-5.6-terra`を入力2 USD／出力12 USD、Anthropic `claude-sonnet-5`を安全側に入力3 USD／出力15 USD（各100万トークン）として計算します。モデルを変更する場合は単価Variablesも必ず設定します。
 

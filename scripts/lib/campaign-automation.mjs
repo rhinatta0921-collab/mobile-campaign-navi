@@ -274,6 +274,28 @@ export function isAbnormalListingDelta(previousCount, currentCount) {
   return difference > 10 && difference / previousCount > 0.2;
 }
 
+export function shouldRunAiExtraction({
+  hasOverride,
+  previousPublicationStatus,
+  sourceChanged,
+  contentChanged,
+}) {
+  if (hasOverride || !sourceChanged) return false;
+  if (previousPublicationStatus === "pending") return contentChanged;
+  return true;
+}
+
+export function publicationStatusAfterExtraction({
+  hasOverride,
+  previousPublicationStatus,
+  derivedPublicationStatus,
+}) {
+  if (!hasOverride && previousPublicationStatus === "pending") {
+    return "pending";
+  }
+  return derivedPublicationStatus;
+}
+
 export function primaryOfficialText(sourceText) {
   const main = sourceText.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1];
   return normalizeOfficialText(main ?? sourceText);

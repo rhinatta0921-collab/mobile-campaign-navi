@@ -43,7 +43,7 @@ test("stores validated generated campaigns separately from curated fields", asyn
   assert.equal(index.listingUrl, "https://network.mobile.rakuten.co.jp/campaign/");
   assert.equal(index.campaignCount, filenames.length);
   assert.equal(index.lastSuccessfulCheckAt, index.checkedAt);
-  assert.equal(index.lastContentChangeAt, index.checkedAt);
+  assert.match(index.lastContentChangeAt, /^\d{4}-\d{2}-\d{2}$/);
   assert.match(index.catalogVersion, /^[a-f0-9]{16}$/);
   assert.equal(
     Object.values(index.statusCounts).reduce((total, count) => total + count, 0),
@@ -144,7 +144,9 @@ test("stores validated generated campaigns separately from curated fields", asyn
         "notes",
         "requiresDevicePurchase",
         "rankingEligible",
+        "publicationStatus",
       ]) {
+        if (!(field in curated)) continue;
         assert.deepEqual(campaign[field], curated[field], `${filename}: ${field}`);
       }
       if (curated.applicationUrl) {
@@ -181,11 +183,17 @@ test("keeps current ranking corrections and dedicated application URL", async ()
   const referral = overrides["1784"];
   const employee = overrides["2162"];
   const ichiba = overrides["3327"];
+  const sukipi = overrides["NO-CODE-NETWORK-CAMPAIGN-SUKIPI"];
+  const iphone17 = overrides["NO-CODE-NETWORK-PRODUCT-IPHONE-IPHONE-17"];
   assert.deepEqual(referral.points, { newNumber: 10_000, mnp: 13_000 });
   assert.match(referral.notes.join(" "), /紹介者の7,000ポイントは除外/);
   assert.deepEqual(employee.points, { newNumber: 11_000, mnp: 14_000 });
   assert.equal(employee.applicationUrl, "https://r10.to/hkD5ah");
   assert.deepEqual(ichiba.points, { newNumber: 12_000, mnp: 20_000 });
+  assert.equal(sukipi.publicationStatus, "excluded");
+  assert.equal(sukipi.rankingEligible, false);
+  assert.equal(iphone17.publicationStatus, "excluded");
+  assert.equal(iphone17.requiresDevicePurchase, true);
 });
 
 test("classifies every campaign and excludes purchases and indirect offers", async () => {

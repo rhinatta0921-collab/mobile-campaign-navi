@@ -2,14 +2,14 @@
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-08-30",
   "lastSuccessfulCheckAt": "2026-08-30",
-  "lastContentChangeAt": "2026-08-30",
-  "catalogVersion": "7ef3f1b1bc006eed",
+  "lastContentChangeAt": "2026-09-01",
+  "catalogVersion": "f2d37607021a06cc",
   "listingCardCount": 59,
   "campaignCount": 61,
   "statusCounts": {
     "published": 15,
-    "excluded": 44,
-    "pending": 2,
+    "excluded": 46,
+    "pending": 0,
     "ended": 0
   },
   "missingFromListing": {},

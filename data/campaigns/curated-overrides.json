@@ -2307,6 +2307,16 @@
     "requiresDevicePurchase": false,
     "rankingEligible": false
   },
+  "NO-CODE-NETWORK-CAMPAIGN-SUKIPI": {
+    "codeType": "generated",
+    "publicationStatus": "excluded",
+    "category": "other",
+    "notes": [
+      "SNS参加型の抽選企画で、モバイル回線申し込みの直接特典ではないため編集判断で非掲載です。"
+    ],
+    "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
   "NO-CODE-NETWORK-FEE-BANK-BONUS-RATE": {
     "codeType": "generated",
     "title": "楽天モバイルのご利用で、楽天銀行の円普通預金金利がUP！",
@@ -2369,6 +2379,16 @@
       "リンク先に公式コードの記載がないため、URLから生成した補助コードです。"
     ],
     "requiresDevicePurchase": false,
+    "rankingEligible": false
+  },
+  "NO-CODE-NETWORK-PRODUCT-IPHONE-IPHONE-17": {
+    "codeType": "generated",
+    "publicationStatus": "excluded",
+    "category": "device",
+    "notes": [
+      "iPhone 17の購入と支払い条件を伴う端末施策のため編集判断で非掲載です。"
+    ],
+    "requiresDevicePurchase": true,
     "rankingEligible": false
   },
   "NO-CODE-NETWORK-SERVICE-ENTERTAINMENT-SELECTION": {

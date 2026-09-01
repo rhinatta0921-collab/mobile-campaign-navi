@@ -22,17 +22,16 @@
     "公式ページで条件確認"
   ],
   "channel": "公式ページ参照",
-  "category": "other",
+  "category": "device",
   "audience": "both",
   "period": "2026年8月30日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-17/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
   "checkedAt": "2026-08-30",
   "notes": [
-    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
-    "自動掲載保留: OPENAI_API_KEY未設定のため新規・変更内容を構造化できません。"
+    "iPhone 17の購入と支払い条件を伴う端末施策のため編集判断で非掲載です。"
   ],
-  "requiresDevicePurchase": false,
+  "requiresDevicePurchase": true,
   "rankingEligible": false,
   "sourceCards": [
     {
@@ -42,7 +41,7 @@
       "url": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-17/"
     }
   ],
-  "publicationStatus": "pending",
+  "publicationStatus": "excluded",
   "listingPresence": "listed",
   "eligibility": {
     "firstApplication": true,
@@ -51,7 +50,7 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-30",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-01",
   "provenance": {
     "contentHash": "06a9665f8feaf65a438fb3dfe0182a5ab2ca479d7dadc0cb309479be5140d7cb",
     "listingHash": "99a719e47f025a32133a55f4066e452057308aff1d50381f06665f1e68124724",

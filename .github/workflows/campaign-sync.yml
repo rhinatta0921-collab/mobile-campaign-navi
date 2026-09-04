@@ -26,6 +26,8 @@ concurrency:
 env:
   REPORT_PATH: .campaign-sync/report.json
   SLACK_PAYLOAD_PATH: .campaign-sync/slack-payload.json
+  BASELINE_DOWNLOAD_DIR: .campaign-baseline/download
+  BASELINE_UPLOAD_DIR: .campaign-baseline/upload
 
 jobs:
   sync:
@@ -33,13 +35,13 @@ jobs:
     timeout-minutes: 45
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22.13.0
           cache: npm
@@ -63,7 +65,7 @@ jobs:
         id: previous_run
         if: always()
         continue-on-error: true
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           github-token: ${{ github.token }}
           script: |
@@ -78,12 +80,82 @@ jobs:
             );
             core.setOutput("conclusion", previous?.conclusion ?? "");
 
+      - name: Locate latest validated baseline
+        id: baseline_lookup
+        continue-on-error: true
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const [artifactResponse, runResponse] = await Promise.all([
+              github.rest.actions.listArtifactsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100,
+              }),
+              github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: "campaign-sync.yml",
+                branch: "main",
+                per_page: 100,
+              }),
+            ]);
+            const eligibleRunIds = new Set(
+              runResponse.data.workflow_runs
+                .filter((run) => run.id !== Number(context.runId))
+                .map((run) => run.id),
+            );
+            const candidates = artifactResponse.data.artifacts
+              .filter((artifact) =>
+                !artifact.expired &&
+                /^campaign-baseline-v1-\d+$/.test(artifact.name) &&
+                eligibleRunIds.has(artifact.workflow_run?.id),
+              )
+              .sort((left, right) =>
+                String(right.created_at).localeCompare(String(left.created_at)),
+              );
+            const latest = candidates[0];
+            core.setOutput("found", latest ? "true" : "false");
+            core.setOutput("name", latest?.name ?? "");
+            core.setOutput("run_id", latest?.workflow_run?.id ?? "");
+
+      - name: Download latest validated baseline
+        id: baseline_download
+        if: >-
+          steps.baseline_lookup.outcome == 'success' &&
+          steps.baseline_lookup.outputs.found == 'true'
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ steps.baseline_lookup.outputs.name }}
+          path: ${{ env.BASELINE_DOWNLOAD_DIR }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.baseline_lookup.outputs.run_id }}
+
+      - name: Select and restore comparison baseline
+        id: baseline
+        if: >-
+          steps.baseline_lookup.outcome == 'success' &&
+          (steps.baseline_lookup.outputs.found != 'true' ||
+           steps.baseline_download.outcome == 'success')
+        continue-on-error: true
+        run: >-
+          node scripts/campaign-baseline.mjs restore
+          --data-directory=data/campaigns
+          --artifact-directory=${{ env.BASELINE_DOWNLOAD_DIR }}
+          --artifact-available=${{ steps.baseline_lookup.outputs.found || 'false' }}
+          --selection-path=.campaign-sync/baseline-selection.json
+
       - name: Install dependencies
         id: dependencies
+        if: steps.baseline.outcome == 'success'
         run: npm ci
 
       - name: Build candidate campaign catalog
         id: catalog
+        if: steps.dependencies.outcome == 'success'
         continue-on-error: true
         env:
           CAMPAIGN_AI_PROVIDER: ${{ vars.CAMPAIGN_AI_PROVIDER || 'openai' }}
@@ -101,15 +173,23 @@ jobs:
           npm run sync:campaigns:auto --
           --checked-at=${{ steps.settings.outputs.checked_at }}
           --report-path=${{ env.REPORT_PATH }}
+          --baseline-source=${{ steps.baseline.outputs.source }}
+          --baseline-checked-at=${{ steps.baseline.outputs.checked_at }}
+          --baseline-catalog-version=${{ steps.baseline.outputs.catalog_version }}
+          --baseline-run-id=${{ steps.baseline.outputs.run_id }}
           --write
 
       - name: Ensure failure report exists
         if: always() && hashFiles(env.REPORT_PATH) == ''
         env:
           CHECKED_AT: ${{ steps.settings.outputs.checked_at }}
+          BASELINE_SOURCE: ${{ steps.baseline.outputs.source || 'main' }}
+          BASELINE_CHECKED_AT: ${{ steps.baseline.outputs.checked_at }}
+          BASELINE_CATALOG_VERSION: ${{ steps.baseline.outputs.catalog_version }}
+          BASELINE_RUN_ID: ${{ steps.baseline.outputs.run_id }}
         run: |
           mkdir -p .campaign-sync
-          node -e 'const fs=require("node:fs"); const checkedAt=process.env.CHECKED_AT || new Date().toISOString().slice(0,10); fs.writeFileSync(".campaign-sync/report.json", JSON.stringify({checkedAt,safeToPublish:false,requiresAttention:true,additions:[],changes:[],ended:[],pending:[],warnings:[],errors:["候補生成前または候補生成中にワークフローが失敗しました。"]},null,2)+"\n")'
+          node -e 'const fs=require("node:fs"); const checkedAt=process.env.CHECKED_AT || new Date().toISOString().slice(0,10); const baseline={source:process.env.BASELINE_SOURCE || "main",checkedAt:process.env.BASELINE_CHECKED_AT || null,catalogVersion:process.env.BASELINE_CATALOG_VERSION || null,runId:process.env.BASELINE_RUN_ID || null}; fs.writeFileSync(".campaign-sync/report.json", JSON.stringify({checkedAt,baseline,safeToPublish:false,requiresAttention:true,additions:[],changes:[],ended:[],pending:[],warnings:[],errors:["候補生成前または候補生成中にワークフローが失敗しました。"]},null,2)+"\n")'
 
       - name: Read safety report
         id: report
@@ -135,16 +215,46 @@ jobs:
           npm run lint
           npm test
 
+      - name: Prepare validated baseline artifact
+        id: baseline_prepare
+        if: >-
+          steps.validation.outcome == 'success' &&
+          steps.report.outputs.safe_to_publish == 'true'
+        continue-on-error: true
+        run: >-
+          node scripts/campaign-baseline.mjs prepare
+          --data-directory=data/campaigns
+          --report-path=${{ env.REPORT_PATH }}
+          --output-directory=${{ env.BASELINE_UPLOAD_DIR }}
+          --source-commit=${{ github.sha }}
+          --run-id=${{ github.run_id }}
+
+      - name: Save validated comparison baseline
+        id: baseline_upload
+        if: steps.baseline_prepare.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: campaign-baseline-v1-${{ github.run_id }}
+          path: ${{ env.BASELINE_UPLOAD_DIR }}
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 30
+
       - name: Save report artifact
+        id: diagnostic_artifact
         if: always() && hashFiles(env.REPORT_PATH) != ''
-        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
         with:
           name: campaign-sync-${{ steps.settings.outputs.checked_at || github.run_id }}
           path: |
             ${{ env.REPORT_PATH }}
+            .campaign-sync/baseline-selection.json
             data/campaigns/generated
             data/campaigns/archive
             data/campaigns/images.json
+          include-hidden-files: true
           retention-days: 30
 
       - name: Commit validated catalog to main
@@ -154,6 +264,7 @@ jobs:
           steps.catalog.outcome == 'success' &&
           steps.images.outcome == 'success' &&
           steps.validation.outcome == 'success' &&
+          steps.baseline_upload.outcome == 'success' &&
           steps.report.outputs.safe_to_publish == 'true'
         run: |
           git config user.name "campaign-catalog-bot"
@@ -178,13 +289,19 @@ jobs:
         if: always() && hashFiles(env.REPORT_PATH) != ''
         env:
           CAMPAIGN_AUTOMATION_MODE: ${{ steps.settings.outputs.mode || vars.CAMPAIGN_AUTOMATION_MODE || 'report' }}
-          CAMPAIGN_PIPELINE_FAILED: ${{ steps.catalog.outcome == 'failure' || steps.images.outcome == 'failure' || steps.validation.outcome == 'failure' || steps.commit.outcome == 'failure' || steps.production.outcome == 'failure' }}
+          CAMPAIGN_PIPELINE_FAILED: ${{ steps.baseline_lookup.outcome == 'failure' || steps.baseline_download.outcome == 'failure' || steps.baseline.outcome == 'failure' || steps.catalog.outcome == 'failure' || steps.images.outcome == 'failure' || steps.validation.outcome == 'failure' || steps.baseline_prepare.outcome == 'failure' || steps.baseline_upload.outcome == 'failure' || steps.diagnostic_artifact.outcome == 'failure' || steps.commit.outcome == 'failure' || steps.production.outcome == 'failure' }}
           CAMPAIGN_PREVIOUS_CONCLUSION: ${{ steps.previous_run.outputs.conclusion }}
           CAMPAIGN_FAILURE_CONTEXT: >-
+            baseline_lookup=${{ steps.baseline_lookup.outcome }},
+            baseline_download=${{ steps.baseline_download.outcome }},
+            baseline=${{ steps.baseline.outcome }},
             dependencies=${{ steps.dependencies.outcome }},
             catalog=${{ steps.catalog.outcome }},
             images=${{ steps.images.outcome }},
             validation=${{ steps.validation.outcome }},
+            baseline_prepare=${{ steps.baseline_prepare.outcome }},
+            baseline_upload=${{ steps.baseline_upload.outcome }},
+            diagnostic_artifact=${{ steps.diagnostic_artifact.outcome }},
             commit=${{ steps.commit.outcome }},
             production=${{ steps.production.outcome }}
         run: >-
@@ -207,12 +324,18 @@ jobs:
         if: >-
           always() &&
           (steps.settings.outcome == 'failure' ||
+           steps.baseline_lookup.outcome == 'failure' ||
+           steps.baseline_download.outcome == 'failure' ||
+           steps.baseline.outcome == 'failure' ||
            steps.dependencies.outcome == 'failure' ||
            steps.catalog.outcome == 'failure' ||
            steps.report.outcome == 'failure' ||
            steps.report.outputs.safe_to_publish != 'true' ||
            steps.images.outcome == 'failure' ||
            steps.validation.outcome == 'failure' ||
+           steps.baseline_prepare.outcome == 'failure' ||
+           steps.baseline_upload.outcome == 'failure' ||
+           steps.diagnostic_artifact.outcome == 'failure' ||
            steps.commit.outcome == 'failure' ||
            steps.production.outcome == 'failure' ||
            steps.notification.outcome == 'failure' ||

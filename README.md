@@ -60,7 +60,9 @@ npm run optimize:png -- --write
 npm run check:assets
 ```
 
-自動同期は公式一覧と詳細ページを正規化・ハッシュ化し、新規、内容変更、終了、一覧からの消失を判定します。内容が変わらない個別JSONは維持し、正常比較できた日も`lastSuccessfulCheckAt`だけを進めます。1回だけの一覧消失は掲載を維持し、2回連続の消失、終了表記、3回確認後の404/410、過去キャンペーンページへの移動で`archive/`へ移します。前日比が10件超かつ20%超、一覧解析不能、URL由来コード衝突の場合は全体を反映しません。
+自動同期は公式一覧と詳細ページを正規化・ハッシュ化し、新規、内容変更、終了、一覧からの消失を判定します。内容が変わらない個別JSONは維持し、正常比較できた日も`lastSuccessfulCheckAt`だけを進めます。一覧消失は実行回数ではなく確認日で数え、同日再実行では増やしません。異なる2日で連続して消失した場合、終了表記、3回確認後の404/410、過去キャンペーンページへの移動で`archive/`へ移します。前日比が10件超かつ20%超、一覧解析不能、URL由来コード衝突の場合は全体を反映しません。
+
+検証をすべて通過した候補は、診断用成果物とは別の`campaign-baseline-v1-<run-id>` Artifactとして30日保存します。次回は、この基準の確認日が`main`より新しい場合だけ生成JSONとアーカイブを比較基準として復元します。同日または古ければ`main`を使い、対応形式のArtifactが破損・不整合なら安全のため全体停止します。画像はArtifactから復元せず、現在の公開画像を基準に毎回同期します。
 
 新規・変更ページはルール抽出後に、選択したAI APIの厳格なJSON Schemaで構造化します。`CAMPAIGN_AI_PROVIDER`を`openai`または`anthropic`へ変更するだけで切り替えられ、自動フォールバックはしません。既定はOpenAI Responses APIの`gpt-5.6-terra`で、`store: false`です。AnthropicではMessages APIの`claude-sonnet-5`を使用します。ポイントは公式本文の根拠と内訳を検証してコードで再計算し、不足があれば`pending`として非掲載にします。内容が変わっていない`pending`は定時実行でAIへ再送せず、人が`published`または`excluded`を`data/campaigns/curated-overrides.json`へ登録するまで非掲載で保持します。編集記事、固定記事、専用申込URL、広告属性、手動補正は同ファイルを常に優先します。
 
@@ -74,6 +76,6 @@ GitHub Actionsには次を設定します。
 - 安全上限Variables: `CAMPAIGN_AI_MAX_INPUT_CHARS`、`CAMPAIGN_AI_MAX_OUTPUT_TOKENS`、`CAMPAIGN_AI_MAX_CALLS`、`CAMPAIGN_AI_MAX_BUDGET_USD`
 - 未登録モデル用単価Variables: `CAMPAIGN_AI_INPUT_USD_PER_MILLION`、`CAMPAIGN_AI_OUTPUT_USD_PER_MILLION`
 
-導入後3日間は`CAMPAIGN_AUTOMATION_MODE=report`のままにし、Actionsの`campaign-sync-YYYY-MM-DD`成果物と現在の手動結果を照合します。3日連続で一致したら`CAMPAIGN_AUTOMATION_MODE=apply`へ変更します。`apply`では画像、スキーマ、lint、build、全テスト、安全判定を通過した生成物だけを日付付きコミットとして`main`へpushし、本番HTMLのカタログバージョンと最終確認日まで照合します。
+`report`では`main`を変更しませんが、検証済み基準Artifactを次回へ引き継ぐため、同じ公式差分を毎日新規変更として数え直しません。`apply`では画像、スキーマ、lint、build、全テスト、安全判定を通過した生成物だけを日付付きコミットとして`main`へpushし、本番HTMLのカタログバージョンと最終確認日まで照合します。
 
 試運転中は変更なしを含む実行結果を毎日Slackへ通知します。`apply`移行後は、安全な内容変更、保留、異常差分、取得、AI、画像、検証、公開の失敗、障害からの復旧を通知し、正常終了かつ変更なしでは通知しません。通知本文には対象URLとGitHub Actionsの実行URLを含め、詳細レポートは30日間の成果物として保存します。

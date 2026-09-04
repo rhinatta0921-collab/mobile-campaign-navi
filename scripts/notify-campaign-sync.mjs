@@ -130,8 +130,13 @@ export function buildSlackPayload(
   const mode = environment.CAMPAIGN_AUTOMATION_MODE ?? report.mode ?? "report";
   const listing = report.listing ?? {};
   const ai = report.ai ?? {};
+  const baseline = report.baseline ?? {};
+  const baselineSource = baseline.source === "artifact" ? "Artifact" : "main";
   const details = itemLines(report);
-  if (environment.CAMPAIGN_FAILURE_CONTEXT) {
+  if (
+    environment.CAMPAIGN_FAILURE_CONTEXT &&
+    environment.CAMPAIGN_PIPELINE_FAILED === "true"
+  ) {
     details.push(
       `• *失敗ステップ* ${slackText(environment.CAMPAIGN_FAILURE_CONTEXT)}`,
     );
@@ -140,6 +145,7 @@ export function buildSlackPayload(
   const summary = [
     `${title}（${report.checkedAt ?? "確認日不明"}）`,
     `モード: ${mode}`,
+    `比較基準: ${baselineSource} / ${baseline.checkedAt ?? "不明"} / ${baseline.catalogVersion ?? "不明"}`,
     `公式一覧: ${listing.currentCount ?? "不明"}件`,
     `追加${report.additions?.length ?? 0}・変更${report.changes?.length ?? 0}・終了${report.ended?.length ?? 0}・保留${report.pending?.length ?? 0}`,
     `AI: ${ai.provider ?? "未設定"}/${ai.model ?? "未設定"} ${ai.calls ?? 0}回・推定$${Number(ai.estimatedCostUsd ?? 0).toFixed(4)}`,
@@ -172,6 +178,14 @@ export function buildSlackPayload(
         {
           type: "mrkdwn",
           text: `*AI推定費用*\n$${Number(ai.estimatedCostUsd ?? 0).toFixed(4)} / 上限 $${Number(ai.limits?.maxBudgetUsd ?? 0).toFixed(2)}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*比較基準*\n${baselineSource} / ${slackText(baseline.checkedAt ?? "不明")}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*基準カタログ版*\n${slackText(baseline.catalogVersion ?? "不明")}${baseline.runId ? `（run ${slackText(baseline.runId)}）` : ""}`,
         },
       ],
     },
@@ -248,6 +262,10 @@ async function main() {
         "",
         `- 確認日: ${report.checkedAt ?? "不明"}`,
         `- モード: ${mode}`,
+        `- 比較基準: ${report.baseline?.source ?? "main"}`,
+        `- 基準確認日: ${report.baseline?.checkedAt ?? "不明"}`,
+        `- 基準カタログ版: ${report.baseline?.catalogVersion ?? "不明"}`,
+        `- 基準run ID: ${report.baseline?.runId ?? "なし"}`,
         `- 安全判定: ${report.safeToPublish ? "通過" : "停止"}`,
         `- 追加: ${report.additions?.length ?? 0}件`,
         `- 変更: ${report.changes?.length ?? 0}件`,

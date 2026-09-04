@@ -31,6 +31,11 @@ import {
   extractCampaignWithAnthropic,
 } from "../scripts/lib/campaign-ai.mjs";
 import {
+  prepareBaseline,
+  restoreBaseline,
+  validateBaselineArtifact,
+} from "../scripts/campaign-baseline.mjs";
+import {
   buildSlackPayload,
   notificationDecision,
 } from "../scripts/notify-campaign-sync.mjs";
@@ -199,6 +204,8 @@ async function runAutomation({
   detailDirectory,
   root,
   sourceHtml,
+  baselineSource = "main",
+  baselineRunId = "",
 }) {
   const sourcePath = path.join(root, `listing-${checkedAt}.html`);
   const reportPath = path.join(root, `report-${checkedAt}.json`);
@@ -212,6 +219,8 @@ async function runAutomation({
       `--source-details-directory=${detailDirectory}`,
       `--report-path=${reportPath}`,
       `--checked-at=${checkedAt}`,
+      `--baseline-source=${baselineSource}`,
+      `--baseline-run-id=${baselineRunId}`,
       "--write",
     ],
     { env: { ...process.env, OPENAI_API_KEY: "" } },
@@ -526,6 +535,12 @@ test("keeps unchanged campaign JSON and advances only the successful check", asy
   });
   assert.equal(report.safeToPublish, true);
   assert.equal(report.contentChanged, false);
+  assert.deepEqual(report.baseline, {
+    source: "main",
+    checkedAt: "2026-08-22",
+    catalogVersion: catalogVersion([existingCampaign()]),
+    runId: null,
+  });
   assert.equal(await readFile(filename, "utf8"), before);
   const index = JSON.parse(
     await readFile(path.join(fixture.generatedDirectory, "index.json"), "utf8"),
@@ -534,7 +549,7 @@ test("keeps unchanged campaign JSON and advances only the successful check", asy
   assert.equal(index.lastContentChangeAt, "2026-08-22");
 });
 
-test("requires two consecutive listing misses before archiving", async (t) => {
+test("requires listing misses on two distinct dates before archiving", async (t) => {
   const fixture = await setupCatalog(t);
   const first = await runAutomation({
     ...fixture,
@@ -549,12 +564,24 @@ test("requires two consecutive listing misses before archiving", async (t) => {
   assert.equal(index.campaignCount, 1);
   assert.deepEqual(index.missingFromListing, { "1784": 1 });
 
-  const second = await runAutomation({
+  const sameDay = await runAutomation({
+    ...fixture,
+    checkedAt: "2026-08-27",
+    sourceHtml: listing(),
+  });
+  assert.equal(sameDay.ended.length, 0);
+  index = JSON.parse(
+    await readFile(path.join(fixture.generatedDirectory, "index.json"), "utf8"),
+  );
+  assert.equal(index.campaignCount, 1);
+  assert.deepEqual(index.missingFromListing, { "1784": 1 });
+
+  const nextDay = await runAutomation({
     ...fixture,
     checkedAt: "2026-08-28",
     sourceHtml: listing(),
   });
-  assert.equal(second.ended.length, 1);
+  assert.equal(nextDay.ended.length, 1);
   index = JSON.parse(
     await readFile(path.join(fixture.generatedDirectory, "index.json"), "utf8"),
   );
@@ -567,6 +594,97 @@ test("requires two consecutive listing misses before archiving", async (t) => {
   );
   assert.equal(archived.publicationStatus, "ended");
   assert.match(archived.endReason, /2回連続/);
+});
+
+test("restores only a newer validated baseline and rejects corruption", async (t) => {
+  const candidate = await setupCatalog(t);
+  const report = await runAutomation({
+    ...candidate,
+    checkedAt: "2026-08-27",
+    sourceHtml: listing([
+      '<a href="/campaign/referral/"><img alt="紹介キャンペーン"><p>紹介で13,000ポイント</p></a>',
+    ]),
+  });
+  assert.equal(report.safeToPublish, true);
+  const artifactDirectory = path.join(candidate.root, "baseline-artifact");
+  const manifest = await prepareBaseline({
+    dataDirectory: candidate.dataDirectory,
+    reportPath: path.join(candidate.root, "report-2026-08-27.json"),
+    outputDirectory: artifactDirectory,
+    sourceCommit: "a".repeat(40),
+    runId: "123456",
+    createdAt: "2026-08-27T00:00:00.000Z",
+  });
+  assert.equal(manifest.checkedAt, "2026-08-27");
+  assert.equal((await validateBaselineArtifact(artifactDirectory)).manifest.runId, "123456");
+
+  const main = await setupCatalog(t);
+  const restored = await restoreBaseline({
+    dataDirectory: main.dataDirectory,
+    artifactDirectory,
+    artifactAvailable: true,
+    selectionPath: path.join(main.root, "selection.json"),
+  });
+  assert.deepEqual(restored, {
+    source: "artifact",
+    checkedAt: "2026-08-27",
+    catalogVersion: manifest.catalogVersion,
+    runId: "123456",
+  });
+  let mainIndex = JSON.parse(
+    await readFile(path.join(main.generatedDirectory, "index.json"), "utf8"),
+  );
+  assert.equal(mainIndex.lastSuccessfulCheckAt, "2026-08-27");
+
+  const nextReport = await runAutomation({
+    ...main,
+    checkedAt: "2026-08-28",
+    baselineSource: "artifact",
+    baselineRunId: "123456",
+    sourceHtml: listing([
+      '<a href="/campaign/referral/"><img alt="紹介キャンペーン"><p>紹介で13,000ポイント</p></a>',
+    ]),
+  });
+  assert.deepEqual(nextReport.baseline, {
+    source: "artifact",
+    checkedAt: "2026-08-27",
+    catalogVersion: manifest.catalogVersion,
+    runId: "123456",
+  });
+  assert.equal(nextReport.changes.length, 0);
+  assert.equal(nextReport.ai.calls, 0);
+
+  const equalDate = await restoreBaseline({
+    dataDirectory: main.dataDirectory,
+    artifactDirectory,
+    artifactAvailable: true,
+    selectionPath: path.join(main.root, "selection-equal.json"),
+  });
+  assert.equal(equalDate.source, "main");
+  assert.equal(equalDate.runId, null);
+
+  const artifactCampaign = path.join(
+    artifactDirectory,
+    "data/campaigns/generated/1784-campaign-referral.campaign.json",
+  );
+  await writeFile(
+    artifactCampaign,
+    `${await readFile(artifactCampaign, "utf8")}\n`,
+  );
+  await assert.rejects(
+    () =>
+      restoreBaseline({
+        dataDirectory: main.dataDirectory,
+        artifactDirectory,
+        artifactAvailable: true,
+        selectionPath: path.join(main.root, "selection-corrupt.json"),
+      }),
+    /SHA-256整合性検査/,
+  );
+  mainIndex = JSON.parse(
+    await readFile(path.join(main.generatedDirectory, "index.json"), "utf8"),
+  );
+  assert.equal(mainIndex.lastSuccessfulCheckAt, "2026-08-28");
 });
 
 test("stores an unverified new campaign as pending and keeps it out of publication", async (t) => {
@@ -639,6 +757,12 @@ test("applies a human excluded decision to an unchanged pending campaign", async
 test("builds an actionable Slack payload and applies the notification policy", () => {
   const report = {
     checkedAt: "2026-08-27",
+    baseline: {
+      source: "artifact",
+      checkedAt: "2026-08-26",
+      catalogVersion: "0123456789abcdef",
+      runId: "122",
+    },
     safeToPublish: true,
     additions: [],
     changes: [],
@@ -679,6 +803,8 @@ test("builds an actionable Slack payload and applies the notification policy", (
   assert.match(JSON.stringify(payload.blocks), /根拠不足/);
   assert.match(JSON.stringify(payload.blocks), /actions\/runs\/123/);
   assert.match(JSON.stringify(payload.blocks), /gpt-5\.6-terra/);
+  assert.match(JSON.stringify(payload.blocks), /Artifact/);
+  assert.match(JSON.stringify(payload.blocks), /0123456789abcdef/);
   assert.match(payload.text, /推定\$0\.0300/);
 
   const noChange = {
@@ -706,6 +832,14 @@ test("schedules report/apply automation with Slack-only notifications", async ()
   );
   assert.match(workflow, /cron: "17 21 \* \* \*"/);
   assert.match(workflow, /- report\s+- apply/);
+  assert.match(workflow, /actions\/checkout@v6/);
+  assert.match(workflow, /actions\/setup-node@v7/);
+  assert.match(workflow, /actions\/github-script@v9/);
+  assert.match(workflow, /actions\/download-artifact@v8/);
+  assert.match(workflow, /actions\/upload-artifact@v7/);
+  assert.match(workflow, /campaign-baseline-v1-\$\{\{ github\.run_id \}\}/);
+  assert.match(workflow, /retention-days: 30/);
+  assert.match(workflow, /--baseline-source=\$\{\{ steps\.baseline\.outputs\.source \}\}/);
   assert.match(workflow, /secrets\.SLACK_WEBHOOK_URL/);
   assert.match(workflow, /vars\.CAMPAIGN_AI_PROVIDER/);
   assert.match(workflow, /secrets\.ANTHROPIC_API_KEY/);

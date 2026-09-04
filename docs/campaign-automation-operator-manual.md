@@ -40,6 +40,7 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
 | `data/campaigns/images.json` | 掲載画像マニフェスト | いいえ |
 | `public/assets/campaigns/official/` | 取得済み公式画像 | いいえ |
 | `.github/workflows/campaign-sync.yml` | 定時実行、手動実行、検証、通知、コミット | 時刻や処理を変更するときだけ |
+| `scripts/campaign-baseline.mjs` | 検証済み比較基準の検査、復元、Artifact作成 | 通常運用では編集しない |
 | `scripts/automate-campaigns.mjs` | 差分判定、終了判定、候補作成、安全停止 | 通常運用では編集しない |
 | `scripts/lib/campaign-automation.mjs` | ハッシュ、分類、AI Schema、根拠検証 | 通常運用では編集しない |
 | `scripts/lib/campaign-ai.mjs` | OpenAI／Anthropic切替、回数・費用上限 | 通常運用では編集しない |
@@ -78,6 +79,13 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
 [毎日6:17 JST]
        |
        v
+[最新の検証済み基準Artifactを検査]
+       |
+       +-- mainより新しい --> generated/archiveを比較基準に復元
+       +-- 同日・古い・未作成 --> mainを比較基準に使用
+       +-- 対応形式が破損 --> 全体停止・Slack通知
+       |
+       v
 [楽天モバイル公式一覧を取得]
        |
        v
@@ -90,7 +98,7 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
        |                                          |
        |                                  [確認日だけ候補更新]
        |                                          |
-       |                                  report: 保存せず終了
+       |                                  report: mainは更新しない
        |                                  apply : mainへ反映
        |
        +-- 新規／本文変更あり
@@ -105,7 +113,7 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
        +-- 終了明記／404・410／過去ページ移動 --> ended
        |
        +-- 一覧から1回消失 --> missingとして掲載維持・警告
-       +-- 一覧から2回連続消失 --> ended
+       +-- 異なる2日で連続消失 --> ended
        |
        v
 [画像同期]
@@ -117,7 +125,8 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
        |
        +-- 成功
               |
-              +-- report --> 成果物だけ30日保存・Slack通知
+              +-- 検証済み基準Artifactを30日保存
+              +-- report --> 診断成果物を保存・Slack通知
               +-- apply  --> mainへcommit・Cloudflare公開・本番照合
 ```
 
@@ -137,7 +146,7 @@ AIは新規または公式本文が変わった対象の情報整理にだけ使
 | `🚨 失敗` | 取得・AI・画像・検証・公開などが失敗 | 反映されていない前提で原因確認 |
 | `🟢 復旧` | 前回失敗から正常へ復帰 | 本番と確認日を確認 |
 
-Slackには、公式一覧件数、追加・変更・終了・保留件数、AI呼び出し回数、推定費用、GitHub Actionsへのリンクが表示されます。
+Slackには、比較基準の取得元・確認日・カタログ版、公式一覧件数、追加・変更・終了・保留件数、AI呼び出し回数、推定費用、GitHub Actionsへのリンクが表示されます。
 
 ### 6.2 GitHub Actionsを見る
 
@@ -146,13 +155,13 @@ Slackには、公式一覧件数、追加・変更・終了・保留件数、AI�
 3. 左側の`Daily campaign catalog sync`を選びます。
 4. 当日の実行を開きます。
 5. 上部の結果が緑色か確認します。
-6. `Summary`で確認日、追加、変更、終了、保留、安全判定を確認します。
+6. `Summary`で比較基準、確認日、追加、変更、終了、保留、安全判定を確認します。
 7. 必要な場合だけ`sync`ジョブを開き、失敗したステップのログを確認します。
 
 ### 6.3 成果物ZIPを見る
 
-1. Actions実行ページ下部の`Artifacts`を開きます。
-2. `campaign-sync-YYYY-MM-DD`をクリックします。
+1. Actions実行ページ下部の`Artifacts`を開きます。通常は診断用と比較基準用の2種類があります。
+2. 人が確認するときは`campaign-sync-YYYY-MM-DD`をクリックします。`campaign-baseline-v1-<run-id>`は次回実行が自動利用するため、通常はダウンロード不要です。
 3. `campaign-sync-YYYY-MM-DD.zip`がダウンロードされます。これはGitHub Actionsが作成した正常な検証成果物です。
 4. ZIPを展開します。
 5. `.campaign-sync/report.json`を確認します。
@@ -165,6 +174,10 @@ Slackには、公式一覧件数、追加・変更・終了・保留件数、AI�
 | 項目 | 意味 |
 | --- | --- |
 | `safeToPublish` | 全体を反映可能か |
+| `baseline.source` | 比較基準が`main`か`artifact`か |
+| `baseline.checkedAt` | 比較基準の最終確認日 |
+| `baseline.catalogVersion` | 比較基準のカタログ版 |
+| `baseline.runId` | Artifact利用時の元workflow run ID |
 | `requiresAttention` | pendingまたは警告があるか |
 | `additions` | 新規候補 |
 | `changes` | 既存情報の変更 |
@@ -553,6 +566,7 @@ npm run dev
 - `main`へコミットしません。
 - 本番を変更しません。
 - 成果物ZIPを30日保存します。
+- 全検証済み候補を基準Artifactとして保存し、次回の比較へ引き継ぎます。
 - 変更なしを含めSlack通知します。
 
 ### `apply`を選ぶ場合
@@ -665,7 +679,8 @@ Webhookを再発行した場合はGitHub Secretを上書きし、`report`を手�
 | 過去キャンペーンページへ移動 | 即時`ended` |
 | 404／410 | 再試行後に`ended` |
 | 一覧から1回だけ消失 | `missing`、掲載維持、警告 |
-| 一覧から2回連続消失 | `ended` |
+| 一覧から同日に複数回消失 | 回数を維持し、掲載維持 |
+| 一覧から異なる2日で連続消失 | `ended` |
 | AIキーなし、AI拒否、根拠不足、予算超過 | 対象を`pending`、非掲載 |
 | 掲載に必要な画像なし | 公開停止 |
 | JSON、lint、build、test失敗 | 公開停止 |
@@ -674,6 +689,13 @@ Webhookを再発行した場合はGitHub Secretを上書きし、`report`を手�
 安全停止時に「とりあえず件数やハッシュを書き換えて通す」ことは禁止です。公式ページ、Actionsログ、前回成果物を確認し、原因を説明できる状態にしてから修正します。
 
 ## 20. 失敗ステップ別の対応
+
+### `Locate / Download / Select and restore comparison baseline`
+
+- `campaign-baseline-v1-<run-id>`のmanifest、ファイル一覧、カタログ版、SHA-256整合性を確認します。
+- 対応形式のArtifactが破損している場合、`main`へフォールバックせず停止するのが正常な安全動作です。
+- 古い`campaign-sync-YYYY-MM-DD`は診断用であり、比較基準としては使用しません。
+- 原因不明のまま基準Artifactを削除せず、対象runとエラーを記録して修正します。
 
 ### `Install dependencies`
 

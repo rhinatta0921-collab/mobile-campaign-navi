@@ -57,6 +57,12 @@ const checkedAt = option("checked-at");
 if (!checkedAt || !/^\d{4}-\d{2}-\d{2}$/.test(checkedAt)) {
   throw new Error("--checked-at=YYYY-MM-DD が必要です。");
 }
+const requestedBaseline = {
+  source: option("baseline-source") ?? "main",
+  checkedAt: option("baseline-checked-at") ?? null,
+  catalogVersion: option("baseline-catalog-version") ?? null,
+  runId: option("baseline-run-id") || null,
+};
 
 async function pathExists(targetPath) {
   try {
@@ -282,6 +288,7 @@ async function run() {
   const report = {
     checkedAt,
     mode: shouldWrite ? "write" : "preview",
+    baseline: requestedBaseline,
     safeToPublish: false,
     requiresAttention: false,
     listing: {},
@@ -304,6 +311,32 @@ async function run() {
       readCatalog(generatedDirectory),
     ]);
     const cards = parseListingCards(listingHtml);
+    if (!["main", "artifact"].includes(requestedBaseline.source)) {
+      throw new Error(`比較基準の取得元が不正です: ${requestedBaseline.source}`);
+    }
+    const actualBaseline = {
+      source: requestedBaseline.source,
+      checkedAt:
+        currentCatalog.index.lastSuccessfulCheckAt ??
+        currentCatalog.index.checkedAt,
+      catalogVersion:
+        currentCatalog.index.catalogVersion ??
+        catalogVersion(currentCatalog.records.map(({ campaign }) => campaign)),
+      runId:
+        requestedBaseline.source === "artifact"
+          ? requestedBaseline.runId
+          : null,
+    };
+    if (
+      (requestedBaseline.checkedAt &&
+        requestedBaseline.checkedAt !== actualBaseline.checkedAt) ||
+      (requestedBaseline.catalogVersion &&
+        requestedBaseline.catalogVersion !== actualBaseline.catalogVersion) ||
+      (requestedBaseline.source === "artifact" && !requestedBaseline.runId)
+    ) {
+      throw new Error("復元した比較基準とワークフロー監査情報が一致しません。");
+    }
+    report.baseline = actualBaseline;
     report.listing = {
       previousCount: currentCatalog.index.listingCardCount,
       currentCount: cards.length,
@@ -362,9 +395,17 @@ async function run() {
       if (generatedByCode.has(oldCampaign.campaignCode)) continue;
       if (overrides[oldCampaign.campaignCode]?.supplemental) continue;
 
+      const previousMissingCount =
+        currentCatalog.index.missingFromListing?.[
+          oldCampaign.campaignCode
+        ] ?? 0;
+      const previousCheckAt =
+        currentCatalog.index.lastSuccessfulCheckAt ??
+        currentCatalog.index.checkedAt;
       const missingCount =
-        (currentCatalog.index.missingFromListing?.[oldCampaign.campaignCode] ??
-          0) + 1;
+        previousMissingCount > 0 && previousCheckAt === checkedAt
+          ? previousMissingCount
+          : previousMissingCount + 1;
       const detail = await readDetail(oldCampaign);
       if (detail.error) {
         throw new Error(

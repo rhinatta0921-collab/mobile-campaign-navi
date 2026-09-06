@@ -860,7 +860,7 @@ test("verifies the deployed catalog version and successful check date", () => {
   };
   const html = `
     <meta name="campaign-catalog-version" content="0123456789abcdef">
-    <h1>楽天モバイル【2026年8月27日最終確認】</h1>
+    <h1>楽天モバイル【<span>2026年8月27日</span> 最終確認】</h1>
   `;
   assert.deepEqual(verifyProductionHtml(html, index), []);
   assert.equal(verifyProductionHtml("<html></html>", index).length, 2);

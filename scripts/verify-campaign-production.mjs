@@ -25,7 +25,12 @@ export function verifyProductionHtml(html, index) {
   if (!versionPattern.test(html)) {
     errors.push(`catalogVersion=${index.catalogVersion} を確認できません。`);
   }
-  if (!html.includes(`${japaneseDate(index.lastSuccessfulCheckAt)}最終確認`)) {
+  const headingText =
+    html
+      .match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1]
+      ?.replace(/<[^>]*>/g, "")
+      .replace(/\s+/g, "") ?? "";
+  if (!headingText.includes(`${japaneseDate(index.lastSuccessfulCheckAt)}最終確認`)) {
     errors.push(`最終確認日=${index.lastSuccessfulCheckAt} を確認できません。`);
   }
   return errors;

@@ -24,10 +24,10 @@
   "channel": "公式ページ参照",
   "category": "other",
   "audience": "both",
-  "period": "2026年8月30日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "period": "2026年9月5日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/sukipi/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "SNS参加型の抽選企画で、モバイル回線申し込みの直接特典ではないため編集判断で非掲載です。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 34,
+      "listingIndex": 32,
       "title": "あなたの「好き費タイプ」を1分程度でチェック！オリジナルグッズや楽天ポイントをGETしよう！",
       "description": "あなたの「好き費タイプ」を1分程度でチェック！オリジナルグッズや楽天ポイントをGETしよう！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/sukipi/"
@@ -50,10 +50,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-30",
-  "lastChangedAt": "2026-09-01",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "0868dbdbbfe81bf30949e203e6258f153e6207d6d535bdc07a234a28ae14fc0c",
+    "contentHash": "74adbb554a33d1bebe345dcce8df454f6abc61219e3f3a390532f8d3fd770ef5",
     "listingHash": "2db2484f9d8e3554f5d3cae94c67d3dc59f617cff59127e1b3204a4d41a33b1c",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

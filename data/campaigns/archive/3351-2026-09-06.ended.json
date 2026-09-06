@@ -33,7 +33,7 @@
     "公式ページに掲載されたキャンペーンコードです。"
   ],
   "requiresDevicePurchase": false,
-  "rankingEligible": true,
+  "rankingEligible": false,
   "sourceCards": [
     {
       "listingIndex": 32,
@@ -57,8 +57,8 @@
       "事前エントリーとRakuten最強U-NEXTの初回申し込みが必要"
     ]
   },
-  "publicationStatus": "published",
-  "listingPresence": "listed",
+  "publicationStatus": "ended",
+  "listingPresence": "missing",
   "eligibility": {
     "firstApplication": true,
     "repeatApplication": false,
@@ -66,11 +66,14 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-06",
   "provenance": {
     "contentHash": "ad51edef7dc5a2c36d5ee9f6591cd64c76288961162e22f0409bcfd8a8ed8d2c",
     "listingHash": "1cc147f011a3ff424a4c11d445b871effbbc29a9ac074f8708d26b86ad6c5881",
     "model": null,
     "promptVersion": null
-  }
+  },
+  "missingFromListingCount": 1,
+  "endedAt": "2026-09-06",
+  "endReason": "公式一覧から2回連続で消失"
 }

@@ -45,8 +45,8 @@
       "url": "https://network.mobile.rakuten.co.jp/campaign/referral-one-million/"
     }
   ],
-  "publicationStatus": "excluded",
-  "listingPresence": "listed",
+  "publicationStatus": "ended",
+  "listingPresence": "missing",
   "eligibility": {
     "firstApplication": true,
     "repeatApplication": true,
@@ -54,11 +54,14 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-06",
   "provenance": {
     "contentHash": "43083b437746ea43a3dfb439cfa7015c638d1d0d78ae5911a5ec3bf1e840ac9a",
     "listingHash": "6605468743d4a3faedbb8f1156f46ef25982414b630e5af128ab6b9eb085cb59",
     "model": null,
     "promptVersion": null
-  }
+  },
+  "missingFromListingCount": 1,
+  "endedAt": "2026-09-06",
+  "endReason": "公式一覧から2回連続で消失"
 }

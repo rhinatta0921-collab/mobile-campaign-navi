@@ -29,7 +29,7 @@
   "period": "エントリー・Web申込：2026年6月1日 0:00 - 2026年8月31日 23:59／ショップ申込：2026年6月1日 開店 - 2026年8月31日 閉店",
   "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -38,7 +38,7 @@
   "sourceCards": [
     {
       "listingIndex": 4,
-      "title": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！Rakuten最強U-NEXT初めて利用 ＆エントリーで5,000ポイント還元＋Uber One 初めてお申し込みで1年間無料！※ 速度制限の場合あり。一部対象外番号あり。有料作品等あり。通話料等別",
+      "title": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！エントリー＆Rakuten最強U-NEXT初めて利用で5,000ポイント還元！※ 速度制限の場合あり。一部対象外番号あり。有料作品等あり。通話料等別",
       "description": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
       "url": "https://network.mobile.rakuten.co.jp/fee/unext/"
     }
@@ -67,10 +67,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "3f46f175169b71265aca9224da32f1e89ffee909c6d9393d307e6e88399a12e6",
-    "listingHash": "783d948a995fa51564856f3f7c47a2c4ceb89d314288182f5503807f1c50faa4",
+    "contentHash": "4d56d76a372700915a54e226e6a019dc41bc6f6a1d8feeff0a33741d202ffdd8",
+    "listingHash": "ac2c1befb4ceb7fb06e95d5be1bcdd5410f476239211547ca0d1e3aaf2ba861a",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

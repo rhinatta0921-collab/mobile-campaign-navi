@@ -29,7 +29,7 @@
   "period": "2026年6月10日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/galaxy/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -52,10 +52,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "359ab53bad3d1a7cd1cd222152fa82dfaf5d5fd8e2e3791d3cb847e49b98946e",
+    "contentHash": "ec496df7757d1f889f29ceed5e8c823f0f5f6bb9d97d95c54cf4900c250644d5",
     "listingHash": "4dd15e1b4017fda23952d120d63d5d3f24d725e444887b491dde66d6984d2ac4",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

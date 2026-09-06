@@ -34,7 +34,7 @@
   "period": "ショップ申込：2024年6月3日 開店 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-extra-sim/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -42,7 +42,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 25,
+      "listingIndex": 24,
       "title": "【ショップ限定】楽天モバイルもう1回線お申し込みキャンペーン",
       "description": "ショップでもう1回線を2台目スマホやタブレットで契約すれば3,000ポイントプレゼント",
       "url": "https://network.mobile.rakuten.co.jp/campaign/shop-extra-sim/"
@@ -72,10 +72,11 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "14d4a1face93c237f4e41fc5bdd06afbc896c9bdfbf1a1f602f06fd9255a8adf",
+    "contentHash": "fcbf81bc1a0199583bc7523eac7f7623998c8d53cdf410fdc52fee6b62ae8ca0",
     "listingHash": "be149e8da93c39b927db3fb50d961074d466d3c3206041b05ee6851f073a99ea",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

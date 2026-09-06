@@ -28,7 +28,7 @@
   "period": "毎月開催",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/poitoku/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 49,
+      "listingIndex": 46,
       "title": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
       "description": "楽天モバイル月額料金への初めてのポイント利用で、ポイント利用分に対してポイント還元率が3倍",
       "url": "https://network.mobile.rakuten.co.jp/campaign/poitoku/"
@@ -51,10 +51,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "80b783132a5247e1f08fe314c3d982f4302a48ead30aa08796ccfe473e5c3189",
+    "contentHash": "3e1ae45e7f3523cd73cde9f95fc0f0a69f7dd1236aabb569afdb5111b100d1e7",
     "listingHash": "4e19b3f5d2123eade76e09d7d0d76d1c3aae2b10ac241c5156af45933b9a4d06",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

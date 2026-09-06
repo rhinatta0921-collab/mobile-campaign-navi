@@ -27,7 +27,7 @@
   "period": "2023年9月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/standard-free-call/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -35,7 +35,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 51,
+      "listingIndex": 48,
       "title": "【15分（標準）通話かけ放題】料金1カ月無料特典",
       "description": "OS標準アプリでの1回15分の国内通話かけ放題＆国内SMSが使い放題になるサービスが、1カ月無料",
       "url": "https://network.mobile.rakuten.co.jp/service/standard-free-call/"
@@ -65,10 +65,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "9a8fa1c431b7b4515d03956a4d0930772df26bfdc7b7405de67e41435ccf2cd3",
+    "contentHash": "7db975f9d563bc8dce1f4477c3bcff63e27c6c66e221f7d2e46c310ceabb0ee2",
     "listingHash": "5595b900fa9c14e1f48122595a951b26b0ea5c424591e9a45c7657d7fb9f0f62",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

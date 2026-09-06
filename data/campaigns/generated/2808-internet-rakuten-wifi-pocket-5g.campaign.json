@@ -28,7 +28,7 @@
   "period": "2025年5月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-5g/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -66,10 +66,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "81c6acd38b18a11703f288b2c18eee88f53a6954056b6ddae2d86bf9b9f28ef2",
+    "contentHash": "a65e1f8bee8b67df24ff5b453c2e576f4141ec2c85da50181f0ce9faa91b520e",
     "listingHash": "3a122d034d4d6f6be30e91f23eb33d1a09f2c06fc0e3b7ae94dca8c73a8e5dde",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

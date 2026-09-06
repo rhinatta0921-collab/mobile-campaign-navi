@@ -28,7 +28,7 @@
   "period": "2024年2月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/fee-simulation/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 21,
+      "listingIndex": 20,
       "title": "スマホ料金＆ポイントかんたんシミュレーション！",
       "description": "3ステップで毎月どれだけおトクになるかわかる！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/fee-simulation/"
@@ -51,10 +51,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "bcd5f7400d345f276379cacb4284ba97637db79009ef556656fcfcfe255dbc65",
+    "contentHash": "c443e4e4b02ccfed0ca1c251ad6a0dc19c4b8d61551baf046105dfd108b15bdc",
     "listingHash": "b11100289669e8ea09f747aac0d316e53f333a1dc2b3a0a9c07c531bd028fbdb",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

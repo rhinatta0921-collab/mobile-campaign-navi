@@ -33,7 +33,7 @@
   "period": "2023年2月15日 7:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/referral/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "ランキングと実質お得額には申込者本人が受け取るMNP 13,000ポイントまたは新規10,000ポイントだけを使用し、紹介者の7,000ポイントは除外しています。"
@@ -72,10 +72,11 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "95c6de998fd472cff6defb9485a37986f505b84c6ce36a19ce58d180f1f93f75",
+    "contentHash": "a284b322f8882879ebfe56e379e2a80cd88de1685ffea53bcf15ab27fe686362",
     "listingHash": "1353510884ec25dc2287482bb07a29029fc3acd8bf76805da69e6d60a1261801",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

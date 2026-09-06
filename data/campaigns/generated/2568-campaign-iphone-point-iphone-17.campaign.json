@@ -30,7 +30,7 @@
   "period": "2024年11月21日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-17/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -74,10 +74,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "86d60f83ea07b1dabfa079c4ed2aa6e8b7e94038d35ad64c15afccaf6645114d",
+    "contentHash": "b2fa05d44f073c1f0337ae62cfdfc608005fa4de8b66895a98a19482577b838b",
     "listingHash": "f264a80e6da48765de95c042ee5bca556efec85ca973108dcce0706cb10bc245",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

@@ -30,7 +30,7 @@
   "period": "2025年9月1日 開店 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/shop-weekday-reservation/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-08-30",
+  "checkedAt": "2026-09-05",
   "notes": [
     "公式ページでは「施策コード」として案内されています。"
   ],
@@ -53,10 +53,11 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-05",
   "provenance": {
-    "contentHash": "9980b4794060a64f87d4f2d7a149af16d7532a29128ef63c051304ae91b4c622",
+    "contentHash": "cce3a3146765a0d473e9c8d3d9ac6621bd6ef85e5765dbde96613bd7acd800ca",
     "listingHash": "1c68048c24a79f9ab1fcf12461b601fd53d75c37e388906006106f4878ff1ef4",
+    "provider": null,
     "model": null,
     "promptVersion": null
   }

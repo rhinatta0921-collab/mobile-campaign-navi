@@ -45,8 +45,8 @@
       "url": "https://energy.rakuten.co.jp/campaign/lp/mobilelink/"
     }
   ],
-  "publicationStatus": "excluded",
-  "listingPresence": "listed",
+  "publicationStatus": "ended",
+  "listingPresence": "missing",
   "eligibility": {
     "firstApplication": true,
     "repeatApplication": true,
@@ -54,11 +54,14 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-08-30",
+  "lastChangedAt": "2026-09-06",
   "provenance": {
     "contentHash": "eb65ebe779f9844e2ae66ea008569644e30fe8859411b7baa85b4d6ef12a5ed5",
     "listingHash": "4170cd53475d23151aaca6dbd7aeeea34c9bfdf9570108568d231ec1a4df51a5",
     "model": null,
     "promptVersion": null
-  }
+  },
+  "missingFromListingCount": 1,
+  "endedAt": "2026-09-06",
+  "endReason": "公式一覧から2回連続で消失"
 }

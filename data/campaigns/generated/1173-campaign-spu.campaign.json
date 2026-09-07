@@ -29,7 +29,7 @@
   "period": "常時開催",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/spu/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-05",
+  "checkedAt": "2026-09-08",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -37,7 +37,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 21,
+      "listingIndex": 20,
       "title": "契約後は楽天市場のお買い物でポイントが貯まりやすく！",
       "description": "楽天市場のお買い物が毎日全員ポイント5倍に！さらに楽天のサービスを使えば使うほどポイントUP",
       "url": "https://network.mobile.rakuten.co.jp/campaign/spu/"
@@ -52,9 +52,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-08",
   "provenance": {
-    "contentHash": "83100e682cd666cd971e34f85fffa80af05a881c56c9d72245971ddcdca1328e",
+    "contentHash": "c4357119d2a019fd13a13dfeb4e4df74330df61e6f8419754a9ef35d8f81abdb",
     "listingHash": "8393cfe3440fbf0cefe9b6b2ec3378f1452dd9dfa70301cad14e379de03d671e",
     "provider": null,
     "model": null,

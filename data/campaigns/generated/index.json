@@ -1,10 +1,10 @@
 {
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-07",
-  "lastSuccessfulCheckAt": "2026-09-07",
-  "lastContentChangeAt": "2026-09-06",
-  "catalogVersion": "f0e03fba9232eb34",
-  "listingCardCount": 56,
+  "checkedAt": "2026-09-08",
+  "lastSuccessfulCheckAt": "2026-09-08",
+  "lastContentChangeAt": "2026-09-08",
+  "catalogVersion": "73694132b53ecad8",
+  "listingCardCount": 54,
   "campaignCount": 58,
   "statusCounts": {
     "published": 14,
@@ -12,7 +12,10 @@
     "pending": 1,
     "ended": 0
   },
-  "missingFromListing": {},
+  "missingFromListing": {
+    "3327": 1,
+    "NO-CODE-NETWORK-CAMPAIGN-SUKIPI": 1
+  },
   "items": [
     "1173-campaign-spu.campaign.json",
     "1238-application-card-campaign.campaign.json",

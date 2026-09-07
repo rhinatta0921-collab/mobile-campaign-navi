@@ -42,7 +42,7 @@
     }
   ],
   "publicationStatus": "excluded",
-  "listingPresence": "listed",
+  "listingPresence": "missing",
   "eligibility": {
     "firstApplication": true,
     "repeatApplication": true,
@@ -57,5 +57,6 @@
     "provider": null,
     "model": null,
     "promptVersion": null
-  }
+  },
+  "missingFromListingCount": 1
 }

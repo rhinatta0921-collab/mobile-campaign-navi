@@ -32,7 +32,7 @@
   "period": "2024年11月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/mnp/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-05",
+  "checkedAt": "2026-09-08",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -40,7 +40,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 3,
+      "listingIndex": 2,
       "title": "【要エントリー】楽天モバイル初めてお申し込みキャンペーンでお乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント!",
       "description": "電話番号そのまま他社から乗り換えは10,000ポイント・新規お申し込みは7,000ポイントプレゼント",
       "url": "https://network.mobile.rakuten.co.jp/campaign/mnp/"
@@ -70,9 +70,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-08",
   "provenance": {
-    "contentHash": "625806b0f1cd10f6a60cb3673c8d7197f1e772351876f6955d5b6d11f3e6261b",
+    "contentHash": "d714dc1bdb3b053593aa603fdadd4d4585feff349b52c2999725ddae46469fee",
     "listingHash": "2085906f81abd0d8c678fb4a3148d17bd9363b0dd2d1fa5bf5dda090ea75615c",
     "provider": null,
     "model": null,

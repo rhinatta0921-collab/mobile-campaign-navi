@@ -32,7 +32,7 @@
   "period": "2026年6月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/fee/unext/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-05",
+  "checkedAt": "2026-09-08",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -40,7 +40,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 4,
+      "listingIndex": 3,
       "title": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！エントリー＆Rakuten最強U-NEXT初めて利用で5,000ポイント還元！※ 速度制限の場合あり。一部対象外番号あり。有料作品等あり。通話料等別",
       "description": "「Rakuten最強U-NEXT」はギガもアプリ通話も無制限＆映画もアニメも見放題！",
       "url": "https://network.mobile.rakuten.co.jp/fee/unext/"
@@ -70,9 +70,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-08",
   "provenance": {
-    "contentHash": "4d56d76a372700915a54e226e6a019dc41bc6f6a1d8feeff0a33741d202ffdd8",
+    "contentHash": "55eaf61126787a61ce53d4cb896b23bba67c75f3b358a0aa86baf1c8fdc4351f",
     "listingHash": "5e32c7f34d9566b72dc83fb825b0e324a7fa2d24437195ac81be12adfc0ba468",
     "provider": null,
     "model": null,

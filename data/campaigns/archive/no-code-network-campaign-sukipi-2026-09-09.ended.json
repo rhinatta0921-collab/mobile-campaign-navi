@@ -41,7 +41,7 @@
       "url": "https://network.mobile.rakuten.co.jp/campaign/sukipi/"
     }
   ],
-  "publicationStatus": "excluded",
+  "publicationStatus": "ended",
   "listingPresence": "missing",
   "eligibility": {
     "firstApplication": true,
@@ -50,7 +50,7 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-30",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-09",
   "provenance": {
     "contentHash": "74adbb554a33d1bebe345dcce8df454f6abc61219e3f3a390532f8d3fd770ef5",
     "listingHash": "2db2484f9d8e3554f5d3cae94c67d3dc59f617cff59127e1b3204a4d41a33b1c",
@@ -58,5 +58,7 @@
     "model": null,
     "promptVersion": null
   },
-  "missingFromListingCount": 1
+  "missingFromListingCount": 1,
+  "endedAt": "2026-09-09",
+  "endReason": "公式一覧から2回連続で消失"
 }

@@ -1,21 +1,18 @@
 {
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-08",
-  "lastSuccessfulCheckAt": "2026-09-08",
-  "lastContentChangeAt": "2026-09-08",
-  "catalogVersion": "73694132b53ecad8",
+  "checkedAt": "2026-09-09",
+  "lastSuccessfulCheckAt": "2026-09-09",
+  "lastContentChangeAt": "2026-09-09",
+  "catalogVersion": "63c15bdfa0f96bb1",
   "listingCardCount": 54,
-  "campaignCount": 58,
+  "campaignCount": 56,
   "statusCounts": {
-    "published": 14,
-    "excluded": 43,
+    "published": 13,
+    "excluded": 42,
     "pending": 1,
     "ended": 0
   },
-  "missingFromListing": {
-    "3327": 1,
-    "NO-CODE-NETWORK-CAMPAIGN-SUKIPI": 1
-  },
+  "missingFromListing": {},
   "items": [
     "1173-campaign-spu.campaign.json",
     "1238-application-card-campaign.campaign.json",
@@ -56,7 +53,6 @@
     "3297-product-rakuten-certified.campaign.json",
     "3303-campaign-galaxy.campaign.json",
     "3304-campaign-galaxy.campaign.json",
-    "3327-campaign-ichiba-debut.campaign.json",
     "3329-service-whoscall.campaign.json",
     "3350-campaign-shop-point.campaign.json",
     "3386-campaign-answer-quiz.campaign.json",
@@ -65,7 +61,6 @@
     "no-code-network-campaign-applewatch-insurance-campaign-applewatch-insurance.campaign.json",
     "no-code-network-campaign-digital-contents-campaign-digital-contents.campaign.json",
     "no-code-network-campaign-spu-payment-spu-payment.campaign.json",
-    "no-code-network-campaign-sukipi-campaign-sukipi.campaign.json",
     "no-code-network-fee-bank-bonus-rate-fee-bank-bonus-rate.campaign.json",
     "no-code-network-guide-application-bank-campaign-application-bank-campaign.campaign.json",
     "no-code-network-product-iphone-iphone-17-iphone-iphone-17.campaign.json",

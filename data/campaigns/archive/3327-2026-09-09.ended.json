@@ -43,7 +43,7 @@
     "公式一覧の最大30,000円相当には、条件を満たした楽天市場未利用者向けの10,000円分クーポンが含まれます。"
   ],
   "requiresDevicePurchase": false,
-  "rankingEligible": true,
+  "rankingEligible": false,
   "sourceCards": [
     {
       "listingIndex": 1,
@@ -67,7 +67,7 @@
       "最大額にはRakuten Link利用と楽天市場で1,000円以上の買い物が必要"
     ]
   },
-  "publicationStatus": "published",
+  "publicationStatus": "ended",
   "listingPresence": "missing",
   "eligibility": {
     "firstApplication": true,
@@ -76,7 +76,7 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-09",
   "provenance": {
     "contentHash": "8ad509353c070f5ee83f0a186662194ae9b7b430ed0ed72398914efb6972c62a",
     "listingHash": "f48a2df6055e79095b03b79ac0d3ed2e910cd415cb3a508130a4c6dea0cce331",
@@ -84,5 +84,7 @@
     "model": null,
     "promptVersion": null
   },
-  "missingFromListingCount": 1
+  "missingFromListingCount": 1,
+  "endedAt": "2026-09-09",
+  "endReason": "公式一覧から2回連続で消失"
 }

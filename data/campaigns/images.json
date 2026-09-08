@@ -43,7 +43,21 @@
         "width": 750,
         "height": 972
       },
-      "checkedAt": "2026-08-22"
+      "responsive": {
+        "desktop": {
+          "path": "/assets/campaigns/official/2162-desktop.jpg",
+          "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/referral-application-employee/kv-pc-260630.png",
+          "width": 2880,
+          "height": 960
+        },
+        "mobile": {
+          "path": "/assets/campaigns/official/2162-mobile.jpg",
+          "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/referral-application-employee/kv-sp-260630.png",
+          "width": 750,
+          "height": 972
+        }
+      },
+      "checkedAt": "2026-09-09"
     },
     "2207": {
       "detail": {
@@ -116,29 +130,6 @@
         "height": 840
       },
       "checkedAt": "2026-09-08"
-    },
-    "3327": {
-      "detail": {
-        "path": "/assets/campaigns/official/3327-mobile.jpg",
-        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/ichiba-debut/img-heading-sp-260807.png",
-        "width": 750,
-        "height": 920
-      },
-      "responsive": {
-        "desktop": {
-          "path": "/assets/campaigns/official/3327-desktop.jpg",
-          "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/ichiba-debut/img-heading-pc-260807.png",
-          "width": 4000,
-          "height": 988
-        },
-        "mobile": {
-          "path": "/assets/campaigns/official/3327-mobile.jpg",
-          "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/ichiba-debut/img-heading-sp-260807.png",
-          "width": 750,
-          "height": 920
-        }
-      },
-      "checkedAt": "2026-08-22"
     }
   }
 }

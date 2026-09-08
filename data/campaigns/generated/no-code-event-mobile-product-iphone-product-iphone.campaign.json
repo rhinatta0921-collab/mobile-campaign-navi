@@ -24,19 +24,19 @@
   "channel": "公式ページ参照",
   "category": "other",
   "audience": "both",
-  "period": "2026年9月6日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "period": "2026年9月9日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://event.rakuten.co.jp/mobile/product/iphone/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-06",
+  "checkedAt": "2026-09-09",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
-    "自動掲載保留: AI構造化または根拠検証に失敗: Error: 根拠引用を公式本文で確認できません: benefit"
+    "自動掲載保留: AI構造化または根拠検証に失敗: Error: 根拠引用を公式本文で確認できません: 特典内容"
   ],
   "requiresDevicePurchase": false,
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 56,
+      "listingIndex": 54,
       "title": "【楽天市場】楽天市場で対象iPhone購入＆楽天モバイルお申し込みで最大10,000ポイント",
       "description": "楽天市場で対象iPhone購入＆楽天モバイルお申し込みで最大10,000ポイントプレゼント！",
       "url": "https://event.rakuten.co.jp/mobile/product/iphone/"
@@ -51,9 +51,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-09-05",
-  "lastChangedAt": "2026-09-06",
+  "lastChangedAt": "2026-09-09",
   "provenance": {
-    "contentHash": "5d9126c77f2cceef31d876735eb2e9b12e63cdd81d0ea19fdc98710d87ce0b43",
+    "contentHash": "0b65b6837848cc8da3c71cd15bcaff44b8e2f33efa6907992556dcb0873bb170",
     "listingHash": "a730dd9df9a17452884d219dff6b63a0e744d36a3a4bb57b94aa91f7f451abc6",
     "provider": null,
     "model": null,

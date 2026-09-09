@@ -32,7 +32,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/start-point/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-08",
+  "checkedAt": "2026-09-10",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -70,9 +70,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-08",
+  "lastChangedAt": "2026-09-10",
   "provenance": {
-    "contentHash": "3cca7018dab5845f90b35fb8dfe665ba36cf2e77d334c9b0df442520813d3d9c",
+    "contentHash": "f9294083501fed00e3cf41cae7a35b0deb5b4fa47e0d53843dccfb102f9a9afb",
     "listingHash": "f859dd5f8cc0ee17ae7aeb3d221695b10cec248e1cb851f44a76de24296355dc",
     "provider": null,
     "model": null,

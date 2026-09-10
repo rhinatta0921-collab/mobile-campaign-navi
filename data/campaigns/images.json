@@ -115,21 +115,21 @@
     },
     "3288": {
       "detail": {
-        "path": "/assets/campaigns/official/3288-detail.png",
-        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260901.png",
+        "path": "/assets/campaigns/official/3288-detail.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260910.png",
         "width": 750,
-        "height": 840
+        "height": 920
       },
-      "checkedAt": "2026-09-08"
+      "checkedAt": "2026-09-11"
     },
     "3293": {
       "detail": {
-        "path": "/assets/campaigns/official/3288-detail.png",
-        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260901.png",
+        "path": "/assets/campaigns/official/3288-detail.jpg",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/fee/unext/kv-sp-260910.png",
         "width": 750,
-        "height": 840
+        "height": 920
       },
-      "checkedAt": "2026-09-08"
+      "checkedAt": "2026-09-11"
     }
   }
 }

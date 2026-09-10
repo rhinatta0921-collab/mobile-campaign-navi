@@ -24,13 +24,13 @@
   "channel": "公式ページ参照",
   "category": "other",
   "audience": "both",
-  "period": "2026年9月10日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "period": "2026年9月11日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://event.rakuten.co.jp/mobile/product/iphone/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-10",
+  "checkedAt": "2026-09-11",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
-    "自動掲載保留: AI構造化または根拠検証に失敗: Error: 根拠引用を公式本文で確認できません: benefit.description 根拠引用を公式本文で確認できません: editorial.paragraphs"
+    "自動掲載保留: AI構造化または根拠検証に失敗: Error: 根拠引用を公式本文で確認できません: period 根拠引用を公式本文で確認できません: benefit 根拠引用を公式本文で確認できません: planCondition 根拠引用を公式本文で確認できません: combinableCampaigns"
   ],
   "requiresDevicePurchase": false,
   "rankingEligible": false,
@@ -51,9 +51,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-09-05",
-  "lastChangedAt": "2026-09-10",
+  "lastChangedAt": "2026-09-11",
   "provenance": {
-    "contentHash": "4d42279531dd7392603ad2fa33d29ac3b7f4ca01119853fc896ae376bb4383ee",
+    "contentHash": "576418cc1c686c3efb18bc943b6e8c86170feb0f6eb59076e243236f726439d7",
     "listingHash": "a730dd9df9a17452884d219dff6b63a0e744d36a3a4bb57b94aa91f7f451abc6",
     "provider": null,
     "model": null,

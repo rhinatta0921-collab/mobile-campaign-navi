@@ -28,7 +28,7 @@
   "period": "2025年5月1日 0:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-5g/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-05",
+  "checkedAt": "2026-09-11",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -36,7 +36,7 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 11,
+      "listingIndex": 10,
       "title": "Rakuten WiFi Pocket 5Gが製品購入＋ 楽天モバイルお申し込みで2,990円！",
       "description": "Rakuten WiFi Pocket 5Gが製品購入＋ 楽天モバイルお申し込みで2,990円！",
       "url": "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket-5g/"
@@ -66,9 +66,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-11",
   "provenance": {
-    "contentHash": "a65e1f8bee8b67df24ff5b453c2e576f4141ec2c85da50181f0ce9faa91b520e",
+    "contentHash": "3536eb1c0bdfadba7b300c59709ade3702f7d28f93ddca0aaefa7c4eac538f8e",
     "listingHash": "3a122d034d4d6f6be30e91f23eb33d1a09f2c06fc0e3b7ae94dca8c73a8e5dde",
     "provider": null,
     "model": null,

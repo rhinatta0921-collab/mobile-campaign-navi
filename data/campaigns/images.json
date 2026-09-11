@@ -88,12 +88,12 @@
     },
     "2660": {
       "detail": {
-        "path": "/assets/campaigns/official/2660-mobile.png",
-        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/bank-member-campaign/img-heading-sp_260601.png",
+        "path": "/assets/campaigns/official/2660-detail.png",
+        "sourceUrl": "https://network.mobile.rakuten.co.jp/assets/img/campaign/bank-member-campaign/img-heading-sp_260904.png",
         "width": 750,
-        "height": 660
+        "height": 480
       },
-      "checkedAt": "2026-08-22"
+      "checkedAt": "2026-09-12"
     },
     "2897": {
       "detail": {

@@ -24,10 +24,10 @@
   "channel": "公式ページ参照",
   "category": "device",
   "audience": "both",
-  "period": "2026年9月5日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "period": "2026年9月13日時点で公式一覧に掲載中（終了日は公式ページ参照）",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-17/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-05",
+  "checkedAt": "2026-09-13",
   "notes": [
     "iPhone 17の購入と支払い条件を伴う端末施策のため編集判断で非掲載です。"
   ],
@@ -50,9 +50,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-30",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-13",
   "provenance": {
-    "contentHash": "116d671bace8da7f4a43fe17b0db0a9dc409f08e58516e95ca3cd4f5fa781846",
+    "contentHash": "ed50b49756554fea0d0240359b8ace6dedd62e61a160d5f56e52a6daa2549503",
     "listingHash": "99a719e47f025a32133a55f4066e452057308aff1d50381f06665f1e68124724",
     "provider": null,
     "model": null,

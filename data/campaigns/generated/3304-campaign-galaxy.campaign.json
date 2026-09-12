@@ -29,7 +29,7 @@
   "period": "2026年6月10日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/galaxy/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-10",
+  "checkedAt": "2026-09-13",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -37,7 +37,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 9,
+      "listingIndex": 10,
       "title": "【要エントリー】 Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
       "description": "Samsung Galaxy S26シリーズ購入＋楽天モバイル初めて申し込み＋他社から乗り換えで最大23,000ポイントプレゼント。機種変更の方は7,000ポイント！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/galaxy/"
@@ -52,9 +52,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-10",
+  "lastChangedAt": "2026-09-13",
   "provenance": {
-    "contentHash": "5d0337fa8ce6b1f4597af4539d288287a9e2ad305efbe215b76fa20a71edd17b",
+    "contentHash": "f17645b4bae8fb4e381d10408bde083d7b5c8c90dee3fcfdc365aa4364123642",
     "listingHash": "4dd15e1b4017fda23952d120d63d5d3f24d725e444887b491dde66d6984d2ac4",
     "provider": null,
     "model": null,

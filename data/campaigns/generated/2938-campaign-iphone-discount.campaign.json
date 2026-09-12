@@ -29,7 +29,7 @@
   "period": "2025年9月8日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-08",
+  "checkedAt": "2026-09-13",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -37,19 +37,19 @@
   "rankingEligible": true,
   "sourceCards": [
     {
-      "listingIndex": 4,
+      "listingIndex": 5,
       "title": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！（1～24回目まで、25回目以降4,882円/月～）",
       "description": "iPhone 17e（256GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！さらに、大容量512GBもプラン申し込み+楽天カード48回払いで1,390円/月！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-discount/"
     },
     {
-      "listingIndex": 8,
+      "listingIndex": 9,
       "title": "iPhone 16（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで500円/月！（1～24回目まで、25回目以降5,404円/月～）",
       "description": "iPhone 16（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで500円/月！",
       "url": "https://network.mobile.rakuten.co.jp/product/iphone/iphone-16/"
     },
     {
-      "listingIndex": 11,
+      "listingIndex": 12,
       "title": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！（1～24回目まで、25回目以降4,365円/月～）",
       "description": "iPhone 16e（128GB）がおトク！他社から電話番号そのまま乗り換え＋楽天カード48回払いで1円/月！",
       "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-point-iphone-16e/"
@@ -79,9 +79,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-08",
+  "lastChangedAt": "2026-09-13",
   "provenance": {
-    "contentHash": "de4c08d90813aa53c86b38e33ac3b5452703befc71b816fa8df7101d952d3d29",
+    "contentHash": "0d6e2bc02e862a794e15197c0432849608c7cf6f585e92ee285dae77b397339a",
     "listingHash": "a04a9f4f166490d9f4530fdb6d1ff14520fee4bf80b4c6cc6111ad4cd52424dc",
     "provider": null,
     "model": null,

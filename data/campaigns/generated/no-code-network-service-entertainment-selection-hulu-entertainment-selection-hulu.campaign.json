@@ -29,7 +29,7 @@
   "period": "ポイント還元率アップ：2026年10月31日までの申し込み",
   "officialUrl": "https://network.mobile.rakuten.co.jp/service/entertainment-selection/hulu/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-08",
+  "checkedAt": "2026-09-13",
   "notes": [
     "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
     "有料オプションの申し込み特典で、モバイル回線申し込みそのものの特典ではないためランキング対象外です。"
@@ -38,7 +38,7 @@
   "rankingEligible": false,
   "sourceCards": [
     {
-      "listingIndex": 38,
+      "listingIndex": 39,
       "title": "楽天モバイルからHuluお申し込みで、初月無料トライアル＋月額利用料最大3カ月間50％ポイント還元！",
       "description": "楽天モバイルからHuluお申し込みで、初月無料トライアル＋月額利用料最大3カ月間50％ポイント還元！",
       "url": "https://network.mobile.rakuten.co.jp/service/entertainment-selection/hulu/"
@@ -53,9 +53,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-08",
+  "lastChangedAt": "2026-09-13",
   "provenance": {
-    "contentHash": "69955c55500ae6bd24445d541da298c5450a63cda9034aab93a536785ed798a2",
+    "contentHash": "b8bac96b992f0aa8e3da465b0ac886978a58c40d138299137eecd91b0fcbe90b",
     "listingHash": "30ac1c70d07b3a7d3b79561a1d0e776178eb7c21e489dadcb6e0905989078624",
     "provider": null,
     "model": null,

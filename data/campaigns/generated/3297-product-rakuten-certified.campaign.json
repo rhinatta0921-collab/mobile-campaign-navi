@@ -27,7 +27,7 @@
   "period": "終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/product/rakuten-certified/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-05",
+  "checkedAt": "2026-09-13",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。"
   ],
@@ -65,9 +65,9 @@
     "newNumber": false
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-05",
+  "lastChangedAt": "2026-09-13",
   "provenance": {
-    "contentHash": "61be3707f8342d594e60e69af3d479f5424d5685ca6ca482ddcb9cbb8279cd0a",
+    "contentHash": "922ef2c3730a344e9c5a548e9061a59bb0b737365f60f9edec5650a20136637c",
     "listingHash": "453fe98dccc82e5018aa8e7c32816611878743697c64897fc8765953ec8e67d6",
     "provider": null,
     "model": null,

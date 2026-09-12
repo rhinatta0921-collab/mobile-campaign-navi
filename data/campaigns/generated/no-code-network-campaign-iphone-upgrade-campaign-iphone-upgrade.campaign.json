@@ -1,0 +1,62 @@
+{
+  "campaignCode": "NO-CODE-NETWORK-CAMPAIGN-IPHONE-UPGRADE",
+  "codeType": "generated",
+  "title": "最新のiPhone 18 Proなどが対象！すでに楽天モバイルご利用中＆これからプラン申し込みの方も対象製品購入+楽天モバイル紹介＆ログインで最大40,000ポイントプレゼント！",
+  "summary": "最新のiPhone 18 Proなどが対象！各種条件達成で最大40,000ポイントプレゼント！",
+  "benefit": {
+    "type": "other",
+    "amount": null,
+    "unit": null,
+    "description": "最新のiPhone 18 Proなどが対象！各種条件達成で最大40,000ポイントプレゼント！"
+  },
+  "points": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "breakdown": {
+    "newNumber": null,
+    "mnp": null
+  },
+  "target": "公式ページに記載された条件を満たす方",
+  "conditions": [
+    "要エントリー"
+  ],
+  "channel": "公式ページ参照",
+  "category": "other",
+  "audience": "both",
+  "period": "2026年9月13日時点で公式一覧に掲載中（終了日は公式ページ参照）",
+  "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/iphone-upgrade/",
+  "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
+  "checkedAt": "2026-09-13",
+  "notes": [
+    "リンク先に公式コードの記載がないため、URLから生成した補助コードです。",
+    "自動掲載保留: AI構造化または根拠検証に失敗: Error: 根拠引用を公式本文で確認できません: 新規・MNPの対象申込方法 根拠引用を公式本文で確認できません: 紹介ポイントを固定特典から除外した根拠"
+  ],
+  "requiresDevicePurchase": false,
+  "rankingEligible": false,
+  "sourceCards": [
+    {
+      "listingIndex": 4,
+      "title": "【要エントリー】最新のiPhone 18 Proなどが対象！すでに楽天モバイルご利用中＆これからプラン申し込みの方も対象製品購入+楽天モバイル紹介＆ログインで最大40,000ポイントプレゼント！",
+      "description": "最新のiPhone 18 Proなどが対象！各種条件達成で最大40,000ポイントプレゼント！",
+      "url": "https://network.mobile.rakuten.co.jp/campaign/iphone-upgrade/"
+    }
+  ],
+  "publicationStatus": "pending",
+  "listingPresence": "listed",
+  "eligibility": {
+    "firstApplication": true,
+    "repeatApplication": true,
+    "mnp": false,
+    "newNumber": false
+  },
+  "firstSeenAt": "2026-09-13",
+  "lastChangedAt": "2026-09-13",
+  "provenance": {
+    "contentHash": "01ff94f970a324b3ac125de4530d5ab418d92f17d40fd8fc8b043465222feb77",
+    "listingHash": "2a4d52e46f224afb3a30365518b3287c6f2ee360e0e52855454deb3b25aeefc4",
+    "provider": null,
+    "model": null,
+    "promptVersion": null
+  }
+}

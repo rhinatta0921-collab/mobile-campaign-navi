@@ -131,6 +131,7 @@ export function buildSlackPayload(
   const listing = report.listing ?? {};
   const ai = report.ai ?? {};
   const baseline = report.baseline ?? {};
+  const images = report.images ?? {};
   const baselineSource = baseline.source === "artifact" ? "Artifact" : "main";
   const details = itemLines(report);
   if (
@@ -149,6 +150,7 @@ export function buildSlackPayload(
     `公式一覧: ${listing.currentCount ?? "不明"}件`,
     `追加${report.additions?.length ?? 0}・変更${report.changes?.length ?? 0}・終了${report.ended?.length ?? 0}・保留${report.pending?.length ?? 0}`,
     `AI: ${ai.provider ?? "未設定"}/${ai.model ?? "未設定"} ${ai.calls ?? 0}回・推定$${Number(ai.estimatedCostUsd ?? 0).toFixed(4)}`,
+    `画像表示: ${images.presentationPolicyVersion ?? "未検証"} / 横長${images.naturalCount ?? "不明"}件・16:9代替${images.fallbackCount ?? "不明"}件`,
   ].join("\n");
   const blocks = [
     {
@@ -187,6 +189,14 @@ export function buildSlackPayload(
           type: "mrkdwn",
           text: `*基準カタログ版*\n${slackText(baseline.catalogVersion ?? "不明")}${baseline.runId ? `（run ${slackText(baseline.runId)}）` : ""}`,
         },
+        {
+          type: "mrkdwn",
+          text: `*画像表示ポリシー*\n${slackText(images.presentationPolicyVersion ?? "未検証")}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*編集画像*\n横長 ${images.naturalCount ?? "不明"} / 16:9代替 ${images.fallbackCount ?? "不明"}`,
+        },
       ],
     },
   ];
@@ -220,7 +230,7 @@ export function buildSlackPayload(
     elements: [
       {
         type: "mrkdwn",
-        text: `catalog: ${slackText(report.catalogVersion ?? "未生成")} / safe: ${report.safeToPublish ? "yes" : "no"}`,
+        text: `catalog: ${slackText(report.catalogVersion ?? "未生成")} / policy: ${slackText(images.presentationPolicyVersion ?? "未検証")} / safe: ${report.safeToPublish ? "yes" : "no"}`,
       },
     ],
   });
@@ -271,6 +281,9 @@ async function main() {
         `- 変更: ${report.changes?.length ?? 0}件`,
         `- 終了: ${report.ended?.length ?? 0}件`,
         `- 保留: ${report.pending?.length ?? 0}件`,
+        `- 画像表示ポリシー: ${report.images?.presentationPolicyVersion ?? "未検証"}`,
+        `- PC横長表示: ${report.images?.naturalCount ?? "不明"}件`,
+        `- PC 16:9代替表示: ${report.images?.fallbackCount ?? "不明"}件`,
         `- Slack通知: ${decision.notify ? decision.severity : "なし"}`,
         "",
       ].join("\n"),

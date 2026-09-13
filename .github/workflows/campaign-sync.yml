@@ -204,16 +204,38 @@ jobs:
         run: >-
           npm run sync:campaign-images --
           --checked-at=${{ steps.settings.outputs.checked_at }}
+          --report-path=${{ env.REPORT_PATH }}
           --write
+
+      - name: Install Chromium for visual validation
+        id: browser
+        if: steps.images.outcome == 'success'
+        continue-on-error: true
+        run: npx playwright install --with-deps chromium
 
       - name: Validate generated site
         id: validation
-        if: steps.images.outcome == 'success'
+        if: steps.browser.outcome == 'success'
         continue-on-error: true
         run: |
           npm run check:assets
           npm run lint
           npm test
+          npm run check:automation-scope
+
+      - name: Save visual validation differences
+        id: visual_artifact
+        if: always() && steps.validation.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: campaign-visual-diff-${{ github.run_id }}
+          path: |
+            test-results/visual
+            playwright-report
+          if-no-files-found: ignore
+          include-hidden-files: true
+          retention-days: 7
 
       - name: Prepare validated baseline artifact
         id: baseline_prepare
@@ -289,7 +311,7 @@ jobs:
         if: always() && hashFiles(env.REPORT_PATH) != ''
         env:
           CAMPAIGN_AUTOMATION_MODE: ${{ steps.settings.outputs.mode || vars.CAMPAIGN_AUTOMATION_MODE || 'report' }}
-          CAMPAIGN_PIPELINE_FAILED: ${{ steps.baseline_lookup.outcome == 'failure' || steps.baseline_download.outcome == 'failure' || steps.baseline.outcome == 'failure' || steps.catalog.outcome == 'failure' || steps.images.outcome == 'failure' || steps.validation.outcome == 'failure' || steps.baseline_prepare.outcome == 'failure' || steps.baseline_upload.outcome == 'failure' || steps.diagnostic_artifact.outcome == 'failure' || steps.commit.outcome == 'failure' || steps.production.outcome == 'failure' }}
+          CAMPAIGN_PIPELINE_FAILED: ${{ steps.baseline_lookup.outcome == 'failure' || steps.baseline_download.outcome == 'failure' || steps.baseline.outcome == 'failure' || steps.catalog.outcome == 'failure' || steps.images.outcome == 'failure' || steps.browser.outcome == 'failure' || steps.validation.outcome == 'failure' || steps.baseline_prepare.outcome == 'failure' || steps.baseline_upload.outcome == 'failure' || steps.diagnostic_artifact.outcome == 'failure' || steps.commit.outcome == 'failure' || steps.production.outcome == 'failure' }}
           CAMPAIGN_PREVIOUS_CONCLUSION: ${{ steps.previous_run.outputs.conclusion }}
           CAMPAIGN_FAILURE_CONTEXT: >-
             baseline_lookup=${{ steps.baseline_lookup.outcome }},
@@ -298,6 +320,7 @@ jobs:
             dependencies=${{ steps.dependencies.outcome }},
             catalog=${{ steps.catalog.outcome }},
             images=${{ steps.images.outcome }},
+            browser=${{ steps.browser.outcome }},
             validation=${{ steps.validation.outcome }},
             baseline_prepare=${{ steps.baseline_prepare.outcome }},
             baseline_upload=${{ steps.baseline_upload.outcome }},
@@ -332,6 +355,7 @@ jobs:
            steps.report.outcome == 'failure' ||
            steps.report.outputs.safe_to_publish != 'true' ||
            steps.images.outcome == 'failure' ||
+           steps.browser.outcome == 'failure' ||
            steps.validation.outcome == 'failure' ||
            steps.baseline_prepare.outcome == 'failure' ||
            steps.baseline_upload.outcome == 'failure' ||

@@ -1,4 +1,5 @@
 import imageManifest from "./images.json";
+import presentationPolicy from "./presentation-policy.json";
 import type { Campaign } from ".";
 
 export type CampaignImageVariant = {
@@ -9,13 +10,23 @@ export type CampaignImageVariant = {
 };
 
 export type CampaignDisplayImage = {
-  detail: CampaignImageVariant;
-  responsive?: {
-    desktop: CampaignImageVariant;
-    mobile: CampaignImageVariant | null;
+  ranking: CampaignImageVariant;
+  editorial: {
+    desktop: CampaignImageVariant & {
+      presentation: "natural" | "contain-16x9";
+    };
+    mobile: CampaignImageVariant;
   };
   checkedAt: string;
 };
+
+if (imageManifest.presentationPolicyVersion !== presentationPolicy.id) {
+  throw new Error(
+    `画像マニフェストの表示ポリシー ${imageManifest.presentationPolicyVersion} は ${presentationPolicy.id} と一致しません。`,
+  );
+}
+
+export const campaignPresentationPolicy = presentationPolicy;
 
 const images = imageManifest.campaigns as Record<
   string,

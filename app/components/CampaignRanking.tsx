@@ -85,7 +85,7 @@ function RankingRange({
                   <CampaignOfficialImage
                     campaign={campaign}
                     className="ranking-campaign-picture"
-                    variant="detail"
+                    purpose="ranking"
                   />
                 </td>
                 <td className="points-cell">

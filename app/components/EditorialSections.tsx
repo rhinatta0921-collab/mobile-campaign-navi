@@ -48,6 +48,7 @@ export function ConclusionSection({
         <CampaignOfficialImage
           campaign={primaryCampaign}
           className="conclusion-campaign-picture"
+          purpose="editorial"
         />
         <figcaption>
           画像：

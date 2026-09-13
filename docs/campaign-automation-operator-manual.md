@@ -12,6 +12,7 @@
 6. ランキング、結論、詳細、除外理由、掲載件数、最終確認日は生成済みキャンペーンJSONから自動構築されます。画面の文章を直接直すのではなく、台帳を直します。
 7. 変更は原則として作業ブランチとPull Requestで行い、検証後に`main`へマージします。
 8. APIキー、Slack Webhook、トークンをJSON、Markdown、コミット、Issueへ記載してはいけません。
+9. キャンペーン画像の表示は`docs/campaign-presentation-policy.md`に従い、日次自動処理から変更しません。
 
 ## 2. 本番構成
 
@@ -38,6 +39,7 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
 | `data/campaigns/generated/index.json` | 件数、確認日、内容変更日、カタログ版 | いいえ |
 | `data/campaigns/archive/*.ended.json` | 終了キャンペーンの監査記録 | いいえ |
 | `data/campaigns/images.json` | 掲載画像マニフェスト | いいえ |
+| `data/campaigns/presentation-policy.json` | PC/SPの表示寸法、比率、代替表示 | デザイン変更時だけ |
 | `public/assets/campaigns/official/` | 取得済み公式画像 | いいえ |
 | `.github/workflows/campaign-sync.yml` | 定時実行、手動実行、検証、通知、コミット | 時刻や処理を変更するときだけ |
 | `scripts/campaign-baseline.mjs` | 検証済み比較基準の検査、復元、Artifact作成 | 通常運用では編集しない |
@@ -118,6 +120,10 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
        v
 [画像同期]
        |
+       +-- 新規で公式画像なし --> pending・非掲載
+       +-- 既存の再取得失敗 --> 前回画像を維持・警告
+       +-- PC横長画像なし --> 16:9 containで掲載維持
+       |
        v
 [JSON検証 -> lint -> build -> 全テスト -> 安全判定]
        |
@@ -146,7 +152,7 @@ AIは新規または公式本文が変わった対象の情報整理にだけ使
 | `🚨 失敗` | 取得・AI・画像・検証・公開などが失敗 | 反映されていない前提で原因確認 |
 | `🟢 復旧` | 前回失敗から正常へ復帰 | 本番と確認日を確認 |
 
-Slackには、比較基準の取得元・確認日・カタログ版、公式一覧件数、追加・変更・終了・保留件数、AI呼び出し回数、推定費用、GitHub Actionsへのリンクが表示されます。
+Slackには、比較基準の取得元・確認日・カタログ版、公式一覧件数、追加・変更・終了・保留件数、AI呼び出し回数、推定費用、画像表示ポリシー、PC横長・16:9代替件数、GitHub Actionsへのリンクが表示されます。
 
 ### 6.2 GitHub Actionsを見る
 
@@ -258,6 +264,7 @@ npm run sync:campaigns:auto -- --checked-at=YYYY-MM-DD --write
 npm run sync:campaign-images -- --checked-at=YYYY-MM-DD --write
 npm run check:assets
 npm run lint
+npx playwright install chromium
 npm test
 git diff --check
 ```
@@ -682,7 +689,10 @@ Webhookを再発行した場合はGitHub Secretを上書きし、`report`を手�
 | 一覧から同日に複数回消失 | 回数を維持し、掲載維持 |
 | 一覧から異なる2日で連続消失 | `ended` |
 | AIキーなし、AI拒否、根拠不足、予算超過 | 対象を`pending`、非掲載 |
-| 掲載に必要な画像なし | 公開停止 |
+| 新規掲載対象で公式画像を一つも取得できない | 対象を`pending`、非掲載 |
+| 既存掲載対象の画像再取得に失敗 | 前回画像を維持し警告 |
+| 適切なPC横長画像なし | 16:9枠内へ`contain`表示して掲載維持 |
+| 画像ポリシー、構造、画像比較が不一致 | 公開停止 |
 | JSON、lint、build、test失敗 | 公開停止 |
 | 本番カタログ版または確認日が不一致 | ワークフロー失敗 |
 
@@ -719,9 +729,10 @@ Webhookを再発行した場合はGitHub Secretを上書きし、`report`を手�
 
 - `npm run check:assets`
 - `npm run lint`
+- `npx playwright install chromium`
 - `npm test`
 
-をローカルで個別に実行し、最初のエラーから直します。
+をローカルで個別に実行し、最初のエラーから直します。Playwright差分はActionsの`campaign-visual-diff-<run-id>`から確認できます。基準画像を日次処理に合わせて自動更新してはいけません。
 
 ### `Commit validated catalog to main`
 

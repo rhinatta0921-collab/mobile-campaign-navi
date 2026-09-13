@@ -1,0 +1,23 @@
+{
+  "id": "campaign-image-v1",
+  "mobileBreakpointPx": 860,
+  "ranking": {
+    "desktopSizePx": 96,
+    "mobileSizePx": 84,
+    "aspectRatio": "1 / 1",
+    "objectFit": "contain"
+  },
+  "editorial": {
+    "desktop": {
+      "width": "100%",
+      "minimumNaturalAspectRatio": 1.5,
+      "fallbackAspectRatio": "16 / 9",
+      "objectFit": "contain"
+    },
+    "mobile": {
+      "width": "100%",
+      "preserveNaturalAspectRatio": true,
+      "objectFit": "contain"
+    }
+  }
+}

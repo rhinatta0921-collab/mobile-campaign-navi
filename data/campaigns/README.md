@@ -6,7 +6,8 @@
 - `generated/index.json`: 取得日、公式一覧のカード件数、生成ファイル一覧
 - `archive/*.ended.json`: 終了判定済みキャンペーンの監査用スナップショット
 - `curated-overrides.json`: 編集記事、ポイント補正、専用申込URLなどの編集者管理データ
-- `images.json`: 現在の2ランキングで表示する公式画像だけを記録した生成マニフェスト
+- `images.json`: ランキング用と結論・詳細用の公式画像を用途別に記録した生成マニフェスト
+- `presentation-policy.json`: PC/SPの画像寸法、縦横比、代替表示を固定する表示ポリシー
 - `index.ts`: JSONの実行時検証、対象判定、MNP・新規番号の順位計算を提供
 
 各キャンペーンの`publicationStatus`は次の4状態です。
@@ -40,9 +41,13 @@ npm run sync:campaigns -- --checked-at=YYYY-MM-DD --check
 npm run sync:campaigns -- --checked-at=YYYY-MM-DD --write
 npm run sync:campaign-images -- --checked-at=YYYY-MM-DD --check
 npm run sync:campaign-images -- --checked-at=YYYY-MM-DD --write
+npx playwright install chromium
+npm test
 ```
 
-自動同期は公式一覧と詳細本文を比較し、変更ページだけをAI構造化します。AIは`CAMPAIGN_AI_PROVIDER=openai|anthropic`で切り替え、同じ公式URL・本文ハッシュの重複呼び出しを行いません。内容が変わっていない`pending`はAIへ再送せず、人が`published`または`excluded`を`curated-overrides.json`へ登録するまで非掲載で保持します。非掲載案件は公式内容が変わった時だけ再判定します。`curated-overrides.json`は再生成しないため、`editorial`、`applicationUrl`、手動補正値が同期で消えることはありません。画像同期は新規・変更対象だけを取得し、候補領域へ必要な掲載画像だけを集めるため、終了案件の孤立画像を残しません。
+自動同期は公式一覧と詳細本文を比較し、変更ページだけをAI構造化します。AIは`CAMPAIGN_AI_PROVIDER=openai|anthropic`で切り替え、同じ公式URL・本文ハッシュの重複呼び出しを行いません。内容が変わっていない`pending`はAIへ再送せず、人が`published`または`excluded`を`curated-overrides.json`へ登録するまで非掲載で保持します。非掲載案件は公式内容が変わった時だけ再判定します。`curated-overrides.json`は再生成しないため、`editorial`、`applicationUrl`、手動補正値が同期で消えることはありません。画像同期は新規・変更対象だけを取得し、ランキング用、PC編集用、SP編集用を揃えます。適切なPC横長画像がない場合は16:9枠内の`contain`表示へ安全に切り替え、終了案件の孤立画像を残しません。
+
+画面の画像サイズや比率は`presentation-policy.json`が正本です。日次処理はこのファイルを読み取るだけで変更せず、許可範囲外のUI・CSS・ポリシー差分を検出した場合はmainへの反映前に停止します。詳細は`docs/campaign-presentation-policy.md`を参照してください。
 
 AIは掲載可否、終了判定、順位を決定しません。終了と分類はコードで判定し、数値は公式本文の根拠確認後にコードで合計します。根拠不足、API拒否、呼び出し回数または費用上限超過は`pending`として非掲載にします。
 

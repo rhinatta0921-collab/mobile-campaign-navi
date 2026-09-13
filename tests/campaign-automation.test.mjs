@@ -40,6 +40,15 @@ import {
   notificationDecision,
 } from "../scripts/notify-campaign-sync.mjs";
 import { verifyProductionHtml } from "../scripts/verify-campaign-production.mjs";
+import {
+  isAllowedAutomationPath,
+  unexpectedAutomationPaths,
+} from "../scripts/check-campaign-automation-scope.mjs";
+import {
+  normalizedPreviousImage,
+  pendingForMissingImage,
+  selectDesktopPresentation,
+} from "../scripts/sync-campaign-images.mjs";
 
 const execFileAsync = promisify(execFile);
 const automationScript = fileURLToPath(
@@ -784,6 +793,11 @@ test("builds an actionable Slack payload and applies the notification policy", (
       estimatedCostUsd: 0.03,
       limits: { maxBudgetUsd: 2 },
     },
+    images: {
+      presentationPolicyVersion: "campaign-image-v1",
+      naturalCount: 11,
+      fallbackCount: 2,
+    },
   };
   const environment = {
     GITHUB_SERVER_URL: "https://github.com",
@@ -805,6 +819,8 @@ test("builds an actionable Slack payload and applies the notification policy", (
   assert.match(JSON.stringify(payload.blocks), /gpt-5\.6-terra/);
   assert.match(JSON.stringify(payload.blocks), /Artifact/);
   assert.match(JSON.stringify(payload.blocks), /0123456789abcdef/);
+  assert.match(JSON.stringify(payload.blocks), /campaign-image-v1/);
+  assert.match(payload.text, /横長11件・16:9代替2件/);
   assert.match(payload.text, /推定\$0\.0300/);
 
   const noChange = {
@@ -844,6 +860,10 @@ test("schedules report/apply automation with Slack-only notifications", async ()
   assert.match(workflow, /vars\.CAMPAIGN_AI_PROVIDER/);
   assert.match(workflow, /secrets\.ANTHROPIC_API_KEY/);
   assert.match(workflow, /CAMPAIGN_AI_MAX_BUDGET_USD/);
+  assert.match(workflow, /npx playwright install --with-deps chromium/);
+  assert.match(workflow, /npm run check:automation-scope/);
+  assert.match(workflow, /campaign-visual-diff-/);
+  assert.match(workflow, /retention-days: 7/);
   assert.match(workflow, /slackapi\/slack-github-action@v4\.0\.0/);
   assert.match(
     workflow,
@@ -851,6 +871,81 @@ test("schedules report/apply automation with Slack-only notifications", async ()
   );
   assert.doesNotMatch(workflow, /git add (?:app|scripts|README)/);
   assert.doesNotMatch(workflow, /RESEND|ALERT_EMAIL/);
+});
+
+test("rejects daily automation changes outside the generated allowlist", () => {
+  assert.equal(isAllowedAutomationPath("data/campaigns/images.json"), true);
+  assert.equal(
+    isAllowedAutomationPath("public/assets/campaigns/official/1234.png"),
+    true,
+  );
+  assert.equal(isAllowedAutomationPath("app/globals.css"), false);
+  assert.deepEqual(
+    unexpectedAutomationPaths([
+      " M data/campaigns/images.json",
+      "?? .campaign-sync/report.json",
+      " M app/globals.css",
+      "?? data/campaigns/presentation-policy.json",
+    ]),
+    ["app/globals.css", "data/campaigns/presentation-policy.json"],
+  );
+});
+
+test("selects natural desktop artwork and a deterministic 16:9 fallback", () => {
+  const portrait = {
+    path: "/portrait.png",
+    sourceUrl: "https://network.mobile.rakuten.co.jp/portrait.png",
+    width: 750,
+    height: 972,
+  };
+  const landscape = {
+    path: "/landscape.png",
+    sourceUrl: "https://network.mobile.rakuten.co.jp/landscape.png",
+    width: 1600,
+    height: 600,
+  };
+  assert.deepEqual(selectDesktopPresentation([portrait, landscape], 1.5), {
+    image: landscape,
+    presentation: "natural",
+  });
+  assert.deepEqual(selectDesktopPresentation([portrait], 1.5), {
+    image: portrait,
+    presentation: "contain-16x9",
+  });
+});
+
+test("migrates legacy images and keeps a missing-image campaign non-public", () => {
+  const policy = {
+    editorial: { desktop: { minimumNaturalAspectRatio: 1.5 } },
+  };
+  const detail = {
+    path: "/assets/campaigns/official/1234.png",
+    sourceUrl: "https://network.mobile.rakuten.co.jp/1234.png",
+    width: 750,
+    height: 900,
+  };
+  const migrated = normalizedPreviousImage(
+    { campaigns: { "1234": { detail, checkedAt: "2026-09-12" } } },
+    "1234",
+    policy,
+  );
+  assert.equal(migrated.ranking, detail);
+  assert.equal(migrated.editorial.mobile, detail);
+  assert.equal(migrated.editorial.desktop.presentation, "contain-16x9");
+
+  const pending = pendingForMissingImage(
+    {
+      campaignCode: "1234",
+      publicationStatus: "published",
+      rankingEligible: true,
+      notes: [],
+    },
+    "2026-09-13",
+    "公式画像なし",
+  );
+  assert.equal(pending.publicationStatus, "pending");
+  assert.equal(pending.rankingEligible, true);
+  assert.match(pending.notes[0], /公式画像なし/);
 });
 
 test("verifies the deployed catalog version and successful check date", () => {

@@ -81,7 +81,7 @@ export function CampaignDetails({
             <CampaignOfficialImage
               campaign={campaign}
               className="campaign-detail-picture"
-              variant="detail"
+              purpose="editorial"
             />
             <div className="campaign-point-summary">
               <p className="campaign-point-label">獲得可能ポイント</p>

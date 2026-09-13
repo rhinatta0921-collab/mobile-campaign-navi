@@ -19,5 +19,7 @@ dist/
 out/
 .wrangler/
 .campaign-sync/
+playwright-report/
+test-results/
 .env*
 *.tsbuildinfo

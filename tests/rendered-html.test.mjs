@@ -644,22 +644,24 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   const primaryConclusionCampaign = conclusionCampaigns[0];
   const primaryConclusionImage =
     state.images.campaigns[primaryConclusionCampaign.campaignCode];
-  assert.ok(primaryConclusionImage?.responsive?.desktop);
-  assert.ok(primaryConclusionImage?.responsive?.mobile);
+  assert.ok(primaryConclusionImage?.editorial?.desktop);
+  assert.ok(primaryConclusionImage?.editorial?.mobile);
   assert.match(
     conclusionHtml,
     new RegExp(`data-campaign-code="${primaryConclusionCampaign.campaignCode}"`),
   );
   assert.ok(
     conclusionHtml.includes(
-      `srcSet="${primaryConclusionImage.responsive.mobile.path}"`,
+      `srcSet="${primaryConclusionImage.editorial.mobile.path}"`,
     ),
   );
   assert.ok(
     conclusionHtml.includes(
-      `src="${primaryConclusionImage.responsive.desktop.path}"`,
+      `src="${primaryConclusionImage.editorial.desktop.path}"`,
     ),
   );
+  assert.match(conclusionHtml, /data-image-purpose="editorial"/);
+  assert.match(conclusionHtml, /data-presentation-policy="campaign-image-v1"/);
   assert.ok(conclusionText.startsWith(conclusionTitle));
   for (const campaign of conclusionCampaigns) {
     assert.ok(conclusionText.includes(campaign.title));
@@ -787,10 +789,11 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     );
     assert.ok(
       rankingHtml.includes(
-        `src="${state.images.campaigns[campaign.campaignCode].detail.path}"`,
+        `src="${state.images.campaigns[campaign.campaignCode].ranking.path}"`,
       ),
     );
   }
+  assert.match(rankingHtml, /data-image-purpose="ranking"/);
   const employeeRankingRow = [...rankingHtml.matchAll(/<tr>[\s\S]*?<\/tr>/g)]
     .map((match) => match[0])
     .find((row) => row.includes('data-campaign-code="2162"'));
@@ -932,7 +935,7 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     new RegExp(`11位以降を表示（残り${mnpOverflowCount}件）`),
   );
   assert.match(detailOverflowText, /11位以降を閉じる/);
-  assert.doesNotMatch(
+  assert.match(
     detailHtml,
     /<picture class="official-campaign-picture campaign-detail-picture"[^>]*>\s*<source/,
   );
@@ -941,8 +944,10 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
     assert.ok(
       detailHtml.includes(`data-campaign-code="${campaign.campaignCode}"`),
     );
-    assert.ok(detailHtml.includes(`src="${image.detail.path}"`));
+    assert.ok(detailHtml.includes(`src="${image.editorial.desktop.path}"`));
+    assert.ok(detailHtml.includes(`srcSet="${image.editorial.mobile.path}"`));
   }
+  assert.match(detailHtml, /data-image-purpose="editorial"/);
   assert.match(detailText, /画像：楽天モバイル公式ページ/);
   assert.doesNotMatch(detailHtml, /<details class="offer-detail"/);
   assert.doesNotMatch(detailHtml, /<summary class="offer-heading"/);
@@ -1300,11 +1305,14 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
-    /\.campaign-official-figure\s*{[\s\S]*?width: 320px;[\s\S]*?max-width: 100%;/,
+    /\.campaign-official-figure\s*{[\s\S]*?width: 100%;/,
   );
   assert.match(css, /\.conclusion-campaign-figure\s*{[\s\S]*?width: 100%;/);
   assert.match(css, /\.conclusion-campaign-picture\s*{[\s\S]*?width: 100%;/);
-  assert.doesNotMatch(css, /\.conclusion-campaign-picture\s*{[^}]*aspect-ratio:/);
+  assert.match(
+    css,
+    /\.conclusion-campaign-picture\[data-desktop-presentation="contain-16x9"\],[\s\S]*?aspect-ratio: 16 \/ 9;/,
+  );
   assert.match(
     css,
     /\.conclusion-lead\s*{[^}]*font-size: 16px;[^}]*line-height: 1\.8;/,
@@ -1377,9 +1385,13 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
       `detail rank ${rank} color must override the base gray background`,
     );
   }
+  assert.doesNotMatch(
+    css,
+    /\.campaign-detail-picture\s*{[^}]*aspect-ratio: 1 \/ 1;/,
+  );
   assert.match(
     css,
-    /\.campaign-detail-picture\s*{[\s\S]*?aspect-ratio: 1 \/ 1;/,
+    /\.campaign-detail-picture\s*{[\s\S]*?width: 100%;[\s\S]*?border: 1px solid var\(--line-light\);/,
   );
   assert.match(
     css,
@@ -1388,6 +1400,10 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   assert.match(
     mobileCss,
     /\.campaign-official-figure\s*{[\s\S]*?width: 100%;/,
+  );
+  assert.match(
+    mobileCss,
+    /\.campaign-detail-picture\[data-desktop-presentation="contain-16x9"\][\s\S]*?aspect-ratio: auto;/,
   );
   assert.match(
     css,

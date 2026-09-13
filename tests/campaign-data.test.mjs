@@ -222,7 +222,7 @@ test("classifies every campaign and excludes purchases and indirect offers", asy
   );
 });
 
-test("publishes exactly the images required by both ranking variants", async () => {
+test("publishes every image role required by the presentation policy", async () => {
   const filenames = (await readdir(campaignDirectory)).filter((filename) =>
     filename.endsWith(".campaign.json"),
   );
@@ -241,41 +241,33 @@ test("publishes exactly the images required by both ranking variants", async () 
   const manifest = JSON.parse(
     await readFile(new URL("images.json", dataDirectory), "utf8"),
   );
+  const policy = JSON.parse(
+    await readFile(new URL("presentation-policy.json", dataDirectory), "utf8"),
+  );
+  assert.equal(manifest.presentationPolicyVersion, policy.id);
   assert.deepEqual(new Set(Object.keys(manifest.campaigns)), displayedCodes);
-
-  const conclusionCampaign = campaigns
-    .filter(
-      (campaign) =>
-        displayedCodes.has(campaign.campaignCode) &&
-        campaign.eligibility.firstApplication &&
-        applicationTypes(campaign).includes("mnp"),
-    )
-    .sort(
-      (left, right) =>
-        (right.points.mnp ?? 0) - (left.points.mnp ?? 0) ||
-        Number(!right.channel.includes("楽天モバイルショップ")) -
-          Number(!left.channel.includes("楽天モバイルショップ")) ||
-        (right.audience === "both" ? 3 : right.audience === "applicant" ? 2 : 1) -
-          (left.audience === "both" ? 3 : left.audience === "applicant" ? 2 : 1) ||
-        left.campaignCode.localeCompare(right.campaignCode, "en"),
-    )[0];
-  assert.ok(conclusionCampaign);
 
   const requiredFiles = new Set();
   for (const [campaignCode, image] of Object.entries(manifest.campaigns)) {
-    assert.ok(image.detail, `${campaignCode}: detail`);
+    assert.ok(image.ranking, `${campaignCode}: ranking`);
+    assert.ok(image.editorial?.desktop, `${campaignCode}: editorial.desktop`);
+    assert.ok(image.editorial?.mobile, `${campaignCode}: editorial.mobile`);
+    const desktopRatio =
+      image.editorial.desktop.width / image.editorial.desktop.height;
     assert.equal(
-      Boolean(image.responsive),
-      campaignCode === conclusionCampaign.campaignCode,
+      image.editorial.desktop.presentation,
+      desktopRatio >= policy.editorial.desktop.minimumNaturalAspectRatio
+        ? "natural"
+        : "contain-16x9",
     );
     for (const variant of [
-      image.detail,
-      image.responsive?.desktop,
-      image.responsive?.mobile,
+      image.ranking,
+      image.editorial.desktop,
+      image.editorial.mobile,
     ].filter(Boolean)) {
       assert.match(
         variant.path,
-        /^\/assets\/campaigns\/official\/[a-z0-9-]+\.(?:png|jpg)$/,
+        /^\/assets\/campaigns\/official\/[a-z0-9-]+\.(?:png|jpg|webp|gif|svg)$/,
       );
       const localPath = fileURLToPath(
         new URL(`../public${variant.path}`, import.meta.url),

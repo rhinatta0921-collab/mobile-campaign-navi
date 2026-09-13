@@ -16,7 +16,9 @@
     "verify:campaign-production": "node scripts/verify-campaign-production.mjs",
     "optimize:png": "node scripts/optimize-png-assets.mjs",
     "check:assets": "node scripts/check-campaign-assets.mjs",
-    "test": "npm run build && node --test tests/*.test.mjs",
+    "check:automation-scope": "node scripts/check-campaign-automation-scope.mjs",
+    "test:visual": "playwright test",
+    "test": "npm run build && node --test tests/*.test.mjs && npm run test:visual",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "react-dom": "19.2.6"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",

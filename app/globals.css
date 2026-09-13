@@ -271,6 +271,16 @@ p {
   height: auto;
 }
 
+.conclusion-campaign-picture[data-desktop-presentation="contain-16x9"],
+.campaign-detail-picture[data-desktop-presentation="contain-16x9"] {
+  aspect-ratio: 16 / 9;
+}
+
+.conclusion-campaign-picture[data-desktop-presentation="contain-16x9"] img,
+.campaign-detail-picture[data-desktop-presentation="contain-16x9"] img {
+  height: 100%;
+}
+
 .conclusion-campaign-figure figcaption {
   margin-top: 7px;
   color: var(--muted);
@@ -709,18 +719,17 @@ p {
 }
 
 .campaign-official-figure {
-  width: 320px;
-  max-width: 100%;
+  width: 100%;
   margin: 0 0 26px;
 }
 
 .campaign-detail-picture {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line-light);
 }
 
 .campaign-detail-picture img {
-  height: 100%;
+  height: auto;
 }
 
 .campaign-point-summary {
@@ -1113,6 +1122,16 @@ p {
   .campaign-official-figure {
     width: 100%;
     margin-bottom: 20px;
+  }
+
+  .conclusion-campaign-picture[data-desktop-presentation="contain-16x9"],
+  .campaign-detail-picture[data-desktop-presentation="contain-16x9"] {
+    aspect-ratio: auto;
+  }
+
+  .conclusion-campaign-picture[data-desktop-presentation="contain-16x9"] img,
+  .campaign-detail-picture[data-desktop-presentation="contain-16x9"] img {
+    height: auto;
   }
 
   .campaign-recommendation {

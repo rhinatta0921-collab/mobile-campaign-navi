@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createHash } from "node:crypto";
 import {
   access,
   copyFile,
@@ -8,15 +9,22 @@ import {
   readdir,
   rename,
   rm,
+  unlink,
   writeFile,
 } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import sharp from "sharp";
+import {
+  catalogVersion,
+  statusCounts,
+} from "./lib/campaign-automation.mjs";
 
 const OFFICIAL_HOST = "network.mobile.rakuten.co.jp";
 const LISTING_URL = `https://${OFFICIAL_HOST}/campaign/`;
 const CAMPAIGN_DIRECTORY = path.resolve("data/campaigns/generated");
 const MANIFEST_PATH = path.resolve("data/campaigns/images.json");
+const POLICY_PATH = path.resolve("data/campaigns/presentation-policy.json");
 const IMAGE_DIRECTORY = path.resolve("public/assets/campaigns/official");
 const CONCURRENCY = 6;
 
@@ -31,6 +39,9 @@ const shouldWrite = process.argv.includes("--write");
 const shouldCheck = process.argv.includes("--check");
 const checkedAtArgument = option("checked-at");
 const campaignCodeFilter = option("campaign-code");
+const reportPath = option("report-path")
+  ? path.resolve(option("report-path"))
+  : null;
 
 async function pathExists(targetPath) {
   try {
@@ -151,7 +162,7 @@ function visualScore(url) {
   return score;
 }
 
-function selectResponsivePair(candidates) {
+function selectResponsiveImages(candidates) {
   const select = (role) =>
     candidates
       .filter((url) => imageRole(url) === role)
@@ -162,9 +173,7 @@ function selectResponsivePair(candidates) {
       )[0]?.url;
   const desktop = select("desktop");
   const mobile = select("mobile");
-  return desktop && mobile
-    ? { desktop, mobile, source: "responsive KV" }
-    : null;
+  return desktop || mobile ? { desktop, mobile } : null;
 }
 
 function extractOgImage(html, pageUrl) {
@@ -292,65 +301,163 @@ function applicationTypes(campaign) {
   return ["mnp", "newNumber"];
 }
 
-function previousVariant(manifest, campaignCode, role) {
-  const campaign = manifest.campaigns[campaignCode];
+function uniqueUrls(values) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+export function normalizedPreviousImage(manifest, campaignCode, policy) {
+  const image = manifest.campaigns?.[campaignCode];
+  if (!image) return null;
+  if (image.ranking && image.editorial?.desktop && image.editorial?.mobile) {
+    return image;
+  }
+  if (!image.detail) return null;
+  const desktop = image.responsive?.desktop ?? image.detail;
+  const mobile = image.responsive?.mobile ?? image.detail;
+  return {
+    ranking: image.detail,
+    editorial: {
+      desktop: {
+        ...desktop,
+        presentation:
+          desktop.width / desktop.height >=
+          policy.editorial.desktop.minimumNaturalAspectRatio
+            ? "natural"
+            : "contain-16x9",
+      },
+      mobile,
+    },
+    checkedAt: image.checkedAt,
+  };
+}
+
+function previousVariant(manifest, campaignCode, role, policy) {
+  const campaign = normalizedPreviousImage(manifest, campaignCode, policy);
   if (!campaign) return null;
-  if (role === "detail") return campaign.detail;
-  return campaign.responsive?.[role] ?? null;
+  if (role === "ranking") return campaign.ranking;
+  return campaign.editorial[role] ?? null;
 }
 
 async function choosePageImage([officialUrl, records], listingImages) {
   const pageHtml = await fetchWithRetry(officialUrl, "text");
   const pathname = normalizePathname(officialUrl);
   const explicitPair = explicitImagePairs.get(pathname);
-  let selected = forceListingImagePaths.has(pathname)
+  const listingImage = listingImages.get(pathname) ?? null;
+  const responsive = forceListingImagePaths.has(pathname)
     ? null
     : explicitPair
       ? {
           desktop: new URL(explicitPair.desktop, officialUrl).href,
           mobile: new URL(explicitPair.mobile, officialUrl).href,
-          source: "responsive KV override",
         }
-      : selectResponsivePair(extractImageCandidates(pageHtml, officialUrl));
-  if (!selected && !forceListingImagePaths.has(pathname)) {
-    const ogImage = extractOgImage(pageHtml, officialUrl);
-    if (ogImage) selected = { desktop: ogImage, mobile: null, source: "OG image" };
+      : selectResponsiveImages(extractImageCandidates(pageHtml, officialUrl));
+  const ogImage = forceListingImagePaths.has(pathname)
+    ? null
+    : extractOgImage(pageHtml, officialUrl);
+  const mobile = preferListingForDetailPaths.has(pathname)
+    ? listingImage ?? responsive?.mobile ?? ogImage ?? responsive?.desktop
+    : responsive?.mobile ?? listingImage ?? ogImage ?? responsive?.desktop;
+  const ranking = mobile;
+  const desktopCandidates = uniqueUrls([
+    responsive?.desktop,
+    listingImage,
+    ogImage,
+    mobile,
+  ]);
+  if (!ranking || desktopCandidates.length === 0) {
+    throw new Error(`${officialUrl}: 公式画像を特定できません。`);
   }
-  if (!selected) {
-    const listingImage = listingImages.get(pathname);
-    if (listingImage) {
-      selected = {
-        desktop: listingImage,
-        mobile: null,
-        source: "campaign listing image",
-      };
+  return {
+    officialUrl,
+    records,
+    selected: { ranking, mobile, desktopCandidates },
+  };
+}
+
+function campaignImageVariants(image) {
+  return [image.ranking, image.editorial.desktop, image.editorial.mobile];
+}
+
+function baseImageVariant(variant) {
+  return {
+    path: variant.path,
+    sourceUrl: variant.sourceUrl,
+    width: variant.width,
+    height: variant.height,
+  };
+}
+
+function sourceDigest(sourceUrl) {
+  return createHash("sha256").update(sourceUrl).digest("hex").slice(0, 8);
+}
+
+export function pendingForMissingImage(campaign, checkedAt, reason) {
+  const note = `自動掲載保留: ${reason}`;
+  return {
+    ...campaign,
+    publicationStatus: "pending",
+    checkedAt,
+    lastChangedAt: checkedAt,
+    notes: [...new Set([...(campaign.notes ?? []), note])],
+  };
+}
+
+export function selectDesktopPresentation(availableDesktop, minimumRatio) {
+  const horizontalDesktop = availableDesktop.find(
+    ({ width, height }) => width / height >= minimumRatio,
+  );
+  const image = horizontalDesktop ?? availableDesktop[0] ?? null;
+  return image
+    ? {
+        image,
+        presentation: horizontalDesktop ? "natural" : "contain-16x9",
+      }
+    : null;
+}
+
+async function updateCampaignReport(imageReport, pendingItems, nextCatalogVersion) {
+  if (!reportPath || !(await pathExists(reportPath))) return;
+  const report = JSON.parse(await readFile(reportPath, "utf8"));
+  report.images = imageReport;
+  report.catalogVersion = nextCatalogVersion ?? report.catalogVersion;
+  for (const item of pendingItems) {
+    if (!(report.pending ?? []).some(({ campaignCode }) => campaignCode === item.campaignCode)) {
+      report.pending = [...(report.pending ?? []), item];
     }
   }
-  if (!selected) throw new Error(`${officialUrl}: 公式画像を特定できません。`);
-  const listingImage = listingImages.get(pathname) ?? null;
-  const detail = preferListingForDetailPaths.has(pathname)
-    ? listingImage
-    : selected.mobile ?? listingImage ?? selected.desktop;
-  if (!detail) throw new Error(`${officialUrl}: 詳細画像を特定できません。`);
-  return { officialUrl, records, selected: { ...selected, detail } };
+  report.warnings = [...new Set([...(report.warnings ?? []), ...imageReport.warnings])];
+  report.requiresAttention =
+    report.requiresAttention ||
+    pendingItems.length > 0 ||
+    imageReport.warnings.length > 0;
+  if (pendingItems.length > 0) report.contentChanged = true;
+  await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 }
 
 async function main() {
-  const [filenames, previousManifest] = await Promise.all([
+  const [filenames, previousManifest, policy] = await Promise.all([
     readdir(CAMPAIGN_DIRECTORY),
     readFile(MANIFEST_PATH, "utf8").then(JSON.parse),
+    readFile(POLICY_PATH, "utf8").then(JSON.parse),
   ]);
   const checkedAt =
     checkedAtArgument ??
     Object.values(previousManifest.campaigns)[0]?.checkedAt ??
     new Date().toISOString().slice(0, 10);
-  const campaigns = await Promise.all(
+  const campaignRecords = await Promise.all(
     filenames
       .filter((filename) => filename.endsWith(".campaign.json"))
       .sort()
-      .map((filename) =>
-        readFile(path.join(CAMPAIGN_DIRECTORY, filename), "utf8").then(JSON.parse),
-      ),
+      .map(async (filename) => ({
+        filename,
+        campaign: JSON.parse(
+          await readFile(path.join(CAMPAIGN_DIRECTORY, filename), "utf8"),
+        ),
+      })),
+  );
+  const campaigns = campaignRecords.map(({ campaign }) => campaign);
+  const recordsByCode = new Map(
+    campaignRecords.map((record) => [record.campaign.campaignCode, record]),
   );
   const displayedCampaigns = campaigns.filter(
     (campaign) =>
@@ -391,12 +498,17 @@ async function main() {
     if (campaignCodeFilter) {
       return campaign.campaignCode === campaignCodeFilter;
     }
-    const previous = previousManifest.campaigns[campaign.campaignCode];
+    const previous = normalizedPreviousImage(
+      previousManifest,
+      campaign.campaignCode,
+      policy,
+    );
     return (
-      !previous?.detail ||
-      campaign.lastChangedAt === checkedAt ||
-      (campaign.campaignCode === conclusionCampaignCode &&
-        (!previous.responsive?.desktop || !previous.responsive?.mobile))
+      previousManifest.presentationPolicyVersion !== policy.id ||
+      !previous?.ranking ||
+      !previous?.editorial?.desktop ||
+      !previous?.editorial?.mobile ||
+      campaign.lastChangedAt === checkedAt
     );
   });
   const refreshedCodes = new Set(
@@ -412,22 +524,65 @@ async function main() {
   const pageEntries = [...groupedByPage].sort(([left], [right]) =>
     left.localeCompare(right, "en"),
   );
-  const listingImages = pageEntries.length
-    ? extractListingImages(await fetchWithRetry(LISTING_URL, "text"))
-    : new Map();
-  const selections = await mapLimit(pageEntries, CONCURRENCY, (entry) =>
-    choosePageImage(entry, listingImages),
-  );
+  const warnings = [];
+  let listingImages = new Map();
+  if (pageEntries.length) {
+    try {
+      listingImages = extractListingImages(
+        await fetchWithRetry(LISTING_URL, "text"),
+      );
+    } catch (error) {
+      warnings.push(`公式一覧画像の取得に失敗しました: ${error}`);
+    }
+  }
+  const selectionResults = await mapLimit(pageEntries, CONCURRENCY, async (entry) => {
+    try {
+      return { selection: await choosePageImage(entry, listingImages) };
+    } catch (error) {
+      return { entry, error: String(error) };
+    }
+  });
+  const selections = selectionResults
+    .map(({ selection }) => selection)
+    .filter(Boolean);
+  const retainedAfterSelectionFailure = [];
+  const pendingItems = [];
+  const pendingCodes = new Set();
+  for (const result of selectionResults.filter(({ error }) => error)) {
+    const [, records] = result.entry;
+    for (const campaign of records) {
+      const previous = normalizedPreviousImage(
+        previousManifest,
+        campaign.campaignCode,
+        policy,
+      );
+      if (previous) {
+        retainedAfterSelectionFailure.push({ campaign, image: previous });
+        warnings.push(
+          `${campaign.campaignCode}: 公式画像の再選定に失敗したため前回画像を維持します（${result.error}）`,
+        );
+        continue;
+      }
+      const reason = `公式画像を取得できませんでした（${result.error}）`;
+      const record = recordsByCode.get(campaign.campaignCode);
+      record.campaign = pendingForMissingImage(campaign, checkedAt, reason);
+      pendingCodes.add(campaign.campaignCode);
+      pendingItems.push({
+        campaignCode: campaign.campaignCode,
+        title: campaign.title,
+        officialUrl: campaign.officialUrl,
+        reason,
+      });
+    }
+  }
 
   const requests = [];
   for (const { records, selected } of selections) {
     const codes = records.map(({ campaignCode }) => campaignCode).sort();
-    requests.push({ codes, role: "detail", sourceUrl: selected.detail });
-    if (codes.includes(conclusionCampaignCode)) {
-      requests.push({ codes, role: "desktop", sourceUrl: selected.desktop });
-      if (selected.mobile) {
-        requests.push({ codes, role: "mobile", sourceUrl: selected.mobile });
-      }
+    requests.push({ codes, role: "ranking", sourceUrl: selected.ranking });
+    requests.push({ codes, role: "mobile", sourceUrl: selected.mobile });
+    for (const sourceUrl of selected.desktopCandidates) {
+      requests.push({ codes, role: "desktop", sourceUrl });
     }
   }
 
@@ -450,98 +605,184 @@ async function main() {
   );
   const localizedBySource = new Map();
   try {
-    const downloaded = await mapLimit(uniqueRequests, CONCURRENCY, async (request) => {
-      const canonicalCode = request.codes.sort()[0];
-      const preferred = request.codes
-        .flatMap((code) => request.roles.map((role) => previousVariant(previousManifest, code, role)))
-        .find((variant) => variant?.sourceUrl === request.sourceUrl);
-      const preferredLocalPath = preferred
-        ? path.resolve(`public${preferred.path}`)
-        : null;
-      if (preferred && preferredLocalPath && (await pathExists(preferredLocalPath))) {
-        const filename = path.basename(preferred.path);
-        await copyFile(preferredLocalPath, path.join(stagingDirectory, filename));
-        return {
-          sourceUrl: request.sourceUrl,
-          localized: preferred,
-        };
-      }
-      const { response, buffer } = await fetchWithRetry(request.sourceUrl, "buffer");
-      const metadata = await sharp(buffer).metadata();
-      if (!metadata.width || !metadata.height) {
-        throw new Error(`${request.sourceUrl}: 画像サイズを取得できません。`);
-      }
-      const filename = preferred
-        ? path.basename(preferred.path)
-        : `${canonicalCode}-${request.role}${extensionFor(response, request.sourceUrl)}`;
-      await writeFile(path.join(stagingDirectory, filename), buffer);
-      return {
-        sourceUrl: request.sourceUrl,
-        localized: {
-          path: `/assets/campaigns/official/${filename}`,
-          sourceUrl: request.sourceUrl,
-          width: metadata.width,
-          height: metadata.height,
-        },
-      };
-    });
-    for (const result of downloaded) {
+    const downloaded = await mapLimit(
+      uniqueRequests,
+      CONCURRENCY,
+      async (request) => {
+        try {
+          const canonicalCode = [...new Set(request.codes)].sort()[0];
+          const preferred = request.codes
+            .flatMap((code) =>
+              request.roles.map((role) =>
+                previousVariant(previousManifest, code, role, policy),
+              ),
+            )
+            .find((variant) => variant?.sourceUrl === request.sourceUrl);
+          const preferredLocalPath = preferred
+            ? path.resolve(`public${preferred.path}`)
+            : null;
+          if (
+            preferred &&
+            preferredLocalPath &&
+            (await pathExists(preferredLocalPath))
+          ) {
+            const filename = path.basename(preferred.path);
+            await copyFile(
+              preferredLocalPath,
+              path.join(stagingDirectory, filename),
+            );
+            return {
+              sourceUrl: request.sourceUrl,
+              localized: baseImageVariant(preferred),
+            };
+          }
+          const { response, buffer } = await fetchWithRetry(
+            request.sourceUrl,
+            "buffer",
+          );
+          const metadata = await sharp(buffer).metadata();
+          if (!metadata.width || !metadata.height) {
+            throw new Error(`${request.sourceUrl}: 画像サイズを取得できません。`);
+          }
+          const primaryRole = request.roles.includes("ranking")
+            ? "ranking"
+            : request.roles.includes("mobile")
+              ? "mobile"
+              : "desktop";
+          const filename = preferred
+            ? path.basename(preferred.path)
+            : `${canonicalCode}-${primaryRole}-${sourceDigest(request.sourceUrl)}${extensionFor(response, request.sourceUrl)}`;
+          await writeFile(path.join(stagingDirectory, filename), buffer);
+          return {
+            sourceUrl: request.sourceUrl,
+            localized: {
+              path: `/assets/campaigns/official/${filename}`,
+              sourceUrl: request.sourceUrl,
+              width: metadata.width,
+              height: metadata.height,
+            },
+          };
+        } catch (error) {
+          return { sourceUrl: request.sourceUrl, error: String(error) };
+        }
+      },
+    );
+    for (const result of downloaded.filter(({ localized }) => localized)) {
       localizedBySource.set(result.sourceUrl, result.localized);
     }
 
-    const nextManifest = { campaigns: {} };
+    const nextManifest = {
+      presentationPolicyVersion: policy.id,
+      campaigns: {},
+    };
     for (const campaign of displayedCampaigns) {
-      if (refreshedCodes.has(campaign.campaignCode)) continue;
-      const previousImage = previousManifest.campaigns[campaign.campaignCode];
-      if (!previousImage?.detail) {
+      if (
+        refreshedCodes.has(campaign.campaignCode) ||
+        pendingCodes.has(campaign.campaignCode)
+      ) {
+        continue;
+      }
+      const previousImage = normalizedPreviousImage(
+        previousManifest,
+        campaign.campaignCode,
+        policy,
+      );
+      if (!previousImage) {
         throw new Error(
           `${campaign.campaignCode}: 既存の公式画像がありません。`,
         );
       }
-      nextManifest.campaigns[campaign.campaignCode] =
-        campaign.campaignCode === conclusionCampaignCode
-          ? previousImage
-          : {
-              detail: previousImage.detail,
-              checkedAt: previousImage.checkedAt,
-            };
+      nextManifest.campaigns[campaign.campaignCode] = previousImage;
+    }
+    for (const { campaign, image } of retainedAfterSelectionFailure) {
+      nextManifest.campaigns[campaign.campaignCode] = image;
     }
     for (const { records, selected } of selections) {
-      const detail = localizedBySource.get(selected.detail);
+      const ranking = localizedBySource.get(selected.ranking);
+      const mobile = localizedBySource.get(selected.mobile);
       for (const campaign of records) {
+        const previousImage = normalizedPreviousImage(
+          previousManifest,
+          campaign.campaignCode,
+          policy,
+        );
+        if (!ranking || !mobile) {
+          if (previousImage) {
+            nextManifest.campaigns[campaign.campaignCode] = previousImage;
+            warnings.push(
+              `${campaign.campaignCode}: 必須画像の取得に失敗したため前回画像を維持します。`,
+            );
+            continue;
+          }
+          const reason = "ランキング用またはSP用の公式画像を取得できませんでした。";
+          const record = recordsByCode.get(campaign.campaignCode);
+          record.campaign = pendingForMissingImage(campaign, checkedAt, reason);
+          pendingCodes.add(campaign.campaignCode);
+          pendingItems.push({
+            campaignCode: campaign.campaignCode,
+            title: campaign.title,
+            officialUrl: campaign.officialUrl,
+            reason,
+          });
+          continue;
+        }
+        const availableDesktop = selected.desktopCandidates
+          .map((sourceUrl) => localizedBySource.get(sourceUrl))
+          .filter(Boolean);
+        const desktopSelection = selectDesktopPresentation(
+          availableDesktop.length > 0 ? availableDesktop : [ranking],
+          policy.editorial.desktop.minimumNaturalAspectRatio,
+        );
+        const desktop = desktopSelection.image;
+        const presentation = desktopSelection.presentation;
         const nextImage = {
-          detail,
-          ...(campaign.campaignCode === conclusionCampaignCode
-            ? {
-                responsive: {
-                  desktop: localizedBySource.get(selected.desktop),
-                  mobile: selected.mobile
-                    ? localizedBySource.get(selected.mobile)
-                    : null,
-                },
-              }
-            : {}),
+          ranking,
+          editorial: {
+            desktop: { ...desktop, presentation },
+            mobile,
+          },
         };
-        const previousImage = previousManifest.campaigns[campaign.campaignCode];
         const imageChanged =
           !previousImage ||
           JSON.stringify({
-            detail: previousImage.detail,
-            responsive: previousImage.responsive,
+            ranking: previousImage.ranking,
+            editorial: previousImage.editorial,
           }) !== JSON.stringify(nextImage);
         nextManifest.campaigns[campaign.campaignCode] = {
           ...nextImage,
           checkedAt: imageChanged ? checkedAt : previousImage.checkedAt,
         };
+        if (
+          presentation === "contain-16x9" &&
+          (previousImage?.editorial.desktop.presentation !== "contain-16x9" ||
+            previousImage?.editorial.desktop.sourceUrl !== desktop.sourceUrl)
+        ) {
+          warnings.push(
+            `${campaign.campaignCode}: 適切な公式横長画像がないためPCでは16:9枠内に表示します。`,
+          );
+        }
       }
     }
 
+    if (pendingCodes.size > 0 && shouldWrite) {
+      for (const campaignCode of pendingCodes) {
+        const record = recordsByCode.get(campaignCode);
+        await writeFile(
+          path.join(CAMPAIGN_DIRECTORY, record.filename),
+          `${JSON.stringify(record.campaign, null, 2)}\n`,
+        );
+      }
+      const indexPath = path.join(CAMPAIGN_DIRECTORY, "index.json");
+      const index = JSON.parse(await readFile(indexPath, "utf8"));
+      const nextCampaigns = campaignRecords.map(({ campaign }) => campaign);
+      index.catalogVersion = catalogVersion(nextCampaigns);
+      index.statusCounts = statusCounts(nextCampaigns);
+      index.lastContentChangeAt = checkedAt;
+      await writeFile(indexPath, `${JSON.stringify(index, null, 2)}\n`);
+    }
+
     const retainedVariants = Object.values(nextManifest.campaigns).flatMap(
-      (image) => [
-        image.detail,
-        image.responsive?.desktop,
-        image.responsive?.mobile,
-      ].filter(Boolean),
+      campaignImageVariants,
     );
     for (const variant of retainedVariants) {
       const destination = path.join(stagingDirectory, path.basename(variant.path));
@@ -553,18 +794,19 @@ async function main() {
       await copyFile(source, destination);
     }
 
+    const requiredFiles = new Set(
+      retainedVariants.map(({ path: imagePath }) => path.basename(imagePath)),
+    );
+    for (const filename of await readdir(stagingDirectory)) {
+      if (!requiredFiles.has(filename)) {
+        await unlink(path.join(stagingDirectory, filename));
+      }
+    }
+
     if (shouldCheck) {
       const expected = `${JSON.stringify(nextManifest, null, 2)}\n`;
       const actual = `${JSON.stringify(previousManifest, null, 2)}\n`;
       if (expected !== actual) throw new Error("画像マニフェストに同期差分があります。");
-      const requiredFiles = new Set(
-        Object.values(nextManifest.campaigns).flatMap((image) => [
-          image.detail.path,
-          ...(image.responsive
-            ? [image.responsive.desktop.path, image.responsive.mobile?.path]
-            : []),
-        ]).filter(Boolean).map((imagePath) => path.basename(imagePath)),
-      );
       const currentFiles = new Set(await readdir(IMAGE_DIRECTORY));
       const orphans = [...currentFiles].filter((name) => !requiredFiles.has(name));
       if (orphans.length > 0) {
@@ -587,12 +829,35 @@ async function main() {
       }
     }
 
+    const fallbackCampaignCodes = Object.entries(nextManifest.campaigns)
+      .filter(([, image]) =>
+        image.editorial.desktop.presentation === "contain-16x9",
+      )
+      .map(([campaignCode]) => campaignCode)
+      .sort();
+    const imageReport = {
+      presentationPolicyVersion: policy.id,
+      displayedCampaignCount: Object.keys(nextManifest.campaigns).length,
+      refreshedCampaignCount: refreshedCodes.size,
+      naturalCount:
+        Object.keys(nextManifest.campaigns).length - fallbackCampaignCodes.length,
+      fallbackCount: fallbackCampaignCodes.length,
+      fallbackCampaignCodes,
+      warnings: [...new Set(warnings)],
+    };
+    const nextCatalogVersion = pendingCodes.size
+      ? catalogVersion(campaignRecords.map(({ campaign }) => campaign))
+      : null;
+    await updateCampaignReport(imageReport, pendingItems, nextCatalogVersion);
+
     console.log(
-      `${shouldWrite ? "保存" : shouldCheck ? "確認" : "プレビュー"}: ${displayedCampaigns.length}キャンペーン、再取得${campaignsToRefresh.length}件・${uniqueRequests.length}画像`,
+      `${shouldWrite ? "保存" : shouldCheck ? "確認" : "プレビュー"}: ${Object.keys(nextManifest.campaigns).length}キャンペーン、再取得${campaignsToRefresh.length}件・横長${imageReport.naturalCount}件・16:9代替${imageReport.fallbackCount}件`,
     );
   } finally {
     await rm(stagingDirectory, { recursive: true, force: true });
   }
 }
 
-await main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await main();
+}

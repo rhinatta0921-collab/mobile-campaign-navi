@@ -32,7 +32,7 @@
   "period": "2023年8月31日 9:00 - 終了日未定",
   "officialUrl": "https://network.mobile.rakuten.co.jp/campaign/start-point/",
   "listingUrl": "https://network.mobile.rakuten.co.jp/campaign/",
-  "checkedAt": "2026-09-13",
+  "checkedAt": "2026-09-14",
   "notes": [
     "公式ページに掲載されたキャンペーンコードです。",
     "対象製品によって進呈ポイント数が異なります。表示額は最大値です。"
@@ -71,9 +71,9 @@
     "newNumber": true
   },
   "firstSeenAt": "2026-08-22",
-  "lastChangedAt": "2026-09-13",
+  "lastChangedAt": "2026-09-14",
   "provenance": {
-    "contentHash": "3af87618a32317dc736b2d0f013260d5f1e31bf5d48a75d718ba612135defab9",
+    "contentHash": "500308a0c9649f3e15d419525b230fb4baf82c00f0bca214f05394e30fa87e42",
     "listingHash": "f250457d9db2e8de86f006d0f0d8ffa652a2c57ccf009aca88d822c5dd3d1c98",
     "provider": null,
     "model": null,

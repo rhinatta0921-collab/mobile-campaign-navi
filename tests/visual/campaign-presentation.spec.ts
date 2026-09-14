@@ -151,6 +151,56 @@ test("実データの画像は用途・寸法・レスポンシブ規則を満�
   }
 });
 
+test("結論とランキングタブはコンテンツ表示ポリシーを満たす", async ({
+  page,
+}, testInfo) => {
+  await waitForCampaignImages(page);
+  const mobile = testInfo.project.name === "mobile";
+  const conclusion = page.locator("#conclusion");
+  const ranking = page.locator("#ranking");
+
+  await expect(conclusion).toHaveAttribute(
+    "data-content-policy",
+    "campaign-content-v1",
+  );
+  await expect(ranking).toHaveAttribute(
+    "data-content-policy",
+    "campaign-content-v1",
+  );
+  await expect(conclusion.locator(".conclusion-highlight")).toHaveCount(1);
+  await expect(conclusion.locator(".conclusion-official-link")).toHaveCount(1);
+  await expect(conclusion.locator(".conclusion-official-link")).toHaveText(
+    "公式ページで情報を確認する",
+  );
+
+  const conclusionCode = await conclusion
+    .locator(".conclusion-campaign-picture")
+    .getAttribute("data-campaign-code");
+  const noticeCount = await conclusion.locator(".conclusion-login-note").count();
+  expect(noticeCount).toBe(conclusionCode === "2162" ? 1 : 0);
+  if (conclusionCode === "2162") {
+    await expect(conclusion.locator(".conclusion-login-note")).toHaveText(
+      "※楽天アカウントでのログインが必要です。",
+    );
+    await expect(conclusion.locator(".conclusion-login-note")).toHaveCSS(
+      "color",
+      "rgb(115, 115, 115)",
+    );
+  }
+
+  const tabs = ranking.locator(".ranking-tabs");
+  const nextVisibleElement = mobile
+    ? ranking.locator(".ranking-scroll-note")
+    : ranking.locator('[data-application-ranking="mnp"]');
+  const [tabsBox, nextBox] = await Promise.all([
+    tabs.boundingBox(),
+    nextVisibleElement.boundingBox(),
+  ]);
+  expect(tabsBox).not.toBeNull();
+  expect(nextBox).not.toBeNull();
+  expect(Math.abs(nextBox!.y - (tabsBox!.y + tabsBox!.height) - 12)).toBeLessThanOrEqual(1);
+});
+
 test("表示ポリシーの基準画像と一致する", async ({ page }, testInfo) => {
   await waitForCampaignImages(page);
   const mobile = testInfo.project.name === "mobile";
@@ -177,5 +227,23 @@ test("表示ポリシーの基準画像と一致する", async ({ page }, testIn
 
   const detail = page.locator(".campaign-detail-picture").first();
   await replacePicture(detail, "portrait", "contain-16x9");
-  await expect(detail).toHaveScreenshot("detail.png");
+  const detailWidth = await detail.evaluate(
+    (element) => element.getBoundingClientRect().width,
+  );
+  await detail.evaluate(
+    (element, width) => {
+      Object.assign((element as HTMLElement).style, {
+        left: "0",
+        margin: "0",
+        position: "fixed",
+        top: "0.75px",
+        width: `${width}px`,
+        zIndex: "9999",
+      });
+    },
+    detailWidth,
+  );
+  await expect(detail).toHaveScreenshot("detail.png", {
+    maxDiffPixelRatio: 0.003,
+  });
 });

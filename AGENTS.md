@@ -12,3 +12,7 @@
 ## キャンペーン画像の表示変更
 
 ランキング、結論、詳細のキャンペーン画像に関係する作業では、着手前に`docs/campaign-presentation-policy.md`と`data/campaigns/presentation-policy.json`を確認する。日次自動処理やキャンペーンJSONから表示寸法、縦横比、ブレークポイントを変更してはならない。意図的なデザイン変更は、表示ポリシーのバージョン、UI、構造テスト、Playwright基準画像、運用文書を同じPull Requestで更新し、ユーザーの明示承認を得る。
+
+## キャンペーン本文の表示変更
+
+結論セクションまたはランキングタブに関係する作業では、着手前に`docs/campaign-content-policy.md`と`data/campaigns/content-policy.json`を確認する。日次自動処理やキャンペーンJSONから、結論の対象ランキング・掲載件数・2162専用注意書き・公式リンク文言・ランキングタブ余白を変更してはならない。意図的な変更は、コンテンツポリシーのバージョン、データ選定ロジック、UI、CSS、構造テスト、Playwright実表示テスト、運用文書を同じPull Requestで更新し、ユーザーの明示承認を得る。

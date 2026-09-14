@@ -13,6 +13,7 @@
 7. 変更は原則として作業ブランチとPull Requestで行い、検証後に`main`へマージします。
 8. APIキー、Slack Webhook、トークンをJSON、Markdown、コミット、Issueへ記載してはいけません。
 9. キャンペーン画像の表示は`docs/campaign-presentation-policy.md`に従い、日次自動処理から変更しません。
+10. 結論の掲載対象・2162専用注意書き・ランキングタブ余白は`docs/campaign-content-policy.md`に従い、日次自動処理から変更しません。
 
 ## 2. 本番構成
 
@@ -40,6 +41,7 @@ GitHub Actionsの定時実行はクラウド上で動きます。Macの電源、
 | `data/campaigns/archive/*.ended.json` | 終了キャンペーンの監査記録 | いいえ |
 | `data/campaigns/images.json` | 掲載画像マニフェスト | いいえ |
 | `data/campaigns/presentation-policy.json` | PC/SPの表示寸法、比率、代替表示 | デザイン変更時だけ |
+| `data/campaigns/content-policy.json` | 結論の対象・掲載件数・注意書きとランキングタブ余白 | 表示ルール変更時だけ |
 | `public/assets/campaigns/official/` | 取得済み公式画像 | いいえ |
 | `.github/workflows/campaign-sync.yml` | 定時実行、手動実行、検証、通知、コミット | 時刻や処理を変更するときだけ |
 | `scripts/campaign-baseline.mjs` | 検証済み比較基準の検査、復元、Artifact作成 | 通常運用では編集しない |
@@ -535,17 +537,15 @@ npm run dev
 4. 対象者の広さ
 5. キャンペーンコード
 
-結論は次の最上位から自動生成されます。
-
-- 初回MNP
-- 初回新規番号
-- 追加回線・再契約
+結論はMNP（電話番号そのまま他社から乗り換え）ランキング1位の1キャンペーンだけから自動生成されます。新しい電話番号、初回申込、追加回線・再契約の別候補は結論へ掲載しません。キャンペーンコード`2162`がMNPランキング1位の場合だけ、公式ボタンの近くに楽天アカウントへのログイン注意書きが表示されます。正式なルールは`data/campaigns/content-policy.json`と`docs/campaign-content-policy.md`を参照してください。
 
 1位が変わる更新では、次を必ず目視します。
 
 - MNPランキング
 - 新規番号ランキング
-- 結論の3区分
+- 結論がMNPランキング1位だけで構成されていること
+- 公式ボタンが`公式ページで情報を確認する`になっていること
+- コード`2162`のときだけログイン注意書きが表示されること
 - 結論画像
 - 詳細記事
 - 申込リンク

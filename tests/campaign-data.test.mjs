@@ -293,6 +293,28 @@ test("publishes every image role required by the presentation policy", async () 
   await access(new URL("../public/og-v2.png", import.meta.url));
 });
 
+test("keeps the campaign content presentation policy explicit and versioned", async () => {
+  const policy = JSON.parse(
+    await readFile(new URL("content-policy.json", dataDirectory), "utf8"),
+  );
+
+  assert.deepEqual(policy, {
+    id: "campaign-content-v1",
+    conclusion: {
+      applicationType: "mnp",
+      campaignLimit: 1,
+      officialLinkLabel: "公式ページで情報を確認する",
+      loginNotice: {
+        campaignCode: "2162",
+        text: "※楽天アカウントでのログインが必要です。",
+      },
+    },
+    ranking: {
+      tabsToFollowingContentGapPx: 12,
+    },
+  });
+});
+
 function pathBasename(value) {
   return value.slice(value.lastIndexOf("/") + 1);
 }

@@ -1,12 +1,14 @@
 "use client";
 
 import {
+  type CSSProperties,
   type KeyboardEvent,
   type ReactNode,
   useEffect,
   useState,
 } from "react";
 import type { ApplicationType } from "@/data/campaigns";
+import { campaignContentPolicy } from "@/data/campaigns/content-policy";
 
 type CampaignApplicationSectionsProps = {
   detailsTitle: string;
@@ -103,6 +105,12 @@ export function CampaignApplicationSections({
         id="ranking"
         aria-labelledby="ranking-title"
         data-campaign-derived="ranking"
+        data-content-policy={campaignContentPolicy.id}
+        style={
+          {
+            "--ranking-tabs-following-gap": `${campaignContentPolicy.ranking.tabsToFollowingContentGapPx}px`,
+          } as CSSProperties
+        }
       >
         <div className="section-heading">
           <p className="section-label">

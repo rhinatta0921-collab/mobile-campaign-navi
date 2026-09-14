@@ -326,9 +326,7 @@ p {
 }
 
 .conclusion-action-group {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  width: min(100%, 360px);
   margin-top: 26px;
 }
 
@@ -364,7 +362,7 @@ p {
 .ranking-tabs {
   display: inline-grid;
   grid-template-columns: repeat(2, minmax(190px, 1fr));
-  margin-top: 6px;
+  margin: 6px 0 var(--ranking-tabs-following-gap);
   border-bottom: 2px solid var(--accent);
 }
 
@@ -1063,7 +1061,7 @@ p {
 
   .ranking-scroll-note {
     display: block;
-    margin: -4px 0 9px;
+    margin: 0 0 9px;
     color: var(--muted);
     font-size: 0.72rem;
     font-weight: 700;
@@ -1173,7 +1171,6 @@ p {
 }
 
 @media (max-width: 560px) {
-  .conclusion-action-group,
   .campaign-action-buttons {
     grid-template-columns: 1fr;
     gap: 10px;

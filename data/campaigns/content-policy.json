@@ -1,0 +1,15 @@
+{
+  "id": "campaign-content-v1",
+  "conclusion": {
+    "applicationType": "mnp",
+    "campaignLimit": 1,
+    "officialLinkLabel": "公式ページで情報を確認する",
+    "loginNotice": {
+      "campaignCode": "2162",
+      "text": "※楽天アカウントでのログインが必要です。"
+    }
+  },
+  "ranking": {
+    "tabsToFollowingContentGapPx": 12
+  }
+}

@@ -2,6 +2,7 @@ import "server-only";
 
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { campaignContentPolicy } from "./content-policy";
 
 export type ApplicationType = "mnp" | "newNumber";
 export type CampaignCodeType = "campaign" | "initiative" | "generated";
@@ -405,25 +406,12 @@ export function getRankedCampaigns(applicationType: ApplicationType) {
 }
 
 export type ConclusionSegment = {
-  key: "firstMnp" | "firstNewNumber" | "repeat";
+  key: "mnpWinner";
   label: string;
   applicationType: ApplicationType;
   campaign: Campaign;
   points: number;
 };
-
-function topForEligibility(
-  applicationType: ApplicationType,
-  eligibility: keyof Pick<
-    CampaignEligibility,
-    "firstApplication" | "repeatApplication"
-  >,
-) {
-  return rankCampaigns(
-    rankingCampaigns.filter((campaign) => campaign.eligibility[eligibility]),
-    applicationType,
-  )[0];
-}
 
 function segment(
   key: ConclusionSegment["key"],
@@ -441,60 +429,29 @@ function segment(
   };
 }
 
-const repeatCandidates = (["mnp", "newNumber"] as const)
-  .map((applicationType) => ({
-    applicationType,
-    campaign: topForEligibility(applicationType, "repeatApplication"),
-  }))
-  .filter(
-    (candidate): candidate is {
-      applicationType: ApplicationType;
-      campaign: Campaign;
-    } => Boolean(candidate.campaign),
-  )
-  .sort(
-    (left, right) =>
-      getRankingPoints(right.campaign, right.applicationType) -
-        getRankingPoints(left.campaign, left.applicationType) ||
-      left.campaign.campaignCode.localeCompare(
-        right.campaign.campaignCode,
-        "en",
-      ),
-  );
+const conclusionApplicationType = campaignContentPolicy.conclusion
+  .applicationType as ApplicationType;
+
+if (conclusionApplicationType !== "mnp") {
+  throw new Error("結論セクションはMNPランキングだけを参照できます。");
+}
 
 export const conclusionSegments = [
   segment(
-    "firstMnp",
-    "初回申込・MNP",
-    "mnp",
-    topForEligibility("mnp", "firstApplication"),
-  ),
-  segment(
-    "firstNewNumber",
-    "初回申込・新規番号",
-    "newNumber",
-    topForEligibility("newNumber", "firstApplication"),
-  ),
-  segment(
-    "repeat",
-    "追加回線・再契約",
-    repeatCandidates[0]?.applicationType ?? "mnp",
-    repeatCandidates[0]?.campaign,
+    "mnpWinner",
+    "MNP（乗り換え）",
+    conclusionApplicationType,
+    rankedCampaignsByApplication[conclusionApplicationType][0],
   ),
 ].filter((item): item is ConclusionSegment => item !== null);
 
+if (conclusionSegments.length > campaignContentPolicy.conclusion.campaignLimit) {
+  throw new Error("結論セクションが表示ポリシーの掲載上限を超えています。");
+}
+
 export function getConclusionTitle(segments = conclusionSegments) {
-  const firstMnp = segments.find(({ key }) => key === "firstMnp");
-  const firstNew = segments.find(({ key }) => key === "firstNewNumber");
-  const repeat = segments.find(({ key }) => key === "repeat");
-  const firstText =
-    firstMnp && firstNew &&
-    firstMnp.campaign.campaignCode === firstNew.campaign.campaignCode
-      ? `初回申込は「${firstMnp.campaign.title}」が最上位`
-      : `MNPは「${firstMnp?.campaign.title ?? "対象なし"}」、新規番号は「${firstNew?.campaign.title ?? "対象なし"}」が最上位`;
-  return repeat
-    ? `【結論】${firstText}。追加回線・再契約は「${repeat.campaign.title}」を確認`
-    : `【結論】${firstText}`;
+  const winner = segments[0];
+  return `【結論】MNP（乗り換え）は「${winner?.campaign.title ?? "対象なし"}」が最上位`;
 }
 
 export function getExclusionSummaries(items = campaigns) {

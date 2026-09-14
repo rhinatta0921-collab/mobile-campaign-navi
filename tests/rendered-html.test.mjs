@@ -303,37 +303,7 @@ async function campaignState() {
 }
 
 function conclusionCampaignData(state) {
-  const firstMnp = state.mnp.find(
-    (campaign) => campaign.eligibility.firstApplication,
-  );
-  const firstNewNumber = state.newNumber.find(
-    (campaign) => campaign.eligibility.firstApplication,
-  );
-  const repeat = [
-    {
-      applicationType: "mnp",
-      campaign: state.mnp.find(
-        (campaign) => campaign.eligibility.repeatApplication,
-      ),
-    },
-    {
-      applicationType: "newNumber",
-      campaign: state.newNumber.find(
-        (campaign) => campaign.eligibility.repeatApplication,
-      ),
-    },
-  ]
-    .filter(({ campaign }) => campaign)
-    .sort(
-      (left, right) =>
-        (right.campaign.points[right.applicationType] ?? 0) -
-          (left.campaign.points[left.applicationType] ?? 0) ||
-        left.campaign.campaignCode.localeCompare(
-          right.campaign.campaignCode,
-          "en",
-        ),
-    )[0]?.campaign;
-  return [firstMnp, firstNewNumber, repeat].filter(Boolean);
+  return state.mnp.slice(0, 1);
 }
 
 function campaignRecommendation(campaign) {
@@ -662,10 +632,16 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   );
   assert.match(conclusionHtml, /data-image-purpose="editorial"/);
   assert.match(conclusionHtml, /data-presentation-policy="campaign-image-v1"/);
+  assert.match(conclusionHtml, /data-content-policy="campaign-content-v1"/);
   assert.ok(conclusionText.startsWith(conclusionTitle));
-  for (const campaign of conclusionCampaigns) {
-    assert.ok(conclusionText.includes(campaign.title));
-  }
+  assert.equal(conclusionCampaigns.length, 1);
+  assert.equal(primaryConclusionCampaign, state.mnp[0]);
+  assert.ok(conclusionText.includes(primaryConclusionCampaign.title));
+  assert.equal(
+    conclusionTitle,
+    `【結論】MNP（乗り換え）は「${primaryConclusionCampaign.title}」が最上位`,
+  );
+  assert.doesNotMatch(conclusionText, /初回申込・新規番号|追加回線・再契約/);
   assert.match(
     conclusionText,
     /各キャンペーンの内容やポイント額は変更されることがあるため/,
@@ -678,33 +654,31 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
   assert.equal(highlightedText.length, conclusionCampaigns.length);
   assert.equal(highlightedText.every((value) => value.includes("最上位")), true);
   assert.doesNotMatch(conclusionHtml, /winner-/);
-  const uniqueConclusionCampaigns = [
-    ...new Map(
-      conclusionCampaigns.map((campaign) => [
-        campaign.campaignCode,
-        campaign,
-      ]),
-    ).values(),
-  ];
   assert.equal(
     classCount(conclusionHtml, "conclusion-official-link"),
-    uniqueConclusionCampaigns.length,
+    1,
   );
+  assert.match(
+    conclusionHtml,
+    />公式ページで情報を確認する<\/a>/,
+  );
+  const expectedLoginNoticeCount =
+    primaryConclusionCampaign.campaignCode === "2162" ? 1 : 0;
   assert.equal(
     classCount(conclusionHtml, "conclusion-login-note"),
-    uniqueConclusionCampaigns.filter(
-      (campaign) =>
-        campaign.applicationUrl &&
-        campaign.applicationUrl !== campaign.officialUrl,
-    ).length,
+    expectedLoginNoticeCount,
   );
-  for (const campaign of uniqueConclusionCampaigns) {
-    assert.ok(
-      conclusionHtml.includes(
-        `href="${campaign.applicationUrl ?? campaign.officialUrl}"`,
-      ),
+  if (expectedLoginNoticeCount === 1) {
+    assert.match(
+      conclusionHtml,
+      /<p class="conclusion-login-note">※楽天アカウントでのログインが必要です。<\/p>/,
     );
   }
+  assert.ok(
+    conclusionHtml.includes(
+      `href="${primaryConclusionCampaign.applicationUrl ?? primaryConclusionCampaign.officialUrl}"`,
+    ),
+  );
   assert.ok(
     conclusionHtml.includes(
       `aria-label="${primaryConclusionCampaign.title}の画像出典：楽天モバイル公式ページ"`,
@@ -713,6 +687,11 @@ test("ranks MNP campaigns by applicant fixed points and shows point summaries", 
 
   const rankingSectionHtml = sectionHtml(html, "ranking-section");
   assert.ok(rankingSectionHtml);
+  assert.match(rankingSectionHtml, /data-content-policy="campaign-content-v1"/);
+  assert.match(
+    rankingSectionHtml,
+    /style="--ranking-tabs-following-gap:12px"/,
+  );
   const rankingHtml = applicationRankingHtml(html, "mnp");
   const rankingText = plainText(rankingHtml);
   const rankingHeadingHtml = rankingSectionHtml.match(
@@ -1289,6 +1268,15 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
+    /\.ranking-tabs\s*{[^}]*margin: 6px 0 var\(--ranking-tabs-following-gap\);/,
+  );
+  assert.match(
+    mobileCss,
+    /\.ranking-scroll-note\s*{[^}]*margin: 0 0 9px;/,
+  );
+  assert.doesNotMatch(mobileCss, /\.ranking-scroll-note\s*{[^}]*margin:\s*-4px/);
+  assert.match(
+    css,
     /\.comparison-table\s*{[\s\S]*?min-width: 960px;/,
   );
   assert.match(
@@ -1427,7 +1415,7 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
   );
   assert.match(
     css,
-    /\.conclusion-action-group\s*{[^}]*display: grid;[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);[^}]*gap: 12px;[^}]*margin-top: 26px;/,
+    /\.conclusion-action-group\s*{[^}]*width: min\(100%, 360px\);[^}]*margin-top: 26px;/,
   );
   assert.match(
     css,
@@ -1445,10 +1433,7 @@ test("uses one horizontally scrollable ranking table on desktop and mobile", asy
     compactMobileCss,
     /\.campaign-action-buttons\s*{[^}]*grid-template-columns: 1fr;[^}]*gap: 10px;/,
   );
-  assert.match(
-    compactMobileCss,
-    /\.conclusion-action-group,[\s\S]*?\.campaign-action-buttons\s*{[^}]*grid-template-columns: 1fr;[^}]*gap: 10px;/,
-  );
+  assert.doesNotMatch(compactMobileCss, /\.conclusion-action-group,/);
   assert.match(
     css,
     /\/\* Editorial article layout \*\/[\s\S]*?\.shell\s*{[\s\S]*?width: min\(700px, calc\(100% - 32px\)\);/,

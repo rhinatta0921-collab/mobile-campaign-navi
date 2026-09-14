@@ -5,6 +5,10 @@ import {
   type ConclusionSegment,
 } from "@/data/campaigns";
 import {
+  campaignContentPolicy,
+  getConclusionLoginNotice,
+} from "@/data/campaigns/content-policy";
+import {
   CampaignOfficialImage,
   requireOfficialImage,
 } from "./CampaignOfficialImage";
@@ -20,28 +24,23 @@ export function ConclusionSection({
   if (!primarySegment) {
     throw new Error("結論に使えるランキング対象キャンペーンがありません。");
   }
+  if (segments.length !== campaignContentPolicy.conclusion.campaignLimit) {
+    throw new Error("結論セクションが表示ポリシーの掲載件数と一致しません。");
+  }
   const primaryCampaign = primarySegment.campaign;
   const officialImage = requireOfficialImage(primaryCampaign);
-  const actionCampaigns = segments.reduce<
-    Array<{
-      campaign: ConclusionSegment["campaign"];
-      labels: string[];
-    }>
-  >((groups, segment) => {
-    const existing = groups.find(
-      ({ campaign }) =>
-        campaign.campaignCode === segment.campaign.campaignCode,
-    );
-    if (existing) existing.labels.push(segment.label);
-    else groups.push({ campaign: segment.campaign, labels: [segment.label] });
-    return groups;
-  }, []);
+  const hasDedicatedApplicationUrl = Boolean(
+    primaryCampaign.applicationUrl &&
+      primaryCampaign.applicationUrl !== primaryCampaign.officialUrl,
+  );
+  const loginNotice = getConclusionLoginNotice(primaryCampaign.campaignCode);
   return (
     <section
       className="conclusion"
       id="conclusion"
       aria-labelledby="conclusion-title"
       data-campaign-derived="conclusion"
+      data-content-policy={campaignContentPolicy.id}
     >
       <h2 id="conclusion-title">{title}</h2>
       <figure className="conclusion-campaign-figure">
@@ -70,64 +69,49 @@ export function ConclusionSection({
         </figcaption>
       </figure>
       <div className="conclusion-lead">
-        {segments.map((segment) => (
-          <p key={segment.key}>
-            <strong className="conclusion-highlight">
-              {segment.label}でポイント額を優先する場合は「
-              {segment.campaign.title}」が最上位で、申込者本人が最大
-              {formatPoints(segment.points)}ポイントを受け取れます。
-            </strong>
-            {segment.campaign.conditions.length > 0
-              ? ` 主な条件は${segment.campaign.conditions
-                  .slice(0, 3)
-                  .join("、")}です。`
-              : null}
-          </p>
-        ))}
+        <p>
+          <strong className="conclusion-highlight">
+            {primarySegment.label}でポイント額を優先する場合は「
+            {primaryCampaign.title}」が最上位で、申込者本人が最大
+            {formatPoints(primarySegment.points)}ポイントを受け取れます。
+          </strong>
+          {primaryCampaign.conditions.length > 0
+            ? ` 主な条件は${primaryCampaign.conditions
+                .slice(0, 3)
+                .join("、")}です。`
+            : null}
+        </p>
         <p>
           各キャンペーンの内容やポイント額は変更されることがあるため、申し込む時点での情報は必ず公式ページでも確認してください。
         </p>
       </div>
       <div className="conclusion-action-group">
-        {actionCampaigns.map(({ campaign, labels }) => {
-          const hasDedicatedApplicationUrl = Boolean(
-            campaign.applicationUrl &&
-              campaign.applicationUrl !== campaign.officialUrl,
-          );
-          return (
-            <div
-              className="conclusion-action-item"
-              key={campaign.campaignCode}
-            >
-              <a
-                className="official-link conclusion-official-link"
-                href={getCampaignApplicationUrl(campaign)}
-                rel={
-                  hasDedicatedApplicationUrl
-                    ? "sponsored noopener noreferrer"
-                    : "noopener noreferrer"
-                }
-                target="_blank"
-                {...officialLinkAnalyticsAttributes({
-                  applicationType: "general",
-                  campaignCode: campaign.campaignCode,
-                  linkType: hasDedicatedApplicationUrl
-                    ? "referral_application"
-                    : "official_information",
-                  placement: "conclusion_primary",
-                  trackEmployeeReferral: hasDedicatedApplicationUrl,
-                })}
-              >
-                {labels.join("・")}の公式ページを見る
-              </a>
-              {hasDedicatedApplicationUrl ? (
-                <p className="conclusion-login-note">
-                  ※専用ページでは楽天アカウントへのログインが必要な場合があります。
-                </p>
-              ) : null}
-            </div>
-          );
-        })}
+        <div className="conclusion-action-item">
+          <a
+            className="official-link conclusion-official-link"
+            href={getCampaignApplicationUrl(primaryCampaign)}
+            rel={
+              hasDedicatedApplicationUrl
+                ? "sponsored noopener noreferrer"
+                : "noopener noreferrer"
+            }
+            target="_blank"
+            {...officialLinkAnalyticsAttributes({
+              applicationType: "general",
+              campaignCode: primaryCampaign.campaignCode,
+              linkType: hasDedicatedApplicationUrl
+                ? "referral_application"
+                : "official_information",
+              placement: "conclusion_primary",
+              trackEmployeeReferral: hasDedicatedApplicationUrl,
+            })}
+          >
+            {campaignContentPolicy.conclusion.officialLinkLabel}
+          </a>
+          {loginNotice ? (
+            <p className="conclusion-login-note">{loginNotice}</p>
+          ) : null}
+        </div>
       </div>
     </section>
   );

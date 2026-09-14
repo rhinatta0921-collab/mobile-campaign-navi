@@ -886,8 +886,13 @@ test("rejects daily automation changes outside the generated allowlist", () => {
       "?? .campaign-sync/report.json",
       " M app/globals.css",
       "?? data/campaigns/presentation-policy.json",
+      "?? data/campaigns/content-policy.json",
     ]),
-    ["app/globals.css", "data/campaigns/presentation-policy.json"],
+    [
+      "app/globals.css",
+      "data/campaigns/content-policy.json",
+      "data/campaigns/presentation-policy.json",
+    ],
   );
 });
 
